@@ -1,0 +1,550 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="967px" viewBox="0 0 1280 967" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>inventory-down</title>
+    <defs>
+        <path d="M10,13.3333333 L10,2.66666667 L15,1.77635684e-15 L15,10.6666667 L10,13.3333333 Z M9,13.3333333 L9,2.66666667 L5,0.888888889 L5,11.5555556 L9,13.3333333 Z M0,13.3333333 L0,2.66666667 L4,0.888888889 L4,11.5555556 L0,13.3333333 Z" id="path-1"></path>
+        <polygon id="path-3" points="0 0.000272 0 16.636472 16.9998267 16.636472 16.9998267 0.000272 1.84314369e-20 0.000272"></polygon>
+        <rect id="path-5" x="0" y="0" width="1280" height="72"></rect>
+        <filter x="-0.5%" y="-6.9%" width="101.1%" height="119.4%" filterUnits="objectBoundingBox" id="filter-6">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.815686275   0 0 0 0 0.815686275   0 0 0 0 0.815686275  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-7" x="0" y="0" width="161" height="24" rx="3"></rect>
+        <path d="M7.8,0 L8.6,0.8 L5.1,4.299 L8.2,7.39999999 C8.39636791,7.59636791 8.41818657,7.90118682 8.26545597,8.12165496 L8.2,8.2 C7.9790861,8.4209139 7.6209139,8.4209139 7.4,8.2 L4.3,5.099 L0.8,8.6 L0,7.8 L3.5,4.299 L0.4,1.2 C0.203632089,1.00363209 0.181813432,0.698813175 0.33454403,0.478345041 L0.4,0.4 C0.6209139,0.1790861 0.9790861,0.1790861 1.2,0.4 L4.3,3.499 L7.8,0 Z" id="path-9"></path>
+        <path d="M3.50094515,4.99999999 C3.77656553,4.99999999 4,5.22343446 4,5.49905485 C4,5.77467523 3.77656553,5.9981097 3.50094515,5.9981097 L1,5.9981097 L1,14.9810971 L10,14.9810971 L10,5.9981097 L7.49905485,5.9981097 C7.22343447,5.9981097 7,5.77467523 7,5.49905485 C7,5.22343446 7.22343447,4.99999999 7.49905485,4.99999999 L10.5,4.99999999 C10.7761424,4.99999999 11,5.22385762 11,5.49999999 L11,15.5010408 C10.9994247,15.7782223 10.775102,16.001614 10.4989602,16.0010397 L0.498960236,15.9802444 C0.223224423,15.979671 9.99200722e-16,15.7559819 0,15.4802455 L0,5.49999999 C0,5.22385762 0.223857625,4.99999999 0.5,4.99999999 Z M5.5,0 L8.5,2.5 L7.8,3.2 L6,1.713 L6,9.49999999 C6,9.74545988 5.82312484,9.94960836 5.58987563,9.99194432 L5.5,9.99999999 C5.22385763,9.99999999 5,9.77614237 5,9.49999999 L5,1.713 L3.2,3.2 L2.5,2.5 L5.5,0 Z" id="path-11"></path>
+    </defs>
+    <g id="inventory-down" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="1280" height="967"></rect>
+        <line x1="40" y1="539.5" x2="1240" y2="539.5" id="Line-5-Copy-2" stroke="#DFDFDF" stroke-linecap="square"></line>
+        <rect id="Rectangle-Copy-78" fill="#FAFAFA" x="40" y="582" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-80" fill="#FAFAFA" x="40" y="666" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-79" fill="#FFFFFF" x="40" y="540" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-84" fill="#FFFFFF" x="40" y="708" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-81" fill="#FFFFFF" x="40" y="624" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-41" stroke="#333333" x="52.5" y="553.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-56" stroke="#333333" x="52.5" y="637.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-57" stroke="#333333" x="52.5" y="679.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-58" stroke="#333333" x="52.5" y="721.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-64" stroke="#333333" x="52.5" y="595.5" width="15" height="15"></rect>
+        <text id="Gateway-112" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="606">Gateway 112</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="607">Down</tspan>
+        </text>
+        <text id="2" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="607">2</tspan>
+        </text>
+        <text id="Gateway-230" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="690">Gateway 230</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="691">Down</tspan>
+        </text>
+        <text id="4" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="691">4</tspan>
+        </text>
+        <text id="Gateway-10" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="564">Gateway 10</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="565">Down</tspan>
+        </text>
+        <text id="4" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="565">4</tspan>
+        </text>
+        <text id="Gateway-294" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="732">Gateway 294</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="733">Down</tspan>
+        </text>
+        <text id="5" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="733">5</tspan>
+        </text>
+        <text id="Gateway-148" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="648">Gateway 148</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="649">Down</tspan>
+        </text>
+        <text id="4" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="649">4</tspan>
+        </text>
+        <text id="Sites" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="92" y="506">Sites</tspan>
+        </text>
+        <text id="Health-Status" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="296" y="506">Health Status</tspan>
+        </text>
+        <text id="Connected-Devices" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="422" y="506">Connected </tspan>
+            <tspan x="422" y="524">Devices</tspan>
+        </text>
+        <circle id="Oval" stroke="#CC0007" fill="#FF4054" cx="300" cy="561" r="4"></circle>
+        <circle id="Oval-Copy" stroke="#CC0007" fill="#FF4054" cx="300" cy="603" r="4"></circle>
+        <circle id="Oval-Copy-2" stroke="#CC0007" fill="#FF4054" cx="300" cy="645" r="4"></circle>
+        <circle id="Oval-Copy-3" stroke="#CC0007" fill="#FF4054" cx="300" cy="687" r="4"></circle>
+        <circle id="Oval-Copy-4" stroke="#CC0007" fill="#FF4054" cx="300" cy="729" r="4"></circle>
+        <text id="10-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="606">10 mins ago</tspan>
+        </text>
+        <text id="15-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="690">15 mins ago</tspan>
+        </text>
+        <text id="5-hours-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="564">5 hours ago</tspan>
+        </text>
+        <text id="15-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="732">15 mins ago</tspan>
+        </text>
+        <text id="10-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="648">10 mins ago</tspan>
+        </text>
+        <text id="Last-Heard" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="539" y="506">Last Heard</tspan>
+        </text>
+        <text id="Signal" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="656" y="506">Signal</tspan>
+        </text>
+        <g id="signal-strength" transform="translate(656, 557)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 599)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 641)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 683)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <text id="Device-Inventory" font-family=".AppleSystemUIFont" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.5" fill="#00090D">
+            <tspan x="40" y="113">Device Inventory</tspan>
+        </text>
+        <text id="0" font-family=".AppleSystemUIFont" font-size="30" font-weight="normal" line-spacing="40" letter-spacing="0.5" fill="#049FD9">
+            <tspan x="813" y="277">0</tspan>
+        </text>
+        <line x1="0" y1="136" x2="1281" y2="136" id="Line-5" stroke="#DFDFDF" stroke-linecap="square"></line>
+        <rect id="Rectangle" stroke="#DFDFDF" x="40.5" y="192.5" width="1199" height="111"></rect>
+        <g id="Group-3" transform="translate(96, 248)">
+            <text id="540" font-family=".AppleSystemUIFont" font-size="30" font-weight="normal" line-spacing="40" letter-spacing="0.5" fill="#049FD9">
+                <tspan x="25.2626953" y="29">54</tspan>
+                <tspan x="34.4555664" y="69">0</tspan>
+            </text>
+            <circle id="Oval-Copy-3" stroke="#598B57" fill="#36C296" cx="4" cy="22" r="4"></circle>
+        </g>
+        <text id="16" font-family=".AppleSystemUIFont" font-size="30" font-weight="normal" line-spacing="40" letter-spacing="0.5" fill="#049FD9">
+            <tspan x="359.696289" y="277">16</tspan>
+        </text>
+        <circle id="Oval-Copy-4" stroke="#BB081B" fill="#FF545B" cx="345" cy="270" r="4"></circle>
+        <text id="1" font-family=".AppleSystemUIFont" font-size="30" font-weight="normal" line-spacing="40" letter-spacing="0.5" fill="#049FD9">
+            <tspan x="597.401855" y="277">1</tspan>
+        </text>
+        <circle id="Oval-Copy-4" stroke="#B46F05" fill="#FFA000" cx="581" cy="270" r="4"></circle>
+        <circle id="Oval-Copy-3" stroke="#777877" fill="#B0B0B0" cx="799" cy="270" r="4"></circle>
+        <g id="Group-10" transform="translate(1046, 248)">
+            <text id="0" font-family=".AppleSystemUIFont" font-size="30" font-weight="normal" line-spacing="40" letter-spacing="0.5" fill="#049FD9">
+                <tspan x="17.5" y="29">0</tspan>
+            </text>
+            <circle id="Oval-Copy-4" stroke="#D70F17" fill="#FF6362" cx="4" cy="22" r="4"></circle>
+        </g>
+        <text id="UP" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="1" fill="#00090D">
+            <tspan x="104" y="230">UP</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="1" fill="#00090D">
+            <tspan x="339" y="230">DOWN</tspan>
+        </text>
+        <text id="UNHEARD" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="1" fill="#00090D">
+            <tspan x="577" y="230">UNHEARD</tspan>
+        </text>
+        <text id="Registering" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="1" fill="#00090D">
+            <tspan x="795" y="230">REGISTERING</tspan>
+        </text>
+        <text id="Register-Failed" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="1" fill="#00090D">
+            <tspan x="1046" y="230">REGISTER FAILED</tspan>
+        </text>
+        <text id="Health-and-Status" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#00090D">
+            <tspan x="40" y="171">Health and Status</tspan>
+        </text>
+        <g id="icons--/-core-/-Arrow-/-Down" transform="translate(1219, 171)"></g>
+        <g id="hide" transform="translate(1186, 158)">
+            <g id="blind" transform="translate(0, 3)" fill="#049FD9">
+                <path d="M13.4313398,3.09874609 L14.9956841,1.490882 C15.0638169,1.42303044 15.3477215,1.10488961 15.3477215,1.00135445 C15.3477215,0.794248984 15.2027896,0.649599754 14.9956841,0.649599754 C14.892395,0.649599754 14.5510133,0.93350289 14.483443,1.00135445 L12.6826172,2.78701562 C11.5301602,2.35853125 10.2909023,2.12509375 9,2.12509375 C5.29319531,2.12509375 2.01160547,4.04768359 0,7 C1.15632422,8.69737891 2.73283594,10.0541992 4.56813281,10.9012539 L2.55213117,13.0124205 C2.48403351,13.0799908 2.42617522,13.1995897 2.42617522,13.3028436 C2.42617522,13.5104764 2.58771353,13.6103371 2.7942565,13.6103371 C2.89807291,13.6103371 2.98156479,13.4974701 3.04966245,13.4298998 L5.31738281,11.2127031 C6.46983984,11.6411875 7.70909766,11.8751875 9,11.8751875 C12.7068047,11.8751875 15.9883945,9.9525625 18,7 C16.8436758,5.30262109 15.2671641,3.94580078 13.4313398,3.09874609 Z M12.0943125,3.37532031 L12.0245625,3.44535156 C11.981707,3.39947266 11.9383242,3.35471875 11.8938164,3.31077344 C11.9608242,3.331375 12.027832,3.35310156 12.0943125,3.37532031 Z M12.375,6.24990625 C12.375,7.15159375 12.024,7.99921094 11.3862305,8.63641797 C10.7490234,9.273625 9.90144141,9.6251875 9,9.6251875 C8.40895313,9.6251875 7.84093359,9.47412109 7.33995703,9.19012891 L11.9404688,4.59014453 C12.2239336,5.09083984 12.375,5.65885937 12.375,6.24990625 Z M9,2.87490625 C9.90144141,2.87490625 10.7490234,3.2261875 11.3862305,3.86339453 C11.4230391,3.90020313 11.4587227,3.93782031 11.4938789,3.976 L6.7258125,8.74406641 C6.68791406,8.70891016 6.65001562,8.67319141 6.61373438,8.63641797 C5.976,7.99921094 5.625,7.15159375 5.625,6.24990625 C5.625,5.34846484 5.976,4.50088281 6.61376953,3.86339453 C7.25097656,3.2261875 8.09855859,2.87490625 9,2.87490625 Z M5.13667969,10.3327422 C4.827375,10.2008711 4.523625,10.0525469 4.22753906,9.88829687 C3.51671484,9.49553125 2.84874609,9.01322266 2.24064844,8.45511719 C1.76055469,8.01348437 1.31835938,7.52569141 0.922289063,7 C1.31835938,6.47402734 1.76055469,5.98623437 2.24064844,5.54512891 C2.84874609,4.98702344 3.51671484,4.50471484 4.22753906,4.11170312 C4.827375,3.77965234 5.45744531,3.51130469 6.10621875,3.31080859 C5.34652734,4.05896875 4.8751875,5.09938281 4.8751875,6.24994141 C4.8751875,7.44497266 5.38330078,8.52110547 6.19519922,9.27475 L5.13667969,10.3327422 Z M15.7593516,8.45515234 C15.1512539,9.01325781 14.4832852,9.49556641 13.7724609,9.88833203 C13.0511953,10.2876719 12.2849297,10.5952891 11.4966562,10.802957 C10.6847578,11.0166367 9.844875,11.1248477 9,11.1248477 C8.155125,11.1248477 7.31524219,11.0166367 6.50334375,10.802957 C6.30228516,10.7502227 6.10287891,10.6908789 5.905125,10.6249961 L6.79391016,9.73621094 C7.43224219,10.1404375 8.18866406,10.375 9,10.375 C11.2780195,10.375 13.1248125,8.52820703 13.1248125,6.24990625 C13.1248125,5.43885156 12.89025,4.68242969 12.4859531,4.04441406 L12.8633203,3.66704688 C13.1731172,3.79944531 13.476375,3.94773438 13.7724258,4.11170313 C14.48325,4.50475 15.1512187,4.98702344 15.7593164,5.54512891 C16.2394102,5.98623438 16.6816055,6.47402734 17.0776758,7 C16.6816406,7.52569141 16.2394453,8.01348438 15.7593516,8.45515234 Z" id="Shape" fill-rule="nonzero"></path>
+                <path d="M9,3.625 C7.55036719,3.625 6.3748125,4.80027344 6.3748125,6.24990625 C6.3748125,6.45701172 6.54289453,6.6248125 6.75,6.6248125 C6.95710547,6.6248125 7.1251875,6.45701172 7.1251875,6.24990625 C7.1251875,5.21610156 7.96619531,4.37509375 9,4.37509375 C9.20710547,4.37509375 9.3751875,4.20701172 9.3751875,3.99990625 C9.3751875,3.79280078 9.20710547,3.625 9,3.625 Z" id="Path"></path>
+            </g>
+            <text id="Hide" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" fill="#0AA3DA">
+                <tspan x="24.1542969" y="14">Hide</tspan>
+            </text>
+        </g>
+        <text id="Inventory" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="24" letter-spacing="0.4375" fill="#049FD9">
+            <tspan x="1014" y="114">Inventory</tspan>
+        </text>
+        <text id="My-Saved-Views:" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="24" letter-spacing="0.4375" fill="#333333">
+            <tspan x="888" y="114">My Saved Views:</tspan>
+        </text>
+        <path d="M1083.20042,109 L1083.30063,109.096 L1088.018,113.615 L1092.79958,109.036079 L1093,109.228079 L1088.01883,114 L1087.88096,113.867921 L1083.10021,109.288 L1083,109.192 L1083.20042,109 Z" id="Combined-Shape" stroke="#049FD9" stroke-linecap="round" stroke-linejoin="round"></path>
+        <g id="Group-5" transform="translate(1141, 100)" fill="#049FD9">
+            <text id="Save-View" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="24" letter-spacing="0.4375">
+                <tspan x="28" y="14">Save View</tspan>
+            </text>
+            <g id="save" transform="translate(0, 3)" fill-rule="nonzero">
+                <path d="M13.0331429,0 L12.244898,0 L3.10204082,0 L0.163265306,0 L0.163265306,16 L2.44897959,16 L13.2244898,16 L15.8367347,16 L15.8367347,2.80359184 L13.0331429,0 Z M11.5918367,0.653061224 L11.5918367,5.2244898 L3.75510204,5.2244898 L3.75510204,0.653061224 L11.5918367,0.653061224 Z M3.10204082,15.3469388 L3.10204082,9.14285714 L12.5714286,9.14285714 L12.5714286,15.3469388 L3.10204082,15.3469388 Z M15.1836735,15.3469388 L13.2244898,15.3469388 L13.2244898,8.48979592 L2.44897959,8.48979592 L2.44897959,15.3469388 L0.816326531,15.3469388 L0.816326531,0.653061224 L3.10204082,0.653061224 L3.10204082,5.87755102 L12.244898,5.87755102 L12.244898,0.653061224 L12.7627755,0.653061224 L15.1836735,3.07395918 L15.1836735,15.3469388 Z" id="Shape"></path>
+                <path d="M4.40816327,10.7755102 L6.69387755,10.7755102 C6.87444898,10.7755102 7.02040816,10.629551 7.02040816,10.4489796 C7.02040816,10.2684082 6.87444898,10.122449 6.69387755,10.122449 L4.40816327,10.122449 C4.22759184,10.122449 4.08163265,10.2684082 4.08163265,10.4489796 C4.08163265,10.629551 4.22759184,10.7755102 4.40816327,10.7755102 Z" id="Path"></path>
+                <path d="M7.67346939,11.4285714 L4.40816327,11.4285714 C4.22759184,11.4285714 4.08163265,11.5745306 4.08163265,11.755102 C4.08163265,11.9356735 4.22759184,12.0816327 4.40816327,12.0816327 L7.67346939,12.0816327 C7.85404082,12.0816327 8,11.9356735 8,11.755102 C8,11.5745306 7.85404082,11.4285714 7.67346939,11.4285714 Z" id="Path"></path>
+                <path d="M8.42122449,11.5232653 C8.36212245,11.5849796 8.32653061,11.6702041 8.32653061,11.755102 C8.32653061,11.84 8.36212245,11.924898 8.42122449,11.9869388 C8.48293878,12.0457143 8.56457143,12.0816327 8.65306122,12.0816327 C8.73795918,12.0816327 8.82285714,12.0457143 8.88489796,11.9869388 C8.94367347,11.924898 8.97959184,11.84 8.97959184,11.755102 C8.97959184,11.6702041 8.94367347,11.5849796 8.88489796,11.5232653 C8.76408163,11.402449 8.54204082,11.402449 8.42122449,11.5232653 Z" id="Path"></path>
+                <path d="M10.9387755,1.30612245 L8.97959184,1.30612245 L8.97959184,4.57142857 L10.9387755,4.57142857 L10.9387755,1.30612245 Z M10.2857143,3.91836735 L9.63265306,3.91836735 L9.63265306,1.95918367 L10.2857143,1.95918367 L10.2857143,3.91836735 Z" id="Shape"></path>
+            </g>
+        </g>
+        <line x1="1117" y1="124" x2="1117" y2="99" id="Line-Copy-44" stroke="#D7D9DA" stroke-linecap="square"></line>
+        <line x1="0" y1="339" x2="1281" y2="339" id="Line-5-Copy" stroke="#DFDFDF" stroke-linecap="square"></line>
+        <g id="Toggles-/-Icons-/-Default" transform="translate(1160, 357)">
+            <path d="M76,0.5 C76.9664983,0.5 77.8414983,0.891750844 78.4748737,1.52512627 C79.1082492,2.15850169 79.5,3.03350169 79.5,4 L79.5,28 C79.5,28.9664983 79.1082492,29.8414983 78.4748737,30.4748737 C77.8414983,31.1082492 76.9664983,31.5 76,31.5 L4,31.5 C3.03350169,31.5 2.15850169,31.1082492 1.52512627,30.4748737 C0.891750844,29.8414983 0.5,28.9664983 0.5,28 L0.5,4 C0.5,3.03350169 0.891750844,2.15850169 1.52512627,1.52512627 C2.15850169,0.891750844 3.03350169,0.5 4,0.5 Z" id="Rectangle-Copy-16" stroke="#333333"></path>
+            <path d="M4,0 L40,0 L40,0 L40,32 L4,32 C1.790861,32 0,30.209139 0,28 L0,4 C0,1.790861 1.790861,4.4408921e-16 4,0 Z" id="Rectangle-Copy-18" fill="#049FD9"></path>
+            <g id="icons-/viewControls-/list-view" transform="translate(12, 8.8889)" fill="#FFFFFF">
+                <path d="M15,2.66666667 L0.0065625,2.66666667 C0.0028125,2.66666667 0,2.66375863 0,2.65988126 L0,-1.77635684e-15 L14.9934375,-1.77635684e-15 C14.9971875,-1.77635684e-15 15,0.00290803344 15,0.00678541137 L15,2.66666667 Z M15,8 L0,8 C0.0028125,8 0,7.99709197 0,8 L0,5.33333333 L15,5.33333333 C14.9971875,5.33333333 15,5.33624137 15,5.33333333 L15,8 Z M15,13.3333333 L0,13.3333333 C0.0028125,13.3333333 0,13.3304253 0,13.3333333 L0,10.6666667 L15,10.6666667 C14.9971875,10.6666667 15,10.6695747 15,10.6666667 L15,13.3333333 Z" id="List-View"></path>
+            </g>
+            <g id="icons-/viewControls-/map-view-filled" transform="translate(52, 8.8889)">
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Map-View-/-Filled" fill="#565659" xlink:href="#path-1"></use>
+            </g>
+        </g>
+        <g id="Group-2" transform="translate(117, 357)">
+            <rect id="Rectangle" stroke="#DADADA" x="0" y="0" width="124" height="36" rx="5"></rect>
+            <g id="icons--/-core-/-Arrow-/-Down-Copy" transform="translate(102, 15)" fill="#404041">
+                <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z" id="Icons-/-Arrow-/-Down"></path>
+            </g>
+            <text id="Device-Type" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                <tspan x="8" y="22">Device Type</tspan>
+            </text>
+            <rect id="Rectangle-Copy" stroke="#DADADA" x="270" y="0" width="88" height="36" rx="5"></rect>
+            <g id="icons--/-core-/-Arrow-/-Down-Copy-3" transform="translate(336, 15)" fill="#404041">
+                <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z" id="Icons-/-Arrow-/-Down"></path>
+            </g>
+            <text id="Groups" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                <tspan x="278" y="22">Groups</tspan>
+            </text>
+            <g id="Group-15" transform="translate(445, 0)">
+                <rect id="Rectangle-Copy-3" stroke="#DADADA" x="0" y="0" width="80" height="36" rx="5"></rect>
+                <text id="All-Filters" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                    <tspan x="8" y="21">All Filters</tspan>
+                </text>
+            </g>
+            <rect id="Rectangle" stroke="#009FD9" x="132" y="0" width="130" height="36" rx="5"></rect>
+            <g id="icons--/-core-/-Arrow-/-Down-Copy-2" transform="translate(240, 15)" fill="#049FD9">
+                <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z" id="Icons-/-Arrow-/-Down"></path>
+            </g>
+            <text id="Health-Status" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#009FD9">
+                <tspan x="140" y="22">Health Status</tspan>
+            </text>
+            <rect id="Rectangle-Copy-2" stroke="#DADADA" x="366" y="0" width="71" height="36" rx="5"></rect>
+            <g id="icons--/-core-/-Arrow-/-Down-Copy-4" transform="translate(415, 15)" fill="#404041">
+                <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z" id="Icons-/-Arrow-/-Down"></path>
+            </g>
+            <text id="Tags" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                <tspan x="374" y="22">Tags</tspan>
+            </text>
+        </g>
+        <text id="Filter:" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="21" letter-spacing="1" fill="#333333">
+            <tspan x="62" y="380">Filter:</tspan>
+        </text>
+        <g id="Page-1" transform="translate(40, 368)">
+            <mask id="mask-4" fill="white">
+                <use xlink:href="#path-3"></use>
+            </mask>
+            <g id="Clip-2"></g>
+            <path d="M9.929564,6.590152 C9.865644,6.654072 9.830284,6.740432 9.830284,6.830872 L9.830284,15.466192 L7.170124,12.760472 L7.170124,6.830872 C7.170124,6.740432 7.134764,6.654072 7.070844,6.590152 L1.160284,0.680272 L15.838764,0.680272 L9.929564,6.590152 Z M16.973684,0.209712 C16.921324,0.083232 16.797564,0.000272 16.659524,0.000272 L0.339524,0.000272 C0.202164,0.000272 0.078404,0.083232 0.026044,0.209712 C-0.026996,0.336872 0.002244,0.483752 0.099484,0.580312 L6.490124,6.971632 L6.490124,12.899872 C6.490124,12.988952 6.525484,13.074632 6.588044,13.138552 L9.927524,16.535152 C9.992804,16.601792 10.080524,16.636472 10.170284,16.636472 C10.213124,16.636472 10.256644,16.628992 10.298804,16.611312 C10.425964,16.558952 10.510284,16.435192 10.510284,16.296472 L10.510284,6.971632 L16.900244,0.580312 C16.997484,0.483752 17.026724,0.336872 16.973684,0.209712 L16.973684,0.209712 Z" id="Fill-1" fill="#333333" mask="url(#mask-4)"></path>
+        </g>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="609">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="693">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="567">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="735">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="651">San Jose, CA</tspan>
+        </text>
+        <rect id="Rectangle-Copy-78" fill="#FAFAFA" x="40" y="750" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-80" fill="#FAFAFA" x="40" y="834" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-84" fill="#FFFFFF" x="40" y="876" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-81" fill="#FFFFFF" x="40" y="792" width="1200" height="42"></rect>
+        <rect id="Rectangle-Copy-56" stroke="#333333" x="52.5" y="805.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-57" stroke="#333333" x="52.5" y="847.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-58" stroke="#333333" x="52.5" y="889.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-64" stroke="#333333" x="52.5" y="763.5" width="15" height="15"></rect>
+        <text id="Gateway-453" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="774">Gateway 453</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="775">Down</tspan>
+        </text>
+        <text id="2" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="775">2</tspan>
+        </text>
+        <text id="Gateway-513" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="858">Gateway 513</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="859">Down</tspan>
+        </text>
+        <text id="4" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="859">4</tspan>
+        </text>
+        <text id="Gateway-523" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="900">Gateway 523</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="901">Down</tspan>
+        </text>
+        <text id="5" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="901">5</tspan>
+        </text>
+        <text id="Gateway-485" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <tspan x="92" y="816">Gateway 485</tspan>
+        </text>
+        <text id="Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="310" y="817">Down</tspan>
+        </text>
+        <text id="4" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <tspan x="422" y="817">4</tspan>
+        </text>
+        <circle id="Oval-Copy" stroke="#CC0007" fill="#FF4054" cx="300" cy="771" r="4"></circle>
+        <circle id="Oval-Copy-2" stroke="#CC0007" fill="#FF4054" cx="300" cy="813" r="4"></circle>
+        <circle id="Oval-Copy-3" stroke="#CC0007" fill="#FF4054" cx="300" cy="855" r="4"></circle>
+        <circle id="Oval-Copy-4" stroke="#CC0007" fill="#FF4054" cx="300" cy="897" r="4"></circle>
+        <text id="10-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="774">10 mins ago</tspan>
+        </text>
+        <text id="15-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="858">15 mins ago</tspan>
+        </text>
+        <text id="15-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="900">15 mins ago</tspan>
+        </text>
+        <text id="10-mins-ago" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="539" y="816">10 mins ago</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="777">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="861">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="903">San Jose, CA</tspan>
+        </text>
+        <text id="San-Jose,-CA" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#333333">
+            <tspan x="746" y="819">San Jose, CA</tspan>
+        </text>
+        <text id="Location" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="746" y="511">Location</tspan>
+        </text>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1230, 499)" fill="#000000">
+            <path d="M8.8817842e-16,12 C8.8817842e-16,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 8.8817842e-16,13.1045695 8.8817842e-16,12 Z M0,7 C0,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 0,8.1045695 0,7 Z M0,2 C0,0.8954305 0.8954305,0 2,0 C3.1045695,0 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 0,3.1045695 0,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="nav">
+            <g id="Rectangle-Copy-2" fill-rule="nonzero">
+                <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
+                <use fill="#FFFFFF" xlink:href="#path-5"></use>
+            </g>
+            <g id="alerts" transform="translate(1045, 20)">
+                <path d="M9.5210092,5.50284817 C9.95463572,5.358306 10.4434032,5.37918677 10.8845311,5.59975069 C11.2301749,5.77257263 11.5104417,6.0528394 11.6832637,6.39848329 L19.5723274,22.1766108 C19.7928913,22.6177386 19.8137721,23.1065061 19.6692299,23.5401326 C19.5246878,23.9737592 19.2147226,24.3522447 18.7735948,24.5728086 C18.5255962,24.6968079 18.2521331,24.7613638 17.9748622,24.7613638 L2.19673469,24.7613638 C1.70353878,24.7613638 1.25703367,24.5614567 0.933827552,24.2382505 C0.610621429,23.9150444 0.410714286,23.4685393 0.410714286,22.9753434 C0.410714286,22.6980725 0.475270157,22.4246094 0.599269477,22.1766108 L8.48833323,6.39848329 C8.70889715,5.95735546 9.08738268,5.64739034 9.5210092,5.50284817 Z" id="Triangle-Copy" stroke="#979797" stroke-width="0.821428571"></path>
+                <g id="Group-2" transform="translate(8.6423, 10.2852)" stroke="#979797" stroke-width="0.657142857">
+                    <circle id="Oval" cx="1.30782345" cy="10.4625876" r="1.30782345"></circle>
+                    <ellipse id="Oval-Copy" cx="1.30782345" cy="3.92347034" rx="1.30782345" ry="3.92347034"></ellipse>
+                </g>
+                <g id="Group-6" transform="translate(9, 0)">
+                    <rect id="Rectangle" fill="#BF3030" x="0" y="0" width="34" height="18" rx="9"></rect>
+                    <text id="294" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+                        <tspan x="6.242" y="13">294</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="Group-9" transform="translate(88, 23)" fill="#049FD9">
+                <text id="IoT-Center" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">
+                    <tspan x="62" y="19">IoT Center</tspan>
+                </text>
+                <text id="Cisco" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold">
+                    <tspan x="0" y="20">Cisco</tspan>
+                </text>
+            </g>
+            <g id="Group-3" transform="translate(1090, 26)">
+                <g id="alerts-and-notifications/alert_20w" fill="#9E9EA2" fill-rule="nonzero">
+                    <g id="alert_20">
+                        <path d="M9,19.0009 C7.835,19.0009 6.881,18.1259 6.735,16.9999 L11.265,16.9999 C11.119,18.1259 10.165,19.0009 9,19.0009 M9,-0.0001 C6.239,-0.0001 4,2.2379 4,4.9999 L4,5.1929 C4,5.9089 3.763,6.6189 3.342,7.1819 L0.867,10.2579 C0.308,11.0029 0,11.9269 0,12.8569 L0,15.8609 C0,16.4889 0.511,16.9999 1.139,16.9999 L5.735,16.9999 C5.887,18.6779 7.284,20.0009 9,20.0009 C10.716,20.0009 12.113,18.6779 12.265,16.9999 L16.861,16.9999 C17.489,16.9999 18,16.4889 18,15.8609 L18,12.8569 C18,11.9269 17.692,11.0029 17.133,10.2579 L14.666,7.1919 C14.237,6.6189 14,5.9089 14,5.1929 L14,4.9999 C14,2.2379 11.761,-0.0001 9,-0.0001 M9,0.9999 C11.206,0.9999 13,2.7949 13,4.9999 L13,5.1929 C13,6.1229 13.308,7.0469 13.887,7.8189 L16.333,10.8579 C16.763,11.4309 17,12.1409 17,12.8569 L17,15.8609 C17,15.9369 16.937,15.9999 16.861,15.9999 L12.403,15.9999 L11.265,15.9999 L6.735,15.9999 L5.597,15.9999 L1.139,15.9999 C1.063,15.9999 1,15.9369 1,15.8609 L1,12.8569 C1,12.1409 1.237,11.4309 1.646,10.8849 L4.143,7.7799 C4.696,7.0419 5,6.1229 5,5.1929 L5,4.9999 C5,2.7949 6.794,0.9999 9,0.9999" id="fill"></path>
+                    </g>
+                </g>
+                <g id="help" transform="translate(130, 0)">
+                    <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
+                    <circle id="Oval" stroke="#979797" cx="10" cy="9" r="4"></circle>
+                    <path d="M3.5,17 C4.96662432,14.3333333 7.13329099,13 10,13 C12.866709,13 15.1778133,14.3333333 16.9333128,17" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                </g>
+                <g id="help" transform="translate(86, 0)">
+                    <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
+                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                        <text>
+                            <tspan x="0" y="15">?</tspan>
+                        </text>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(42, 0)" stroke="#979797">
+                    <rect id="Rectangle" x="0.5" y="0.5" width="19" height="19" rx="2"></rect>
+                    <line x1="3.5" y1="3.5" x2="16.5" y2="3.5" id="Line-3" stroke-linecap="round"></line>
+                    <line x1="3.5" y1="7.5" x2="16.5" y2="7.5" id="Line-3-Copy" stroke-linecap="round"></line>
+                    <line x1="3.5" y1="11.5" x2="16.5" y2="11.5" id="Line-3-Copy-2" stroke-linecap="round"></line>
+                    <line x1="3.5" y1="15.5" x2="16.5" y2="15.5" id="Line-3-Copy-3" stroke-linecap="round"></line>
+                </g>
+            </g>
+            <g id="Group-8" transform="translate(1090, 20)">
+                <g id="alerts-and-notifications/alert_20w" transform="translate(0, 6)" fill="#9E9EA2" fill-rule="nonzero">
+                    <g id="alert_20">
+                        <path d="M9,19.0009 C7.835,19.0009 6.881,18.1259 6.735,16.9999 L11.265,16.9999 C11.119,18.1259 10.165,19.0009 9,19.0009 M9,-0.0001 C6.239,-0.0001 4,2.2379 4,4.9999 L4,5.1929 C4,5.9089 3.763,6.6189 3.342,7.1819 L0.867,10.2579 C0.308,11.0029 0,11.9269 0,12.8569 L0,15.8609 C0,16.4889 0.511,16.9999 1.139,16.9999 L5.735,16.9999 C5.887,18.6779 7.284,20.0009 9,20.0009 C10.716,20.0009 12.113,18.6779 12.265,16.9999 L16.861,16.9999 C17.489,16.9999 18,16.4889 18,15.8609 L18,12.8569 C18,11.9269 17.692,11.0029 17.133,10.2579 L14.666,7.1919 C14.237,6.6189 14,5.9089 14,5.1929 L14,4.9999 C14,2.2379 11.761,-0.0001 9,-0.0001 M9,0.9999 C11.206,0.9999 13,2.7949 13,4.9999 L13,5.1929 C13,6.1229 13.308,7.0469 13.887,7.8189 L16.333,10.8579 C16.763,11.4309 17,12.1409 17,12.8569 L17,15.8609 C17,15.9369 16.937,15.9999 16.861,15.9999 L12.403,15.9999 L11.265,15.9999 L6.735,15.9999 L5.597,15.9999 L1.139,15.9999 C1.063,15.9999 1,15.9369 1,15.8609 L1,12.8569 C1,12.1409 1.237,11.4309 1.646,10.8849 L4.143,7.7799 C4.696,7.0419 5,6.1229 5,5.1929 L5,4.9999 C5,2.7949 6.794,0.9999 9,0.9999" id="fill"></path>
+                    </g>
+                </g>
+                <g id="Group-4" transform="translate(9, 0)">
+                    <circle id="Oval" fill="#009FD9" cx="9" cy="9" r="9"></circle>
+                    <text id="2" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+                        <tspan x="5.414" y="13">2</tspan>
+                    </text>
+                </g>
+            </g>
+            <g id="Group-5" transform="translate(43, 27)">
+                <rect id="Rectangle" x="0" y="0" width="18" height="18"></rect>
+                <g id="Group-2" transform="translate(0, 3)" fill="#009FD9">
+                    <rect id="Rectangle" x="0" y="10" width="18" height="2"></rect>
+                    <rect id="Rectangle-Copy" x="0" y="0" width="18" height="2"></rect>
+                    <rect id="Rectangle-Copy-2" x="0" y="5" width="18" height="2"></rect>
+                </g>
+            </g>
+        </g>
+        <g id="signal-strength" transform="translate(656, 725)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 767)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 809)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 851)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="signal-strength" transform="translate(656, 893)" stroke="#049FD9" stroke-width="0.8">
+            <ellipse id="Oval" cx="3.96551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="16.6551724" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="29.3448276" cy="4" rx="3.96551724" ry="4"></ellipse>
+            <ellipse id="Oval" cx="42.0344828" cy="4" rx="3.96551724" ry="4"></ellipse>
+        </g>
+        <g id="component-/tag-/interactive-copy-2" transform="translate(40, 405)">
+            <g id="z-atoms/📐/tagBackground/default">
+                <mask id="mask-8" fill="white">
+                    <use xlink:href="#path-7"></use>
+                </mask>
+                <use id="tagBackground" fill="#333333" xlink:href="#path-7"></use>
+                <g id="z-atoms-/🖍color-/Grey/4" mask="url(#mask-8)" fill="#DFDFDF">
+                    <rect id="ColorChip9" x="0" y="0" width="161" height="25.2"></rect>
+                </g>
+            </g>
+            <text id="Health-Status:-Down" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.5" fill="#333333">
+                <tspan x="12" y="15">Health Status: Down</tspan>
+            </text>
+            <g id="z-atoms/🔬-/remove" transform="translate(142.2, 8.2)">
+                <mask id="mask-10" fill="white">
+                    <use xlink:href="#path-9"></use>
+                </mask>
+                <use id="x--micro" fill="#333333" xlink:href="#path-9"></use>
+                <g id="z-atoms-/🖍color--" mask="url(#mask-10)" fill="#333333">
+                    <g transform="translate(-3.2, -3.2)" id="ColorChip7">
+                        <rect x="0" y="0" width="16" height="16.8"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <text id="Clear-All" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" letter-spacing="0.5" fill="#049FD9">
+            <tspan x="213" y="421">Clear All</tspan>
+        </text>
+        <g id="Group-7" transform="translate(40, 447)">
+            <g id="icons--/-core-/-Arrow-/-Down" transform="translate(212, 10)" fill="#049FD9">
+                <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z" id="Icons-/-Arrow-/-Down"></path>
+            </g>
+            <text id="Actions" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#049FD9">
+                <tspan x="151" y="17">Actions</tspan>
+            </text>
+            <g id="Group-6" transform="translate(0, 2)" fill="#049FD9">
+                <g id="icons-/core-/add-/+-circle-filled" transform="translate(0, 3)">
+                    <path d="M12.8033009,2.19669914 C15.732233,5.12563133 15.732233,9.87436867 12.8033009,12.8033009 C9.87436867,15.732233 5.12563133,15.732233 2.19669914,12.8033009 C-0.732233047,9.87436867 -0.732233047,5.12563133 2.19669914,2.19669914 C5.12563133,-0.732233047 9.87436867,-0.732233047 12.8033009,2.19669914 Z M7.5,2.12598847 C7.22385762,2.12598847 7,2.34984609 7,2.62598847 L7,7 L2.62598847,7 C2.34984609,7 2.12598847,7.22385762 2.12598847,7.5 C2.12598847,7.77614237 2.34984609,8 2.62598847,8 L7,8 L7,12.3740115 C7,12.6501539 7.22385762,12.8740115 7.5,12.8740115 C7.77614237,12.8740115 8,12.6501539 8,12.3740115 L8,8 L12.3740115,8 C12.6501539,8 12.8740115,7.77614237 12.8740115,7.5 C12.8740115,7.22385762 12.6501539,7 12.3740115,7 L8,7 L8,2.62598847 C8,2.34984609 7.77614237,2.12598847 7.5,2.12598847 Z" id="Combined-Shape"></path>
+                </g>
+                <text id="Add-Devices" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="21">
+                    <tspan x="22" y="14">Add Devices</tspan>
+                </text>
+            </g>
+            <g id="refresh" transform="translate(384, 4)">
+                <text id="Refresh" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+                    <tspan x="28" y="14">Refresh</tspan>
+                </text>
+                <g id="Group-2" transform="translate(10, 11) scale(-1, 1) translate(-10, -11)translate(0, 3)" stroke="#049FD9">
+                    <polyline id="Fill-1-Copy-46" transform="translate(17.0245, 9.6435) rotate(-523) translate(-17.0245, -9.6435)" points="19.5244947 7.64353877 17.0244947 11.6435388 14.5244947 7.64353877"></polyline>
+                    <polyline id="Fill-1-Copy-47" transform="translate(3.0245, 6.6435) rotate(-343) translate(-3.0245, -6.6435)" points="5.5244947 4.64353877 3.0244947 8.64353877 0.524494701 4.64353877"></polyline>
+                    <path d="M3,11.8169788 C4.26223422,14.3087528 6.72189658,16 9.54944141,16 L9.54944141,16 C13.6642713,16 17,12.418278 17,8 M17,4.23406314 C15.7479249,1.7143713 13.2785491,0 10.4369424,0 C6.32963251,0 3,3.581722 3,8" id="Oval-2"></path>
+                </g>
+            </g>
+            <text id="Last-updated:-10-min" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#A7A9AB">
+                <tspan x="479" y="18">Last updated: 10 mins </tspan>
+                <tspan x="479" y="36">ago</tspan>
+            </text>
+            <line x1="361" y1="27" x2="361" y2="2" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+            <line x1="127" y1="25" x2="127" y2="0" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+            <line x1="249" y1="25" x2="249" y2="0" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+            <g id="export-[6h]-" transform="translate(273, 2)">
+                <text id="Export" fill-rule="nonzero" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+                    <tspan x="22" y="15">Expor</tspan>
+                    <tspan x="22" y="36">t</tspan>
+                </text>
+                <g id="z-atoms-/🔬icon--/exportICon" transform="translate(2, 0)">
+                    <mask id="mask-12" fill="white">
+                        <use xlink:href="#path-11"></use>
+                    </mask>
+                    <use id="export-sm" fill="#333333" fill-rule="nonzero" xlink:href="#path-11"></use>
+                    <g id="z-atoms-/🖍color-/Primary/Anchor" mask="url(#mask-12)" fill="#049FD9">
+                        <g transform="translate(-2, 0)" id="ColorChip2">
+                            <rect x="0" y="0" width="16.4571429" height="16"></rect>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,8 @@
+/*!
+ * subscription-ui
+ * Copyright (c) 2025 - Present Intuit Inc. All rights reserved. Unauthorized reproduction is a violation of applicable law. This material contains certain confidential and proprietary information and trade secrets of Intuit Inc.
+ */
+@keyframes Backdrop-darkFadeIn-2d99603{0%{opacity:0}100%{opacity:.4}}@keyframes Backdrop-lightFadeIn-7b3f1a1{0%{opacity:0}100%{opacity:.8}}.Backdrop-wrapperBase-6ad4f2f{width:100%;height:100%;display:block;position:fixed;left:0;top:0;animation-fill-mode:both;animation-duration:.3s}.Backdrop-wrapperBase-6ad4f2f.Backdrop-wrapperDark-f82c7bf{background-color:rgba(0,0,0,.4);background-color:var(--ids-ef8bb8,rgba(0,0,0,.4));animation-name:Backdrop-darkFadeIn-2d99603}@media screen and (prefers-reduced-motion:reduce){.Backdrop-wrapperBase-6ad4f2f.Backdrop-wrapperDark-f82c7bf{animation:none}}.Backdrop-wrapperBase-6ad4f2f.Backdrop-wrapperLight-b5eb998{background-color:#fff;background-color:var(--ids-c66cd8,#fff);animation-name:Backdrop-lightFadeIn-7b3f1a1}@media screen and (prefers-reduced-motion:reduce){.Backdrop-wrapperBase-6ad4f2f.Backdrop-wrapperLight-b5eb998{animation:none;opacity:.8}}.Backdrop-isOpen-4f33bb3{overflow:hidden}.Backdrop-intuitnext-bc812ea.Backdrop-dark-245030b{--ids-ef8bb8:rgba(0, 0, 0, 0.6)}.Backdrop-mailchimp-c541faa.Backdrop-light-6b3edff{--ids-ef8bb8:rgba(36, 28, 21, 0.5)}
+/*# sourceMappingURL=main.css.map */
+
+/*# sourceMappingURL=72295.6736d566ffde2b8901d06f9b3437.css.map*/

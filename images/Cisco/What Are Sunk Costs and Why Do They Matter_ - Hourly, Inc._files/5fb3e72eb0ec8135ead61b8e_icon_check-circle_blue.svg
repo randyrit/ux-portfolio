@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Shape</title>
+    <defs>
+        <path d="M12,0 C5.376,0 0,5.376 0,12 C0,18.624 5.376,24 12,24 C18.624,24 24,18.624 24,12 C24,5.376 18.624,0 12,0 Z M8.748,17.148 L4.44,12.84 C3.972,12.372 3.972,11.616 4.44,11.148 C4.908,10.68 5.664,10.68 6.132,11.148 L9.6,14.604 L17.856,6.348 C18.324,5.88 19.08,5.88 19.548,6.348 C20.016,6.816 20.016,7.572 19.548,8.04 L10.44,17.148 C9.984,17.616 9.216,17.616 8.748,17.148 Z" id="path-1"></path>
+    </defs>
+    <g id="NEWWW!!!!-Table,-Sucess-message" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Table-Copy" transform="translate(-753.000000, -1433.000000)">
+            <g id="Group-3" transform="translate(0.000000, 1284.000000)">
+                <g id="Icons/Glyph/Check-circle" transform="translate(753.000000, 149.000000)">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="Shape" fill="#0076FF" xlink:href="#path-1"></use>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,8 @@
+/*!
+ * @sbseg-plugin/qbo-web-app-ui
+ * Copyright (c) 2025 - Present Intuit Inc. All rights reserved. Unauthorized reproduction is a violation of applicable law. This material contains certain confidential and proprietary information and trade secrets of Intuit Inc.
+ */
+.qbo-permissions-error .tableRow{display:table-row;vertical-align:top}.qbo-permissions-error .tableCell{display:table-cell;vertical-align:top}.qbo-permissions-error .secondary-color-sprite{background-repeat:no-repeat;background-image:url(e7c3c2e6e73137fc.png)}.qbo-permissions-error .fourOhFour{color:var(--color-text-primary);min-width:30px !important;max-width:700px;margin:auto;margin-top:10%}.qbo-permissions-error .fourOhFour .hazard{width:60px;height:60px;background-size:120px;background-position:0 -1320px;margin:0 20px 0 auto}.qbo-permissions-error .fourOhFour .hazardWrapper{width:80px}.qbo-permissions-error .fourOhFour .messageHeader{font-weight:600;font-size:1.4rem;margin-bottom:10px}.qbo-permissions-error .fourOhFour .messageBody{font-size:1.15rem;margin-bottom:20px;line-height:2.2rem}.qbo-permissions-error .fourOhFour .messageBody .backToHomepageLink{color:var(--color-link-text);cursor:pointer}.qbo-permissions-error .fourOhFour .messageBody .backToHomepageLink:focus{text-decoration:underline}.qbo-permissions-error .fourOhFour .messageFooter{font-size:1.2rem;margin-bottom:0}
+.switch_company_notice{color:var(--color-text-primary);min-width:30px !important;max-width:700px;margin:auto;margin-top:10%;text-align:center;font-weight:600;font-size:2rem}
+
+/*# sourceMappingURL=qbo-web-app-ui-switchcompany-1_0_0.93d342da723a45b6.css.map*/

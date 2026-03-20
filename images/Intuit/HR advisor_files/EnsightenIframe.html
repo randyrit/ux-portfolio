@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!-- saved from url=(0087)https://plugin.intuitcdn.net/@sbg/iframe-pages/tealium/v5/EnsightenIframe.html?env=prod -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript">
+            var preprodTealiumUrl = "//tags.tiqcdn.com/utag/intuit/sbseg-qbop/dev/utag.js",
+                prodTealiumUrl = "//tags.tiqcdn.com/utag/intuit/sbseg-qbop/prod/utag.js",
+                tealiumScriptElement = document.createElement("script"),
+                qboDataLayer = {},
+                environment,
+                iframeURL,
+                urlSearchString,
+                tealiumScriptElement,
+                scriptLoaded = false;
+
+            tealiumScriptElement.type = "text/javascript";
+            tealiumScriptElement.id = "tealium-script";
+            tealiumScriptElement.async=true;
+
+            function loadScript(env) {
+                if (env === "e2e" || env === "qa") {
+                    tealiumScriptElement.src = preprodTealiumUrl;
+                } else {
+                    tealiumScriptElement.src = prodTealiumUrl;
+                }
+                document.head.appendChild(tealiumScriptElement);
+                scriptLoaded = true;
+            }
+
+            function getEnvironment() {
+                var urlParams = {};
+                var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+                    urlParams[key] = value;
+                });
+                return urlParams["env"];
+            }
+	    
+            function handleQBODataObject(data) {
+                qboDataLayer = data || {};
+                environment = getEnvironment();
+                if (environment !== null  && environment !== undefined && !scriptLoaded && Object.keys(qboDataLayer).length > 0) {
+                    loadScript(environment);
+                }
+            }
+
+            function handleTrackObject(eventDetails) {
+                var event = new CustomEvent("qboAnalyticsEvent", { 
+                    detail: eventDetails
+                });
+
+                environment = getEnvironment();
+
+                if (environment === null || environment === undefined || Object.keys(eventDetails).length == 0) {
+                    return;
+                }
+
+                if (!scriptLoaded) {
+                    loadScript(environment);
+                } 
+
+                window.document.dispatchEvent(event);
+            }
+
+            function receiveMessage(e) {
+                if (e.origin.indexOf("qbo.intuit.com") === -1) {
+                    return;
+                }
+                if (e.data && e.data.isTrackObject){
+                    handleTrackObject(e.data);
+                } else {
+                    handleQBODataObject(e.data);
+                }
+            }
+            
+            window.addEventListener("message", receiveMessage);
+        </script>
+    <script type="text/javascript" id="tealium-script" async="" src="./utag.js"></script><script type="text/javascript" async="" charset="utf-8" id="tiqapp" src="./utag.v.js"></script></head>
+<body>
+</body></html>

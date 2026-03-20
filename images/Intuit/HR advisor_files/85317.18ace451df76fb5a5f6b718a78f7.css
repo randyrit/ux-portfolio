@@ -1,0 +1,10 @@
+/*!
+ * one-intuit-help-system
+ * Copyright (c) 2025 - Present Intuit Inc. All rights reserved. Unauthorized reproduction is a violation of applicable law. This material contains certain confidential and proprietary information and trade secrets of Intuit Inc.
+ */
+button[class*="AccessPointButton-access-point-button"] div[class*="ImageGroup-group"] img[class*="AccessPointButton-image"],
+button[class*="AccessPointButton-access-point-button"] div[class*="ImageGroup-group"] div[class*="AccessPointButton-image"] {
+  border: none;
+}
+
+/*# sourceMappingURL=85317.18ace451df76fb5a5f6b718a78f7.css.map*/

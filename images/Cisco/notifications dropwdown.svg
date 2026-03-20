@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="900px" viewBox="0 0 1280 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>notifications dropwdown</title>
+    <defs>
+        <path d="M814,72 L1108,72 L1108,491 C1108,492.104569 1107.10457,493 1106,493 L816,493 C814.895431,493 814,492.104569 814,491 L814,72 L814,72 Z" id="path-1"></path>
+        <filter x="-2.6%" y="-1.8%" width="105.1%" height="103.6%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.2   0 0 0 0 0.2   0 0 0 0 0.2  0 0 0 0.185478584 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="notifications-dropwdown" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <polygon id="Line" fill="#049FD9" fill-rule="nonzero" points="1089 72 1089 68 1109 68 1109 72"></polygon>
+        <g id="Rectangle">
+            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+            <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+        </g>
+        <rect id="Rectangle" fill-opacity="0.0988308566" fill="#049FD9" x="814" y="115" width="294" height="67"></rect>
+        <rect id="Rectangle-Copy" fill-opacity="0.0988308566" fill="#049FD9" x="813.5" y="182" width="295" height="67"></rect>
+        <text id="View-More" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#00A2DF">
+            <tspan x="838" y="476">View More </tspan>
+        </text>
+        <line x1="814" y1="182" x2="1108" y2="182" id="Line-3" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
+        <line x1="814" y1="115" x2="1108" y2="115" id="Line-3-Copy-5" stroke="#CCCCCC" opacity="0.229999989" stroke-linecap="square"></line>
+        <line x1="813.5" y1="249" x2="1107.5" y2="249" id="Line-3-Copy" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
+        <line x1="814" y1="316" x2="1108" y2="316" id="Line-3-Copy-2" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
+        <line x1="814" y1="383" x2="1108" y2="383" id="Line-3-Copy-3" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
+        <line x1="814" y1="450" x2="1108" y2="450" id="Line-3-Copy-4" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
+        <text id="16-Gateways-Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+            <tspan x="861" y="141" fill="#00A1DF">16 Gateways</tspan>
+            <tspan x="951.046001" y="141" fill="#333333"> Down</tspan>
+        </text>
+        <text id="Firmware-Update-avai" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+            <tspan x="837.5" y="208" fill="#00A1DF">Firmware Update</tspan>
+            <tspan x="956.636001" y="208" fill="#333333"> available</tspan>
+        </text>
+        <text id="IOx-Image-update-ava" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+            <tspan x="838" y="275" fill="#00A2E4">IOx Image update</tspan>
+            <tspan x="961.458001" y="275" fill="#333333"> available</tspan>
+        </text>
+        <text id="System-Connection-do" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+            <tspan x="838" y="342" fill="#00A2E4">System Connection</tspan>
+            <tspan x="973.004001" y="342" fill="#333333"> down</tspan>
+        </text>
+        <text id="Gateway-1-Onboarded" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+            <tspan x="838" y="409" fill="#049FD9">Gateway 1</tspan>
+            <tspan x="911.492001" y="409" fill="#333333"> Onboarded</tspan>
+        </text>
+        <text id="5-Min-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+            <tspan x="838" y="165">5 Min Ago</tspan>
+        </text>
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+            <tspan x="837.5" y="232">1 Hr Ago</tspan>
+        </text>
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+            <tspan x="838" y="299">1 Hr Ago</tspan>
+        </text>
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+            <tspan x="838" y="366">1 Hr Ago</tspan>
+        </text>
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+            <tspan x="838" y="433">1 Hr Ago</tspan>
+        </text>
+        <text id="NOTIFICATIONS" opacity="0.5" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#333333">
+            <tspan x="838" y="97">NOTIFICATIONS</tspan>
+        </text>
+        <g id="Alarms/Critical-Alarm-Icon" transform="translate(835.5101, 126.0101)">
+            <polygon id="Polygon" fill="#D93B21" transform="translate(10.4899, 10.4899) rotate(23) translate(-10.4899, -10.4899)" points="10.4898879 2.48988786 16.1467421 4.83303361 18.4898879 10.4898879 16.1467421 16.1467421 10.4898879 18.4898879 4.83303361 16.1467421 2.48988786 10.4898879 4.83303361 4.83303361"></polygon>
+            <line x1="6.88988786" y1="6.88988786" x2="14.0898879" y2="14.0898879" id="Line" stroke="#FFFFFF" stroke-linecap="square"></line>
+            <line x1="6.88988786" y1="6.88988786" x2="14.0898879" y2="14.0898879" id="Line-Copy" stroke="#FFFFFF" stroke-linecap="square" transform="translate(10.4899, 10.4899) scale(-1, 1) translate(-10.4899, -10.4899)"></line>
+        </g>
+    </g>
+</svg>

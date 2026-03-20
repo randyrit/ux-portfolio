@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1280px" height="900px" viewBox="0 0 1280 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Job Management Home</title>
+    <defs>
+        <linearGradient x1="0%" y1="48.2853224%" x2="98.0204814%" y2="51.6467929%" id="linearGradient-1">
+            <stop stop-color="#7ED321" offset="0%"></stop>
+            <stop stop-color="#72A738" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="1280" height="72"></rect>
+        <filter x="-0.5%" y="-6.9%" width="101.1%" height="119.4%" filterUnits="objectBoundingBox" id="filter-3">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.815686275   0 0 0 0 0.815686275   0 0 0 0 0.815686275  0 0 0 1 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <path d="M0,0 L18,0 L18,2 L0,2 Z M0,5 L18,5 L18,7 L0,7 Z M0,10 L18,10 L18,12 L0,12 Z" id="path-4"></path>
+        <path d="M3.50094515,4.99999999 C3.77656553,4.99999999 4,5.22343446 4,5.49905485 C4,5.77467523 3.77656553,5.9981097 3.50094515,5.9981097 L1,5.9981097 L1,14.9810971 L10,14.9810971 L10,5.9981097 L7.49905485,5.9981097 C7.22343447,5.9981097 7,5.77467523 7,5.49905485 C7,5.22343446 7.22343447,4.99999999 7.49905485,4.99999999 L10.5,4.99999999 C10.7761424,4.99999999 11,5.22385762 11,5.49999999 L11,15.5010408 C10.9994247,15.7782223 10.775102,16.001614 10.4989602,16.0010397 L0.498960236,15.9802444 C0.223224423,15.979671 9.99200722e-16,15.7559819 0,15.4802455 L0,5.49999999 C0,5.22385762 0.223857625,4.99999999 0.5,4.99999999 Z M5.5,0 L8.5,2.5 L7.8,3.2 L6,1.713 L6,9.49999999 C6,9.74545988 5.82312484,9.94960836 5.58987563,9.99194432 L5.5,9.99999999 C5.22385763,9.99999999 5,9.77614237 5,9.49999999 L5,1.713 L3.2,3.2 L2.5,2.5 L5.5,0 Z" id="path-6"></path>
+    </defs>
+    <g id="Job-Management-Home" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="1280" height="900"></rect>
+        <g id="Tabs-/-Horizontal-/-Top-Level-Copy" transform="translate(260, 90)">
+            <text id="Notifications-(6)" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.6666667" fill="#333333">
+                <tspan x="24" y="15">Notifications (6)</tspan>
+            </text>
+            <text id="Jobs-(4)" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.6666667" fill="#333333">
+                <tspan x="186" y="15">Jobs (4)</tspan>
+            </text>
+            <polygon id="Line" fill="#D7D9DA" fill-rule="nonzero" points="0 36 0 35 1020 35 1020 36"></polygon>
+            <polygon id="Selected" fill="#0E5099" points="187 36 187 31 252 31 252 36"></polygon>
+        </g>
+        <rect id="Rectangle-Copy-72" fill="#FAFAFA" x="284" y="394" width="972" height="42"></rect>
+        <rect id="Rectangle-Copy-75" fill="#FAFAFA" x="284" y="304" width="972" height="42"></rect>
+        <rect id="Rectangle-Copy-73" fill="#FAFAFA" x="284" y="485" width="972" height="42"></rect>
+        <rect id="Rectangle-Copy-74" fill="#FAFAFA" x="284" y="575" width="972" height="42"></rect>
+        <rect id="Rectangle-Copy-26" stroke="#333333" x="298.5" y="407.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-29" stroke="#333333" x="298.5" y="317.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-27" stroke="#333333" x="298.5" y="498.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-28" stroke="#333333" x="298.5" y="588.5" width="15" height="15"></rect>
+        <text id="Started" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="600" y="211">Started</tspan>
+        </text>
+        <text id="Elapsed-Time" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="744" y="211">Elapsed Time</tspan>
+        </text>
+        <text id="1-Day-Ago" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="419">1 Day Ago</tspan>
+        </text>
+        <text id="Not-Started" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="329">Not Started</tspan>
+        </text>
+        <text id="5-Hrs-30-Min" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="419">5 Hrs 30 Min</tspan>
+        </text>
+        <text id="Starts-5pm-Tomorrow" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="329">Starts 5pm Tomorrow</tspan>
+        </text>
+        <text id="Last-Week" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="510">Last Week</tspan>
+        </text>
+        <text id="12-Hrs-12-Min" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="510">12 Hrs 12 Min</tspan>
+        </text>
+        <text id="3-Months-Ago" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="600">3 Months Ago</tspan>
+        </text>
+        <text id="8-Days-4-Hrs" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="600">8 Days 4 Hrs</tspan>
+        </text>
+        <text id="Reports" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="419">Reports</tspan>
+        </text>
+        <text id="Reports-Copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="329">Reports</tspan>
+        </text>
+        <text id="Device-Config" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="510">Device Config</tspan>
+        </text>
+        <text id="Bulk-Claim-Copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="600">Bulk Claim</tspan>
+        </text>
+        <rect id="Rectangle-Copy-31" stroke="#333333" x="298.5" y="197.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-57" stroke="#333333" x="298.5" y="363.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-60" stroke="#333333" x="298.5" y="273.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-58" stroke="#333333" x="298.5" y="454.5" width="15" height="15"></rect>
+        <rect id="Rectangle-Copy-59" stroke="#333333" x="298.5" y="544.5" width="15" height="15"></rect>
+        <text id="friday-report" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="354" y="418">friday report</tspan>
+        </text>
+        <text id="Test-Report" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="375" y="328">Test Report</tspan>
+        </text>
+        <text id="Bulk-Claim" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="354" y="509">Bulk Claim</tspan>
+        </text>
+        <text id="Bulk-Claim" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="354" y="599">Bulk Claim</tspan>
+        </text>
+        <text id="System-Clean" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="375" y="374">System Clean</tspan>
+        </text>
+        <text id="rec-report-copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="375" y="284">rec report</tspan>
+        </text>
+        <text id="Bulk-Claim" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="354" y="465">Bulk Claim</tspan>
+        </text>
+        <text id="Bulk-Claim-Copy-2" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="18" fill="#0E5099">
+            <tspan x="354" y="555">Bulk Claim</tspan>
+        </text>
+        <text id="Errors" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="892" y="211">Errors</tspan>
+        </text>
+        <text id="3-Failed" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal">
+            <tspan x="892" y="466" fill="#D0021B">3</tspan>
+            <tspan x="899.2" y="466" fill="#333333"> Failed</tspan>
+        </text>
+        <text id="Type" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="487" y="211">Type</tspan>
+        </text>
+        <text id="Job-Name" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="354" y="211">Job Name</tspan>
+        </text>
+        <text id="Not-Started" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="599" y="375">Not Started</tspan>
+        </text>
+        <text id="Not-Started-Copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="599" y="285">Not Started</tspan>
+        </text>
+        <text id="Starts-in-30-Min" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="375">Starts in 30 Min</tspan>
+        </text>
+        <text id="Starts-in-30-Min-Copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="285">Starts in 30 Min</tspan>
+        </text>
+        <text id="None" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="373">None</tspan>
+        </text>
+        <text id="None-Copy-2" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="329">None</tspan>
+        </text>
+        <text id="None-Copy" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="283">None</tspan>
+        </text>
+        <text id="None" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="510">None</tspan>
+        </text>
+        <text id="None" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="551">None</tspan>
+        </text>
+        <text id="None" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="892" y="600">None</tspan>
+        </text>
+        <text id="3-Failed" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal">
+            <tspan x="892" y="419" fill="#D0021B">3</tspan>
+            <tspan x="899.2" y="419" fill="#333333"> Failed</tspan>
+        </text>
+        <text id="75%" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="550">75%</tspan>
+        </text>
+        <text id="75%" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="510">75%</tspan>
+        </text>
+        <text id="22%" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="465">22%</tspan>
+        </text>
+        <text id="Complete" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="419">Complete</tspan>
+        </text>
+        <text id="Not-Started" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="329">Not Started</tspan>
+        </text>
+        <text id="Not-Started" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="370">Not Started</tspan>
+        </text>
+        <text id="Not-Started-Copy-2" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="280">Not Started</tspan>
+        </text>
+        <text id="2-Days-Ago" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="466">2 Days Ago</tspan>
+        </text>
+        <text id="8-Hrs-12-Min" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="466">8 Hrs 12 Min</tspan>
+        </text>
+        <text id="Last-Month" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="600" y="556">Last Month</tspan>
+        </text>
+        <text id="4-Hrs-2-Min" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="744" y="556">4 Hrs 2 Min</tspan>
+        </text>
+        <text id="Clean" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="375">Clean</tspan>
+        </text>
+        <text id="Reports-Copy-2" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="285">Reports</tspan>
+        </text>
+        <text id="Claim-Device" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="466">Claim Device</tspan>
+        </text>
+        <text id="Bulk-Claim-Copy-3" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="487" y="556">Bulk Claim</tspan>
+        </text>
+        <text id="Current-Status" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="1005" y="211">Current Status</tspan>
+        </text>
+        <text id="Action" font-family="CiscoSans-Bold, Cisco Sans" font-size="14" font-weight="bold" line-spacing="18" fill="#333333">
+            <tspan x="1155" y="211">Action</tspan>
+        </text>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="363" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-3" fill="#DBDDDE" x="1005" y="273" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-4" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="363" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-5" fill="#DBDDDE" x="1005" y="273" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-6" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-9" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-10" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-11" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-12" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="363" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-13" fill="#DBDDDE" x="1005" y="273" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-14" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-15" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-16" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-17" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-18" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="363" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-19" fill="#DBDDDE" x="1005" y="273" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-20" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-21" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-22" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-23" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="url(#linearGradient-1)" x="1005" y="363" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-24" fill="url(#linearGradient-1)" x="1005" y="273" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="363" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-25" fill="#DBDDDE" x="1005" y="273" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="543" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="#4A90E2" x="1005" y="543" width="43.2" height="8" rx="4"></rect>
+        <text id="75%" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" fill="#333333">
+            <tspan x="1071" y="600">75%</tspan>
+        </text>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="592" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="#4A90E2" x="1005" y="592" width="43.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="411" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy-30" fill="#DBDDDE" x="1005" y="321" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="#78BC2E" x="1005" y="411" width="63.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="457" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="#4A90E2" x="1005" y="457" width="23.2" height="8" rx="4"></rect>
+        <rect id="Rectangle" fill="#DBDDDE" x="1005" y="502" width="60" height="8" rx="4"></rect>
+        <rect id="Rectangle-Copy" fill="#4A90E2" x="1005" y="502" width="43.2" height="8" rx="4"></rect>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 368) scale(1, -1) rotate(-91) translate(-1177, -368)translate(1175, 361)" fill="#404041">
+            <path d="M8.23883871e-15,12 C8.23883871e-15,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 8.23883871e-15,13.1045695 8.23883871e-15,12 Z M7.35066029e-15,7 C7.35066029e-15,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 7.35066029e-15,8.1045695 7.35066029e-15,7 Z M7.35066029e-15,2 C7.35066029e-15,0.8954305 0.8954305,-3.36134759e-14 2,-3.36134759e-14 C3.1045695,-3.36134759e-14 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 7.35066029e-15,3.1045695 7.35066029e-15,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled-Copy" transform="translate(1177, 278) scale(1, -1) rotate(-91) translate(-1177, -278)translate(1175, 271)" fill="#404041">
+            <path d="M-6.41610521e-15,12 C-6.41610521e-15,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -6.41610521e-15,13.1045695 -6.41610521e-15,12 Z M-7.30428363e-15,7 C-7.30428363e-15,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -7.30428363e-15,8.1045695 -7.30428363e-15,7 Z M-7.30428363e-15,2 C-7.30428363e-15,0.8954305 0.8954305,2.94194364e-14 2,2.94194364e-14 C3.1045695,2.94194364e-14 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -7.30428363e-15,3.1045695 -7.30428363e-15,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 415) scale(1, -1) rotate(-91) translate(-1177, -415)translate(1175, 408)" fill="#404041">
+            <path d="M-3.90653197e-14,12 C-3.90653197e-14,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -3.90653197e-14,13.1045695 -3.90653197e-14,12 Z M-3.99534981e-14,7 C-3.99534981e-14,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -3.99534981e-14,8.1045695 -3.99534981e-14,7 Z M-3.99534981e-14,2 C-3.99534981e-14,0.8954305 0.8954305,1.01202086e-13 2,1.01202086e-13 C3.1045695,1.01202086e-13 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -3.99534981e-14,3.1045695 -3.99534981e-14,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled-Copy-2" transform="translate(1177, 325) scale(1, -1) rotate(-91) translate(-1177, -325)translate(1175, 318)" fill="#404041">
+            <path d="M3.1318128e-15,12 C3.1318128e-15,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 3.1318128e-15,13.1045695 3.1318128e-15,12 Z M2.24363438e-15,7 C2.24363438e-15,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 2.24363438e-15,8.1045695 2.24363438e-15,7 Z M2.24363438e-15,2 C2.24363438e-15,0.8954305 0.8954305,-6.41307312e-14 2,-6.41307312e-14 C3.1045695,-6.41307312e-14 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 2.24363438e-15,3.1045695 2.24363438e-15,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 462) scale(1, -1) rotate(-91) translate(-1177, -462)translate(1175, 455)" fill="#404041">
+            <path d="M-2.95174017e-14,12 C-2.95174017e-14,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -2.95174017e-14,13.1045695 -2.95174017e-14,12 Z M-3.04055801e-14,7 C-3.04055801e-14,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -3.04055801e-14,8.1045695 -3.04055801e-14,7 Z M-3.04055801e-14,2 C-3.04055801e-14,0.8954305 0.8954305,6.76374039e-15 2,6.76374039e-15 C3.1045695,6.76374039e-15 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -3.04055801e-14,3.1045695 -3.04055801e-14,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 506) scale(1, -1) rotate(-91) translate(-1177, -506)translate(1175, 499)" fill="#404041">
+            <path d="M-3.75110074e-14,12 C-3.75110074e-14,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -3.75110074e-14,13.1045695 -3.75110074e-14,12 Z M-3.83991858e-14,7 C-3.83991858e-14,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -3.83991858e-14,8.1045695 -3.83991858e-14,7 Z M-3.83991858e-14,2 C-3.83991858e-14,0.8954305 0.8954305,6.26414003e-15 2,6.26414003e-15 C3.1045695,6.26414003e-15 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -3.83991858e-14,3.1045695 -3.83991858e-14,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 550) scale(1, -1) rotate(-91) translate(-1177, -550)translate(1175, 543)" fill="#404041">
+            <path d="M-1.0235669e-13,12 C-1.0235669e-13,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -1.0235669e-13,13.1045695 -1.0235669e-13,12 Z M-1.03244868e-13,7 C-1.03244868e-13,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -1.03244868e-13,8.1045695 -1.03244868e-13,7 Z M-1.03244868e-13,2 C-1.03244868e-13,0.8954305 0.8954305,6.75659412e-15 2,6.75659412e-15 C3.1045695,6.75659412e-15 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -1.03244868e-13,3.1045695 -1.03244868e-13,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled" transform="translate(1177, 596) scale(1, -1) rotate(-91) translate(-1177, -596)translate(1175, 589)" fill="#404041">
+            <path d="M-2.2847406e-14,12 C-2.2847406e-14,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 -2.2847406e-14,13.1045695 -2.2847406e-14,12 Z M-2.37355844e-14,7 C-2.37355844e-14,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 -2.37355844e-14,8.1045695 -2.37355844e-14,7 Z M-2.37355844e-14,2 C-2.37355844e-14,0.8954305 0.8954305,-5.77608266e-14 2,-5.77608266e-14 C3.1045695,-5.77608266e-14 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 -2.37355844e-14,3.1045695 -2.37355844e-14,2 Z" id="ellipsisVert-filled"></path>
+        </g>
+        <circle id="Oval" fill="#0E5099" cx="340" cy="372" r="3"></circle>
+        <circle id="Oval-Copy-3" fill="#0E5099" cx="340" cy="282" r="3"></circle>
+        <circle id="Oval-Copy-2" fill="#0E5099" cx="340" cy="416" r="3"></circle>
+        <circle id="Oval-Copy-4" fill="#0E5099" cx="340" cy="326" r="3"></circle>
+        <g id="Group-6" transform="translate(0, 72)">
+            <g id="Side-Nav">
+                <rect id="Rectangle-Copy" fill="#333333" x="0" y="0" width="260" height="2162"></rect>
+                <g id="Group" transform="translate(24, 192.4453)" fill="#9E9EA2">
+                    <text id="Assets-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                        <tspan x="48" y="16.5546667">Assets</tspan>
+                    </text>
+                    <g id="assets-/-active-copy">
+                        <path d="M4.5,0 L4.5,6.274 L7.5,6.274 L7.5,0 L8.5,0 L8.5,6.274 L23,6.27466667 C23.5522847,6.27466667 24,6.70447331 24,7.23466667 L24,12.9946667 C24,13.52486 23.5522847,13.9546667 23,13.9546667 L1,13.9546667 C0.44771525,13.9546667 0,13.52486 0,12.9946667 L0,7.23466667 C0,6.70447331 0.44771525,6.27466667 1,6.27466667 L3.5,6.274 L3.5,0 L4.5,0 Z M23,7.23466667 L1,7.23466667 L1,12.9946667 L23,12.9946667 L23,7.23466667 Z M6,8.19466667 L6,11.0746667 L3,11.0746667 L3,8.19466667 L6,8.19466667 Z M5,9.15466667 L4,9.15466667 L4,10.1146667 L5,10.1146667 L5,9.15466667 Z M12.5,13.9546667 L12.5,15.573 L21.5,15.5734533 L21.5,17.794 L24,17.7946667 L24,22.5946667 L18,22.5946667 L18,17.7946667 L20.5,17.794 L20.5,16.5334533 L12.5,16.533 L12.5,17.794 L15,17.7946667 L15,22.5946667 L9,22.5946667 L9,17.7946667 L11.5,17.794 L11.5,16.533 L3.5,16.5334533 L3.5,17.794 L6,17.7946667 L6,22.5946667 L0,22.5946667 L0,17.7946667 L2.5,17.794 L2.5,15.5734533 L11.5,15.573 L11.5,13.9546667 L12.5,13.9546667 Z M5,18.7546667 L1,18.7546667 L1,21.6346667 L5,21.6346667 L5,18.7546667 Z M23,18.7546667 L19,18.7546667 L19,21.6346667 L23,21.6346667 L23,18.7546667 Z M14,18.7546667 L10,18.7546667 L10,21.6346667 L14,21.6346667 L14,18.7546667 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+                <g id="Group" transform="translate(24, 100)" fill="#9E9EA2">
+                    <g id="dashboard-/-active-copy">
+                        <path d="M22,0 C23.1045695,0 24,0.8954305 24,2 L24,22 C24,23.1045695 23.1045695,24 22,24 L2,24 C0.8954305,24 0,23.1045695 0,22 L0,2 C0,0.8954305 0.8954305,0 2,0 L22,0 Z M22,1.5 L2,1.5 C1.72385763,1.5 1.5,1.72385763 1.5,2 L1.5,22 C1.5,22.2761424 1.72385763,22.5 2,22.5 L22,22.5 C22.2761424,22.5 22.5,22.2761424 22.5,22 L22.5,2 C22.5,1.72385763 22.2761424,1.5 22,1.5 Z M5,5.75 C5.69035594,5.75 6.25,6.30964406 6.25,7 L6.25,20 C6.25,20.6903559 5.69035594,21.25 5,21.25 C4.30964406,21.25 3.75,20.6903559 3.75,20 L3.75,7 C3.75,6.30964406 4.30964406,5.75 5,5.75 Z M9.33333333,8.75 C10.0236893,8.75 10.5833333,9.30964406 10.5833333,10 L10.5833333,20 C10.5833333,20.6903559 10.0236893,21.25 9.33333333,21.25 C8.6429774,21.25 8.08333333,20.6903559 8.08333333,20 L8.08333333,10 C8.08333333,9.30964406 8.6429774,8.75 9.33333333,8.75 Z M13.6666667,12.25 C14.3570226,12.25 14.9166667,12.8096441 14.9166667,13.5 L14.9166667,20 C14.9166667,20.6903559 14.3570226,21.25 13.6666667,21.25 C12.9763107,21.25 12.4166667,20.6903559 12.4166667,20 L12.4166667,13.5 C12.4166667,12.8096441 12.9763107,12.25 13.6666667,12.25 Z M18,6.75 C18.6903559,6.75 19.25,7.30964406 19.25,8 L19.25,20 C19.25,20.6903559 18.6903559,21.25 18,21.25 C17.3096441,21.25 16.75,20.6903559 16.75,20 L16.75,8 C16.75,7.30964406 17.3096441,6.75 18,6.75 Z" id="Combined-Shape"></path>
+                    </g>
+                    <text id="Dashboard" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.4375">
+                        <tspan x="48" y="16">Dashboard</tspan>
+                    </text>
+                </g>
+                <g id="Group" transform="translate(0, 45)">
+                    <rect id="Rectangle-Copy-3" fill-opacity="0.15" fill="#FFFFFF" x="0" y="0" width="260" height="40"></rect>
+                    <text id="Network-Management-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#FFFFFF">
+                        <tspan x="24" y="25">Network Management</tspan>
+                    </text>
+                    <path d="M240.154717,19 L240.232075,19.0773583 L244,22.8452834 L243.845283,23 L240.077358,19.2320749 L240,19.1547166 L240.154717,19 Z M247.845283,19 L248,19.1547166 L244.154717,23 L244,22.8452834 L247.845283,19 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
+                </g>
+                <g id="Device-Inventory-Selected" transform="translate(24, 146)" fill="#9E9EA2">
+                    <g id="Group" transform="translate(0, 0)">
+                        <text id="Device-Inventory-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                            <tspan x="48" y="16">Device Inventory</tspan>
+                        </text>
+                        <path d="M11.768922,-3.55271368e-15 C18.6388954,-3.55271368e-15 24,1.20012688 24,3.17188328 L24,5.5344466 C24,7.506203 18.6388954,8.70632988 11.768922,8.70632988 C4.40129168,8.70632988 0.000199696295,7.91954638 0.000199696295,6 L0.000199696295,3.17188328 C0.000199696295,1.18498602 5.00546754,-3.55271368e-15 11.768922,-3.55271368e-15 Z M11.768922,1.09090909 C8.65807728,1.09090909 5.84681263,1.36555638 3.81019797,1.84772037 C2.00358634,2.27543166 0.998681172,2.84922592 0.998681172,3.17188328 L0.998681172,6 C0.998681172,6.83572501 5.36012602,7.61542079 11.768922,7.61542079 C17.8581214,7.61542079 23.0015185,6.46402949 23.0015185,5.5344466 L23.0015185,3.17188328 C23.0015185,2.24230039 17.8581214,1.09090909 11.768922,1.09090909 Z M22.2428956,9.42863263 C22.4196733,9.28507038 22.6616741,9.28504769 22.8384742,9.4285768 C23.5429951,10.0005176 23.9637551,10.58466 23.9637551,11.4545455 L23.9637551,13.0909091 C23.9637551,15.1348034 18.6916905,16.3636364 11.9819774,16.3636364 C5.12558441,16.3636364 -2.48689958e-14,15.2505335 -2.48689958e-14,13.2242182 L-2.48689958e-14,10.6933091 C-2.48689958e-14,10.2088506 0.255736685,9.78932136 0.698134806,9.42906041 C0.874959578,9.28506554 1.11731046,9.28489164 1.29430819,9.42863263 C2.48342019,10.3943181 6.30879324,10.9090909 11.7691012,10.9090909 C17.2291381,10.9090909 21.0537399,10.3943536 22.2428956,9.42863263 Z M11.7691012,12 C6.47803091,12 2.72135264,11.5466473 1.05458057,10.5506616 C1.01560216,10.6086151 0.998481476,10.6566356 0.998481476,10.6933091 L0.998481476,13.2242182 C0.998481476,13.5725606 2.07705509,14.1499377 4.00373737,14.5683477 C6.07927097,15.0190831 8.92619885,15.2727273 11.9819774,15.2727273 C15.0011311,15.2727273 17.853783,14.9925039 19.9529096,14.5032314 C21.8754911,14.0551088 22.9652736,13.4487163 22.9652736,13.0909091 L22.9652736,11.4545455 C22.9652736,11.1218892 22.8065651,10.8330821 22.5054792,10.5368976 C20.8504196,11.5424953 17.0842181,12 11.7691012,12 Z M22.1711902,16.8537548 C22.2779821,16.7667478 22.412172,16.7299807 22.5439048,16.7516334 C23.2012797,16.8596853 23.6353137,17.2178118 23.8368534,17.7448356 C23.9401951,18.0150731 23.9637551,18.2341745 23.9637551,18.5454545 L23.9637551,20.6488364 C23.9637551,22.7004539 18.5736485,24 11.9449445,24 C5.33241366,24 -2.48689958e-14,22.702905 -2.48689958e-14,20.6488364 L-2.48689958e-14,18.1179273 C-2.48689958e-14,17.6339678 0.254876369,17.2144971 0.695911654,16.8541839 C0.872990129,16.7095158 1.11607175,16.7093413 1.29332415,16.8537548 C2.54941093,17.8771314 6.64411861,18.5454545 11.7327548,18.5454545 C16.8211657,18.5454545 20.9150466,17.8771777 22.1711902,16.8537548 Z M22.5752312,17.872171 C20.932923,18.9997446 16.8286133,19.6363636 11.7327548,19.6363636 C6.79788904,19.6363636 2.79234152,19.0393549 1.05250407,17.9777039 C1.01499577,18.0344552 0.998481476,18.0816347 0.998481476,18.1179273 L0.998481476,20.6488364 C0.998481476,21.0127479 2.09023929,21.6359124 4.00391419,22.1014085 C6.10864574,22.6133787 8.95374785,22.9090909 11.9449445,22.9090909 C14.9375317,22.9090909 17.8005856,22.6130061 19.9234484,22.1011872 C21.856958,21.6350212 22.9652736,21.0098471 22.9652736,20.6488364 L22.9652736,18.5454545 C22.9652736,18.3688576 22.9542873,18.2666872 22.9155525,18.1653964 C22.864684,18.0323757 22.7685954,17.933664 22.5752312,17.872171 Z" id="Combined-Shape"></path>
+                    </g>
+                </g>
+                <text id="SERVICE-Copy" opacity="0.796269" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" letter-spacing="0.6" fill="#FFFFFF">
+                    <tspan x="24" y="35">SERVICE</tspan>
+                </text>
+                <g id="Side-Nav-/-Administration-/-Selected" transform="translate(24.8199, 330)">
+                    <g id="Group" transform="translate(-0.8199, 0)">
+                        <text id="Administration-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
+                            <tspan x="48.368" y="17">Administration</tspan>
+                        </text>
+                        <path d="M16.0130246,0.355704156 L16.5552057,1.38806165 C16.8318814,1.37347575 17.1420674,1.38238936 17.4385056,1.4156128 L18.0485668,0.422961355 C18.2178373,0.149070591 18.6036366,0.0315730731 18.9138226,0.161225506 L20.2198691,0.719541296 C20.5369291,0.854866022 20.6924518,1.19277268 20.5824689,1.50474884 L20.1923734,2.59382928 C20.4166354,2.78263564 20.621994,2.99007953 20.8050123,3.21129899 L21.9701433,2.9130984 C22.0053722,2.90499512 22.1059034,2.89202988 22.14371,2.89202988 C22.4229634,2.89202988 22.678158,3.05814706 22.77783,3.30529701 L23.2822045,4.57021855 C23.4042168,4.87895341 23.2607235,5.22172203 22.9496782,5.36839135 L21.8687529,5.87322551 C21.8850784,6.1568402 21.8756268,6.44207556 21.8386794,6.72244894 L22.874065,7.28886801 C23.1773771,7.45336453 23.2976709,7.80585709 23.1515999,8.10729899 L22.5595827,9.33575579 C22.4513183,9.56345788 22.2090123,9.71093752 21.9417884,9.71093752 C21.8962486,9.71093752 21.7707994,9.69229998 21.7269781,9.67852441 L20.593639,9.31711826 C20.3925766,9.52942412 20.1691739,9.72714408 19.9285864,9.90298519 L20.233617,10.9863933 C20.3238373,11.3064728 20.1442559,11.6338452 19.8168851,11.749722 L18.4764689,12.2245741 C18.4249144,12.2429415 18.3725962,12.2548263 18.3195142,12.2607087 L18.2393183,12.2650905 C17.9824052,12.2650905 17.7435362,12.1257141 17.6309756,11.9085463 L17.1016831,10.9013089 C16.8138373,10.9158948 16.4976366,10.9077915 16.1908875,10.8705165 L15.5945742,11.8396684 C15.4655161,12.0508001 15.2062727,12.169613 14.95373,12.1538052 C15.073824,11.7657296 15.1432006,11.3593103 15.1558053,10.9393853 L15.5103685,10.3616307 C15.6383955,10.1501351 15.9279597,10.0156207 16.1969022,10.0537061 C16.5182584,10.1007051 16.8387553,10.1079981 17.1558153,10.0861192 C17.4737345,10.0861192 17.7031519,10.2206336 17.8165717,10.4369911 L18.3278202,11.4118154 L19.3614873,11.0455473 L19.0659083,9.9969832 C18.9954505,9.74416096 19.0942633,9.47999413 19.3193844,9.32279055 C19.578016,9.14208747 19.8125888,8.93464358 20.0188067,8.70613117 C20.1494114,8.56108251 20.3375852,8.47842908 20.5360699,8.47842908 C20.5816097,8.47842908 20.7044811,8.49706662 20.7483024,8.51084219 L21.8455534,8.86009343 L22.3009511,7.91201001 L21.2999352,7.36503881 C21.0619254,7.23376572 20.9330393,6.98094348 20.9725644,6.72082829 C21.0189634,6.42343802 21.0292743,6.12280644 21.003497,5.82379552 C20.9794383,5.56205967 21.1255093,5.31653037 21.3729707,5.19984318 L22.4203857,4.71121558 L22.029431,3.73152938 L20.9012474,4.02000604 C20.8660185,4.02810932 20.7654873,4.04107456 20.7285399,4.04107456 C20.5163073,4.04107456 20.3135264,3.94383524 20.1863587,3.7817697 C20.0016219,3.54677466 19.7850931,3.32879651 19.5436464,3.13512819 C19.3288361,2.96171806 19.2497859,2.6910686 19.339147,2.44391865 L19.7154946,1.39373395 L18.7101825,0.963449935 L18.1190246,1.92449859 C17.9884199,2.13599413 17.696278,2.27456016 17.4324909,2.23242312 C17.1223049,2.18866543 16.8078226,2.17975182 16.5002143,2.202441 C16.1822951,2.202441 15.9528777,2.0679266 15.8394579,1.8515691 L15.3101653,0.843521435 L14.2816537,1.21789283 L14.5841066,2.29238737 C14.6571421,2.54277863 14.5574701,2.81018678 14.328912,2.96820068 C14.0780136,3.14323146 13.847737,3.34581339 13.6458153,3.56784318 C13.5143514,3.71127119 13.3261776,3.79230396 13.1302706,3.79230396 C13.0847308,3.79230396 12.9618594,3.77366642 12.9188973,3.75989085 L11.7975876,3.40334666 L11.3421898,4.35143007 L12.3526574,4.90407357 C12.5958226,5.03777764 12.7229903,5.29303087 12.679169,5.55557705 C12.63277,5.84567436 12.6207406,6.14387496 12.6447994,6.44126523 C12.650184,6.51003054 12.6442036,6.57746991 12.6280208,6.64163588 C12.3589505,6.49262861 12.0744583,6.36801878 11.7772755,6.26905007 L11.7795436,6.38859393 C11.7649365,6.10659989 11.7752474,5.82379552 11.813054,5.54585311 L10.769076,4.97457208 C10.4657639,4.80683424 10.3471886,4.45596235 10.4915411,4.15776175 L11.0835582,2.92687397 C11.1935411,2.69917188 11.4358471,2.55169224 11.7004934,2.55169224 C11.7468924,2.55169224 11.8740601,2.57195043 11.9178814,2.585726 L13.0735607,2.95442511 C13.2694677,2.74860187 13.4868557,2.55817486 13.7214285,2.38557506 L13.409524,1.27704676 C13.3193037,0.956967313 13.4988851,0.628784592 13.8279744,0.513718058 L15.1666721,0.0396763502 C15.4802951,-0.0753901841 15.8643759,0.0688481476 16.0130246,0.355704156 Z M16.8220001,3.96676751 C18.0876623,3.96676751 19.1170332,4.9375401 19.1170332,6.13196314 C19.1170332,7.32557585 18.0876623,8.29634845 16.8220001,8.29634845 C15.5554787,8.29634845 14.5261078,7.32557585 14.5261078,6.13196314 C14.5261078,4.9375401 15.5554787,3.96676751 16.8220001,3.96676751 Z M16.8220001,4.77709522 C16.0297798,4.77709522 15.3853489,5.384841 15.3853489,6.13196314 C15.3853489,6.87827496 16.0297798,7.48602074 16.8220001,7.48602074 C17.6133612,7.48602074 18.257792,6.87827496 18.257792,6.13196314 C18.257792,5.384841 17.6133612,4.77709522 16.8220001,4.77709522 Z" id="Combined-Shape" fill="#9E9EA2"></path>
+                        <ellipse id="Oval-Copy" stroke="#9E9EA2" cx="10.1052632" cy="10.8" rx="5.05263158" ry="4.8"></ellipse>
+                        <path d="M0.819858578,24 C1.70783371,18.4 4.96182561,15.6 10.5818343,15.6 C16.2018429,15.6 19.2636405,18.4 19.767227,24 L0.819858578,24 Z" id="Path-4" stroke="#9E9EA2" stroke-linejoin="round"></path>
+                    </g>
+                </g>
+                <g id="Side-Nav-/-Configuration-/-Selected" transform="translate(24.9391, 238.939)" fill="#9E9EA2">
+                    <g id="Group" transform="translate(0, 0)">
+                        <text id="Configuration-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                            <tspan x="47.0609476" y="16.0610396">Configuration</tspan>
+                        </text>
+                        <g id="operations-copy-3" transform="translate(0, 0)">
+                            <path d="M10.4299448,5.39428662 C11.7247705,5.40479102 12.9668779,5.91376383 13.8991498,6.84702361 C15.2923179,8.23919867 15.7158024,10.2998718 15.0333038,12.1143192 C15.0062334,12.18638 14.988185,12.2220381 14.9273931,12.3286626 L22.4403588,19.8416283 C22.918459,20.3197284 23.0629799,20.9329231 22.5856673,21.4102357 L21.42829,22.5666944 C20.9549769,23.0416012 20.3128178,22.91332 19.8415363,22.4404508 L12.3238331,14.9227476 C12.2366352,14.970907 12.1987498,14.9894406 12.1340494,15.0137459 C10.3202713,15.6963841 8.25869563,15.2728313 6.86568104,13.8798167 C5.93286308,12.9469988 5.42424013,11.7048261 5.41374135,10.4096596 C5.40659249,9.54016744 6.44710733,9.07989924 7.06915778,9.70013686 L8.63926707,11.2702461 L8.69789858,11.2554941 C8.89205378,11.2050373 9.56838903,11.0252307 10.7269043,10.7160741 C10.729666,10.7153237 10.918213,10.0187012 11.2925454,8.62620658 C11.2926091,8.62597199 11.2781064,8.61117926 11.2490371,8.58182838 L11.1181296,8.45010126 C10.8853203,8.2162325 10.4194466,7.74943331 9.72050862,7.04970368 C9.0989972,6.42819225 9.55950107,5.38714463 10.4299448,5.39428662 Z M10.422106,6.35428914 C10.4066119,6.35416296 10.9228099,6.88348476 11.9706998,7.94225454 C12.2144506,8.18782441 12.3097991,8.54362477 12.2193775,8.87636554 L11.6616478,10.9568417 C11.5726127,11.2911776 11.312546,11.5517454 10.9768725,11.6429574 L8.89568206,12.1999603 C8.56181427,12.2893566 8.20533722,12.1939613 7.96044456,11.9490687 L6.39083112,10.3794545 C6.38219607,11.4478946 6.79183487,12.4483255 7.54450355,13.2009942 C8.66830854,14.3247992 10.3313522,14.6664732 11.7961738,14.1151693 L11.824921,14.1012299 C11.840283,14.0931075 11.8629104,14.080693 11.8972601,14.0615379 C11.9184877,14.0497139 11.9184877,14.0497139 11.9418614,14.0369126 C12.2878673,13.8487825 12.5539429,13.7952123 12.8403588,14.0816283 L20.5209288,21.7621992 C20.6619161,21.9036612 20.7218056,21.915625 20.7490321,21.8883084 L21.9069793,20.7312787 C21.9229058,20.7153522 21.9124786,20.6714804 21.7615363,20.5204508 L14.0803475,12.8392578 C13.7962652,12.5531749 13.8527842,12.2859382 14.0432694,11.9415328 C14.0595409,11.9124054 14.0595409,11.9124054 14.0745577,11.8861556 C14.1191126,11.8084188 14.131151,11.7859632 14.1346952,11.7765286 C14.6859011,10.3111276 14.3443307,8.64904848 13.2202687,7.52578738 C12.4678751,6.77259675 11.467662,6.36274391 10.422106,6.35428914 Z M11.6491629,3.47004132e-05 C12.1027762,-0.0039621044 12.4852409,0.337763151 12.5335196,0.788364726 L12.7604811,2.8953597 C13.3058866,3.05079104 13.8306301,3.26375081 14.3278514,3.53057857 L15.9485237,2.18508182 C16.2976136,1.89617986 16.807987,1.91797516 17.1319943,2.23594662 L18.7867113,3.86681667 C19.1106645,4.18473352 19.1398444,4.69720601 18.8554869,5.05013209 L17.5371568,6.68643299 C17.8152447,7.18558266 18.0389521,7.71263767 18.2038491,8.2599401 L20.281789,8.45282157 C20.7339013,8.49501871 21.0803885,8.87311532 21.0823965,9.32540676 L21.0998496,11.6512963 C21.1018535,12.1041866 20.7611944,12.4854581 20.3106112,12.5335201 L18.1807318,12.7629341 C17.9171597,12.791324 17.6804776,12.6006712 17.6520877,12.337099 C17.6236978,12.0735269 17.8143506,11.8368449 18.0779227,11.808455 L20.1393293,11.5864166 L20.1229477,9.40220418 L18.0564152,9.21038059 C17.696176,9.17616793 17.399728,8.92475721 17.29723,8.57907491 C17.1467473,8.06811388 16.9383893,7.57749228 16.6772903,7.11580698 C16.4980093,6.80156159 16.5255531,6.41135764 16.7534673,6.12898639 L18.0639758,4.50239308 L16.5077134,2.96855866 L14.8956314,4.30692256 C14.6171054,4.53700925 14.2299498,4.57012876 13.9133468,4.39780046 C13.4518478,4.14630941 12.9633106,3.94800941 12.4539913,3.80638942 C12.1072257,3.7096176 11.8503321,3.41496244 11.8121257,3.05501229 L11.5865124,0.960538673 L9.40229108,0.976059466 L9.20762742,3.07468159 C9.17335847,3.43551355 8.920976,3.73367968 8.57628237,3.83387839 C8.07436726,3.98165035 7.59139513,4.18565329 7.13488821,4.44119024 C6.82071395,4.61841675 6.43093611,4.59143655 6.151051,4.36389777 L4.50239833,3.03591514 L2.96897042,4.59176633 L4.31495396,6.21316665 C4.54605987,6.49250336 4.57854891,6.88066189 4.40532997,7.19889463 C4.15380376,7.65700077 3.95460735,8.14217862 3.81119357,8.64839326 C3.71288206,8.99348672 3.42014182,9.24856447 3.06128526,9.28686928 L0.960532115,9.51248927 L0.976059329,11.6976142 L3.05918648,11.8911073 C3.42194821,11.923533 3.72112555,12.1779199 3.82160563,12.5255814 C3.96911759,13.0346255 4.17351835,13.5234193 4.43040551,13.9835675 C4.60550509,14.2975391 4.57801478,14.6852671 4.35100082,14.9645072 L3.03590972,16.5966024 L4.59179518,18.1309145 L6.18773622,16.8064365 C6.46841283,16.5722028 6.8596902,16.5400272 7.17566947,16.7160214 C7.64266133,16.9733434 8.13682817,17.1767859 8.64957557,17.3219546 C8.99609646,17.4186581 9.25217171,17.713116 9.29054028,18.0725698 L9.51248691,20.139337 L11.6976711,20.122948 L11.8875717,18.070424 C11.9119943,17.8064547 12.1457821,17.6122637 12.4097514,17.6366863 C12.6737207,17.6611089 12.8679117,17.8948967 12.8434891,18.158866 L12.6470749,20.2817892 C12.6048778,20.7339015 12.2267812,21.0803887 11.7744897,21.0823967 L9.44859077,21.0998498 C8.99546337,21.1018459 8.61371342,20.7619067 8.56544231,20.3113762 L8.34219538,18.2324999 C7.79144515,18.0728745 7.26139064,17.8548293 6.75723311,17.5813414 L5.15045493,18.9148149 C4.80082277,19.2041656 4.28969202,19.1817316 3.96688958,18.862939 L2.31318503,17.2321624 C1.98938063,16.9143916 1.96025786,16.4035297 2.24442592,16.0488265 L3.56745122,14.4068885 C3.2950087,13.9114362 3.07574695,13.3870595 2.91390109,12.841742 L0.818107235,12.6470751 C0.366681119,12.604942 0.0206125765,12.2279637 0.0165807771,11.7743004 L3.45188413e-05,9.45071471 C-0.00394998175,8.9964968 0.337466942,8.61376964 0.788514946,8.56544309 L2.90135945,8.33852458 C3.0586589,7.79620894 3.27275109,7.27463775 3.53932918,6.78181029 L2.18508162,5.15045513 C1.89600833,4.80115823 1.91786256,4.29001211 2.23594642,3.96790219 L3.86681647,2.31318523 C4.18473332,1.98923198 4.69720581,1.96005205 5.05009082,2.24437655 L6.70824651,3.58001989 C7.20035723,3.30852649 7.71825478,3.08975522 8.25718171,2.9272629 L8.45282137,0.818107436 C8.49495447,0.366681319 8.87193281,0.0206127768 9.32559604,0.0165809774 L11.6491629,3.47004132e-05 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="Side-Nav-/-Operations-/-Selected" transform="translate(27, 285)" fill="#9E9EA2">
+                    <g id="Group" transform="translate(-0, 0)">
+                        <text id="Operations-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                            <tspan x="45" y="17">Operations</tspan>
+                        </text>
+                        <g id="operations-copy">
+                            <path d="M8.13015106,9.00519868 C8.45326152,9.00519868 8.71855222,9.24221953 8.75188361,9.55689679 L8.9103778,11.0107598 C9.28586617,11.1174529 9.65115106,11.2646624 9.99738943,11.4483367 L11.125215,10.5191609 C11.3632964,10.3219812 11.739465,10.3395383 11.9584999,10.556301 L13.1121743,11.684007 C13.3407325,11.9075224 13.3611394,12.2627161 13.1604708,12.5105413 L12.2428371,13.6402732 C12.4346627,13.9826366 12.5904359,14.3466088 12.7053952,14.7240865 L14.1508894,14.8571153 C14.4699185,14.8868273 14.7120813,15.148158 14.7148022,15.4662116 L14.7263893,17.0753874 C14.7290871,17.3941163 14.4910057,17.6601739 14.1712964,17.6932622 L12.7292034,17.8478998 C12.6210464,18.2260527 12.4693545,18.5961024 12.2795697,18.9472444 L13.2006045,20.04929 C13.4053545,20.2930636 13.3903894,20.647582 13.1665929,20.8744738 L12.0278836,22.0217627 C11.9088429,22.1399355 11.7523894,22.2047617 11.584372,22.2047617 C11.4435638,22.2047617 11.3054766,22.1568173 11.195279,22.0690318 L10.0688138,21.166867 C9.71849408,21.3593198 9.34776733,21.5139574 8.9647964,21.6274032 L8.83147082,23.0522295 C8.80154059,23.3702831 8.53761036,23.6106803 8.21586036,23.6120309 L6.59622664,23.6241858 C6.27447664,23.6241858 6.00918594,23.3878402 5.97381385,23.0745135 L5.81872082,21.6375323 C5.43711036,21.5281381 5.06774408,21.3768769 4.71946501,21.189151 L3.60184292,22.1095482 C3.35899989,22.3060527 2.98623245,22.2878203 2.76855803,22.0730835 L1.61488361,20.9447022 C1.38632547,20.7225373 1.36523826,20.3666684 1.5665871,20.1188432 L2.48762199,18.9843844 C2.29919757,18.6433715 2.14614524,18.2807498 2.03390687,17.9066485 L0.576168497,17.7722692 C0.257139427,17.7425572 0.0149766366,17.4812265 0.0122557064,17.1631729 L5.73570284e-06,15.5533218 C-0.00134894475,15.2345929 0.237412683,14.9692106 0.55576152,14.9354469 L2.02506385,14.7787836 C2.13458129,14.4060328 2.28287199,14.0461123 2.46721501,13.7064499 L1.52577315,12.5800944 C1.32170338,12.3363208 1.3366685,11.9811272 1.56046501,11.7542354 L2.69917431,10.6076217 C2.91548826,10.3888332 3.28893594,10.3692503 3.53109873,10.5596773 L4.71878478,11.5097866 C5.00448245,11.3065294 5.37520919,11.1491907 5.75886036,11.033719 L5.8955871,9.57647971 C5.92551733,9.25910136 6.1901278,9.01870414 6.51051733,9.0173536 L8.13015106,9.00519868 Z M8.08185454,9.68114704 L6.56765687,9.69195141 L6.43229059,11.1390616 C6.40848245,11.389588 6.23434292,11.5982473 5.98877896,11.6698263 C5.63981966,11.7724678 5.30174408,11.9142751 4.98339524,12.0905214 C4.76844175,12.2113953 4.48478478,12.1897866 4.29159873,12.035149 L3.1460871,11.1194787 L2.08356385,12.1897866 L3.01888361,13.3087141 C3.18145919,13.5025174 3.2066278,13.7739772 3.08146501,13.9981679 C2.90800571,14.3135204 2.76855803,14.6504817 2.66924408,14.9995979 C2.59849989,15.2440467 2.39170919,15.4196177 2.14002315,15.4452781 L0.680924311,15.6012662 L0.691808032,17.1044241 L2.14070338,17.2381282 C2.39511036,17.2617627 2.60530222,17.4359832 2.67672664,17.6824579 C2.77876152,18.0322493 2.92161036,18.3712364 3.10051152,18.6886148 C3.22431385,18.9107796 3.2025464,19.1802136 3.04405222,19.3753675 L2.13049989,20.5010477 L3.2086685,21.5558243 L4.31880803,20.6415045 C4.42900571,20.5510179 4.56777315,20.501723 4.70994175,20.501723 C4.8153778,20.501723 4.92081385,20.5280587 5.01332547,20.5793794 C5.3377964,20.7569762 5.68335454,20.8981083 6.04047664,20.9980487 C6.28740106,21.0669266 6.46358129,21.2735601 6.49011036,21.5220606 L6.64452315,22.9482374 L8.15872082,22.937433 L8.29136617,21.5213854 C8.31517431,21.2695085 8.49067431,21.0608491 8.73827896,20.9892702 C9.09608129,20.8859534 9.44368013,20.741445 9.76883129,20.5597965 C9.98582547,20.4389226 10.268122,20.4612066 10.4599476,20.6131431 L11.5809708,21.5099057 L12.6434941,20.4395979 L11.7279011,19.3449802 C11.5653255,19.1498263 11.5401569,18.8790418 11.6653197,18.6548511 C11.8442208,18.33072 11.9857092,17.9849802 12.0850231,17.6304618 C12.1550871,17.3819613 12.362558,17.2070656 12.6142441,17.1814052 L14.0454534,17.0281182 L14.0352499,15.5242851 L12.599279,15.3926068 C12.3475929,15.3696475 12.1374011,15.1967776 12.0646162,14.953004 C11.9584999,14.5978104 11.8129301,14.2574728 11.6319883,13.9394191 C11.5047848,13.7172543 11.5265522,13.4464698 11.6864069,13.2499653 L12.5972383,12.1283367 L11.5183894,11.0735601 L10.3980464,11.9959832 C10.2082615,12.1519713 9.92732547,12.1776316 9.70829059,12.0614847 C9.38449989,11.8859137 9.04234292,11.7488332 8.69134292,11.6509186 C8.44169757,11.5820408 8.2648371,11.3754072 8.23898826,11.1255562 L8.08185454,9.68114704 Z M7.37441268,13.5680189 C8.89473245,13.5680189 10.1409185,14.7963407 10.1524825,16.3069266 C10.1640464,17.8283169 8.92602315,19.0741957 7.39345919,19.0856753 C5.85205222,19.0856753 4.60586617,17.8573536 4.59430222,16.3467677 C4.58886036,15.6093695 4.87251733,14.9145135 5.39425571,14.3905016 C5.91463361,13.8651391 6.61119175,13.5734211 7.35332547,13.5680189 L7.37441268,13.5680189 Z M7.374,13.912 L7.35876733,14.243292 C6.79757547,14.2473437 6.27175571,14.468158 5.87858129,14.8645433 C5.48540687,15.2609286 5.27045338,15.7849405 5.27453478,16.3413655 C5.2833778,17.482577 6.22481966,18.4104023 7.37237199,18.4104023 C8.54645338,18.4016237 9.48109292,17.4609683 9.47224989,16.3116535 C9.46340687,15.1711172 8.52196501,14.243292 7.37441268,14.243292 L7.374,13.912 Z M11.6769778,0.29642013 L12.1062045,1.15671804 C12.3252394,1.14456313 12.5708034,1.15199113 12.8054836,1.17967733 L13.2884487,0.352467796 C13.4224545,0.124225492 13.727879,0.0263108943 13.9734429,0.134354588 L15.0073964,0.599617746 C15.2584022,0.712388352 15.3815243,0.99397723 15.2944545,1.25395737 L14.985629,2.1615244 C15.1631697,2.31886303 15.3257452,2.49173294 15.4706348,2.67608249 L16.3930301,2.427582 C16.4209197,2.42082927 16.5005069,2.4100249 16.5304371,2.4100249 C16.7515127,2.4100249 16.9535418,2.54845588 17.0324487,2.75441417 L17.4317452,3.80851546 C17.5283383,4.06579451 17.4147394,4.35143503 17.1684952,4.47365945 L16.3127627,4.89435459 C16.3256871,5.13070017 16.3182045,5.3683963 16.2889545,5.60204079 L17.1086348,6.07405667 C17.3487569,6.21113711 17.4439894,6.5048809 17.3283499,6.75608249 L16.8596697,7.7797965 C16.7739604,7.96954823 16.5821348,8.09244793 16.3705825,8.09244793 C16.3345301,8.09244793 16.2352162,8.07691665 16.2005243,8.06543701 L15.3032976,7.76426521 C15.1441231,7.94118676 14.9672627,8.1059534 14.7767976,8.25248766 L15.0182801,9.15532778 C15.0897045,9.42206065 14.9475359,9.69487097 14.6883673,9.79143503 L13.6272045,10.1871451 C13.5863906,10.2024512 13.544972,10.2123553 13.5029487,10.2172572 L13.4394604,10.2209087 C13.2360708,10.2209087 13.0469662,10.1047617 12.9578557,9.92378855 L12.5388325,9.0844241 C12.3109545,9.09657902 12.060629,9.08982629 11.8177859,9.05876372 L11.3457045,9.86639034 C11.212379,10.0959832 10.9035534,10.1945731 10.6600301,10.0838283 L9.6274371,9.61991566 C9.37439059,9.50646978 9.25194873,9.22420563 9.34105919,8.96287495 L9.64444292,8.07151447 C9.46486152,7.91147475 9.30092547,7.73522847 9.15399524,7.54615201 L8.24180338,7.79195141 C8.21323361,7.79937941 8.1336464,7.80950851 8.10371617,7.80950851 C7.88264059,7.80950851 7.68061152,7.67107753 7.60170454,7.46511924 L7.20308826,6.41034267 C7.10445454,6.1537389 7.21805338,5.86742311 7.46769873,5.74587395 L8.32547199,5.32382827 C8.31390803,5.08883324 8.32207082,4.85316293 8.35200106,4.62154426 L7.5255185,4.14547673 C7.2853964,4.0056952 7.19152431,3.71330196 7.30580338,3.46480146 L7.77448361,2.43906164 C7.86155338,2.2493099 8.05337896,2.1264102 8.26289059,2.1264102 C8.29962315,2.1264102 8.40029757,2.14329203 8.43498943,2.15477167 L9.34990222,2.46202092 C9.50499524,2.29050156 9.67709408,2.13181238 9.86279757,1.98797922 L9.61587315,1.06420563 C9.54444873,0.797472761 9.68661733,0.52398716 9.9471464,0.428098382 L11.0069487,0.0330636252 C11.2552336,-0.0628251534 11.5592976,0.0573734563 11.6769778,0.29642013 Z M11.1205476,0.702934529 L10.3063092,1.0149107 L10.5457511,1.91032281 C10.6035708,2.1189822 10.5246638,2.34182231 10.343722,2.47350057 C10.1450941,2.61935955 9.96279175,2.78817783 9.8029371,2.97320265 C9.69886152,3.09272599 9.54989059,3.1602533 9.39479757,3.1602533 C9.35874524,3.1602533 9.26147199,3.14472202 9.22746036,3.13324237 L8.33975687,2.83612222 L7.97923361,3.62619173 L8.7791871,4.08672797 C8.97169292,4.19814803 9.07236733,4.41085906 9.03767547,4.62964754 C9.00094292,4.8713953 8.99141966,5.1198958 9.01046617,5.36772102 C9.02679175,5.58718478 8.91115222,5.79044198 8.71524524,5.88633076 L7.88536152,6.29352043 L8.1941871,7.10992559 L9.07848943,6.87155419 C9.10705919,6.86480146 9.18528594,6.85399709 9.21453594,6.85399709 C9.38391385,6.85399709 9.54512896,6.93570513 9.64716385,7.07278557 C9.79545454,7.27334168 9.96687315,7.4583665 10.159379,7.62110732 C10.3260359,7.76358994 10.3899778,7.98778061 10.3212743,8.19306363 L10.0260534,9.05808845 L10.8219255,9.41598319 L11.2790418,8.63469222 C11.3803964,8.45844595 11.6096348,8.34635062 11.8225476,8.37808845 C12.0769545,8.41725429 12.3306813,8.42333175 12.5816871,8.40509937 C12.8333731,8.40509937 13.0149952,8.51719471 13.1047859,8.69749262 L13.5095243,9.50984615 L14.3278441,9.20462271 L14.0938441,8.33081934 C14.038065,8.12013413 14.1162918,7.8999951 14.2945127,7.76899213 C14.4992627,7.61840623 14.6849662,7.44553632 14.848222,7.25510931 C14.9516173,7.13423542 15.1005883,7.06535757 15.257722,7.06535757 C15.2937743,7.06535757 15.3910476,7.08088885 15.4257394,7.09236849 L16.2943964,7.38341119 L16.6549197,6.59334168 L15.8624487,6.13753234 C15.6740243,6.0281381 15.5719894,5.8174529 15.6032801,5.60069024 C15.6400127,5.35286502 15.6481755,5.1023387 15.6277685,4.85316293 C15.608722,4.63504972 15.7243615,4.43044198 15.9202685,4.33320265 L16.749472,3.92601298 L16.4399662,3.10960782 L15.5468208,3.35000504 C15.5189313,3.35675777 15.4393441,3.36756214 15.4100941,3.36756214 C15.2420766,3.36756214 15.0815418,3.28652936 14.9808673,3.15147475 C14.8346173,2.95564555 14.6631987,2.77399709 14.4720534,2.61260682 C14.3019952,2.46809838 14.2394138,2.24255717 14.310158,2.03659888 L14.6080999,1.16144496 L13.8122278,0.802874946 L13.3442278,1.60374883 C13.2408325,1.7799951 13.0095534,1.8954668 12.800722,1.8603526 C12.555158,1.82388786 12.3061929,1.81645985 12.0626697,1.8353675 C11.8109836,1.8353675 11.6293615,1.72327217 11.5395708,1.54297425 L11.1205476,0.702934529 Z M12.3174168,3.30563959 C13.3193993,3.30563959 14.1343179,4.11461675 14.1343179,5.10996929 C14.1343179,6.10464654 13.3193993,6.9136237 12.3174168,6.9136237 C11.314754,6.9136237 10.4998354,6.10464654 10.4998354,5.10996929 C10.4998354,4.11461675 11.314754,3.30563959 12.3174168,3.30563959 Z M12.3174168,3.98091268 C11.6902423,3.98091268 11.1800679,4.4873675 11.1800679,5.10996929 C11.1800679,5.7318958 11.6902423,6.23835062 12.3174168,6.23835062 C12.9439109,6.23835062 13.4540854,5.7318958 13.4540854,5.10996929 C13.4540854,4.4873675 12.9439109,3.98091268 12.3174168,3.98091268 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+                <g id="Side-Nav-/-Workflows-/-Selected" transform="translate(28, 375)" fill="#9E9EA2">
+                    <text id="Quick-Start" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                        <tspan x="39" y="17">Quick Start</tspan>
+                    </text>
+                    <g id="flash" fill-rule="nonzero">
+                        <path d="M15.4770545,8.66918311 C15.385861,8.50086621 15.2490974,8.41668311 15.0667638,8.41668311 L9.68741473,8.41668311 L15.0211938,0.63125 C15.1123873,0.505 15.1123873,0.336683105 15.0211938,0.210433105 C14.9300003,0.0841831055 14.7932367,0 14.6109031,0 L7.31686408,0 C7.13453047,0 6.9977669,0.0841831055 6.90657339,0.210433105 L0.0683951383,12.8354331 C-0.0227983794,12.9616831 -0.0227983794,13.13 0.0683951383,13.25625 C0.159588656,13.3825 0.341922268,13.4666831 0.478685833,13.4666831 L5.17421709,13.4666831 L0.0683951383,24.7029331 C-0.0227983794,24.87125 0.0683951383,25.0816831 0.250728751,25.2079331 C0.296298798,25.25 0.387492315,25.25 0.478685833,25.25 C0.615449398,25.25 0.752212963,25.2079331 0.843406481,25.12375 L15.4315379,9.13206689 C15.561711,8.98936954 15.568248,8.8375 15.4770545,8.66918311 Z M2.07422514,22.4304331 L6.26832561,13.1721162 C6.31389566,13.0458662 6.31389566,12.9196162 6.22275556,12.7933662 C6.13156204,12.7091831 5.99479848,12.6250493 5.85803491,12.6250493 L1.20807371,12.6250493 L7.59039121,0.841683105 L13.7903217,0.841683105 L8.4109726,8.62706689 C8.31977908,8.75331689 8.31977908,8.92163379 8.4109726,9.04788379 C8.50216612,9.17413379 8.63892968,9.25831689 8.8212633,9.25831689 L14.1094723,9.25831689 L2.07422514,22.4304331 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+            <text id="Quick-Start" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
+                <tspan x="70" y="435">Quick Start</tspan>
+            </text>
+            <g id="flash" transform="translate(31, 418)" fill="#9E9EA2" fill-rule="nonzero">
+                <path d="M15.4770545,8.66918311 C15.385861,8.50086621 15.2490974,8.41668311 15.0667638,8.41668311 L9.68741473,8.41668311 L15.0211938,0.63125 C15.1123873,0.505 15.1123873,0.336683105 15.0211938,0.210433105 C14.9300003,0.0841831055 14.7932367,0 14.6109031,0 L7.31686408,0 C7.13453047,0 6.9977669,0.0841831055 6.90657339,0.210433105 L0.0683951383,12.8354331 C-0.0227983794,12.9616831 -0.0227983794,13.13 0.0683951383,13.25625 C0.159588656,13.3825 0.341922268,13.4666831 0.478685833,13.4666831 L5.17421709,13.4666831 L0.0683951383,24.7029331 C-0.0227983794,24.87125 0.0683951383,25.0816831 0.250728751,25.2079331 C0.296298798,25.25 0.387492315,25.25 0.478685833,25.25 C0.615449398,25.25 0.752212963,25.2079331 0.843406481,25.12375 L15.4315379,9.13206689 C15.561711,8.98936954 15.568248,8.8375 15.4770545,8.66918311 Z M2.07422514,22.4304331 L6.26832561,13.1721162 C6.31389566,13.0458662 6.31389566,12.9196162 6.22275556,12.7933662 C6.13156204,12.7091831 5.99479848,12.6250493 5.85803491,12.6250493 L1.20807371,12.6250493 L7.59039121,0.841683105 L13.7903217,0.841683105 L8.4109726,8.62706689 C8.31977908,8.75331689 8.31977908,8.92163379 8.4109726,9.04788379 C8.50216612,9.17413379 8.63892968,9.25831689 8.8212633,9.25831689 L14.1094723,9.25831689 L2.07422514,22.4304331 Z" id="Shape"></path>
+            </g>
+        </g>
+        <g id="Header">
+            <g id="Group-6" fill-rule="nonzero">
+                <g id="Rectangle-Copy-2">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                    <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                </g>
+            </g>
+            <text id="Cisco-Rainier" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold" line-spacing="24" letter-spacing="0.5" fill="#0E5099">
+                <tspan x="69" y="44">Cisco </tspan>
+                <tspan x="127.884746" y="45.4764404" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">Rainier</tspan>
+            </text>
+            <g id="icons-/-hamburger-/-Hamburger-Menu" transform="translate(27, 30)">
+                <mask id="mask-5" fill="white">
+                    <use xlink:href="#path-4"></use>
+                </mask>
+                <use id="Hamburger" fill="#0E5099" xlink:href="#path-4"></use>
+            </g>
+            <g id="Group-3" transform="translate(1150, 26)">
+                <g id="alerts-and-notifications/alert_20w" fill="#9E9EA2" fill-rule="nonzero">
+                    <g id="alert_20">
+                        <path d="M9,19.0009 C7.835,19.0009 6.881,18.1259 6.735,16.9999 L11.265,16.9999 C11.119,18.1259 10.165,19.0009 9,19.0009 M9,-0.0001 C6.239,-0.0001 4,2.2379 4,4.9999 L4,5.1929 C4,5.9089 3.763,6.6189 3.342,7.1819 L0.867,10.2579 C0.308,11.0029 0,11.9269 0,12.8569 L0,15.8609 C0,16.4889 0.511,16.9999 1.139,16.9999 L5.735,16.9999 C5.887,18.6779 7.284,20.0009 9,20.0009 C10.716,20.0009 12.113,18.6779 12.265,16.9999 L16.861,16.9999 C17.489,16.9999 18,16.4889 18,15.8609 L18,12.8569 C18,11.9269 17.692,11.0029 17.133,10.2579 L14.666,7.1919 C14.237,6.6189 14,5.9089 14,5.1929 L14,4.9999 C14,2.2379 11.761,-0.0001 9,-0.0001 M9,0.9999 C11.206,0.9999 13,2.7949 13,4.9999 L13,5.1929 C13,6.1229 13.308,7.0469 13.887,7.8189 L16.333,10.8579 C16.763,11.4309 17,12.1409 17,12.8569 L17,15.8609 C17,15.9369 16.937,15.9999 16.861,15.9999 L12.403,15.9999 L11.265,15.9999 L6.735,15.9999 L5.597,15.9999 L1.139,15.9999 C1.063,15.9999 1,15.9369 1,15.8609 L1,12.8569 C1,12.1409 1.237,11.4309 1.646,10.8849 L4.143,7.7799 C4.696,7.0419 5,6.1229 5,5.1929 L5,4.9999 C5,2.7949 6.794,0.9999 9,0.9999" id="fill"></path>
+                    </g>
+                </g>
+                <g id="help" transform="translate(86, 0)">
+                    <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
+                    <circle id="Oval" stroke="#979797" cx="10" cy="9" r="4"></circle>
+                    <path d="M3.5,17 C4.96662432,14.3333333 7.13329099,13 10,13 C12.866709,13 15.1778133,14.3333333 16.9333128,17" id="Line-2" stroke="#979797" stroke-linecap="square"></path>
+                </g>
+                <g id="help" transform="translate(42, 0)">
+                    <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
+                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                        <text>
+                            <tspan x="0" y="15">?</tspan>
+                        </text>
+                    </g>
+                </g>
+            </g>
+            <g id="Group" transform="translate(1047, 26)">
+                <path d="M59.1547166,9 L59.2320749,9.0773583 L63,12.8452834 L62.8452834,13 L59.0773583,9.23207491 L59,9.15471661 L59.1547166,9 Z M66.8452834,9 L67,9.15471661 L63.1547166,13 L63,12.8452834 L66.8452834,9 Z" id="Combined-Shape" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
+                <text id="Tenant" opacity="0.6" font-family="CiscoSans, Cisco Sans" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                    <tspan x="0" y="16">Tenant</tspan>
+                </text>
+            </g>
+        </g>
+        <line x1="284" y1="239.5" x2="1256" y2="239.5" id="Line-Copy-82" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
+        <line x1="1152.8125" y1="70" x2="1167.4375" y2="70" id="Selected" stroke="#0E5099" stroke-width="5" stroke-linecap="square"></line>
+        <g id="Group-4" transform="translate(357, 364)">
+            <g id="calendar" fill="#0E5099" fill-rule="nonzero">
+                <path d="M10.6249695,12 L1.37503052,12 C0.616516125,12 0,11.3834822 0,10.6249657 L0,2.37494277 C0,1.61642627 0.616516125,1 1.37503052,1 L10.6249695,1 C11.3834839,1 12,1.61642627 12,2.37494277 L12,10.6249657 C12,11.3834822 11.3834839,12 10.6249695,12 Z M1.37503052,1.75000208 C1.03051758,1.75000208 0.75,2.03042887 0.75,2.37494277 L0.75,10.6249657 C0.75,10.9694796 1.03051758,11.2500021 1.37503052,11.2500021 L10.6249695,11.2500021 C10.9694824,11.2500021 11.25,10.9694796 11.25,10.6249657 L11.25,2.37494277 C11.25,2.03042887 10.9694824,1.75000208 10.6249695,1.75000208 L1.37503052,1.75000208 Z" id="Shape"></path>
+                <path d="M11.625,5 L0.375,5 C0.167999273,5 0,4.77600097 0,4.5 C0,4.22399903 0.167999273,4 0.375,4 L11.625,4 C11.8320007,4 12,4.22399903 12,4.5 C12,4.77600097 11.8320007,5 11.625,5 Z" id="Path"></path>
+                <path d="M2.5,3 C2.22399903,3 2,2.83200073 2,2.625 L2,0.375 C2,0.167999273 2.22399903,0 2.5,0 C2.77600097,0 3,0.167999273 3,0.375 L3,2.625 C3,2.83200073 2.77600097,3 2.5,3 Z" id="Path"></path>
+                <path d="M8.5,3 C8.22399903,3 8,2.83200073 8,2.625 L8,0.375 C8,0.167999273 8.22399903,0 8.5,0 C8.77600097,0 9,0.167999273 9,0.375 L9,2.625 C9,2.83200073 8.77600097,3 8.5,3 Z" id="Path"></path>
+            </g>
+            <rect id="Rectangle" fill="#FFFFFF" x="4" y="6" width="9" height="7"></rect>
+            <g id="update-arrows-(1)" transform="translate(4, 6)" fill="#0E5099" fill-rule="nonzero">
+                <path d="M8.7356135,0.8088 C8.55499951,0.7674 8.37732756,0.890314286 8.33865322,1.08317143 L8.09569491,2.29434286 C7.32215461,0.884628571 5.90233023,0 4.34618282,0 C1.94968424,0 0,2.08274286 0,4.64285714 C0,4.84008571 0.149669163,5 0.334321755,5 C0.518947601,5 0.668643511,4.84008571 0.668643511,4.64285714 C0.668643511,2.47662857 2.31837427,0.714285714 4.34618282,0.714285714 C5.66819802,0.714285714 6.87405647,1.46865714 7.52692,2.6698 L6.41231801,2.41462857 C6.23173077,2.37328571 6.05403207,2.49617143 6.01538448,2.68902857 C5.97671014,2.88188571 6.09171682,3.07177143 6.27225057,3.11308571 L8.18553386,3.55108571 C8.21802993,3.55854286 8.25103417,3.56068571 8.28358374,3.55777143 C8.33779736,3.55288571 8.39064694,3.53388571 8.43718453,3.50171429 C8.51164467,3.45025714 8.56390585,3.36931429 8.58249414,3.27671429 L8.99253308,1.23282857 C9.03115393,1.04 8.91614725,0.850171429 8.7356135,0.8088 Z" id="Path"></path>
+                <path d="M8.65072837,4.00022172 C8.46532872,4.00655675 8.31994358,4.16709957 8.32607072,4.3587896 C8.35864129,5.37872837 8.00514847,6.35068211 7.33062591,7.09574198 C6.65613023,7.84071851 5.74141315,8.2696107 4.75497093,8.30328635 C4.71385462,8.30467561 4.67295329,8.30537024 4.63199822,8.30537024 C3.34486943,8.30531467 2.1591609,7.61415806 1.4895293,6.49433154 L2.65709829,6.81802901 C2.83629018,6.86768114 3.02050739,6.75779072 3.06855705,6.57249128 C3.1166067,6.38721963 3.0102955,6.19677994 2.83110361,6.14704445 L0.932121058,5.62062623 C0.846072404,5.59681433 0.75435346,5.60926209 0.677226777,5.65527437 C0.600046347,5.70128664 0.543746556,5.777168 0.520662298,5.86613617 L0.0115455712,7.82960443 C-0.0365040835,8.01487608 0.0698071211,8.20531577 0.24899901,8.25502348 C0.278156658,8.26310897 0.307394927,8.2669989 0.336203221,8.2669989 C0.48449069,8.2669989 0.620228277,8.16463825 0.66045777,8.00951354 L0.946632699,6.90596914 C1.74273056,8.20206491 3.12845787,9.00005557 4.63183698,9 C4.68012849,9 4.72868874,8.99919423 4.77716837,8.99752712 C5.94296371,8.95768316 7.02400032,8.45088128 7.82114624,7.57042418 C8.61829216,6.68996707 9.03606617,5.54124394 8.99755658,4.33586682 C8.99145632,4.14420458 8.83610114,3.99341435 8.65072837,4.00022172 Z" id="Path"></path>
+            </g>
+        </g>
+        <g id="Group-4-Copy" transform="translate(356, 318)">
+            <g id="calendar" fill="#0E5099" fill-rule="nonzero">
+                <path d="M10.6249695,12 L1.37503052,12 C0.616516125,12 0,11.3834822 0,10.6249657 L0,2.37494277 C0,1.61642627 0.616516125,1 1.37503052,1 L10.6249695,1 C11.3834839,1 12,1.61642627 12,2.37494277 L12,10.6249657 C12,11.3834822 11.3834839,12 10.6249695,12 Z M1.37503052,1.75000208 C1.03051758,1.75000208 0.75,2.03042887 0.75,2.37494277 L0.75,10.6249657 C0.75,10.9694796 1.03051758,11.2500021 1.37503052,11.2500021 L10.6249695,11.2500021 C10.9694824,11.2500021 11.25,10.9694796 11.25,10.6249657 L11.25,2.37494277 C11.25,2.03042887 10.9694824,1.75000208 10.6249695,1.75000208 L1.37503052,1.75000208 Z" id="Shape"></path>
+                <path d="M11.625,5 L0.375,5 C0.167999273,5 0,4.77600097 0,4.5 C0,4.22399903 0.167999273,4 0.375,4 L11.625,4 C11.8320007,4 12,4.22399903 12,4.5 C12,4.77600097 11.8320007,5 11.625,5 Z" id="Path"></path>
+                <path d="M2.5,3 C2.22399903,3 2,2.83200073 2,2.625 L2,0.375 C2,0.167999273 2.22399903,0 2.5,0 C2.77600097,0 3,0.167999273 3,0.375 L3,2.625 C3,2.83200073 2.77600097,3 2.5,3 Z" id="Path"></path>
+                <path d="M8.5,3 C8.22399903,3 8,2.83200073 8,2.625 L8,0.375 C8,0.167999273 8.22399903,0 8.5,0 C8.77600097,0 9,0.167999273 9,0.375 L9,2.625 C9,2.83200073 8.77600097,3 8.5,3 Z" id="Path"></path>
+            </g>
+            <rect id="Rectangle" fill="#FFFFFF" x="4" y="6" width="9" height="7"></rect>
+            <g id="update-arrows-(1)" transform="translate(4, 6)" fill="#0E5099" fill-rule="nonzero">
+                <path d="M8.7356135,0.8088 C8.55499951,0.7674 8.37732756,0.890314286 8.33865322,1.08317143 L8.09569491,2.29434286 C7.32215461,0.884628571 5.90233023,0 4.34618282,0 C1.94968424,0 0,2.08274286 0,4.64285714 C0,4.84008571 0.149669163,5 0.334321755,5 C0.518947601,5 0.668643511,4.84008571 0.668643511,4.64285714 C0.668643511,2.47662857 2.31837427,0.714285714 4.34618282,0.714285714 C5.66819802,0.714285714 6.87405647,1.46865714 7.52692,2.6698 L6.41231801,2.41462857 C6.23173077,2.37328571 6.05403207,2.49617143 6.01538448,2.68902857 C5.97671014,2.88188571 6.09171682,3.07177143 6.27225057,3.11308571 L8.18553386,3.55108571 C8.21802993,3.55854286 8.25103417,3.56068571 8.28358374,3.55777143 C8.33779736,3.55288571 8.39064694,3.53388571 8.43718453,3.50171429 C8.51164467,3.45025714 8.56390585,3.36931429 8.58249414,3.27671429 L8.99253308,1.23282857 C9.03115393,1.04 8.91614725,0.850171429 8.7356135,0.8088 Z" id="Path"></path>
+                <path d="M8.65072837,4.00022172 C8.46532872,4.00655675 8.31994358,4.16709957 8.32607072,4.3587896 C8.35864129,5.37872837 8.00514847,6.35068211 7.33062591,7.09574198 C6.65613023,7.84071851 5.74141315,8.2696107 4.75497093,8.30328635 C4.71385462,8.30467561 4.67295329,8.30537024 4.63199822,8.30537024 C3.34486943,8.30531467 2.1591609,7.61415806 1.4895293,6.49433154 L2.65709829,6.81802901 C2.83629018,6.86768114 3.02050739,6.75779072 3.06855705,6.57249128 C3.1166067,6.38721963 3.0102955,6.19677994 2.83110361,6.14704445 L0.932121058,5.62062623 C0.846072404,5.59681433 0.75435346,5.60926209 0.677226777,5.65527437 C0.600046347,5.70128664 0.543746556,5.777168 0.520662298,5.86613617 L0.0115455712,7.82960443 C-0.0365040835,8.01487608 0.0698071211,8.20531577 0.24899901,8.25502348 C0.278156658,8.26310897 0.307394927,8.2669989 0.336203221,8.2669989 C0.48449069,8.2669989 0.620228277,8.16463825 0.66045777,8.00951354 L0.946632699,6.90596914 C1.74273056,8.20206491 3.12845787,9.00005557 4.63183698,9 C4.68012849,9 4.72868874,8.99919423 4.77716837,8.99752712 C5.94296371,8.95768316 7.02400032,8.45088128 7.82114624,7.57042418 C8.61829216,6.68996707 9.03606617,5.54124394 8.99755658,4.33586682 C8.99145632,4.14420458 8.83610114,3.99341435 8.65072837,4.00022172 Z" id="Path"></path>
+            </g>
+        </g>
+        <g id="Group-4-Copy-2" transform="translate(356, 275)">
+            <g id="calendar" fill="#0E5099" fill-rule="nonzero">
+                <path d="M10.6249695,12 L1.37503052,12 C0.616516125,12 0,11.3834822 0,10.6249657 L0,2.37494277 C0,1.61642627 0.616516125,1 1.37503052,1 L10.6249695,1 C11.3834839,1 12,1.61642627 12,2.37494277 L12,10.6249657 C12,11.3834822 11.3834839,12 10.6249695,12 Z M1.37503052,1.75000208 C1.03051758,1.75000208 0.75,2.03042887 0.75,2.37494277 L0.75,10.6249657 C0.75,10.9694796 1.03051758,11.2500021 1.37503052,11.2500021 L10.6249695,11.2500021 C10.9694824,11.2500021 11.25,10.9694796 11.25,10.6249657 L11.25,2.37494277 C11.25,2.03042887 10.9694824,1.75000208 10.6249695,1.75000208 L1.37503052,1.75000208 Z" id="Shape"></path>
+                <path d="M11.625,5 L0.375,5 C0.167999273,5 0,4.77600097 0,4.5 C0,4.22399903 0.167999273,4 0.375,4 L11.625,4 C11.8320007,4 12,4.22399903 12,4.5 C12,4.77600097 11.8320007,5 11.625,5 Z" id="Path"></path>
+                <path d="M2.5,3 C2.22399903,3 2,2.83200073 2,2.625 L2,0.375 C2,0.167999273 2.22399903,0 2.5,0 C2.77600097,0 3,0.167999273 3,0.375 L3,2.625 C3,2.83200073 2.77600097,3 2.5,3 Z" id="Path"></path>
+                <path d="M8.5,3 C8.22399903,3 8,2.83200073 8,2.625 L8,0.375 C8,0.167999273 8.22399903,0 8.5,0 C8.77600097,0 9,0.167999273 9,0.375 L9,2.625 C9,2.83200073 8.77600097,3 8.5,3 Z" id="Path"></path>
+            </g>
+            <rect id="Rectangle" fill="#FFFFFF" x="4" y="6" width="9" height="7"></rect>
+            <g id="update-arrows-(1)" transform="translate(4, 6)" fill="#0E5099" fill-rule="nonzero">
+                <path d="M8.7356135,0.8088 C8.55499951,0.7674 8.37732756,0.890314286 8.33865322,1.08317143 L8.09569491,2.29434286 C7.32215461,0.884628571 5.90233023,0 4.34618282,0 C1.94968424,0 0,2.08274286 0,4.64285714 C0,4.84008571 0.149669163,5 0.334321755,5 C0.518947601,5 0.668643511,4.84008571 0.668643511,4.64285714 C0.668643511,2.47662857 2.31837427,0.714285714 4.34618282,0.714285714 C5.66819802,0.714285714 6.87405647,1.46865714 7.52692,2.6698 L6.41231801,2.41462857 C6.23173077,2.37328571 6.05403207,2.49617143 6.01538448,2.68902857 C5.97671014,2.88188571 6.09171682,3.07177143 6.27225057,3.11308571 L8.18553386,3.55108571 C8.21802993,3.55854286 8.25103417,3.56068571 8.28358374,3.55777143 C8.33779736,3.55288571 8.39064694,3.53388571 8.43718453,3.50171429 C8.51164467,3.45025714 8.56390585,3.36931429 8.58249414,3.27671429 L8.99253308,1.23282857 C9.03115393,1.04 8.91614725,0.850171429 8.7356135,0.8088 Z" id="Path"></path>
+                <path d="M8.65072837,4.00022172 C8.46532872,4.00655675 8.31994358,4.16709957 8.32607072,4.3587896 C8.35864129,5.37872837 8.00514847,6.35068211 7.33062591,7.09574198 C6.65613023,7.84071851 5.74141315,8.2696107 4.75497093,8.30328635 C4.71385462,8.30467561 4.67295329,8.30537024 4.63199822,8.30537024 C3.34486943,8.30531467 2.1591609,7.61415806 1.4895293,6.49433154 L2.65709829,6.81802901 C2.83629018,6.86768114 3.02050739,6.75779072 3.06855705,6.57249128 C3.1166067,6.38721963 3.0102955,6.19677994 2.83110361,6.14704445 L0.932121058,5.62062623 C0.846072404,5.59681433 0.75435346,5.60926209 0.677226777,5.65527437 C0.600046347,5.70128664 0.543746556,5.777168 0.520662298,5.86613617 L0.0115455712,7.82960443 C-0.0365040835,8.01487608 0.0698071211,8.20531577 0.24899901,8.25502348 C0.278156658,8.26310897 0.307394927,8.2669989 0.336203221,8.2669989 C0.48449069,8.2669989 0.620228277,8.16463825 0.66045777,8.00951354 L0.946632699,6.90596914 C1.74273056,8.20206491 3.12845787,9.00005557 4.63183698,9 C4.68012849,9 4.72868874,8.99919423 4.77716837,8.99752712 C5.94296371,8.95768316 7.02400032,8.45088128 7.82114624,7.57042418 C8.61829216,6.68996707 9.03606617,5.54124394 8.99755658,4.33586682 C8.99145632,4.14420458 8.83610114,3.99341435 8.65072837,4.00022172 Z" id="Path"></path>
+            </g>
+        </g>
+        <g id="Group-3" transform="translate(284, 151)">
+            <g id="Group" transform="translate(0, 2)" fill="#0E5099">
+                <g id="icons--/-core-/-Arrow-/-Down" transform="translate(61, 7)">
+                    <g transform="translate(0, 0)" id="Icons-/-Arrow-/-Down">
+                        <path d="M10.7985656,1.08808455 L5.50008594,6 L0.201606225,1.08808455 C-0.067202075,0.838887856 -0.067202075,0.436094219 0.201606225,0.186897522 C0.470414525,-0.0622991741 0.904907736,-0.0622991741 1.17371604,0.186897522 L5.50008594,4.19762594 L9.82645584,0.186897522 C10.0952641,-0.0622991741 10.5297573,-0.0622991741 10.7985656,0.186897522 C10.9326261,0.311177205 11,0.474334121 11,0.637491038 C11,0.800647954 10.9326261,0.96380487 10.7985656,1.08808455 Z"></path>
+                    </g>
+                </g>
+                <text id="Actions" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5">
+                    <tspan x="0" y="14">Actions</tspan>
+                </text>
+            </g>
+            <text id="Refresh" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="21" fill="#0E5099">
+                <tspan x="338" y="16">Refresh</tspan>
+            </text>
+            <g id="Group-2" transform="translate(320, 12) scale(-1, 1) translate(-320, -12)translate(310, 4)" stroke="#0E5099">
+                <polyline id="Fill-1-Copy-46" transform="translate(17.0245, 9.6435) rotate(-523) translate(-17.0245, -9.6435)" points="19.5244947 7.64353877 17.0244947 11.6435388 14.5244947 7.64353877"></polyline>
+                <polyline id="Fill-1-Copy-47" transform="translate(3.0245, 6.6435) rotate(-343) translate(-3.0245, -6.6435)" points="5.5244947 4.64353877 3.0244947 8.64353877 0.524494701 4.64353877"></polyline>
+                <path d="M3,11.8169788 C4.26223422,14.3087528 6.72189658,16 9.54944141,16 L9.54944141,16 C13.6642713,16 17,12.418278 17,8 M17,4.23406314 C15.7479249,1.7143713 13.2785491,0 10.4369424,0 C6.32963251,0 3,3.581722 3,8" id="Oval-2"></path>
+            </g>
+            <text id="Last-updated:-10-min" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#A7A9AB">
+                <tspan x="406" y="15">Last updated: 10 mins </tspan>
+                <tspan x="406" y="33">ago</tspan>
+            </text>
+            <g id="export-[6h]-" transform="translate(212, 2)">
+                <text id="Export" fill-rule="nonzero" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#0E5099">
+                    <tspan x="20" y="14">Export</tspan>
+                </text>
+                <g id="z-atoms-/🔬icon--/exportICon">
+                    <mask id="mask-7" fill="white">
+                        <use xlink:href="#path-6"></use>
+                    </mask>
+                    <use id="export-sm" fill="#0E5099" fill-rule="nonzero" xlink:href="#path-6"></use>
+                </g>
+            </g>
+            <g id="export-[6h]--copy" transform="translate(134, 2)" fill="#0E5099" fill-rule="nonzero" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21">
+                <text id="Filter">
+                    <tspan x="0" y="14">Filter</tspan>
+                </text>
+            </g>
+            <g id="icons-/table-/actions-/filter" transform="translate(111, 5)" fill="#0E5099">
+                <path d="M0.300000004,0 L14.7,0 L9,5.7 L9,14 L6,11 L6,5.7 L0.300000004,0 Z M2.5,1 L7,5.5 L7,10.6 L8,11.6 L8,5.5 L12.5,1 L2.5,1 Z" id="filter-open-sm"></path>
+            </g>
+            <line x1="93.5" y1="25" x2="93.5" y2="0" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+            <line x1="194.5" y1="25" x2="194.5" y2="0" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+            <line x1="292.5" y1="25" x2="292.5" y2="0" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
+        </g>
+    </g>
+</svg>
