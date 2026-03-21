@@ -21,9 +21,9 @@
       --text-primary: #e8e4df;
       --text-secondary: #8a8580;
       --text-muted: #5a5550;
-      --accent: #c9a87c;
-      --accent-dim: rgba(201, 168, 124, 0.12);
-      --accent-glow: rgba(201, 168, 124, 0.06);
+      --accent: #6b9fcd;
+      --accent-dim: rgba(107, 159, 205, 0.12);
+      --accent-glow: rgba(107, 159, 205, 0.06);
       --border: rgba(255, 255, 255, 0.06);
       --border-hover: rgba(255, 255, 255, 0.12);
       --font-display: 'Sora', sans-serif;
@@ -335,7 +335,7 @@
 
     .hero__cta:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 30px rgba(201, 168, 124, 0.25);
+      box-shadow: 0 8px 30px rgba(107, 159, 205, 0.25);
     }
 
     .hero__cta-arrow {
@@ -1120,12 +1120,12 @@
           this.fallSpeed = Math.random() * 0.3 + 0.15;
           this.drift = (Math.random() - 0.5) * 0.2;
           this.size = Math.random() * 1.2 + 0.3;
-          this.baseAlpha = Math.random() * 0.12 + 0.03;
+          this.baseAlpha = Math.random() * 0.2 + 0.06;
           this.alpha = this.baseAlpha;
           this.pulseSpeed = Math.random() * 0.02 + 0.005;
           this.pulseOffset = Math.random() * Math.PI * 2;
-          this.hue = Math.random() > 0.6 ? 35 : 0;
-          this.saturation = this.hue === 35 ? 40 + Math.random() * 20 : 0;
+          this.hue = Math.random() > 0.6 ? 210 : 220;
+          this.saturation = 30 + Math.random() * 25;
           this.lightness = 75 + Math.random() * 20;
         }
 
