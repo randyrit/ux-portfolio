@@ -1053,7 +1053,7 @@
       const REPEL_RADIUS = 120;
       const REPEL_RADIUS_SQ = REPEL_RADIUS * REPEL_RADIUS;
       const REPEL_STRENGTH = 8;
-      const PARTICLE_COUNT = 160;
+      const PARTICLE_COUNT = 80;
       const particles = [];
 
       // Pre-render sparkle sprites to offscreen canvases (avoids shadowBlur each frame)
@@ -1068,16 +1068,16 @@
 
         // Soft glow circle
         const grad = c.createRadialGradient(cx, cy, 0, cx, cy, dim / 2);
-        grad.addColorStop(0, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.9)`);
-        grad.addColorStop(0.15, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.5)`);
-        grad.addColorStop(0.5, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.1)`);
+        grad.addColorStop(0, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.5)`);
+        grad.addColorStop(0.15, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.25)`);
+        grad.addColorStop(0.5, `hsla(${hue}, ${saturation}%, ${lightness}%, 0.05)`);
         grad.addColorStop(1, `hsla(${hue}, ${saturation}%, ${lightness}%, 0)`);
         c.fillStyle = grad;
         c.fillRect(0, 0, dim, dim);
 
         // Bright 4-pointed star center
         const s = size;
-        c.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 1)`;
+        c.fillStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, 0.6)`;
         c.beginPath();
         c.moveTo(cx, cy - s * 1.8);
         c.quadraticCurveTo(cx + s * 0.3, cy - s * 0.3, cx + s * 1.8, cy);
@@ -1119,8 +1119,8 @@
           this.vy = 0;
           this.fallSpeed = Math.random() * 0.3 + 0.15;
           this.drift = (Math.random() - 0.5) * 0.2;
-          this.size = Math.random() * 2 + 0.5;
-          this.baseAlpha = Math.random() * 0.4 + 0.1;
+          this.size = Math.random() * 1.2 + 0.3;
+          this.baseAlpha = Math.random() * 0.12 + 0.03;
           this.alpha = this.baseAlpha;
           this.pulseSpeed = Math.random() * 0.02 + 0.005;
           this.pulseOffset = Math.random() * Math.PI * 2;
