@@ -1,0 +1,1951 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloQast Platform — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0C1E18;
+      --bg-secondary: #132D24;
+      --bg-elevated: #1A3D30;
+      --text-primary: #F4F7F5;
+      --text-secondary: #9DB5A8;
+      --text-muted: #5E7D6E;
+      --accent: #6AA185;
+      --accent-dim: rgba(106, 161, 133, 0.12);
+      --accent-glow: rgba(106, 161, 133, 0.06);
+      --orange: #FF8C42;
+      --dark-green: #13362A;
+      --sage: #6AA185;
+      --cream: #F4F7F5;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --font-display: 'Museo Sans', 'Museo Sans Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --nav-height: 72px;
+      --content-max: 1080px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Math Background */
+    #math-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .math-sym {
+      position: absolute;
+      font-family: var(--font-body);
+      color: var(--sage);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: drift linear infinite;
+      user-select: none;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: var(--peak-opacity, 0.07); }
+      90%  { opacity: var(--peak-opacity, 0.07); }
+      100% { transform: translateY(-10vh) rotate(var(--rot, 120deg)); opacity: 0; }
+    }
+
+    /* Reading progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      z-index: 1002;
+      transform-origin: left;
+      transform: scaleX(0);
+      width: 100%;
+      will-change: transform;
+      transition: none;
+    }
+
+    /* ===================== NAVIGATION ===================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 64px);
+      z-index: 1000;
+      background: rgba(12, 30, 24, 0.85);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(12, 30, 24, 0.95);
+      border-bottom-color: var(--border-hover);
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav__logo svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--text-primary);
+      transition: fill 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .nav__logo:hover svg {
+      fill: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav__link:hover {
+      color: var(--text-primary);
+      background: var(--accent-dim);
+    }
+
+    .nav__link--back svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+
+    .nav__link--back:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+      gap: 6px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav__hamburger.active span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+    .nav__hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger.active span:nth-child(3) { transform: translateY(-3.75px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+
+      .nav__mobile-menu {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: rgba(12, 30, 24, 0.98);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s;
+        z-index: 999;
+      }
+
+      .nav__mobile-menu.open { opacity: 1; visibility: visible; }
+
+      .nav__mobile-link {
+        font-family: var(--font-display);
+        font-size: clamp(32px, 8vw, 48px);
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 12px 32px;
+        transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(1) { transition-delay: 0.1s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(2) { transition-delay: 0.18s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(3) { transition-delay: 0.26s; }
+
+      .nav__mobile-link:hover { color: var(--accent); }
+    }
+
+    /* ===================== CASE STUDY HERO ===================== */
+    .cs-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 80px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 100px);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .cs-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0f2a1e 0%, #0C1E18 40%, #0a1a14 100%);
+      z-index: -2;
+    }
+
+    .cs-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(106, 161, 133, 0.10) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(255, 140, 66, 0.04) 0%, transparent 50%);
+    }
+
+    .cs-hero__image {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease-out-expo) 0.1s forwards;
+    }
+
+    .cs-hero__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cs-hero__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-primary) 0%, rgba(12, 30, 24, 0.85) 30%, rgba(12, 30, 24, 0.5) 60%, rgba(12, 30, 24, 0.3) 100%);
+    }
+
+    .cs-hero__image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 20px;
+      color: var(--text-muted);
+      opacity: 0.3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cs-hero__eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .cs-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 96px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      max-width: 800px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .cs-hero__subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .cs-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.65s forwards;
+    }
+
+    .cs-hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cs-hero__meta-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .cs-hero__meta-value {
+      color: var(--text-primary);
+    }
+
+    /* ===================== CONTENT WRAPPER ===================== */
+    .cs-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-section {
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 64px);
+    }
+
+    .cs-section--narrow {
+      max-width: calc(var(--content-max) + clamp(48px, 10vw, 128px));
+      margin: 0 auto;
+    }
+
+    .cs-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      border: none;
+      margin: 0;
+    }
+
+    /* Section header */
+    .cs-section__number {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cs-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .cs-section__subtitle {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ===================== OVERVIEW / METRICS ===================== */
+    .cs-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .cs-overview__summary p {
+      font-size: clamp(16px, 1.8vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .cs-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cs-metric {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-metric:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .cs-metric__label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .cs-overview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== SPLIT LAYOUT ===================== */
+    .cs-split {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(40px, 6vw, 100px);
+      align-items: start;
+    }
+
+    .cs-split__sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + 40px);
+    }
+
+    .cs-split__sidebar-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .cs-split__sidebar-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .cs-split__sidebar-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .cs-split__content {
+      min-width: 0;
+    }
+
+    .cs-split__content p {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .cs-split__content p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 900px) {
+      .cs-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .cs-split__sidebar {
+        position: static;
+      }
+    }
+
+    /* ===================== QUOTE ===================== */
+    .cs-quote {
+      border-left: 3px solid var(--orange);
+      padding: 4px 0 4px 32px;
+      margin: 40px 0;
+    }
+
+    .cs-quote__text {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .cs-quote__attribution {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ===================== INSIGHT CARDS ===================== */
+    .cs-insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .cs-insights--three {
+      grid-template-columns: 1fr;
+    }
+
+    @media (max-width: 768px) {
+      .cs-insights {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-insight {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-insight:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .cs-insight__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .cs-insight__icon .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-size: 22px;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .cs-insight__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .cs-insight__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== FULL-BLEED IMAGE ===================== */
+    .cs-fullbleed {
+      width: 100%;
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-gallery {
+      display: grid;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cs-gallery--single {
+      grid-template-columns: 1fr;
+    }
+
+    .cs-gallery--two {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cs-gallery--three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      .cs-gallery--two,
+      .cs-gallery--three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-gallery__item {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-gallery__item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-gallery__item img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      max-height: 80vh;
+    }
+
+    .cs-gallery__caption {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===================== BEFORE / AFTER ===================== */
+    .cs-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .cs-comparison__side {
+      position: relative;
+    }
+
+    .cs-comparison__label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 4px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .cs-comparison__label--before {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .cs-comparison__label--after {
+      background: rgba(106, 161, 133, 0.15);
+      color: var(--sage);
+    }
+
+    .cs-comparison__image {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .cs-comparison__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .cs-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== CALLOUT ===================== */
+    .cs-callout {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 16px;
+      margin: 32px 0;
+    }
+
+    .cs-callout__number {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      color: var(--orange);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .cs-callout__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== BULLET LIST ===================== */
+    .cs-bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .cs-bullet-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .cs-bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ===================== BEFORE/AFTER LIST ===================== */
+    .cs-ba-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .cs-ba-card {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .cs-ba-card__label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .cs-ba-card__label--before { color: #9DB5A8; }
+    .cs-ba-card__label--after { color: var(--sage); }
+
+    .cs-ba-card ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cs-ba-card li {
+      padding-left: 16px;
+      position: relative;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .cs-ba-card li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .cs-ba-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ===================== PHASE TIMELINE ===================== */
+    .cs-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 32px 0;
+    }
+
+    .cs-phase {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-phase:last-child { border-bottom: none; }
+
+    .cs-phase__number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 140, 66, 0.10);
+      border: 1px solid rgba(255, 140, 66, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .cs-phase__content strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .cs-phase__content span {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== ARCHITECTURE ===================== */
+    .arch-diagram {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      max-width: 720px;
+      margin: 32px auto;
+      position: relative;
+    }
+
+    .arch-layer {
+      padding: 28px 36px;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border: 1px solid rgba(19, 54, 42, 0.06);
+      position: relative;
+    }
+
+    .arch-layer:first-child { border-radius: 16px 16px 0 0; }
+    .arch-layer:nth-child(4) { border-radius: 0 0 16px 16px; }
+
+    .arch-layer .layer-name {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+
+    .arch-layer .layer-desc {
+      font-size: 13px;
+      color: #1a1a1a;
+      opacity: 0.75;
+      max-width: 320px;
+      line-height: 1.5;
+    }
+
+    .arch-layer .layer-tag {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 600;
+      flex-shrink: 0;
+      margin-left: 24px;
+    }
+
+    .layer-app { background: #FFF4EE; }
+    .layer-app .layer-name { color: #C4520E; }
+    .layer-app .layer-tag { background: #FDDCC9; color: #C4520E; }
+
+    .layer-pattern { background: #EEF6F1; }
+    .layer-pattern .layer-name { color: #3D7A5C; }
+    .layer-pattern .layer-tag { background: #D4EBDE; color: #3D7A5C; }
+
+    .layer-core { background: #F5F6F5; }
+    .layer-core .layer-name { color: #13362A; }
+    .layer-core .layer-tag { background: #E2E5E3; color: #13362A; }
+
+    .layer-token { background: #F9FAFA; }
+    .layer-token .layer-name { color: #5C6B64; }
+    .layer-token .layer-tag { background: #E8EBEA; color: #5C6B64; }
+
+    .arch-arrow-col {
+      position: absolute;
+      right: -52px;
+      top: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #13362A;
+      opacity: 0.25;
+      font-size: 14px;
+      gap: 4px;
+    }
+
+    .arch-arrow-col span {
+      writing-mode: vertical-rl;
+      letter-spacing: 0.15em;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 768px) {
+      .arch-arrow-col { display: none; }
+      .arch-layer { padding: 20px 24px; }
+      .arch-layer .layer-desc { max-width: none; }
+    }
+
+    /* ===================== IMPACT SECTION ===================== */
+    .cs-impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-impact-metric {
+      padding: 36px 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-impact-metric:hover {
+      border-color: rgba(255, 140, 66, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cs-impact-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 56px);
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .cs-impact-metric__label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .cs-impact-metric__sublabel {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ===================== REFLECTIONS ===================== */
+    .cs-reflections {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 900px) {
+      .cs-reflections {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-reflections {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-reflection {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-secondary);
+    }
+
+    .cs-reflection__number {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--orange);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .cs-reflection__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .cs-reflection__text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===================== NEXT/PREV NAV ===================== */
+    .cs-project-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-project-nav__link {
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      text-decoration: none;
+      color: inherit;
+      border-top: 1px solid var(--border);
+      transition: background 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .cs-project-nav__link:last-child {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .cs-project-nav__link:hover {
+      background: var(--bg-secondary);
+    }
+
+    .cs-project-nav__direction {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:last-child .cs-project-nav__direction {
+      justify-content: flex-end;
+    }
+
+    .cs-project-nav__title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .cs-project-nav__link:hover .cs-project-nav__title {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .cs-project-nav {
+        grid-template-columns: 1fr;
+      }
+      .cs-project-nav__link:first-child {
+        border-right: none;
+      }
+      .cs-project-nav__link:last-child {
+        text-align: left;
+        align-items: flex-start;
+      }
+      .cs-project-nav__link:last-child .cs-project-nav__direction {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ===================== FOOTER ===================== */
+    .footer {
+      padding: 40px clamp(24px, 5vw, 64px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer__text {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer__link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer__link:hover {
+      color: var(--accent);
+    }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    ::selection {
+      background: var(--sage);
+      color: var(--bg-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="math-bg"></div>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav__logo" aria-label="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-hidden="true">
+        <path d="M600,497.48V12.46c0-6.88-5.58-12.46-12.46-12.46H11.05C4.95,0,0,4.95,0,11.05v577.9c0,6.1,4.95,11.05,11.05,11.05h486.43c9.85,0,14.78-11.9,7.82-18.87l-239.12-239.12c-4.32-4.32-11.31-4.32-15.63,0l-176.61,176.61c-6.96,6.96-18.87,2.03-18.87-7.82V58.68c0-6.1,4.95-11.05,11.05-11.05h452.12c9.85,0,14.78,11.9,7.82,18.87l-184.05,184.05c-4.32,4.32-4.32,11.31,0,15.63l239.12,239.12c6.96,6.96,18.87,2.03,18.87-7.82Z"/>
+        <path d="M185.88,87.73h205.11c8.23,0,12.36,9.95,6.53,15.78l-100.28,100.28c-4.86,4.86-12.75,4.86-17.62,0l-100.28-100.28c-5.82-5.82-1.7-15.78,6.53-15.78Z"/>
+      </svg>
+    </a>
+    <ul class="nav__links">
+      <li>
+        <a href="../index.html" class="nav__link nav__link--back">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All Projects
+        </a>
+      </li>
+      <li><a href="../index.html#leadership" class="nav__link">Leadership</a></li>
+      <li><a href="../index.html#about" class="nav__link">About Me</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav__mobile-menu" id="mobileMenu">
+      <li><a href="../index.html" class="nav__mobile-link">All Projects</a></li>
+      <li><a href="../index.html#leadership" class="nav__mobile-link">Leadership</a></li>
+      <li><a href="../index.html#about" class="nav__mobile-link">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== HERO (placeholder — replace with your own) ==================== -->
+  <section class="cs-hero">
+    <div class="cs-hero__bg"></div>
+    <div class="cs-hero__image">
+      <img src="../images/FloQast Designer/fqhero.png" alt="FloQast Platform — reporting, disclosures, and tags screens">
+    </div>
+    <p class="cs-hero__eyebrow">Case Study</p>
+    <h1 class="cs-hero__title">FloQast Platform</h1>
+    <p class="cs-hero__subtitle">Replace this section with your own hero content.</p>
+    <div class="cs-hero__meta">
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Role</span>
+        <span class="cs-hero__meta-value">Product Designer, DS Lead</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Timeline</span>
+        <span class="cs-hero__meta-value">2023 &ndash; 2024</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Team</span>
+        <span class="cs-hero__meta-value">6 Designers + 5 Engineers</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Scope</span>
+        <span class="cs-hero__meta-value">8 Product Teams, 40+ Components</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-content">
+
+    <!-- ==================== OVERVIEW ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-overview">
+        <div class="cs-overview__summary">
+          <p>FloQast uses AI to automate accounting workflows &mdash; from close management and reconciliations to compliance. As the platform grew rapidly, the UI grew with it &mdash; but without a unified system.</p>
+          <p>I led the platform design system end-to-end as the sole Product Designer, supported by 6 design system designers and partnering with a 5-person platform engineering team under the CTO as executive sponsor.</p>
+        </div>
+        <div class="cs-metrics">
+          <div class="cs-metric reveal reveal-delay-1">
+            <div class="cs-metric__value">3,500+</div>
+            <div class="cs-metric__label">Global Customers</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-2">
+            <div class="cs-metric__value">38%</div>
+            <div class="cs-metric__label">Faster Reconciliation</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-3">
+            <div class="cs-metric__value">23%</div>
+            <div class="cs-metric__label">Shorter Audit Cycles</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-4">
+            <div class="cs-metric__value">8</div>
+            <div class="cs-metric__label">Product Teams Influenced</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE AUDIT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">01 &mdash; Context</span>
+          <h2 class="cs-split__sidebar-title">The Company-Wide Audit</h2>
+          <p class="cs-split__sidebar-desc">Understanding what existed before building anything new.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>We audited every customer-facing surface across FloQast's platform and marketing site. This wasn't a quick check &mdash; it was a comprehensive cataloguing effort that revealed just how fragmented things had become.</p>
+          <ul class="cs-bullet-list">
+            <li>Catalogued every component, color value, and typographic style across 8+ product surfaces</li>
+            <li>Ran automated and manual accessibility audits against WCAG 2.1 AA standards</li>
+            <li>Documented inconsistencies between marketing site, product UI, and brand guidelines</li>
+            <li>Identified patterns being rebuilt from scratch by every engineering team</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audit screenshot -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Platform/homepage-audit.png" alt="FloQast homepage 2023 — the starting point of our audit" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">floqast.com (2023) &mdash; the starting point of our audit</p>
+    </div>
+
+    <!-- ==================== THE PROBLEM ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">02 &mdash; The Problem</span>
+          <h2 class="cs-split__sidebar-title">Where We Started</h2>
+          <p class="cs-split__sidebar-desc">Years of design debt had accumulated across the platform.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>The product UI had accumulated years of design debt. Navigation wasn't scalable, action buttons were overloaded, and critical UI elements failed WCAG AA contrast requirements &mdash; orange warning text on white was indistinguishable for colorblind users.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Old UI screenshot -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Platform/old-product-ui.png" alt="FloQast Reconciliations — old product design with annotated issues" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Reconciliations page &mdash; the old product design with annotated usability and accessibility issues</p>
+    </div>
+
+    <!-- ==================== FRAGMENTATION ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">03 &mdash; The Real Problem</span>
+          <h2 class="cs-split__sidebar-title">One Component, Twelve Versions</h2>
+          <p class="cs-split__sidebar-desc">No naming convention, no shared contract, no source of truth.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>A single search for "dropdown" in the codebase returned over a dozen variants &mdash; each built by a different team, at a different time, with different APIs.</p>
+
+          <div class="cs-callout">
+            <div class="cs-callout__number">12+</div>
+            <div class="cs-callout__text">dropdown variants across the codebase &mdash; designers couldn't tell which was current, engineers couldn't tell which was maintained</div>
+          </div>
+
+          <p>Some were versioned (DropdownV2, DropdownV3), some were team-specific (dropdown_nav), and one was literally called DROPDOWN_BACKUP. Every new hire picked a different one. Every product surface looked slightly different.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dropdown chaos screenshot -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Platform/dropdown-chaos.png" alt="Storybook showing 12+ dropdown component variants" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">A single Storybook search revealing the component fragmentation problem</p>
+    </div>
+
+    <!-- ==================== WHY IT MATTERS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">04 &mdash; Why It Matters</span>
+          <h2 class="cs-split__sidebar-title">When a Company Goes Public</h2>
+          <p class="cs-split__sidebar-desc">Accessibility becomes a legal and financial imperative.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>For public companies, non-compliance creates real business risk. This wasn't just about good design &mdash; it was about legal exposure, audit findings, and investor scrutiny.</p>
+
+          <div class="cs-insights cs-insights--three">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">gavel</span>
+              </div>
+              <h4 class="cs-insight__title">Legal Exposure</h4>
+              <p class="cs-insight__desc">Digital accessibility lawsuits surpassed 4,000 in 2023. A single case can cost $50K&ndash;$150K+ in settlements.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">verified_user</span>
+              </div>
+              <h4 class="cs-insight__title">SEC &amp; SOX Compliance</h4>
+              <p class="cs-insight__desc">Inaccessible workflows prevent employees with disabilities from performing control activities &mdash; creating audit findings and material weaknesses.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">monitoring</span>
+              </div>
+              <h4 class="cs-insight__title">Investor Scrutiny</h4>
+              <p class="cs-insight__desc">ESG reporting now includes digital accessibility metrics &mdash; non-compliance signals governance risk that impacts valuation.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== GETTING BUY-IN ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">05 &mdash; The Pitch</span>
+          <h2 class="cs-split__sidebar-title">Getting Buy-In</h2>
+          <p class="cs-split__sidebar-desc">Turning audit findings into executive action.</p>
+        </div>
+        <div class="cs-split__content">
+          <div class="cs-insights">
+            <div class="cs-insight reveal reveal-delay-1">
+              <h4 class="cs-insight__title">The Business Case</h4>
+              <p class="cs-insight__desc">Quantified the wasted engineering hours from teams rebuilding the same components 3&ndash;4x and showed the payback period.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <h4 class="cs-insight__title">Engineering Partnership</h4>
+              <p class="cs-insight__desc">Designers and engineers co-authored every component spec from day one &mdash; shared ownership, not hand-offs.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <h4 class="cs-insight__title">Compliance as Leverage</h4>
+              <p class="cs-insight__desc">The IPO timeline made accessibility violations a legal risk &mdash; the design system was the fastest path to WCAG AA at scale.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-4">
+              <h4 class="cs-insight__title">Start Small, Ship Fast</h4>
+              <p class="cs-insight__desc">Pitched a 6-week pilot on one surface, measured the results, then used that data to justify the full investment.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ROLLOUT STRATEGY ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">06 &mdash; Strategy</span>
+          <h2 class="cs-split__sidebar-title">A Phased Rollout</h2>
+          <p class="cs-split__sidebar-desc">Minimizing disruption while building momentum.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>We couldn't flip a switch and migrate everything overnight. Instead, we designed a three-phase adoption strategy.</p>
+
+          <div class="cs-phases">
+            <div class="cs-phase">
+              <div class="cs-phase__number">1</div>
+              <div class="cs-phase__content">
+                <strong>Quick Wins &mdash; New Teams Adopt First</strong>
+                <span>Teams spinning up new products adopted Flow-UI from day one. Zero legacy debt &mdash; they started clean with the full system.</span>
+              </div>
+            </div>
+            <div class="cs-phase">
+              <div class="cs-phase__number">2</div>
+              <div class="cs-phase__content">
+                <strong>New Features &mdash; Build Forward</strong>
+                <span>Existing teams building new features adopted Flow-UI for all new work. Legacy screens remained untouched until Phase 3.</span>
+              </div>
+            </div>
+            <div class="cs-phase">
+              <div class="cs-phase__number">3</div>
+              <div class="cs-phase__content">
+                <strong>Full Migration &mdash; All Teams Update</strong>
+                <span>Remaining legacy surfaces were systematically migrated. Full platform consistency, WCAG AA compliance, and a unified experience.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DESIGN PRINCIPLES ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">07 &mdash; Foundation</span>
+          <h2 class="cs-split__sidebar-title">Design Principles</h2>
+          <p class="cs-split__sidebar-desc">The beliefs that shaped every decision.</p>
+        </div>
+        <div class="cs-split__content">
+          <div class="cs-insights">
+            <div class="cs-insight reveal reveal-delay-1">
+              <h4 class="cs-insight__title">Clarity First</h4>
+              <p class="cs-insight__desc">Every pixel fights for its right to exist. If it doesn't guide the user forward, it's noise &mdash; and noise gets cut.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <h4 class="cs-insight__title">Composable by Nature</h4>
+              <p class="cs-insight__desc">Think LEGO, not monoliths. Tiny, purposeful pieces that snap together &mdash; building everything from a simple form to an entire workflow.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <h4 class="cs-insight__title">Accessible from Day Zero</h4>
+              <p class="cs-insight__desc">Accessibility isn't a checkbox before launch. It's in the DNA of every token, every component, every interaction &mdash; baked in from the first commit.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-4">
+              <h4 class="cs-insight__title">Built to Scale</h4>
+              <p class="cs-insight__desc">3 engineers or 30. One product or ten. Flow-UI stretches without breaking &mdash; because a design system that can't grow is just a style guide with ambition.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== ARCHITECTURE ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">08 &mdash; Architecture</span>
+          <h2 class="cs-split__sidebar-title">Flow-UI System</h2>
+          <p class="cs-split__sidebar-desc">Each layer abstracts the one below it.</p>
+        </div>
+        <div class="cs-split__content">
+          <div class="arch-diagram">
+            <div class="arch-layer layer-app">
+              <div>
+                <div class="layer-name">Product Features</div>
+                <div class="layer-desc">Reconciliation views, dashboards, workflows &mdash; composed from patterns below.</div>
+              </div>
+              <span class="layer-tag">Application</span>
+            </div>
+            <div class="arch-layer layer-pattern">
+              <div>
+                <div class="layer-name">Patterns</div>
+                <div class="layer-desc">Navbar, quick filters, data tables, form sections, card layouts &mdash; composed from core components.</div>
+              </div>
+              <span class="layer-tag">Composition</span>
+            </div>
+            <div class="arch-layer layer-core">
+              <div>
+                <div class="layer-name">Core Components</div>
+                <div class="layer-desc">Buttons, inputs, toggles, badges, alerts, signatures &mdash; auto layout + variants + scalable.</div>
+              </div>
+              <span class="layer-tag">Primitives</span>
+            </div>
+            <div class="arch-layer layer-token">
+              <div>
+                <div class="layer-name">Design Tokens</div>
+                <div class="layer-desc">Neutral, Brand, Red, Blue, Purple, Orange palettes &middot; Museo Sans + Inter type scale &middot; 4px spacing grid.</div>
+              </div>
+              <span class="layer-tag">Foundation</span>
+            </div>
+            <div class="arch-arrow-col">
+              <span>Abstraction</span>
+              <div style="font-size:18px;">&#8595;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DOCUMENTATION ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">09 &mdash; Documentation</span>
+          <h2 class="cs-split__sidebar-title">Every Component, Documented</h2>
+          <p class="cs-split__sidebar-desc">Usage guidelines, do's/don'ts, and Storybook examples.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Every component ships with usage guidelines, do's and don'ts, and Storybook examples &mdash; all published before merge. We also created a governance decision tree so teams could quickly determine whether to use, compose, request, or build components.</p>
+          <p>The goal: make using the system easier than going around it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Documentation screenshots -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Platform/zeroheight-docs.png" alt="Zeroheight component documentation" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Platform/storybook-buttons.png" alt="Storybook button documentation" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Zeroheight do's and don'ts &mdash; Right: Storybook button component documentation</p>
+    </div>
+
+    <!-- ==================== BEFORE & AFTER ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">10 &mdash; Transformation</span>
+      <h2 class="cs-section__title">Before &amp; After Flow-UI</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">The measurable shift from fragmentation to consistency.</p>
+
+      <div class="cs-ba-grid">
+        <div class="cs-ba-card">
+          <div class="cs-ba-card__label cs-ba-card__label--before">Before</div>
+          <ul>
+            <li>Every team built their own button, modal, and form components</li>
+            <li>No shared design tokens &mdash; hard-coded hex values everywhere</li>
+            <li>WCAG failures on 60%+ of audited pages</li>
+            <li>Design-to-dev handoff took days of back-and-forth</li>
+          </ul>
+        </div>
+        <div class="cs-ba-card">
+          <div class="cs-ba-card__label cs-ba-card__label--after">After</div>
+          <ul>
+            <li>40+ shared components with variants, auto layout, and Storybook parity</li>
+            <li>Semantic design tokens synced between Figma and code</li>
+            <li>WCAG AA compliance across all product surfaces</li>
+            <li>Figma-to-code in hours, not days &mdash; with Code Connect</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Homepage before/after -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-comparison">
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--before">Before</span>
+          <div class="cs-comparison__image">
+            <img src="../images/FloQast Platform/home-before.png" alt="FloQast homepage before redesign" />
+          </div>
+        </div>
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--after">After</span>
+          <div class="cs-comparison__image">
+            <img src="../images/FloQast Platform/home-after.png" alt="FloQast homepage after redesign" />
+          </div>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Homepage &mdash; before and after the design system rollout</p>
+    </div>
+
+    <!-- Reconciliations before/after -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-comparison">
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--before">Before</span>
+          <div class="cs-comparison__image">
+            <img src="../images/FloQast Platform/recs-before.png" alt="Reconciliations before redesign" />
+          </div>
+        </div>
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--after">After</span>
+          <div class="cs-comparison__image">
+            <img src="../images/FloQast Platform/recs-after.png" alt="Reconciliations after redesign" />
+          </div>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Reconciliations &mdash; before and after the design system rollout</p>
+    </div>
+
+    <!-- ==================== IMPACT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">11 &mdash; Impact</span>
+      <h2 class="cs-section__title">Results &amp; Impact</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Measurable outcomes that validated the investment.</p>
+
+      <div class="cs-impact-metrics">
+        <div class="cs-impact-metric reveal reveal-delay-1">
+          <div class="cs-impact-metric__value">3x</div>
+          <div class="cs-impact-metric__label">Faster feature delivery across teams</div>
+          <div class="cs-impact-metric__sublabel">Velocity</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-2">
+          <div class="cs-impact-metric__value">92%</div>
+          <div class="cs-impact-metric__label">Component adoption across all teams</div>
+          <div class="cs-impact-metric__sublabel">Adoption</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-3">
+          <div class="cs-impact-metric__value">40+</div>
+          <div class="cs-impact-metric__label">Core components designed and shipped</div>
+          <div class="cs-impact-metric__sublabel">Components</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-4">
+          <div class="cs-impact-metric__value">AA</div>
+          <div class="cs-impact-metric__label">WCAG compliance across all surfaces</div>
+          <div class="cs-impact-metric__sublabel">Accessibility</div>
+        </div>
+      </div>
+
+      <div class="cs-ba-grid">
+        <div class="cs-ba-card">
+          <div class="cs-ba-card__label cs-ba-card__label--before">Before</div>
+          <ul>
+            <li>12+ button variants, no single source of truth</li>
+            <li>3 days average to build a standard form</li>
+            <li>Inconsistent spacing and color usage</li>
+            <li>Ad-hoc accessibility fixes</li>
+          </ul>
+        </div>
+        <div class="cs-ba-card">
+          <div class="cs-ba-card__label cs-ba-card__label--after">After</div>
+          <ul>
+            <li>1 button component, 4 intentional variants</li>
+            <li>4 hours for the same form with system patterns</li>
+            <li>Token-driven consistency across all surfaces</li>
+            <li>WCAG 2.1 AA built into every primitive</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== REFLECTIONS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">12 &mdash; Team Growth</span>
+      <h2 class="cs-section__title">Multiplying Impact</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Building a culture of systems thinking.</p>
+
+      <div class="cs-reflections">
+        <div class="cs-reflection reveal reveal-delay-1">
+          <div class="cs-reflection__number">01</div>
+          <h4 class="cs-reflection__title">Designer Onboarding</h4>
+          <p class="cs-reflection__text">Figma starter kits and annotated examples so new designers ship with Flow-UI in their first week.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-2">
+          <div class="cs-reflection__number">02</div>
+          <h4 class="cs-reflection__title">Design Critique Process</h4>
+          <p class="cs-reflection__text">Weekly system critiques that became the feedback loop between product work and system evolution.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-3">
+          <div class="cs-reflection__number">03</div>
+          <h4 class="cs-reflection__title">Contribution Model</h4>
+          <p class="cs-reflection__text">PR-style reviews and shared Figma branches so any designer can propose components to the system.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-4">
+          <div class="cs-reflection__number">04</div>
+          <h4 class="cs-reflection__title">Systems Thinking Mentorship</h4>
+          <p class="cs-reflection__text">Shifted the team's default from "build for this ticket" to "build for the platform." Weekly office hours for any team to bring questions, propose patterns, or flag duplication.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== NEXT / PREV ==================== -->
+    <nav class="cs-project-nav">
+      <a href="floqast-reporting.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Previous Project
+        </span>
+        <span class="cs-project-nav__title">FloQast Reporting</span>
+      </a>
+      <a href="azibo.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          Next Project
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="cs-project-nav__title">Azibo</span>
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">&copy; 2026 Randy Ritprasert &mdash; Designed with intention.</p>
+      <ul class="footer__links">
+        <li><a href="https://www.linkedin.com/in/ruttapon/" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:randyrits@gmail.com" class="footer__link">Email</a></li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script>
+    // Navigation scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.nav__mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Reading progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===================== MATH BACKGROUND =====================
+    (function initMathBg() {
+      const symbols = ['∑','∫','π','√','∞','Δ','θ','±','≈','∂','φ','λ','Ω','%','÷','×','∇','∮','≠','≤','≥','α','β','σ','μ','=','√','%','∛','⁼','∝','⅀'];
+      const container = document.getElementById('math-bg');
+      const count = 32;
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'math-sym';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const size = 14 + Math.random() * 28;
+        const left = Math.random() * 100;
+        const duration = 25 + Math.random() * 40;
+        const delay = -(Math.random() * duration);
+        const peakOpacity = 0.04 + Math.random() * 0.06;
+        const rotation = 60 + Math.random() * 240;
+        el.style.cssText = `
+          font-size:${size}px;
+          left:${left}%;
+          animation-duration:${duration}s;
+          animation-delay:${delay}s;
+          --peak-opacity:${peakOpacity};
+          --rot:${rotation}deg;
+        `;
+        container.appendChild(el);
+      }
+    })();
+  </script>
+</body>
+</html>

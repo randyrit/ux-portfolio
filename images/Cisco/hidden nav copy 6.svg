@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1280px" height="900px" viewBox="0 0 1280 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>hidden nav copy 6</title>
-    <defs>
+    <defs><style type="text/css">@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap");</style>
         <rect id="path-1" x="0" y="0" width="1280" height="72"></rect>
         <filter x="-0.5%" y="-6.9%" width="101.1%" height="119.4%" filterUnits="objectBoundingBox" id="filter-2">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
@@ -23,10 +23,10 @@
                 <use fill="#FFFFFF" xlink:href="#path-1"></use>
             </g>
             <polygon id="Line" fill="#049FD9" fill-rule="nonzero" points="1089 72 1089 68 1109 68 1109 72"></polygon>
-            <text id="IoT-Center" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal" fill="#049FD9">
+            <text id="IoT-Center" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#049FD9">
                 <tspan x="150" y="42">IoT Center</tspan>
             </text>
-            <text id="Cisco" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold" fill="#049FD9">
+            <text id="Cisco" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#049FD9">
                 <tspan x="88" y="43">Cisco</tspan>
             </text>
             <g id="Group-3" transform="translate(1090, 26)">
@@ -42,7 +42,7 @@
                 </g>
                 <g id="help" transform="translate(86, 0)">
                     <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
-                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">
                         <text>
                             <tspan x="0" y="15">?</tspan>
                         </text>
@@ -71,7 +71,7 @@
         </g>
         <rect id="Rectangle" fill-opacity="0.0988308566" fill="#049FD9" x="814" y="115" width="294" height="67"></rect>
         <rect id="Rectangle-Copy" fill-opacity="0.0988308566" fill="#049FD9" x="814" y="182" width="294" height="67"></rect>
-        <text id="View-More" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#00A2DF">
+        <text id="View-More" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#00A2DF">
             <tspan x="838" y="815">View More </tspan>
         </text>
         <line x1="814" y1="182" x2="1108" y2="182" id="Line-3" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
@@ -85,78 +85,78 @@
         <line x1="814" y1="718" x2="1108" y2="718" id="Line-3-Copy-9" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
         <line x1="814" y1="450" x2="1108" y2="450" id="Line-3-Copy-4" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
         <line x1="814" y1="785" x2="1108" y2="785" id="Line-3-Copy-10" stroke="#CCCCCC" opacity="0.5" stroke-linecap="square"></line>
-        <text id="6-Gateways-Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="6-Gateways-Down" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="861" y="141" fill="#049FD9">6 Gateways</tspan>
             <tspan x="942.146001" y="141" fill="#333333"> Down</tspan>
         </text>
-        <text id="20-Gateways-Down" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="20-Gateways-Down" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="861" y="476" fill="#049FD9">20 Gateways</tspan>
             <tspan x="951.046001" y="476" fill="#333333"> Down</tspan>
         </text>
-        <text id="Firmware-Update-Avai" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Firmware-Update-Avai" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="208" fill="#049FD9">Firmware Update</tspan>
             <tspan x="957.136001" y="208" fill="#333333"> Available</tspan>
         </text>
-        <text id="Firmware-Update-Avai-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Firmware-Update-Avai-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="543" fill="#049FD9">Firmware Update</tspan>
             <tspan x="957.136001" y="543" fill="#333333"> Available</tspan>
         </text>
-        <text id="Gateway-5-Onboarded" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Gateway-5-Onboarded" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="275" fill="#049FD9">Gateway 5</tspan>
             <tspan x="911.492001" y="275" fill="#333333"> Onboarded</tspan>
         </text>
-        <text id="Sabrina-claimed-20-G" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Sabrina-claimed-20-G" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="610" fill="#049FD9">Sabrina </tspan>
             <tspan x="895.494001" y="610" fill="#333333">claimed</tspan>
             <tspan x="949.940001" y="610" fill="#049FD9"> 20 Gateways </tspan>
         </text>
-        <text id="Gateway-10-Onboarded" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Gateway-10-Onboarded" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="342" fill="#049FD9">Gateway 10</tspan>
             <tspan x="920.392001" y="342" fill="#333333"> Onboarded</tspan>
         </text>
-        <text id="Gateway-10-Onboarded-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Gateway-10-Onboarded-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="677" fill="#049FD9">Gateway 10</tspan>
             <tspan x="920.392001" y="677" fill="#333333"> Onboarded</tspan>
         </text>
-        <text id="Gateway-1-Onboarded" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Gateway-1-Onboarded" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="409" fill="#049FD9">Gateway 1</tspan>
             <tspan x="911.492001" y="409" fill="#333333"> Onboarded</tspan>
         </text>
-        <text id="Gateway-1-Onboarded-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083">
+        <text id="Gateway-1-Onboarded-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083">
             <tspan x="838" y="744" fill="#049FD9">Gateway 1</tspan>
             <tspan x="911.492001" y="744" fill="#333333"> Onboarded</tspan>
         </text>
-        <text id="5-Min-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="5-Min-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="165">5 Min Ago</tspan>
         </text>
-        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="500">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="232">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago-Copy" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago-Copy" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="567">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="299">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago-Copy-2" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago-Copy-2" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="634">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="366">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago-Copy-3" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago-Copy-3" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="701">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="433">1 Hr Ago</tspan>
         </text>
-        <text id="1-Hr-Ago-Copy-4" opacity="0.400000006" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
+        <text id="1-Hr-Ago-Copy-4" opacity="0.400000006" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.500000083" fill="#333333">
             <tspan x="838" y="768">1 Hr Ago</tspan>
         </text>
-        <text id="NOTIFICATIONS" opacity="0.5" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#333333">
+        <text id="NOTIFICATIONS" opacity="0.5" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#333333">
             <tspan x="838" y="97">NOTIFICATIONS</tspan>
         </text>
         <g id="Alarms/Critical-Alarm-Icon" transform="translate(835.5101, 126.0101)">
@@ -175,7 +175,7 @@
             <line x1="6.88988786" y1="6.88988786" x2="14.0898879" y2="14.0898879" id="Line-Copy" stroke="#FFFFFF" stroke-linecap="square" transform="translate(10.4899, 10.4899) scale(-1, 1) translate(-10.4899, -10.4899)"></line>
         </g>
         <circle id="Oval" stroke="#979797" fill="#FF0000" cx="1109" cy="22" r="12"></circle>
-        <text id="2" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+        <text id="2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
             <tspan x="1105.414" y="26">2</tspan>
         </text>
         <g id="Alarms/Major-Alarm-Icon" transform="translate(641, 176)">
@@ -188,10 +188,10 @@
             <circle id="Oval" fill="#FFFFFF" cx="7" cy="12" r="1"></circle>
             <ellipse id="Oval-Copy" fill="#FFFFFF" cx="7" cy="7" rx="1" ry="3"></ellipse>
         </g>
-        <text id="View-Previous-Notifi" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#333333">
+        <text id="View-Previous-Notifi" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#333333">
             <tspan x="585.068" y="253">View Previous Notifications</tspan>
         </text>
-        <text id="Maybe-hide-seen-noti" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#333333">
+        <text id="Maybe-hide-seen-noti" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#333333">
             <tspan x="577.074" y="306">Maybe hide seen notifications</tspan>
         </text>
     </g>

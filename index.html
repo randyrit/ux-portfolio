@@ -6,7 +6,7 @@
   <title>RR — UX Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Press+Start+2P&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -21,9 +21,9 @@
       --text-primary: #e8e4df;
       --text-secondary: #8a8580;
       --text-muted: #5a5550;
-      --accent: #6b9fcd;
-      --accent-dim: rgba(107, 159, 205, 0.12);
-      --accent-glow: rgba(107, 159, 205, 0.06);
+      --accent: #3B82F6;
+      --accent-dim: rgba(59, 130, 246, 0.12);
+      --accent-glow: rgba(59, 130, 246, 0.06);
       --border: rgba(255, 255, 255, 0.06);
       --border-hover: rgba(255, 255, 255, 0.12);
       --font-display: 'Sora', sans-serif;
@@ -257,14 +257,18 @@
       color: var(--accent);
       margin-bottom: 28px;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.05s forwards;
     }
 
     .hero__title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      row-gap: 0.08em;
       font-family: var(--font-display);
       font-size: clamp(48px, 8vw, 112px);
       font-weight: 600;
-      line-height: 1.05;
+      line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--text-primary);
       max-width: 900px;
@@ -277,24 +281,343 @@
       animation: fadeUp 0.9s var(--ease-out-expo) forwards;
     }
 
-    .hero__title span:nth-child(1) { animation-delay: 0.3s; }
-    .hero__title span:nth-child(2) { animation-delay: 0.4s; }
-    .hero__title span:nth-child(3) { animation-delay: 0.5s; }
+    .hero__title span:nth-child(1) { animation-delay: 0.15s; }
+    .hero__title span:nth-child(2) { animation-delay: 0.3s; }
+    .hero__title span:nth-child(3) { animation-delay: 0.45s; }
 
     .hero__title em {
       font-style: normal;
-      color: var(--accent);
     }
+
+    /* ── Rotating word + text effects ── */
+    /* The slot reserves a fixed inline box so the rotator content (which
+       varies in size between variants) never affects the line height or
+       horizontal flow of the surrounding text. */
+    .hero__title__slot {
+      position: relative;
+      display: inline-block;
+      vertical-align: baseline;
+      height: 1em;
+      /* min-width is set by JS to fit the widest variant */
+    }
+
+    .hero__rotator {
+      font-style: normal;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      white-space: nowrap;
+      text-align: left;
+      transition: opacity 0.35s ease, transform 0.35s ease;
+      will-change: opacity, transform;
+    }
+    .hero__rotator--out {
+      opacity: 0;
+      transform: translateY(-14px);
+    }
+
+    /* SVG rotator container */
+    .hero__rotator-svg {
+      display: inline-block;
+      height: 1em;
+      vertical-align: baseline;
+      overflow: visible;
+    }
+
+    /* Canvas rotator (used by water-physics variant) */
+    .hero__rotator-canvas {
+      display: block;
+      position: absolute;
+      left: 0;
+      bottom: -0.2em;
+    }
+
+    /* Sparkle for the polishing effect */
+    .hero__sparkle {
+      transform-origin: center center;
+      transform-box: fill-box;
+      animation: hero-sparkle-twinkle 1.8s ease-in-out infinite;
+    }
+    @keyframes hero-sparkle-twinkle {
+      0%, 100% { opacity: 0; transform: scale(0.2) rotate(0deg); }
+      45%      { opacity: 1; transform: scale(1) rotate(40deg); }
+      55%      { opacity: 1; transform: scale(1.2) rotate(50deg); }
+    }
+
+    /* 1. Default (accent) */
+    .fx-default { color: var(--accent); }
+
+    /* Orange */
+    .fx-orange { color: #fb923c; }
+
+    /* Iterating: per-letter bounce wave + flying sparks */
+    /* Selectors are scoped under .hero__title__slot to outrank the
+       inherited `.hero__title span` rule that would otherwise apply
+       fadeUp + opacity:0 to every nested span. */
+    .hero__title__slot .fx-iter-letter {
+      display: inline-block;
+      color: #fb923c;
+      transform-origin: center bottom;
+      opacity: 0;
+      animation: iter-bounce 0.95s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+    @keyframes iter-bounce {
+      0%   { transform: translateY(36px); opacity: 0; }
+      18%  { opacity: 1; }
+      45%  { transform: translateY(-14px); opacity: 1; }
+      65%  { transform: translateY(0); }
+      80%  { transform: translateY(-5px); }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    /* Persistent falling sparks — live at body level so they outlive the
+       rotator cycle. Positioned absolute in document coordinates so they
+       stay pinned to the hero (where they spawned) and scroll away with
+       the rest of the page instead of sticking to the viewport.
+       Motion is driven by the Web Animations API in JS for accurate
+       parabolic physics (constant gravity). */
+    .iter-spark-fall {
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      box-shadow: 0 0 10px currentColor, 0 0 3px currentColor;
+      z-index: 5;
+      will-change: transform, opacity;
+    }
+
+    /* 8-bit retro green with pixelated glitch */
+    .fx-8bit {
+      font-family: 'Press Start 2P', 'Courier New', monospace;
+      font-weight: 400;
+      color: #5dff7f;
+      letter-spacing: 0;
+      font-size: 0.62em;
+      vertical-align: 0.18em;
+      display: inline-block;
+      animation: fx-8bit-glitch 2.4s steps(1, end) infinite;
+    }
+
+    @keyframes fx-8bit-glitch {
+      /* Resting state — clean 8-bit pixel shadow */
+      0%, 100% {
+        transform: translate(0, 0);
+        text-shadow:
+          2px 0 #1a8a30, 0 2px #1a8a30, 2px 2px #1a8a30,
+          4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      /* Burst 1 — RGB split jolt left */
+      8% {
+        transform: translate(-3px, 1px);
+        text-shadow:
+          -4px 0 #ff003c, 4px 0 #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      10% {
+        transform: translate(2px, -1px);
+        text-shadow:
+          4px 0 #ff003c, -4px 0 #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      12% {
+        transform: translate(0, 0);
+        text-shadow:
+          2px 0 #1a8a30, 0 2px #1a8a30, 2px 2px #1a8a30,
+          4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      /* Burst 2 — heavier split + bigger offset */
+      36% {
+        transform: translate(4px, 0);
+        text-shadow:
+          -5px 0 #ff003c, 5px 0 #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      38% {
+        transform: translate(-2px, 2px);
+        text-shadow:
+          5px 1px #ff003c, -5px -1px #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      40% {
+        transform: translate(0, 0);
+        text-shadow:
+          2px 0 #1a8a30, 0 2px #1a8a30, 2px 2px #1a8a30,
+          4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      /* Burst 3 — quick jitter */
+      68% {
+        transform: translate(-4px, -1px);
+        text-shadow:
+          3px 0 #ff003c, -3px 0 #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      69% {
+        transform: translate(3px, 1px);
+        text-shadow:
+          -3px 0 #ff003c, 3px 0 #00f0ff,
+          2px 2px #1a8a30, 4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+      71% {
+        transform: translate(0, 0);
+        text-shadow:
+          2px 0 #1a8a30, 0 2px #1a8a30, 2px 2px #1a8a30,
+          4px 4px 0 #003c11,
+          0 0 18px rgba(93, 255, 127, 0.55);
+      }
+    }
+
+    /* 4. Electric */
+    .fx-electric {
+      color: #d8f5ff;
+      text-shadow:
+        0 0 6px #00e5ff,
+        0 0 18px #00e5ff,
+        0 0 36px rgba(0, 229, 255, 0.7),
+        0 0 60px rgba(0, 229, 255, 0.35);
+      animation: fx-flicker 0.18s steps(2) infinite;
+    }
+    @keyframes fx-flicker {
+      0%, 100% { opacity: 1; filter: brightness(1); }
+      50% { opacity: 0.88; filter: brightness(1.1); }
+    }
+
+    /* 5. Rainbow */
+    .fx-rainbow {
+      color: transparent;
+      background: linear-gradient(90deg, #ff5959, #ffa55a, #ffe24d, #4cf08d, #4cb8ff, #c14cff, #ff5cd8, #ff5959);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: fx-rainbow-pan 3s linear infinite;
+    }
+    @keyframes fx-rainbow-pan {
+      to { background-position: -200% 0; }
+    }
+
+    /* 6. Fire */
+    .fx-fire {
+      color: transparent;
+      background: linear-gradient(180deg, #fff599 0%, #ffd24d 25%, #ffaa00 50%, #ff5500 78%, #b30000 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 0 14px rgba(255, 110, 0, 0.55));
+    }
+
+    /* 7. Chrome */
+    .fx-chrome {
+      color: transparent;
+      background: linear-gradient(180deg,
+        #e8e8e8 0%,
+        #ffffff 22%,
+        #c0c8d4 48%,
+        #7a8694 60%,
+        #c0c8d4 78%,
+        #ffffff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+    }
+
+    /* 9. Holographic */
+    .fx-holo {
+      color: transparent;
+      background: linear-gradient(135deg, #ff8be8, #b58bff, #8be0ff, #8bffd5, #ffe88b, #ff8be8);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      animation: fx-holo-shift 4s ease-in-out infinite;
+    }
+    @keyframes fx-holo-shift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+
+    /* GIF fill — clipped to text shape. The background-image URL is set
+       inline from the variant config so multiple variants can use different
+       GIFs with the same class. */
+    .fx-gif {
+      color: transparent;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    /* 10. 3D extrude — clean white front, solid blue body building along z-axis */
+    .fx-3d {
+      color: #ffffff;
+      animation: fx-3d-extrude 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes fx-3d-extrude {
+      0% {
+        text-shadow:
+          0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6,
+          0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6,
+          0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6,
+          0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6,
+          0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6, 0 0 0 #3B82F6;
+      }
+      100% {
+        text-shadow:
+          1px 1px 0 #3B82F6,  2px 2px 0 #3B82F6,  3px 3px 0 #3B82F6,  4px 4px 0 #3B82F6,  5px 5px 0 #3B82F6,
+          6px 6px 0 #3B82F6,  7px 7px 0 #3B82F6,  8px 8px 0 #3B82F6,  9px 9px 0 #3B82F6,  10px 10px 0 #3B82F6,
+          11px 11px 0 #3B82F6, 12px 12px 0 #3B82F6, 13px 13px 0 #3B82F6, 14px 14px 0 #3B82F6, 15px 15px 0 #3B82F6,
+          16px 16px 0 #3B82F6, 17px 17px 0 #3B82F6, 18px 18px 0 #3B82F6, 19px 19px 0 #3B82F6, 20px 20px 0 #3B82F6,
+          21px 21px 0 #3B82F6, 22px 22px 0 #3B82F6, 23px 23px 0 #3B82F6, 24px 24px 0 #3B82F6, 25px 25px 0 #3B82F6;
+      }
+    }
+
+    /* Creating — slot machine: each letter is a vertical reel that spins
+       through random characters and slows into the final letter. Reels
+       stop one by one, staggered from left to right. */
+    .hero__title__slot .fx-slot-reel {
+      display: inline-block;
+      height: 1em;
+      line-height: 1;
+      overflow: hidden;
+      vertical-align: -0.18em;
+      opacity: 1;
+      animation: none;
+    }
+    .hero__title__slot .fx-slot-strip {
+      display: block;
+      will-change: transform;
+      opacity: 1;
+      animation: none;
+    }
+    .hero__title__slot .fx-slot-char {
+      display: block;
+      height: 1em;
+      line-height: 1em;
+      text-align: center;
+      color: var(--text-primary);
+      font-family: 'Courier New', monospace;
+      opacity: 1;
+      animation: none;
+    }
+
 
     .hero__description {
       font-size: clamp(16px, 2vw, 19px);
-      font-weight: 300;
+      font-weight: 500;
       line-height: 1.7;
-      color: var(--text-secondary);
+      color: var(--text-primary);
       max-width: 520px;
       margin-bottom: 48px;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.65s forwards;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
     }
 
     .hero__cta-row {
@@ -302,7 +625,7 @@
       align-items: center;
       gap: 24px;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.7s forwards;
     }
 
     .hero__cta {
@@ -400,8 +723,8 @@
 
     .section__subtitle {
       font-size: clamp(15px, 1.5vw, 17px);
-      font-weight: 300;
-      color: var(--text-secondary);
+      font-weight: 500;
+      color: var(--text-primary);
       max-width: 500px;
       margin-top: 16px;
       line-height: 1.7;
@@ -448,6 +771,296 @@
       overflow: hidden;
     }
 
+    /* Cloud Theory animated tile background */
+    .ct-animated-bg {
+      position: absolute;
+      inset: 0;
+      background: #0c0e1a;
+      overflow: hidden;
+    }
+
+    /* Subtle grid overlay */
+    .ct-animated-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 130, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 130, 255, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+      opacity: 0;
+      transition: opacity 1.2s ease;
+    }
+
+    .project-card.visible .ct-animated-bg::before {
+      opacity: 1;
+      animation: ct-grid-drift 20s linear infinite;
+    }
+
+    @keyframes ct-grid-drift {
+      0% { background-position: 0 0; }
+      100% { background-position: 48px 48px; }
+    }
+
+    /* Cursor-reactive grid glow */
+    .ct-grid-glow {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 130, 255, 0.35) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 130, 255, 0.35) 1px, transparent 1px);
+      background-size: 48px 48px;
+      -webkit-mask-image: radial-gradient(circle 120px at var(--ct-mx, -200px) var(--ct-my, -200px), rgba(0,0,0,0.8) 0%, transparent 100%);
+      mask-image: radial-gradient(circle 120px at var(--ct-mx, -200px) var(--ct-my, -200px), rgba(0,0,0,0.8) 0%, transparent 100%);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .project-card.visible .ct-grid-glow {
+      animation: ct-grid-drift 20s linear infinite;
+    }
+
+    .project-card:hover .ct-grid-glow {
+      opacity: 1;
+    }
+
+    /* Floating glow orbs */
+    .ct-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .project-card.visible .ct-orb {
+      opacity: 1;
+    }
+
+    .ct-orb--1 {
+      width: 200px;
+      height: 200px;
+      background: rgba(59, 100, 246, 0.15);
+      top: -40px;
+      right: -30px;
+    }
+    .project-card.visible .ct-orb--1 {
+      animation: ct-float-1 8s ease-in-out infinite;
+    }
+
+    .ct-orb--2 {
+      width: 160px;
+      height: 160px;
+      background: rgba(139, 92, 246, 0.12);
+      bottom: -20px;
+      left: -20px;
+    }
+    .project-card.visible .ct-orb--2 {
+      animation: ct-float-2 10s ease-in-out infinite;
+    }
+
+    .ct-orb--3 {
+      width: 100px;
+      height: 100px;
+      background: rgba(52, 211, 153, 0.08);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .project-card.visible .ct-orb--3 {
+      animation: ct-float-3 12s ease-in-out infinite;
+    }
+
+    @keyframes ct-float-1 {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(-20px, 30px); }
+      66% { transform: translate(15px, -10px); }
+    }
+
+    @keyframes ct-float-2 {
+      0%, 100% { transform: translate(0, 0); }
+      40% { transform: translate(25px, -20px); }
+      70% { transform: translate(-10px, 15px); }
+    }
+
+    @keyframes ct-float-3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-30%, -60%) scale(1.3); }
+    }
+
+    /* Horizontal scan line */
+    .ct-scanline {
+      position: absolute;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(99, 130, 255, 0.15), transparent);
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
+    .project-card.visible .ct-scanline {
+      opacity: 1;
+      animation: ct-scan 6s ease-in-out infinite;
+    }
+
+    @keyframes ct-scan {
+      0%, 100% { top: 10%; opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { top: 90%; opacity: 0; }
+    }
+
+    /* Data pulse dots */
+    .ct-pulse {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+    }
+
+    .project-card.visible .ct-pulse {
+      opacity: 1;
+    }
+
+    .ct-pulse--1 {
+      background: rgba(52, 211, 153, 0.6);
+      top: 20%;
+      left: 12%;
+    }
+    .project-card.visible .ct-pulse--1 {
+      animation: ct-blink 3s ease-in-out 0.5s infinite;
+    }
+
+    .ct-pulse--2 {
+      background: rgba(59, 130, 246, 0.6);
+      top: 65%;
+      right: 15%;
+    }
+    .project-card.visible .ct-pulse--2 {
+      animation: ct-blink 4s ease-in-out 1.2s infinite;
+    }
+
+    .ct-pulse--3 {
+      background: rgba(251, 191, 36, 0.5);
+      bottom: 25%;
+      left: 40%;
+    }
+    .project-card.visible .ct-pulse--3 {
+      animation: ct-blink 3.5s ease-in-out 0.8s infinite;
+    }
+
+    .ct-pulse--4 {
+      background: rgba(139, 92, 246, 0.5);
+      top: 40%;
+      right: 30%;
+    }
+    .project-card.visible .ct-pulse--4 {
+      animation: ct-blink 5s ease-in-out 2s infinite;
+    }
+
+    @keyframes ct-blink {
+      0%, 100% { opacity: 0; transform: scale(1); }
+      50% { opacity: 1; transform: scale(2); box-shadow: 0 0 8px currentColor; }
+    }
+
+    /* Intuit tile: humans illustration sliding up from the bottom */
+    .intuit-humans {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      transform: translateY(100%);
+      transition: transform 1.6s linear;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.92;
+      will-change: transform;
+    }
+
+    .project-card:hover .intuit-humans {
+      transform: translateY(0);
+    }
+
+    /* ── Cisco tile: spinning gears background ── */
+    .cisco-gears-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .cisco-gear {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+      transform-origin: center center;
+      will-change: transform;
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    .project-card:hover .cisco-gear,
+    .project-card.cisco-linger .cisco-gear {
+      opacity: 1;
+      transition: opacity 0.6s ease;
+    }
+
+    /* Always-on rotation; opacity fades in/out independently */
+    .cisco-gear--1 {
+      top: -90px;
+      left: -90px;
+      width: 320px;
+      height: 320px;
+      animation: cisco-spin 22s linear infinite;
+    }
+    .cisco-gear--2 {
+      bottom: -80px;
+      right: -80px;
+      width: 280px;
+      height: 280px;
+      animation: cisco-spin-reverse 18s linear infinite;
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    @keyframes cisco-spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes cisco-spin-reverse {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(-360deg); }
+    }
+
+    .project-card__image > img,
+    .project-card__image > video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s var(--ease-out-expo);
+    }
+
+    .project-card:hover .project-card__image > img,
+    .project-card:hover .project-card__image > video {
+      transform: scale(1.05);
+    }
+
+    /* Zoomed variant: for source images with built-in padding (e.g. the Intuit
+       hero screens floating on a dark green canvas). Zooms past the padding so
+       content reads edge-to-edge like the other cards. */
+    .project-card__image--zoomed > img {
+      transform: scale(1.45);
+    }
+
+    .project-card:hover .project-card__image--zoomed > img {
+      transform: scale(1.5);
+    }
+
     .project-card__image-inner {
       width: 100%;
       height: 100%;
@@ -464,6 +1077,37 @@
 
     .project-card:hover .project-card__image-inner {
       transform: scale(1.03);
+    }
+
+    .project-card__image-inner--isometric {
+      background: #000;
+      perspective: 800px;
+      overflow: hidden;
+    }
+
+    .isometric-thumb {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+      transform: rotateX(45deg) rotateZ(-45deg) scale(1.4);
+      transform-style: preserve-3d;
+      pointer-events: none;
+    }
+
+    .isometric-thumb__screen {
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .isometric-thumb__screen img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 4px;
+    }
+
+    .project-card:hover .project-card__image-inner--isometric {
+      transform: scale(1.06);
     }
 
     .project-card__content {
@@ -498,16 +1142,28 @@
 
     .project-card__description {
       font-size: 14px;
-      font-weight: 300;
-      color: var(--text-secondary);
+      font-weight: 500;
+      color: var(--text-primary);
       line-height: 1.6;
     }
 
     /* ===================== LEADERSHIP ===================== */
     .leadership-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .leadership-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .leadership-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
     .leadership-card {
@@ -544,9 +1200,73 @@
 
     .leadership-card__description {
       font-size: 14px;
-      font-weight: 300;
-      color: var(--text-secondary);
+      font-weight: 500;
+      color: var(--text-primary);
       line-height: 1.7;
+    }
+
+    /* ===================== LEADERSHIP METRICS ===================== */
+    .leadership-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .leadership-metrics--top {
+      margin-top: 0;
+      margin-bottom: 56px;
+    }
+
+    .leadership-metric {
+      padding: 32px 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .leadership-metric:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .leadership-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 8px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .leadership-metric__label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+      margin-bottom: 4px;
+    }
+
+    .leadership-metric__sublabel {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .leadership-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .leadership-metrics {
+        grid-template-columns: 1fr;
+      }
     }
 
     /* ===================== ABOUT ===================== */
@@ -566,6 +1286,7 @@
     .about__photo {
       width: 100%;
       aspect-ratio: 4 / 5;
+      max-height: 70vh;
       background: var(--bg-secondary);
       border-radius: 16px;
       border: 1px solid var(--border);
@@ -589,8 +1310,8 @@
 
     .about__text {
       font-size: clamp(15px, 1.5vw, 17px);
-      font-weight: 300;
-      color: var(--text-secondary);
+      font-weight: 500;
+      color: var(--text-primary);
       line-height: 1.8;
       margin-bottom: 20px;
     }
@@ -621,6 +1342,130 @@
     .about__detail-value {
       color: var(--text-primary);
       font-weight: 400;
+    }
+
+    /* ===================== CONTACT CTA ===================== */
+    .contact {
+      padding: clamp(80px, 12vw, 140px) clamp(24px, 5vw, 64px);
+      text-align: center;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact__eyebrow {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .contact__title {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 6vw, 84px);
+      line-height: 1.05;
+      font-weight: 300;
+      color: var(--text-primary);
+      max-width: 14ch;
+      margin: 0 auto 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .contact__title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .contact__description {
+      font-size: clamp(15px, 1.4vw, 17px);
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.7;
+      max-width: 52ch;
+      margin: 0 auto 48px;
+    }
+
+    .contact__actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+
+    .contact__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 18px 32px;
+      background: var(--accent);
+      color: var(--bg-primary);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      border-radius: 999px;
+      transition: transform 0.4s var(--ease-out-expo), background 0.3s ease;
+    }
+
+    .contact__cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .contact__cta-arrow {
+      transition: transform 0.4s var(--ease-out-expo);
+    }
+
+    .contact__cta:hover .contact__cta-arrow {
+      transform: translateX(4px);
+    }
+
+    .contact__cta--ghost {
+      background: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border);
+    }
+
+    .contact__cta--ghost:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .contact__meta {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .contact__meta-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .contact__meta-item::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .contact__actions {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 0 16px;
+      }
+      .contact__cta {
+        justify-content: center;
+      }
     }
 
     /* ===================== FOOTER ===================== */
@@ -704,11 +1549,324 @@
       background: var(--accent);
       color: var(--bg-primary);
     }
+
+    /* ===================== CHATBOT ===================== */
+    .chatbot {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 9998;
+      font-family: var(--font-body);
+    }
+
+    .chatbot__toggle {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.35), 0 2px 8px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+    }
+
+    .chatbot__toggle:hover {
+      transform: scale(1.08);
+      box-shadow: 0 6px 28px rgba(59, 130, 246, 0.45), 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+
+    .chatbot__icon-close { display: none; }
+    .chatbot.open .chatbot__icon-chat { display: none; }
+    .chatbot.open .chatbot__icon-close { display: block; }
+
+    .chatbot__window {
+      position: absolute;
+      bottom: 72px;
+      right: 0;
+      width: 380px;
+      max-height: 520px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-hover);
+      border-radius: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(12px) scale(0.95);
+      transition: opacity 0.3s var(--ease-out-expo), transform 0.3s var(--ease-out-expo), visibility 0.3s;
+      box-shadow: 0 12px 48px rgba(0, 0, 0, 0.5), 0 4px 16px rgba(0, 0, 0, 0.3);
+    }
+
+    .chatbot.open .chatbot__window {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0) scale(1);
+    }
+
+    .chatbot__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .chatbot__header-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .chatbot__header-name {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .chatbot__header-status {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .chatbot__messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 16px 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 300px;
+      max-height: 380px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border-hover) transparent;
+    }
+
+    .chatbot__messages::-webkit-scrollbar { width: 4px; }
+    .chatbot__messages::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
+
+    .chatbot__message {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.55;
+      animation: chatFadeIn 0.3s var(--ease-out-expo);
+    }
+
+    @keyframes chatFadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chatbot__message--bot {
+      align-self: flex-start;
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chatbot__message--bot p { margin: 0; }
+
+    .chatbot__message--user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chatbot__suggestions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      animation: chatFadeIn 0.3s var(--ease-out-expo) 0.15s both;
+    }
+
+    .chatbot__suggestion {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border-hover);
+      background: transparent;
+      color: var(--accent);
+      font-size: 12px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .chatbot__suggestion:hover {
+      background: var(--accent-dim);
+      border-color: var(--accent);
+    }
+
+    .chatbot__input-row {
+      display: flex;
+      gap: 8px;
+      padding: 12px 16px;
+      border-top: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .chatbot__input {
+      flex: 1;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      color: var(--text-primary);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .chatbot__input::placeholder { color: var(--text-muted); }
+    .chatbot__input:focus { border-color: var(--accent); }
+
+    .chatbot__send {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      background: var(--accent);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+      transition: background 0.2s ease, transform 0.2s ease;
+    }
+
+    .chatbot__send:hover {
+      background: #2563EB;
+      transform: scale(1.05);
+    }
+
+    @media (max-width: 480px) {
+      .chatbot__window {
+        width: calc(100vw - 32px);
+        right: -8px;
+        bottom: 68px;
+        max-height: 70vh;
+      }
+    }
   </style>
 </head>
 <body>
 
   <canvas class="sparkle-canvas" id="sparkleCanvas"></canvas>
+
+  <!-- Hidden SVG defs: patterns + gradients for the rotating hero word -->
+  <svg width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden" aria-hidden="true">
+    <defs>
+      <pattern id="patStripes" width="20" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+        <rect width="20" height="20" fill="#1e3a8a"/>
+        <rect width="10" height="20" fill="#60a5fa"/>
+      </pattern>
+      <pattern id="patDots" width="40" height="40" patternUnits="userSpaceOnUse">
+        <rect width="40" height="40" fill="#1e293b"/>
+        <circle cx="20" cy="20" r="14" fill="#f472b6"/>
+      </pattern>
+      <pattern id="patPlaid" width="64" height="64" patternUnits="userSpaceOnUse">
+        <rect width="64" height="64" fill="#2c1810"/>
+        <rect width="64" height="10" y="0" fill="#8b1a1a"/>
+        <rect width="64" height="10" y="32" fill="#8b1a1a"/>
+        <rect width="10" height="64" x="0" fill="#8b1a1a"/>
+        <rect width="10" height="64" x="32" fill="#8b1a1a"/>
+        <rect width="64" height="3" y="4" fill="#f4e4c1"/>
+        <rect width="3" height="64" x="4" fill="#f4e4c1"/>
+      </pattern>
+      <pattern id="patChecker" width="36" height="36" patternUnits="userSpaceOnUse">
+        <rect width="36" height="36" fill="#0f172a"/>
+        <rect width="18" height="18" fill="#fbbf24"/>
+        <rect x="18" y="18" width="18" height="18" fill="#fbbf24"/>
+      </pattern>
+
+      <!-- Wood grain: warm walnut base with flowing horizontal grain lines -->
+      <pattern id="patWood" width="160" height="50" patternUnits="userSpaceOnUse">
+        <rect width="160" height="50" fill="#8b5a2b"/>
+        <rect width="160" height="2" y="3"  fill="#a0673a" opacity="0.55"/>
+        <rect width="160" height="3" y="14" fill="#704020" opacity="0.55"/>
+        <rect width="160" height="2" y="22" fill="#a0673a" opacity="0.5"/>
+        <rect width="160" height="3" y="32" fill="#6b3f1a" opacity="0.6"/>
+        <rect width="160" height="2" y="42" fill="#9a5f32" opacity="0.5"/>
+        <path d="M 0 7  Q 30 5  60 8  T 120 7  T 160 7"  stroke="#5c3413" stroke-width="0.7" fill="none" opacity="0.85"/>
+        <path d="M 0 18 Q 25 20 55 17 T 110 19 T 160 18" stroke="#4a2a0d" stroke-width="0.5" fill="none" opacity="0.75"/>
+        <path d="M 0 27 Q 35 26 70 28 T 130 26 T 160 27" stroke="#5c3413" stroke-width="0.6" fill="none" opacity="0.8"/>
+        <path d="M 0 36 Q 30 38 60 35 T 120 37 T 160 36" stroke="#4a2a0d" stroke-width="0.5" fill="none" opacity="0.75"/>
+        <path d="M 0 47 Q 25 45 55 48 T 110 46 T 160 47" stroke="#5c3413" stroke-width="0.7" fill="none" opacity="0.85"/>
+        <ellipse cx="80" cy="25" rx="4.5" ry="2.5" fill="#3a1f08" opacity="0.7"/>
+        <ellipse cx="80" cy="25" rx="2"   ry="1.2" fill="#2a1505" opacity="0.85"/>
+      </pattern>
+
+      <!-- Crafting image fill: scales to fit the text's bounding box -->
+      <pattern id="patCraftingImage" x="0" y="0" width="1" height="1"
+               patternUnits="objectBoundingBox" patternContentUnits="objectBoundingBox">
+        <image href="https://t3.ftcdn.net/jpg/01/41/89/66/360_F_141896604_7nN1H8kn1aGM9irBQGHNhqNbfjuIQArN.jpg"
+               x="0" y="0" width="1" height="1" preserveAspectRatio="xMidYMid slice"/>
+      </pattern>
+
+      <!-- Silver base: vertical metallic gradient -->
+      <linearGradient id="silverBase" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%"   stop-color="#e8e8e8"/>
+        <stop offset="22%"  stop-color="#ffffff"/>
+        <stop offset="46%"  stop-color="#a8b0b8"/>
+        <stop offset="58%"  stop-color="#5a6068"/>
+        <stop offset="78%"  stop-color="#aeb6be"/>
+        <stop offset="100%" stop-color="#e0e0e0"/>
+      </linearGradient>
+
+      <!-- Silver glare: animated horizontal highlight that sweeps across -->
+      <linearGradient id="silverGlare" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0%"  stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="40%" stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="50%" stop-color="#ffffff" stop-opacity="0.95"/>
+        <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+        <animateTransform attributeName="gradientTransform" type="translate"
+                          from="-1 0" to="1 0" dur="2.8s" repeatCount="indefinite"/>
+      </linearGradient>
+
+      <!-- Spotlight: soft white radial glow -->
+      <radialGradient id="spotlightGrad">
+        <stop offset="0%"  stop-color="#ffffff" stop-opacity="1"/>
+        <stop offset="35%" stop-color="#ffffff" stop-opacity="0.75"/>
+        <stop offset="75%" stop-color="#ffffff" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Confetti pulse: warm radial bloom -->
+      <radialGradient id="confettiPulse">
+        <stop offset="0%"  stop-color="#fde047" stop-opacity="0.95"/>
+        <stop offset="40%" stop-color="#f43f5e" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#a855f7" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Text outline filter: dilate the text union, subtract the original
+           to get a single clean outline that never overlaps between glyphs. -->
+      <filter id="textOutlineFilter" x="-10%" y="-15%" width="120%" height="130%">
+        <feMorphology in="SourceGraphic" operator="dilate" radius="2" result="dilated"/>
+        <feComposite in="dilated" in2="SourceGraphic" operator="out"/>
+      </filter>
+
+    </defs>
+  </svg>
 
   <!-- Navigation -->
   <nav class="nav" id="nav">
@@ -723,6 +1881,7 @@
       <li><a href="#projects" class="nav__link">Projects</a></li>
       <li><a href="#leadership" class="nav__link">Leadership</a></li>
       <li><a href="#about" class="nav__link">About Me</a></li>
+      <li><a href="#contact" class="nav__link">Contact</a></li>
     </ul>
 
     <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -735,6 +1894,7 @@
       <li><a href="#projects" class="nav__mobile-link">Projects</a></li>
       <li><a href="#leadership" class="nav__mobile-link">Leadership</a></li>
       <li><a href="#about" class="nav__mobile-link">About Me</a></li>
+      <li><a href="#contact" class="nav__mobile-link">Contact</a></li>
     </ul>
   </nav>
 
@@ -742,14 +1902,14 @@
   <section class="hero">
     <p class="hero__eyebrow">Randy Ritprasert — Product Designer</p>
     <h1 class="hero__title">
-      <span>10 years of </span>
-      <span><em>designing</em> </span>
+      <span>10+ years of </span>
+      <span class="hero__title__slot"><em class="hero__rotator fx-default">designing</em></span>
       <span>what matters.</span>
     </h1>
     <p class="hero__description">
-      From NASA cockpits to AI-powered dashboards — I apply user research
-      and strategic design thinking to deliver impactful solutions across
-      SaaS, Fintech, Aviation, and IoT.
+      I design AI-driven and native products with deep experience in B2B
+      and SaaS — turning complex workflows into intuitive experiences
+      through user research and strategic design thinking.
     </p>
     <div class="hero__cta-row">
       <a href="#projects" class="hero__cta">
@@ -775,8 +1935,19 @@
 
     <div class="projects-grid">
       <a class="project-card reveal reveal-delay-1" href="projects/cloud-theory-ai.html">
-        <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+        <div class="project-card__image" style="background: #0c0e1a;">
+          <div class="ct-animated-bg" id="ct-tile-bg">
+            <div class="ct-grid-glow"></div>
+            <div class="ct-orb ct-orb--1"></div>
+            <div class="ct-orb ct-orb--2"></div>
+            <div class="ct-orb ct-orb--3"></div>
+            <div class="ct-scanline"></div>
+            <div class="ct-pulse ct-pulse--1"></div>
+            <div class="ct-pulse ct-pulse--2"></div>
+            <div class="ct-pulse ct-pulse--3"></div>
+            <div class="ct-pulse ct-pulse--4"></div>
+          </div>
+          <img src="images/Cloud Theory/cloud-theory-final.png" alt="Cloud Theory AI — final dashboard design" style="width:100%;height:100%;object-fit:contain;padding:24px 32px;position:relative;z-index:1;">
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -790,7 +1961,9 @@
 
       <a class="project-card reveal reveal-delay-2" href="projects/floqast-reporting.html">
         <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+          <video muted playsinline preload="metadata" aria-label="FloQast Reporting product demo" poster="images/Desktop - 34.png">
+            <source src="images/floqast-reporting-hero.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -804,7 +1977,7 @@
 
       <a class="project-card reveal reveal-delay-3" href="projects/floqast-platform.html">
         <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+          <img src="images/FloQast Designer/fqhero.png" alt="FloQast Platform" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -818,7 +1991,9 @@
 
       <a class="project-card reveal reveal-delay-4" href="projects/azibo.html">
         <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+          <video muted playsinline preload="metadata" aria-label="Azibo product demo" poster="images/Azibo/1e_X3KIe7sHMQ30wy956w9MB4gjjVvLs_R6g-2dlXaA.png">
+            <source src="images/azibo-hero.mp4" type="video/mp4">
+          </video>
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -831,8 +2006,9 @@
       </a>
 
       <a class="project-card reveal reveal-delay-1" href="projects/intuit.html">
-        <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+        <div class="project-card__image" style="background:#0a1a12;">
+          <img class="intuit-humans" src="images/humans.svg" alt="" aria-hidden="true">
+          <img src="images/intuit Transparent.png" alt="Intuit QuickBooks Payroll onboarding" style="width:100%;height:100%;object-fit:contain;padding:20px 28px;position:relative;z-index:1;">
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -840,27 +2016,35 @@
             <span class="project-card__tag">Payroll</span>
           </div>
           <h3 class="project-card__title">Intuit</h3>
-          <p class="project-card__description">Designed and delivered a B2B/B2C payroll platform, simplifying the hiring experience by streamlining document discovery and reducing cognitive load.</p>
+          <p class="project-card__description">Led 0-to-1 design of a new QuickBooks Payroll onboarding experience — a net-new setup flow built from the ground up for small business owners running payroll for the first time.</p>
         </div>
       </a>
 
-      <a class="project-card reveal reveal-delay-2" href="projects/cisco.html">
-        <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+      <a class="project-card reveal reveal-delay-2" href="projects/cisco.html" id="ciscoCard">
+        <div class="project-card__image" style="background:#049FD9;">
+          <div class="cisco-gears-bg">
+            <svg class="cisco-gear cisco-gear--1" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+            </svg>
+            <svg class="cisco-gear cisco-gear--2" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M19.14,12.94c0.04-0.3,0.06-0.61,0.06-0.94c0-0.32-0.02-0.64-0.07-0.94l2.03-1.58c0.18-0.14,0.23-0.41,0.12-0.61l-1.92-3.32c-0.12-0.22-0.37-0.29-0.59-0.22l-2.39,0.96c-0.5-0.38-1.03-0.7-1.62-0.94L14.4,2.81c-0.04-0.24-0.24-0.41-0.48-0.41h-3.84c-0.24,0-0.43,0.17-0.47,0.41L9.25,5.35C8.66,5.59,8.12,5.92,7.63,6.29L5.24,5.33c-0.22-0.08-0.47,0-0.59,0.22L2.74,8.87C2.62,9.08,2.66,9.34,2.86,9.48l2.03,1.58C4.84,11.36,4.8,11.69,4.8,12s0.02,0.64,0.07,0.94l-2.03,1.58c-0.18,0.14-0.23,0.41-0.12,0.61l1.92,3.32c0.12,0.22,0.37,0.29,0.59,0.22l2.39-0.96c0.5,0.38,1.03,0.7,1.62,0.94l0.36,2.54c0.05,0.24,0.24,0.41,0.48,0.41h3.84c0.24,0,0.44-0.17,0.47-0.41l0.36-2.54c0.59-0.24,1.13-0.56,1.62-0.94l2.39,0.96c0.22,0.08,0.47,0,0.59-0.22l1.92-3.32c0.12-0.22,0.07-0.47-0.12-0.61L19.14,12.94z M12,15.6c-1.98,0-3.6-1.62-3.6-3.6s1.62-3.6,3.6-3.6s3.6,1.62,3.6,3.6S13.98,15.6,12,15.6z"/>
+            </svg>
+          </div>
+          <img src="images/cisco.png" alt="Cisco IoT Center" style="width:100%;height:100%;object-fit:contain;padding:24px 32px;position:relative;z-index:1;">
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
             <span class="project-card__tag">IoT</span>
             <span class="project-card__tag">Enterprise</span>
           </div>
-          <h3 class="project-card__title">Cisco</h3>
+          <h3 class="project-card__title">Cisco IoT Center</h3>
           <p class="project-card__description">Conducted in-person research with Tesla and Bush Brothers, then redesigned the IoT SaaS platform contributing to a 20% reduction in IT incidents.</p>
         </div>
       </a>
 
       <a class="project-card reveal reveal-delay-3" href="projects/nasa.html">
         <div class="project-card__image">
-          <div class="project-card__image-inner">Project Visual</div>
+          <img src="images/NASA/Frame 47626.png" alt="NASA Boeing 777 simulator" style="width:100%;height:100%;object-fit:cover;">
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
@@ -882,6 +2066,29 @@
       <span class="section__number">02</span>
       <h2 class="section__title">Leadership</h2>
       <p class="section__subtitle">Growing teams, shaping culture, and driving design excellence at scale.</p>
+    </div>
+
+    <div class="leadership-metrics leadership-metrics--top">
+      <div class="leadership-metric reveal reveal-delay-1">
+        <div class="leadership-metric__value" data-count-from="5" data-count-to="25" data-count-suffix="">5</div>
+        <div class="leadership-metric__label">Team grew from 5 to 25 designers</div>
+        <div class="leadership-metric__sublabel">Team Growth</div>
+      </div>
+      <div class="leadership-metric reveal reveal-delay-2">
+        <div class="leadership-metric__value" data-count-from="0" data-count-to="0" data-count-suffix="">0</div>
+        <div class="leadership-metric__label">Designers resigning under my leadership</div>
+        <div class="leadership-metric__sublabel">Retention</div>
+      </div>
+      <div class="leadership-metric reveal reveal-delay-3">
+        <div class="leadership-metric__value" data-count-from="0" data-count-to="12" data-count-suffix="+">0</div>
+        <div class="leadership-metric__label">Designers mentored across levels</div>
+        <div class="leadership-metric__sublabel">Mentorship</div>
+      </div>
+      <div class="leadership-metric reveal reveal-delay-4">
+        <div class="leadership-metric__value" data-count-from="0" data-count-to="100" data-count-suffix="%">0</div>
+        <div class="leadership-metric__label">Design process documented &amp; standardized</div>
+        <div class="leadership-metric__sublabel">Documentation</div>
+      </div>
     </div>
 
     <div class="leadership-grid">
@@ -908,7 +2115,16 @@
         <h3 class="leadership-card__title">Strategic Impact</h3>
         <p class="leadership-card__description">Helped secure a $300K customer deal by designing an automated solution tailored to client needs. Facilitated design sprints and stakeholder workshops to prioritize high-impact solutions.</p>
       </div>
+
+      <div class="leadership-card reveal reveal-delay-4">
+        <div class="leadership-card__icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="1.5"/><path d="M8 12l3 3 5-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="leadership-card__title">Cross-Functional Alignment</h3>
+        <p class="leadership-card__description">Partnered with engineering, product, and QA to align on design system adoption. Led weekly syncs and design critiques that became the bridge between design vision and production reality.</p>
+      </div>
     </div>
+
   </section>
 
   <hr class="section__divider">
@@ -954,6 +2170,69 @@
       </div>
     </div>
   </section>
+
+  <hr class="section__divider">
+
+  <!-- Contact CTA -->
+  <section class="contact" id="contact">
+    <p class="contact__eyebrow reveal">Let's Build Something</p>
+    <h2 class="contact__title reveal reveal-delay-1">
+      Have a project <em>worth designing</em>?
+    </h2>
+    <p class="contact__description reveal reveal-delay-2">
+      I'm currently open to Staff and Principal product design roles, as well as
+      meaningful contract work. If you're tackling a hard problem in SaaS, fintech,
+      or AI — I'd love to hear about it.
+    </p>
+    <div class="contact__actions reveal reveal-delay-3">
+      <a href="mailto:randyrits@gmail.com" class="contact__cta">
+        Get in touch
+        <svg class="contact__cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/ruttapon/" target="_blank" rel="noopener" class="contact__cta contact__cta--ghost">
+        Connect on LinkedIn
+      </a>
+    </div>
+    <div class="contact__meta reveal reveal-delay-4">
+      <span class="contact__meta-item">Based in San Jose, CA</span>
+      <span class="contact__meta-item">Available remote &amp; hybrid</span>
+      <span class="contact__meta-item">Replies within 24 hours</span>
+    </div>
+  </section>
+
+  <!-- Chatbot -->
+  <div class="chatbot" id="chatbot">
+    <button class="chatbot__toggle" id="chatbotToggle" aria-label="Open chat">
+      <svg class="chatbot__icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <svg class="chatbot__icon-close" width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="chatbot__window" id="chatbotWindow">
+      <div class="chatbot__header">
+        <div class="chatbot__header-avatar">C</div>
+        <div>
+          <div class="chatbot__header-name">Claude</div>
+          <div class="chatbot__header-status">Ask me anything about Randy</div>
+        </div>
+      </div>
+      <div class="chatbot__messages" id="chatbotMessages">
+        <div class="chatbot__message chatbot__message--bot">
+          <p>Hey! I'm Claude, embedded here to help you learn about Randy. Ask me anything about his experience, skills, projects, or background.</p>
+        </div>
+        <div class="chatbot__suggestions" id="chatbotSuggestions">
+          <button class="chatbot__suggestion" data-q="What's Randy's background?">Background</button>
+          <button class="chatbot__suggestion" data-q="What companies has Randy worked at?">Companies</button>
+          <button class="chatbot__suggestion" data-q="What are Randy's skills?">Skills</button>
+          <button class="chatbot__suggestion" data-q="Tell me about Randy's leadership experience">Leadership</button>
+        </div>
+      </div>
+      <form class="chatbot__input-row" id="chatbotForm">
+        <input class="chatbot__input" id="chatbotInput" type="text" placeholder="Ask about Randy..." autocomplete="off">
+        <button class="chatbot__send" type="submit" aria-label="Send">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </form>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="footer">
@@ -1012,6 +2291,21 @@
 
     revealElements.forEach(el => revealObserver.observe(el));
 
+    // Cloud Theory tile — cursor-reactive grid glow
+    const ctBg = document.getElementById('ct-tile-bg');
+    if (ctBg) {
+      const ctCard = ctBg.closest('.project-card');
+      ctCard.addEventListener('mousemove', (e) => {
+        const rect = ctBg.getBoundingClientRect();
+        ctBg.style.setProperty('--ct-mx', (e.clientX - rect.left) + 'px');
+        ctBg.style.setProperty('--ct-my', (e.clientY - rect.top) + 'px');
+      });
+      ctCard.addEventListener('mouseleave', () => {
+        ctBg.style.setProperty('--ct-mx', '-200px');
+        ctBg.style.setProperty('--ct-my', '-200px');
+      });
+    }
+
     // Active nav link on scroll
     const sections = document.querySelectorAll('.section[id]');
     const navLinks = document.querySelectorAll('.nav__link');
@@ -1030,6 +2324,37 @@
     });
 
     sections.forEach(section => sectionObserver.observe(section));
+
+    // ===================== PROJECT CARD VIDEOS =====================
+    // Play each project video once when it enters the viewport. When it leaves
+    // the viewport, pause and reset to frame 0 so it restarts from the beginning
+    // the next time it comes into view. (No looping while in view.)
+    const projectVideos = document.querySelectorAll('.project-card video');
+    if (projectVideos.length && 'IntersectionObserver' in window) {
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target;
+          if (entry.isIntersecting) {
+            // Entered viewport — start from the beginning and play once
+            video.currentTime = 0;
+            const playPromise = video.play();
+            if (playPromise !== undefined) {
+              playPromise.catch(() => {
+                // Autoplay blocked (rare for muted video); fail silently
+              });
+            }
+          } else {
+            // Left viewport — pause and reset so next entry restarts cleanly
+            video.pause();
+            video.currentTime = 0;
+          }
+        });
+      }, {
+        threshold: 0.4
+      });
+
+      projectVideos.forEach(v => videoObserver.observe(v));
+    }
 
     // ===================== SPARKLES (optimized) =====================
     (() => {
@@ -1184,6 +2509,1353 @@
         }
       });
     })();
+
+    // ===================== HERO ROTATING WORD =====================
+    (() => {
+      const rotator = document.querySelector('.hero__rotator');
+      if (!rotator) return;
+
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+      const FONT_ATTRS = {
+        'font-family': 'Sora, sans-serif',
+        'font-weight': '600',
+        'font-size': '100',
+        'letter-spacing': '-2',
+      };
+
+      const variants = [
+        { word: 'designing',   render: 'css', fx: 'fx-default' },
+        { word: 'crafting',    render: 'svg-pattern', fillId: 'patCraftingImage' },
+        { word: 'shipping',    render: 'svg-splash' },
+        { word: 'building',    render: 'css', fx: 'fx-3d' },
+        { word: 'prototyping', render: 'css', fx: 'fx-8bit' },
+        { word: 'iterating',   render: 'iterating' },
+        { word: 'exploring',   render: 'css', fx: 'fx-gif', gifUrl: 'https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyN3BjbDFwcHo0bDUwcDZoemg1MDdjY2Z5bm5zcng3dG04cXUyMmxrOSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/QWGuOFoq82eGx34Zhd/giphy.gif' },
+        { word: 'researching', render: 'svg-spotlight' },
+        { word: 'imagining',   render: 'svg-rain' },
+        { word: 'polishing',   render: 'svg-polish' },
+        { word: 'thinking',    render: 'css', fx: 'fx-gif', gifUrl: 'https://media4.giphy.com/media/v1.Y2lkPTZjMDliOTUyNnU4Z2ZxeWg3dGdnZno2djE0eHYyODlieGt6bHNpbWN0cTNsNDkyNyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/O0zVNAjUC0m3jxiflK/source.gif' },
+        { word: 'creating',    render: 'slot' },
+        { word: 'making',      render: 'svg-confetti' },
+      ];
+
+      const allFxClasses = ['fx-default','fx-electric','fx-3d','fx-fire','fx-holo','fx-chrome','fx-rainbow','fx-glitch','fx-8bit','fx-orange','fx-gif'];
+
+      function makeText(word, fill) {
+        const text = document.createElementNS(SVG_NS, 'text');
+        text.setAttribute('x', '0');
+        text.setAttribute('y', '100');
+        for (const [k, v] of Object.entries(FONT_ATTRS)) text.setAttribute(k, v);
+        text.setAttribute('fill', fill);
+        text.textContent = word;
+        return text;
+      }
+
+      function fitSvgToText(svg, primaryText, extraRightPadding = 6) {
+        // Measure and set viewBox + CSS width so the SVG fits the text inline
+        const bbox = primaryText.getBBox();
+        const left = Math.floor(bbox.x - 4);
+        const w = Math.ceil(bbox.width + 8 + extraRightPadding);
+        svg.setAttribute('viewBox', `${left} 0 ${w} 100`);
+        svg.style.width = (w / 100) + 'em';
+        return bbox;
+      }
+
+      function renderSvgPattern(word, fillId, outlineColor) {
+        const svg = newSvg();
+        const text = makeText(word, `url(#${fillId})`);
+        svg.appendChild(text);
+        if (outlineColor) {
+          const outline = makeText(word, outlineColor);
+          outline.setAttribute('filter', 'url(#textOutlineFilter)');
+          svg.appendChild(outline);
+        }
+        rotator.appendChild(svg);
+        requestAnimationFrame(() => fitSvgToText(svg, text));
+      }
+
+      function renderSvgPolish(word) {
+        const svg = newSvg();
+        const base = makeText(word, 'url(#silverBase)');
+        svg.appendChild(base);
+        const glare = makeText(word, 'url(#silverGlare)');
+        svg.appendChild(glare);
+
+        // Sparkle group at the end of the word
+        const sparkle = document.createElementNS(SVG_NS, 'g');
+        sparkle.setAttribute('class', 'hero__sparkle');
+        const star = document.createElementNS(SVG_NS, 'path');
+        star.setAttribute('d', 'M 0 -16 L 4 -4 L 16 0 L 4 4 L 0 16 L -4 4 L -16 0 L -4 -4 Z');
+        star.setAttribute('fill', '#ffffff');
+        sparkle.appendChild(star);
+        const dot = document.createElementNS(SVG_NS, 'circle');
+        dot.setAttribute('r', '2');
+        dot.setAttribute('fill', '#ffffff');
+        sparkle.appendChild(dot);
+        svg.appendChild(sparkle);
+
+        rotator.appendChild(svg);
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, base, 28);
+          sparkle.setAttribute('transform', `translate(${bbox.x + bbox.width + 10}, 22)`);
+        });
+      }
+
+      function newSvg() {
+        const svg = document.createElementNS(SVG_NS, 'svg');
+        svg.setAttribute('xmlns', SVG_NS);
+        svg.setAttribute('class', 'hero__rotator-svg');
+        svg.setAttribute('viewBox', '0 0 1000 100');
+        return svg;
+      }
+
+      function makeClipPath(svg, word) {
+        const defs = document.createElementNS(SVG_NS, 'defs');
+        const clipId = 'fxClip-' + Math.random().toString(36).slice(2, 9);
+        const cp = document.createElementNS(SVG_NS, 'clipPath');
+        cp.setAttribute('id', clipId);
+        const clipText = makeText(word, '#fff');
+        cp.appendChild(clipText);
+        defs.appendChild(cp);
+        svg.appendChild(defs);
+        return { clipId, clipText };
+      }
+
+      function makeAnim(attr, values, dur, begin) {
+        const a = document.createElementNS(SVG_NS, 'animate');
+        a.setAttribute('attributeName', attr);
+        a.setAttribute('values', values);
+        a.setAttribute('dur', dur + 's');
+        if (begin !== undefined) a.setAttribute('begin', begin + 's');
+        a.setAttribute('repeatCount', 'indefinite');
+        return a;
+      }
+
+      // ── Purple rain that fills up the text (imagining) ──
+      function renderSvgRain(word) {
+        const svg = newSvg();
+        const { clipId, clipText } = makeClipPath(svg, word);
+
+        // Dark purple background filling the text
+        const bg = document.createElementNS(SVG_NS, 'rect');
+        bg.setAttribute('x', '-500'); bg.setAttribute('y', '-100');
+        bg.setAttribute('width', '3000'); bg.setAttribute('height', '400');
+        bg.setAttribute('fill', '#1a0f2e');
+        bg.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(bg);
+
+        // Rising fill — bright purple water level that grows from bottom up
+        const fillRect = document.createElementNS(SVG_NS, 'rect');
+        fillRect.setAttribute('fill', '#8b5cf6');
+        fillRect.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(fillRect);
+
+        const rainGroup = document.createElementNS(SVG_NS, 'g');
+        rainGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(rainGroup);
+
+        const outline = makeText(word, '#ddd6fe');
+        outline.setAttribute('filter', 'url(#textOutlineFilter)');
+        outline.setAttribute('opacity', '0.85');
+        svg.appendChild(outline);
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, clipText);
+
+          // Configure the rising fill: rect starts below the text and rises
+          // until it covers it entirely
+          const startY = bbox.y + bbox.height;
+          const endY = bbox.y;
+          fillRect.setAttribute('x', bbox.x - 4);
+          fillRect.setAttribute('width', bbox.width + 8);
+          fillRect.setAttribute('height', bbox.height + 12);
+          fillRect.setAttribute('y', startY);
+
+          const fillAnim = document.createElementNS(SVG_NS, 'animate');
+          fillAnim.setAttribute('attributeName', 'y');
+          fillAnim.setAttribute('from', startY);
+          fillAnim.setAttribute('to', endY);
+          fillAnim.setAttribute('dur', '1.6s');
+          fillAnim.setAttribute('fill', 'freeze');
+          fillAnim.setAttribute('repeatCount', '1');
+          fillAnim.setAttribute('calcMode', 'spline');
+          fillAnim.setAttribute('keySplines', '0.4 0 0.6 1');
+          fillAnim.setAttribute('keyTimes', '0;1');
+          fillAnim.setAttribute('values', `${startY};${endY}`);
+          fillRect.appendChild(fillAnim);
+
+          // Falling rain drops (continuously)
+          const colors = ['#c4b5fd', '#a78bfa', '#ddd6fe', '#8b5cf6'];
+          const numDrops = Math.max(28, Math.ceil(bbox.width / 6));
+          for (let i = 0; i < numDrops; i++) {
+            const x = (bbox.x + Math.random() * bbox.width).toFixed(1);
+            const dur = (0.55 + Math.random() * 0.7).toFixed(2);
+            const begin = (-Math.random() * dur).toFixed(2);
+            const len = 9 + Math.random() * 7;
+            const drop = document.createElementNS(SVG_NS, 'line');
+            drop.setAttribute('x1', x);
+            drop.setAttribute('x2', x);
+            drop.setAttribute('stroke', colors[i % colors.length]);
+            drop.setAttribute('stroke-width', (1.2 + Math.random() * 1.4).toFixed(1));
+            drop.setAttribute('stroke-linecap', 'round');
+            drop.setAttribute('opacity', (0.55 + Math.random() * 0.4).toFixed(2));
+            drop.appendChild(makeAnim('y1', '-30;140', dur, begin));
+            drop.appendChild(makeAnim('y2', `${-30 + len};${140 + len}`, dur, begin));
+            rainGroup.appendChild(drop);
+          }
+        });
+      }
+
+      // ── Water splash with physics (shipping) ──
+      function renderSvgSplash(word) {
+        const svg = newSvg();
+        const { clipId, clipText } = makeClipPath(svg, word);
+
+        // Deep ocean background
+        const bg = document.createElementNS(SVG_NS, 'rect');
+        bg.setAttribute('x', '-500'); bg.setAttribute('y', '-100');
+        bg.setAttribute('width', '3000'); bg.setAttribute('height', '400');
+        bg.setAttribute('fill', '#0c4a6e');
+        bg.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(bg);
+
+        const splashGroup = document.createElementNS(SVG_NS, 'g');
+        splashGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(splashGroup);
+
+        const outline = makeText(word, '#7dd3fc');
+        outline.setAttribute('filter', 'url(#textOutlineFilter)');
+        outline.setAttribute('opacity', '0.85');
+        svg.appendChild(outline);
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, clipText);
+          const left = bbox.x - 20;
+          const wTotal = bbox.width + 40;
+
+          // Animated wavy water surface
+          const wave = document.createElementNS(SVG_NS, 'path');
+          wave.setAttribute('fill', '#0ea5e9');
+          wave.setAttribute('opacity', '0.92');
+          splashGroup.appendChild(wave);
+
+          const buildWave = (offset) => {
+            let p = `M ${left} 200 L ${left} 60`;
+            const points = 24;
+            for (let i = 0; i <= points; i++) {
+              const x = left + (wTotal * i / points);
+              const y = 58 + Math.sin((i + offset) * 0.55) * 5;
+              p += ` L ${x.toFixed(1)} ${y.toFixed(1)}`;
+            }
+            p += ` L ${left + wTotal} 200 Z`;
+            return p;
+          };
+          const waveFrames = [];
+          for (let f = 0; f <= 12; f++) waveFrames.push(buildWave(f * 0.5));
+          wave.appendChild(makeAnim('d', waveFrames.join(';'), 2.2));
+
+          // Splash droplets — physics arcs
+          const colors = ['#7dd3fc', '#bae6fd', '#0ea5e9', '#38bdf8', '#e0f2fe'];
+          const numSources = Math.max(4, Math.ceil(bbox.width / 60));
+          for (let s = 0; s < numSources; s++) {
+            const sx = bbox.x + 15 + (bbox.width - 30) * (s / Math.max(1, numSources - 1));
+            for (let d = 0; d < 9; d++) {
+              const angle = -Math.PI * 0.25 - Math.random() * Math.PI * 0.5; // upward
+              const speed = 35 + Math.random() * 25;
+              const vx = Math.cos(angle) * speed;
+              const vy = Math.sin(angle) * speed;
+              const dur = 1.2 + Math.random() * 0.6;
+              const begin = -((s * 0.35) + Math.random() * 0.5).toFixed(2);
+
+              const cxValues = [], cyValues = [], opValues = [];
+              const steps = 14;
+              for (let t = 0; t <= steps; t++) {
+                const tn = t / steps;
+                const tt = tn * dur;
+                cxValues.push((sx + vx * tt).toFixed(1));
+                cyValues.push((58 + vy * tt + 38 * tt * tt).toFixed(1));
+                opValues.push(tn < 0.05 ? '0' : (tn > 0.92 ? '0' : '1'));
+              }
+
+              const droplet = document.createElementNS(SVG_NS, 'circle');
+              droplet.setAttribute('r', (1.2 + Math.random() * 1.4).toFixed(1));
+              droplet.setAttribute('cx', sx);
+              droplet.setAttribute('cy', '58');
+              droplet.setAttribute('fill', colors[(s + d) % colors.length]);
+              droplet.appendChild(makeAnim('cx', cxValues.join(';'), dur, begin));
+              droplet.appendChild(makeAnim('cy', cyValues.join(';'), dur, begin));
+              droplet.appendChild(makeAnim('opacity', opValues.join(';'), dur, begin));
+              splashGroup.appendChild(droplet);
+            }
+          }
+        });
+      }
+
+      // Spawns a single spark with physics-based trajectory using the Web
+      // Animations API. The keyframes are sampled from the equation of
+      // motion y(t) = vy*t + 0.5*g*t², so the spark glides smoothly through
+      // its peak and accelerates on the way down with no interpolation pause.
+      function spawnIterSpark(startX, startY, vx, vy, color, delayMs) {
+        const spark = document.createElement('span');
+        spark.className = 'iter-spark-fall';
+        spark.style.left = startX.toFixed(1) + 'px';
+        spark.style.top = startY.toFixed(1) + 'px';
+        spark.style.color = color;
+        spark.style.background = color;
+        document.body.appendChild(spark);
+
+        const duration = 4000;            // 4 seconds total
+        const durationSec = duration / 1000;
+        const gravity = 200;              // px per second²
+        const steps = 32;
+        const keyframes = [];
+        for (let i = 0; i <= steps; i++) {
+          const t = (i / steps) * durationSec;
+          const x = vx * t;
+          const y = vy * t + 0.5 * gravity * t * t;
+          const p = i / steps;
+          let opacity;
+          if (p < 0.05)       opacity = p / 0.05;
+          else if (p > 0.85)  opacity = Math.max(0, 1 - (p - 0.85) / 0.15);
+          else                opacity = 1;
+          keyframes.push({
+            transform: `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`,
+            opacity: opacity,
+          });
+        }
+
+        const anim = spark.animate(keyframes, {
+          duration: duration,
+          fill: 'forwards',
+          easing: 'linear',
+          delay: delayMs,
+        });
+        anim.onfinish = () => spark.remove();
+      }
+
+      // ── Bouncy letters + falling sparks (iterating) ──
+      function renderIterating(word) {
+        // Per-letter spans with staggered bounce delay
+        for (let i = 0; i < word.length; i++) {
+          const letter = document.createElement('span');
+          letter.className = 'fx-iter-letter';
+          letter.textContent = word[i];
+          letter.style.animationDelay = (i * 55) + 'ms';
+          rotator.appendChild(letter);
+        }
+
+        // Sparks spawn at body level with absolute (document-relative)
+        // positioning so they persist across variant rotations and scroll
+        // away with the hero instead of sticking to the viewport.
+        requestAnimationFrame(() => {
+          const rect = rotator.getBoundingClientRect();
+          if (!rect.width || !rect.height) return;
+
+          // Convert viewport-relative rect coords to document-relative so
+          // the spark's top/left anchor it to the hero section of the page.
+          const pageLeft = rect.left + window.scrollX;
+          const pageTop  = rect.top  + window.scrollY;
+
+          const sparkColors = ['#fb923c', '#fdba74', '#fde047', '#fff7d6'];
+          const numSparks = 20;
+          for (let i = 0; i < numSparks; i++) {
+            // Spawn position over the rotator, in document coordinates
+            const startX = pageLeft + Math.random() * rect.width;
+            const startY = pageTop  + Math.random() * rect.height;
+
+            // Initial velocity in px/sec — always upward with horizontal spread
+            const vy = -(220 + Math.random() * 80);     // -220 to -300 (upward)
+            const vx = (Math.random() - 0.5) * 380;     // ±190 horizontal
+            const color = sparkColors[i % sparkColors.length];
+            const delay = Math.random() * 280;
+
+            spawnIterSpark(startX, startY, vx, vy, color, delay);
+          }
+        });
+      }
+
+      // ── Origami pink paper (crafting) ──
+      // The mesh breaks out of the text bounds. A dim "ghost" version
+      // extends beyond the letters, with a vibrant clipped version inside.
+      function renderSvgOrigami(word) {
+        const svg = newSvg();
+        const { clipId, clipText } = makeClipPath(svg, word);
+
+        // Background mesh — un-clipped, low opacity, extends beyond letters
+        const bgMesh = document.createElementNS(SVG_NS, 'g');
+        bgMesh.setAttribute('opacity', '0.32');
+        svg.appendChild(bgMesh);
+
+        // Outline filter on top of all
+        const outline = makeText(word, '#831843');
+        outline.setAttribute('filter', 'url(#textOutlineFilter)');
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, clipText);
+
+          // Pink palette
+          const lightShades = ['#fce7f3', '#fbcfe8', '#f9a8d4', '#f8a3d0'];
+          const darkShades  = ['#db2777', '#be185d', '#9d174d', '#831843'];
+          const midShades   = ['#f472b6', '#ec4899'];
+
+          // Extend the mesh well beyond the text bbox so it spills out.
+          // overflow:visible on the SVG lets us draw outside the viewBox.
+          const padX = 28;
+          const padY = 32;
+          const meshLeft = bbox.x - padX;
+          const meshTop  = bbox.y - padY;
+          const meshW    = bbox.width  + padX * 2;
+          const meshH    = bbox.height + padY * 2;
+
+          const cols = Math.max(12, Math.ceil(meshW / 28));
+          const rows = 5;
+          const cellW = meshW / cols;
+          const cellH = meshH / rows;
+
+          for (let r = 0; r < rows; r++) {
+            for (let c = 0; c < cols; c++) {
+              const x0 = meshLeft + c * cellW;
+              const y0 = meshTop  + r * cellH;
+              const x1 = x0 + cellW;
+              const y1 = y0 + cellH;
+              const altDiag = (r + c) % 2 === 0;
+
+              let pts1, pts2, foldX1, foldY1, foldX2, foldY2;
+              if (altDiag) {
+                pts1 = `${x0},${y0} ${x1},${y0} ${x1},${y1}`;
+                pts2 = `${x0},${y0} ${x1},${y1} ${x0},${y1}`;
+                foldX1 = x0; foldY1 = y0; foldX2 = x1; foldY2 = y1;
+              } else {
+                pts1 = `${x0},${y0} ${x1},${y0} ${x0},${y1}`;
+                pts2 = `${x1},${y0} ${x1},${y1} ${x0},${y1}`;
+                foldX1 = x1; foldY1 = y0; foldX2 = x0; foldY2 = y1;
+              }
+
+              const palette = Math.random();
+              const shadeA = palette < 0.5
+                ? lightShades[Math.floor(Math.random() * lightShades.length)]
+                : midShades[Math.floor(Math.random() * midShades.length)];
+              const shadeB = palette < 0.5
+                ? darkShades[Math.floor(Math.random() * darkShades.length)]
+                : midShades[Math.floor(Math.random() * midShades.length)];
+
+              const tri1 = document.createElementNS(SVG_NS, 'polygon');
+              tri1.setAttribute('points', pts1);
+              tri1.setAttribute('fill', shadeA);
+              bgMesh.appendChild(tri1);
+
+              const tri2 = document.createElementNS(SVG_NS, 'polygon');
+              tri2.setAttribute('points', pts2);
+              tri2.setAttribute('fill', shadeB);
+              bgMesh.appendChild(tri2);
+
+              // Diagonal crease
+              const dFold = document.createElementNS(SVG_NS, 'line');
+              dFold.setAttribute('x1', foldX1.toFixed(1));
+              dFold.setAttribute('y1', foldY1.toFixed(1));
+              dFold.setAttribute('x2', foldX2.toFixed(1));
+              dFold.setAttribute('y2', foldY2.toFixed(1));
+              dFold.setAttribute('stroke', '#831843');
+              dFold.setAttribute('stroke-width', '0.6');
+              dFold.setAttribute('opacity', '0.55');
+              bgMesh.appendChild(dFold);
+            }
+          }
+
+          // Vertical creases along column edges (full mesh height)
+          for (let c = 1; c < cols; c++) {
+            const x = (meshLeft + c * cellW).toFixed(1);
+            const v = document.createElementNS(SVG_NS, 'line');
+            v.setAttribute('x1', x); v.setAttribute('y1', meshTop);
+            v.setAttribute('x2', x); v.setAttribute('y2', meshTop + meshH);
+            v.setAttribute('stroke', '#831843');
+            v.setAttribute('stroke-width', '0.5');
+            v.setAttribute('opacity', '0.45');
+            bgMesh.appendChild(v);
+          }
+          // Horizontal creases along row edges
+          for (let r = 1; r < rows; r++) {
+            const y = (meshTop + r * cellH).toFixed(1);
+            const h = document.createElementNS(SVG_NS, 'line');
+            h.setAttribute('x1', meshLeft); h.setAttribute('y1', y);
+            h.setAttribute('x2', meshLeft + meshW); h.setAttribute('y2', y);
+            h.setAttribute('stroke', '#831843');
+            h.setAttribute('stroke-width', '0.5');
+            h.setAttribute('opacity', '0.45');
+            bgMesh.appendChild(h);
+          }
+
+          // Now clone the entire mesh and clip it to the text shape — the
+          // foreground copy is fully opaque so the letter shapes show vibrant
+          // facets while the surrounding ghost mesh stays dim.
+          const fgMesh = bgMesh.cloneNode(true);
+          fgMesh.setAttribute('opacity', '1');
+          fgMesh.setAttribute('clip-path', `url(#${clipId})`);
+          svg.appendChild(fgMesh);
+
+          // Outline goes last so it sits on top
+          svg.appendChild(outline);
+        });
+      }
+
+      // ── Confetti celebration (making) ──
+      function renderSvgConfetti(word) {
+        const svg = newSvg();
+        const { clipId, clipText } = makeClipPath(svg, word);
+
+        // Animated dark backdrop — color-shifting deep purples
+        const bg = document.createElementNS(SVG_NS, 'rect');
+        bg.setAttribute('x', '-500'); bg.setAttribute('y', '-100');
+        bg.setAttribute('width', '3000'); bg.setAttribute('height', '400');
+        bg.setAttribute('fill', '#1a0033');
+        bg.setAttribute('clip-path', `url(#${clipId})`);
+        const bgAnim = document.createElementNS(SVG_NS, 'animate');
+        bgAnim.setAttribute('attributeName', 'fill');
+        bgAnim.setAttribute('values', '#1a0033;#2e0033;#33001f;#1a0033');
+        bgAnim.setAttribute('dur', '4s');
+        bgAnim.setAttribute('repeatCount', 'indefinite');
+        bg.appendChild(bgAnim);
+        svg.appendChild(bg);
+
+        // Pulsing radial glow (clipped to text)
+        const pulseGroup = document.createElementNS(SVG_NS, 'g');
+        pulseGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(pulseGroup);
+
+        const confettiGroup = document.createElementNS(SVG_NS, 'g');
+        confettiGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(confettiGroup);
+
+        const sparkleGroup = document.createElementNS(SVG_NS, 'g');
+        sparkleGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(sparkleGroup);
+
+        // Gold outline on top
+        const outline = makeText(word, '#fbbf24');
+        outline.setAttribute('filter', 'url(#textOutlineFilter)');
+        svg.appendChild(outline);
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, clipText);
+          const colors = ['#ff3c5e', '#ff8a3c', '#ffd84d', '#4cf08d', '#4cb8ff', '#c14cff', '#ff5cd8'];
+
+          // Center pulse
+          const pulse = document.createElementNS(SVG_NS, 'circle');
+          pulse.setAttribute('cx', bbox.x + bbox.width / 2);
+          pulse.setAttribute('cy', '55');
+          pulse.setAttribute('r', '70');
+          pulse.setAttribute('fill', 'url(#confettiPulse)');
+          pulse.appendChild(makeAnim('opacity', '0.25;0.85;0.25', '1.6'));
+          pulseGroup.appendChild(pulse);
+
+          // Falling, rotating confetti
+          const numConfetti = Math.max(28, Math.ceil(bbox.width / 5));
+          for (let i = 0; i < numConfetti; i++) {
+            const startX = bbox.x + Math.random() * bbox.width;
+            const startY = -25 - Math.random() * 60;
+            const drift = (Math.random() - 0.5) * 24;
+            const dur = (1.4 + Math.random() * 1.6).toFixed(2);
+            const begin = (-Math.random() * dur).toFixed(2);
+            const color = colors[i % colors.length];
+            const shapeType = i % 3; // 0=rect, 1=circle, 2=triangle
+            const size = 2.5 + Math.random() * 2.5;
+            const rotDir = Math.random() > 0.5 ? 1 : -1;
+            const rotDur = (0.5 + Math.random() * 1).toFixed(2);
+
+            // Outer group: translates from top to bottom with horizontal drift
+            const outer = document.createElementNS(SVG_NS, 'g');
+            const tAnim = document.createElementNS(SVG_NS, 'animateTransform');
+            tAnim.setAttribute('attributeName', 'transform');
+            tAnim.setAttribute('type', 'translate');
+            tAnim.setAttribute('values', `${startX} ${startY}; ${(startX + drift).toFixed(1)} 140`);
+            tAnim.setAttribute('dur', dur + 's');
+            tAnim.setAttribute('begin', begin + 's');
+            tAnim.setAttribute('repeatCount', 'indefinite');
+            outer.appendChild(tAnim);
+
+            // Inner group: spins around its own origin
+            const inner = document.createElementNS(SVG_NS, 'g');
+            const rAnim = document.createElementNS(SVG_NS, 'animateTransform');
+            rAnim.setAttribute('attributeName', 'transform');
+            rAnim.setAttribute('type', 'rotate');
+            rAnim.setAttribute('values', `0; ${rotDir * 360}`);
+            rAnim.setAttribute('dur', rotDur + 's');
+            rAnim.setAttribute('repeatCount', 'indefinite');
+            inner.appendChild(rAnim);
+
+            let piece;
+            if (shapeType === 0) {
+              piece = document.createElementNS(SVG_NS, 'rect');
+              piece.setAttribute('x', (-size).toFixed(1));
+              piece.setAttribute('y', (-size / 2.5).toFixed(1));
+              piece.setAttribute('width', (size * 2).toFixed(1));
+              piece.setAttribute('height', (size * 0.8).toFixed(1));
+              piece.setAttribute('rx', '0.5');
+            } else if (shapeType === 1) {
+              piece = document.createElementNS(SVG_NS, 'circle');
+              piece.setAttribute('r', (size * 0.7).toFixed(1));
+            } else {
+              piece = document.createElementNS(SVG_NS, 'polygon');
+              const s = size * 0.9;
+              piece.setAttribute('points', `0,${(-s).toFixed(1)} ${s.toFixed(1)},${(s * 0.7).toFixed(1)} ${(-s).toFixed(1)},${(s * 0.7).toFixed(1)}`);
+            }
+            piece.setAttribute('fill', color);
+            inner.appendChild(piece);
+            outer.appendChild(inner);
+            confettiGroup.appendChild(outer);
+          }
+
+          // Popping star sparkles
+          const sparkleColors = ['#ffffff', '#fde047', '#fff7d6'];
+          const numSparkles = Math.max(8, Math.floor(bbox.width / 60));
+          for (let i = 0; i < numSparkles; i++) {
+            const sx = bbox.x + 15 + Math.random() * (bbox.width - 30);
+            const sy = 18 + Math.random() * 70;
+            const ssize = 5 + Math.random() * 5;
+            const sdur = (1.1 + Math.random() * 1.4).toFixed(2);
+            const sbegin = (-Math.random() * sdur).toFixed(2);
+            const scolor = sparkleColors[i % sparkleColors.length];
+
+            const outerSp = document.createElementNS(SVG_NS, 'g');
+            outerSp.setAttribute('transform', `translate(${sx.toFixed(1)}, ${sy.toFixed(1)})`);
+
+            const innerSp = document.createElementNS(SVG_NS, 'g');
+            const sScale = document.createElementNS(SVG_NS, 'animateTransform');
+            sScale.setAttribute('attributeName', 'transform');
+            sScale.setAttribute('type', 'scale');
+            sScale.setAttribute('values', '0;1.2;0');
+            sScale.setAttribute('dur', sdur + 's');
+            sScale.setAttribute('begin', sbegin + 's');
+            sScale.setAttribute('repeatCount', 'indefinite');
+            innerSp.appendChild(sScale);
+            innerSp.appendChild(makeAnim('opacity', '0;1;0', sdur, sbegin));
+
+            const star = document.createElementNS(SVG_NS, 'path');
+            star.setAttribute('d', `M 0 ${(-ssize).toFixed(1)} L 1 -1 L ${ssize.toFixed(1)} 0 L 1 1 L 0 ${ssize.toFixed(1)} L -1 1 L ${(-ssize).toFixed(1)} 0 L -1 -1 Z`);
+            star.setAttribute('fill', scolor);
+            innerSp.appendChild(star);
+
+            outerSp.appendChild(innerSp);
+            sparkleGroup.appendChild(outerSp);
+          }
+        });
+      }
+
+      // ── White outline + moving spotlight (researching) ──
+      function renderSvgSpotlight(word) {
+        const svg = newSvg();
+        const { clipId, clipText } = makeClipPath(svg, word);
+
+        // Spotlight (clipped to text shape) — animated white glow
+        const spotGroup = document.createElementNS(SVG_NS, 'g');
+        spotGroup.setAttribute('clip-path', `url(#${clipId})`);
+        svg.appendChild(spotGroup);
+
+        const spot = document.createElementNS(SVG_NS, 'circle');
+        spot.setAttribute('cy', '55');
+        spot.setAttribute('r', '70');
+        spot.setAttribute('fill', 'url(#spotlightGrad)');
+        spotGroup.appendChild(spot);
+
+        // White outline text on top (single combined outline via filter)
+        const outline = makeText(word, '#ffffff');
+        outline.setAttribute('filter', 'url(#textOutlineFilter)');
+        svg.appendChild(outline);
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, clipText);
+          const startX = bbox.x - 100;
+          const endX = bbox.x + bbox.width + 100;
+          spot.setAttribute('cx', startX);
+
+          const anim = document.createElementNS(SVG_NS, 'animate');
+          anim.setAttribute('attributeName', 'cx');
+          anim.setAttribute('values', `${startX};${endX}`);
+          anim.setAttribute('dur', '3s');
+          anim.setAttribute('repeatCount', 'indefinite');
+          anim.setAttribute('calcMode', 'spline');
+          anim.setAttribute('keyTimes', '0;1');
+          anim.setAttribute('keySplines', '0.42 0 0.58 1');
+          spot.appendChild(anim);
+        });
+      }
+
+      // ── Graffiti with paint drips (iterating) ──
+      function renderSvgGraffiti(word) {
+        const svg = newSvg();
+        // No clip — drips extend below the text
+
+        // Bold outline (drawn behind by adding first)
+        const outline = makeText(word, '#ff37c8');
+        outline.setAttribute('stroke', '#0a0a0a');
+        outline.setAttribute('stroke-width', '7');
+        outline.setAttribute('paint-order', 'stroke fill');
+        outline.setAttribute('stroke-linejoin', 'round');
+        svg.appendChild(outline);
+
+        // Drips group, drawn behind the text fill so they look like they
+        // come from underneath
+        const dripsGroup = document.createElementNS(SVG_NS, 'g');
+        svg.appendChild(dripsGroup);
+
+        // Top-layer fill (over drips so the seam is hidden)
+        const fill = makeText(word, '#ff37c8');
+        fill.setAttribute('stroke', '#0a0a0a');
+        fill.setAttribute('stroke-width', '4');
+        fill.setAttribute('paint-order', 'stroke fill');
+        fill.setAttribute('stroke-linejoin', 'round');
+        svg.appendChild(fill);
+
+        rotator.appendChild(svg);
+
+        requestAnimationFrame(() => {
+          const bbox = fitSvgToText(svg, outline, 12);
+          // Re-fit viewBox to allow drip overflow vertically
+          svg.setAttribute('viewBox', `${Math.floor(bbox.x - 6)} 0 ${Math.ceil(bbox.width + 16)} 130`);
+
+          // Generate drips at random x positions along the bottom
+          const numDrips = Math.max(5, Math.ceil(bbox.width / 50));
+          for (let i = 0; i < numDrips; i++) {
+            const x = bbox.x + 8 + Math.random() * (bbox.width - 16);
+            const baseY = 95;
+            const minLen = 6;
+            const maxLen = 16 + Math.random() * 14;
+            const dur = (3 + Math.random() * 2).toFixed(2);
+            const begin = (-Math.random() * dur).toFixed(2);
+            const width = 4 + Math.random() * 3;
+
+            // Drip stem (animated growing line)
+            const stem = document.createElementNS(SVG_NS, 'line');
+            stem.setAttribute('x1', x);
+            stem.setAttribute('x2', x);
+            stem.setAttribute('y1', baseY);
+            stem.setAttribute('stroke', '#ff37c8');
+            stem.setAttribute('stroke-width', width);
+            stem.setAttribute('stroke-linecap', 'round');
+            stem.appendChild(makeAnim('y2', `${baseY + minLen};${baseY + maxLen};${baseY + maxLen}`, dur, begin));
+            dripsGroup.appendChild(stem);
+
+            // Drop at the bottom of the stem
+            const drop = document.createElementNS(SVG_NS, 'circle');
+            drop.setAttribute('cx', x);
+            drop.setAttribute('r', (width / 2 + 1).toFixed(1));
+            drop.setAttribute('fill', '#ff37c8');
+            drop.appendChild(makeAnim('cy', `${baseY + minLen};${baseY + maxLen};${baseY + maxLen}`, dur, begin));
+            dripsGroup.appendChild(drop);
+
+            // Outline for the stem (drawn behind via wider black stroke)
+            const stemOutline = document.createElementNS(SVG_NS, 'line');
+            stemOutline.setAttribute('x1', x);
+            stemOutline.setAttribute('x2', x);
+            stemOutline.setAttribute('y1', baseY);
+            stemOutline.setAttribute('stroke', '#0a0a0a');
+            stemOutline.setAttribute('stroke-width', width + 4);
+            stemOutline.setAttribute('stroke-linecap', 'round');
+            stemOutline.appendChild(makeAnim('y2', `${baseY + minLen};${baseY + maxLen};${baseY + maxLen}`, dur, begin));
+            dripsGroup.insertBefore(stemOutline, stem);
+
+            const dropOutline = document.createElementNS(SVG_NS, 'circle');
+            dropOutline.setAttribute('cx', x);
+            dropOutline.setAttribute('r', (width / 2 + 3).toFixed(1));
+            dropOutline.setAttribute('fill', '#0a0a0a');
+            dropOutline.appendChild(makeAnim('cy', `${baseY + minLen};${baseY + maxLen};${baseY + maxLen}`, dur, begin));
+            dripsGroup.insertBefore(dropOutline, stem);
+          }
+        });
+      }
+
+      function renderVariant(v) {
+        rotator.classList.remove(...allFxClasses);
+        rotator.style.width = '';
+        rotator.style.backgroundImage = '';
+        rotator.innerHTML = '';
+
+        if (v.render === 'css') {
+          rotator.classList.add(v.fx);
+          rotator.textContent = v.word;
+          if (v.gifUrl) {
+            rotator.style.backgroundImage = `url('${v.gifUrl}')`;
+          }
+        } else if (v.render === 'svg-pattern') {
+          renderSvgPattern(v.word, v.fillId, v.outlineColor);
+        } else if (v.render === 'svg-polish') {
+          renderSvgPolish(v.word);
+        } else if (v.render === 'svg-rain') {
+          renderSvgRain(v.word);
+        } else if (v.render === 'svg-splash') {
+          renderSvgSplash(v.word);
+        } else if (v.render === 'svg-graffiti') {
+          renderSvgGraffiti(v.word);
+        } else if (v.render === 'svg-spotlight') {
+          renderSvgSpotlight(v.word);
+        } else if (v.render === 'svg-confetti') {
+          renderSvgConfetti(v.word);
+        } else if (v.render === 'svg-origami') {
+          renderSvgOrigami(v.word);
+        } else if (v.render === 'iterating') {
+          renderIterating(v.word);
+        } else if (v.render === 'slot') {
+          renderSlot(v.word);
+        }
+      }
+
+      let i = 0;
+      const SWAP_INTERVAL = 2400;
+      const FADE_DURATION = 350;
+
+      // Slot machine — each letter is a vertical reel of random
+      // characters that spins downward and slows to a stop on the
+      // target letter. Reels stop in sequence from left to right.
+      function renderSlot(word) {
+        const CHARS = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        const rand = () => CHARS[Math.floor(Math.random() * CHARS.length)];
+
+        for (let i = 0; i < word.length; i++) {
+          const reel = document.createElement('span');
+          reel.className = 'fx-slot-reel';
+
+          const strip = document.createElement('span');
+          strip.className = 'fx-slot-strip';
+
+          // Fill the strip with random letters followed by the target
+          // as the final tile. Later reels get longer strips so they
+          // appear to spin longer before landing.
+          const numRandom = 14 + i * 3;
+          for (let j = 0; j < numRandom; j++) {
+            const ch = document.createElement('span');
+            ch.className = 'fx-slot-char';
+            ch.textContent = rand();
+            strip.appendChild(ch);
+          }
+          const finalCh = document.createElement('span');
+          finalCh.className = 'fx-slot-char';
+          finalCh.textContent = word[i];
+          strip.appendChild(finalCh);
+
+          reel.appendChild(strip);
+          rotator.appendChild(reel);
+
+          // Each reel stops a little later than the previous one.
+          const duration = 800 + i * 150;
+          strip.animate(
+            [
+              { transform: 'translateY(0)' },
+              { transform: `translateY(-${numRandom}em)` }
+            ],
+            {
+              duration: duration,
+              fill: 'forwards',
+              easing: 'cubic-bezier(0.16, 1, 0.3, 1)',
+            }
+          );
+        }
+      }
+
+      function swap() {
+        // Skip the swap entirely when the tab is hidden. Animations (like
+        // the iterating sparks) are tied to the document timeline, which
+        // pauses in background tabs — so rendering here would spawn DOM
+        // elements whose animations stall at t=0 and all play back at once
+        // when the user returns, causing sparks to "stack up".
+        if (document.hidden) return;
+        rotator.classList.add('hero__rotator--out');
+        setTimeout(() => {
+          // Tab may have flipped hidden during the fade-out window.
+          // Abort the render but clear the --out class so the user
+          // doesn't return to a half-faded word.
+          if (document.hidden) {
+            rotator.classList.remove('hero__rotator--out');
+            return;
+          }
+          i = (i + 1) % variants.length;
+          renderVariant(variants[i]);
+          rotator.classList.remove('hero__rotator--out');
+        }, FADE_DURATION);
+      }
+
+      // Measure the widest variant so we can pin the slot's min-width and
+      // prevent the surrounding hero text from reflowing each rotation.
+      function lockRotatorWidth() {
+        const slot = rotator.parentElement;
+        const measure = document.createElement('span');
+        // We measure with the rotator class so font + letter-spacing match,
+        // but force it back into the inline flow (override the absolute
+        // positioning the real rotator uses).
+        measure.className = 'hero__rotator';
+        measure.style.cssText = 'position:absolute;visibility:hidden;white-space:nowrap;left:-9999px;top:auto;bottom:auto';
+        slot.parentElement.appendChild(measure);
+
+        // 1 SVG user unit = (heroFontSizePx / 100) px since SVG variants
+        // render at font-size 100 user units == 1em.
+        const heroTitle = slot.closest('.hero__title');
+        const heroFontPx = parseFloat(getComputedStyle(heroTitle).fontSize);
+        const userUnitPx = heroFontPx / 100;
+
+        let maxW = 0;
+        variants.forEach(v => {
+          measure.className = 'hero__rotator';
+          if (v.render === 'css' && v.fx) measure.classList.add(v.fx);
+          measure.textContent = v.word;
+          let w = measure.getBoundingClientRect().width;
+
+          // SVG variants get extra horizontal padding from fitSvgToText.
+          // Default = 8 user units (4 each side); polish reserves 28 more
+          // on the right for the trailing sparkle.
+          if (v.render !== 'css') {
+            let extraUnits = 8;
+            if (v.render === 'svg-polish') extraUnits += 28;
+            w += extraUnits * userUnitPx;
+          }
+
+          if (w > maxW) maxW = w;
+        });
+
+        measure.remove();
+        // Buffer for outline filter dilation + glitch jitter
+        slot.style.minWidth = Math.ceil(maxW + 16) + 'px';
+      }
+
+      // Re-lock on resize since the font-size scales with viewport width
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(lockRotatorWidth, 200);
+      });
+
+      // Wait for fonts + hero entry animation to finish before starting
+      const start = () => {
+        lockRotatorWidth();
+        setTimeout(() => setInterval(swap, SWAP_INTERVAL), 2000);
+      };
+      if (document.fonts && document.fonts.ready) {
+        document.fonts.ready.then(start);
+      } else {
+        start();
+      }
+    })();
+
+    // ===================== CISCO TILE GEAR LINGER =====================
+    (() => {
+      const ciscoCard = document.getElementById('ciscoCard');
+      if (!ciscoCard) return;
+      let lingerTimer = null;
+      ciscoCard.addEventListener('mouseenter', () => {
+        if (lingerTimer) {
+          clearTimeout(lingerTimer);
+          lingerTimer = null;
+        }
+        ciscoCard.classList.remove('cisco-linger');
+      });
+      ciscoCard.addEventListener('mouseleave', () => {
+        ciscoCard.classList.remove('cisco-linger');
+        if (lingerTimer) {
+          clearTimeout(lingerTimer);
+          lingerTimer = null;
+        }
+      });
+    })();
+
+    // Animated counter for leadership metrics
+    const counterElements = document.querySelectorAll('[data-count-to]');
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const from = parseInt(el.dataset.countFrom) || 0;
+          const to = parseInt(el.dataset.countTo);
+          const suffix = el.dataset.countSuffix || '';
+          const duration = 1800;
+          const start = performance.now();
+
+          function tick(now) {
+            const elapsed = now - start;
+            const progress = Math.min(elapsed / duration, 1);
+            const eased = 1 - Math.pow(1 - progress, 3);
+            const current = Math.round(from + (to - from) * eased);
+            el.textContent = current + suffix;
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+          counterObserver.unobserve(el);
+        }
+      });
+    }, { threshold: 0.5 });
+    counterElements.forEach(el => counterObserver.observe(el));
+
+    // ===================== CHATBOT =====================
+    (() => {
+      const chatbot = document.getElementById('chatbot');
+      const toggle = document.getElementById('chatbotToggle');
+      const messages = document.getElementById('chatbotMessages');
+      const form = document.getElementById('chatbotForm');
+      const input = document.getElementById('chatbotInput');
+      const suggestions = document.getElementById('chatbotSuggestions');
+
+      // Knowledge base about Randy
+      const kb = {
+        name: "Randy Ritprasert",
+        role: "Product Designer",
+        experience: "10+ years",
+        location: "San Jose, CA",
+        phone: "408-794-8256",
+        email: "randyrits@gmail.com",
+        website: "ruttapon.com",
+        linkedin: "linkedin.com/in/ruttapon/",
+        education: [
+          { degree: "B.S. Industrial Design", school: "San Jose State University (SJSU)", years: "2013 \u2013 2017" },
+          { degree: "A.A. Liberal Arts", school: "De Anza College, Cupertino", years: "2009 \u2013 2013" }
+        ],
+        industries: "SaaS, B2B, AI, Fintech, Aviation, Real Estate, and IoT",
+        bio: "Product designer with 10+ years of experience across SaaS, B2B, and AI. He integrates AI into his design process to accelerate solutions and reduce development cycles. He works independently, ships with minimal ramp-up, and has led and mentored design teams of up to 12 designers. Proven track record of driving measurable business outcomes through user-centered design.",
+        companies: [
+          { name: "Cloud Theory", role: "Staff Product Designer", dates: "Jul 2025 \u2013 Feb 2026", duration: "8 months", location: "Grand Rapids, MI (Remote)", context: "Role ended after 8 months when Cloud Theory's parent company acquired another company and liquidated Cloud Theory.", highlights: [
+            "Designed AI-generated dashboard summaries that reduced average reporting review time by 40% for 500+ active users",
+            "Conducted 15+ user research sessions achieving 92% task completion rate",
+            "Improved design system token coverage by 35%, accelerating component adoption across 3 engineering squads",
+            "Leveraged AI tools (Subframe, Cursor, Figma Make, Claude, ChatGPT) to cut prototyping cycles from 2 weeks to 3 days"
+          ]},
+          { name: "FloQast", role: "Senior Product Design Manager \u2192 Product Design Manager \u2192 Senior Product Designer", dates: "Nov 2021 \u2013 Mar 2025", duration: "3.5 years", location: "Los Angeles, CA (Remote)", highlights: [
+            "Promoted from Senior Designer to Senior Design Manager while staying hands-on with design work throughout",
+            "Managed a team of 12 (6 design system designers, 1 manager, 5 IC designers), shipping 30+ component updates across 5 product areas",
+            "Secured a $300K customer deal by designing an automated XBRL tagging solution",
+            "Scaled the design team from 4 to 12 designers over 2 years while maintaining engagement scores above 4.5/5",
+            "Introduced Zeroheight integrated with Storybook, reducing component discrepancies by 60%",
+            "Reduced new designer onboarding time from 4 weeks to 2 weeks through standardized documentation",
+            "Facilitated 10+ design sprints reducing time-to-decision by 50%",
+            "Led end-to-end design for Reporting product from concept through production on a 12-week timeline supporting 1,500+ users at launch",
+            "Mentored 3 junior designers, with 2 receiving promotions within 12 months",
+            "Partnered cross-functionally to align design across a roadmap serving 2,000+ enterprise users"
+          ]},
+          { name: "Azibo", role: "Founding Product Designer", dates: "May 2020 \u2013 Oct 2021", duration: "1.5 years", location: "Redwood City, CA (Hybrid)", highlights: [
+            "Led 0\u21921 product design for a real estate portfolio management platform",
+            "Helped grow user base from 0 to 5,000+ property managers in the first year",
+            "Built the design system from the ground up (80+ components)",
+            "Collaborated directly with CEO and CTO to define product strategy",
+            "Contributed to a successful $10M Series A funding round"
+          ]},
+          { name: "Intuit QuickBooks", role: "Product Designer III", dates: "Dec 2019 \u2013 Apr 2020", duration: "5 months", location: "Mountain View, CA (On Site)", highlights: [
+            "Designed B2B/B2C payroll platform supporting virtual HR workflows for 100K+ small business users",
+            "Streamlined document discovery, reducing task completion time by 30% and user drop-off by 18%"
+          ]},
+          { name: "Cisco Systems", role: "Product Designer", dates: "Oct 2018 \u2013 Dec 2019", duration: "1.2 years", location: "San Jose, CA (On Site)", highlights: [
+            "Conducted in-person research across 8 site visits with Tesla and Bush Brothers",
+            "Uncovered 12 critical pain points in IoT workflows",
+            "Redesigned IoT SaaS platform contributing to 20% reduction in IT incidents",
+            "Improved user satisfaction scores by 25%"
+          ]},
+          { name: "NASA", role: "Product Designer", dates: "Dec 2015 \u2013 Oct 2018", duration: "~3 years", location: "Mountain View, CA (On Site)", highlights: [
+            "Researched in-flight failures and critical incidents with 20+ pilots",
+            "Reduced incident analysis time by 35%",
+            "Designed and shipped prototype interfaces for the Boeing 777 simulator",
+            "Supported 50+ pilot testing sessions informing FAA safety recommendations"
+          ]}
+        ],
+        leadership: {
+          summary: "Randy was promoted from Senior Designer to Senior Design Manager at FloQast over 3.5 years. He scaled the design team from 4 to 12, led and mentored designers across all levels, and remained hands-on as a designer even while managing \u2014 so he brings both leadership depth and current IC craft. He has experience leading teams, mentoring, and scaling design orgs.",
+          teamGrowth: "Scaled design team from 4 to 12 designers over 2 years",
+          teamManagement: "Managed a team of 12 at FloQast: 6 design system designers, 1 manager, and 5 IC designers",
+          retention: "Maintained team engagement scores above 4.5/5",
+          mentorship: "Mentored 3 junior designers, with 2 receiving promotions within 12 months. Mentored 12+ designers total across all levels.",
+          impact: "Secured a $300K customer deal. Facilitated 10+ design sprints reducing time-to-decision by 50%.",
+          crossFunctional: "Partnered with engineering, product, and QA to align design across a roadmap serving 2,000+ enterprise users.",
+          onboarding: "Reduced new designer onboarding time from 4 weeks to 2 weeks through standardized documentation"
+        },
+        skills: {
+          design: ["User Research", "User Experience", "User Centered Design", "Usability Testing", "A/B Testing", "Wireframing", "Prototyping", "User Interface Design", "Visual Design", "Data Visualization", "Design Systems", "Information Architecture"],
+          leadership: ["Team Management", "Team Scaling", "Leadership", "Mentoring", "Communication", "Cross-Functional Collaboration"],
+          tools: ["Figma", "Adobe Illustrator", "Adobe Photoshop", "Jira", "Confluence", "Zeroheight", "Storybook", "Framer", "Lovable AI", "Sketch", "Claude", "Subframe", "Cursor"],
+          special: ["AI/LLM Integration", "Startup Experience", "Founding Designer"]
+        },
+        aiIntegration: "Randy actively integrates AI into his design process. At Cloud Theory, he leveraged AI tools like Subframe, Cursor, Figma Make, Claude, and ChatGPT to cut prototyping cycles from 2 weeks to 3 days. He designs AI-powered features like dashboard summaries and automated tagging solutions.",
+        personal: {
+          locations: "Randy splits his time between the Bay Area and Las Vegas, going back and forth between the two.",
+          hobbies: "Outside of design, Randy enjoys camping, overlanding, cooking, and playing with his cats at home. He has 3 cats: Maeby, Biggie, and Koko.",
+          designFocus: "Randy tends to be more UX-focused than UI, but he's skilled at both. His strength is in user research, information architecture, and strategic design thinking, while still being able to deliver polished visual design when needed."
+        },
+        designProcess: "Randy's design process: 1) Deep user research to understand the problem space. 2) Cross-collaborate with product management and engineering to align on goals. 3) Understand business needs and align them with user needs. 4) Define the MVP scope. 5) Test with users and iterate. 6) Conduct QA with engineering. 7) Deliver the final product."
+      };
+
+      // Response patterns — conversational, concise
+      const patterns = [
+        { match: /\b(who|about|background|intro|tell me about|overview|summary)\b/i, respond: () =>
+          `Randy is a Senior Product Designer who's worked across industries from NASA to enterprise SaaS. He's based between the Bay Area and Las Vegas with a B.S. in Industrial Design from SJSU.`
+        },
+        { match: /\b(name)\b/i, respond: () =>
+          `His name is Randy Ritprasert — he goes by Randy.`
+        },
+        { match: /\b(experience|years|how long|timeline|career)\b/i, respond: () =>
+          `Randy's most recently been at Cloud Theory, spent 3.5 years at FloQast where he grew from Senior Designer to Senior Manager, and was the Founding Designer at Azibo. Before that he was at Intuit, Cisco, and NASA. Want me to go deeper on any of those?`
+        },
+        // Tenure-specific questions — must come before general company patterns
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(cloud\s*theory)\b/i, respond: () =>
+          `About 8 months. The role ended when Cloud Theory's parent company acquired another company and liquidated them — not by choice.`
+        },
+        { match: /\b(cloud\s*theory).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () =>
+          `About 8 months. The role ended when Cloud Theory's parent company acquired another company and liquidated them — not by choice.`
+        },
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(floqast)\b/i, respond: () =>
+          `About 3.5 years. He joined as a Senior Designer and was promoted to Senior Manager.`
+        },
+        { match: /\b(floqast).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () =>
+          `About 3.5 years. He joined as a Senior Designer and was promoted to Senior Manager.`
+        },
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(azibo)\b/i, respond: () => {
+          const c = kb.companies[2];
+          return `${c.duration} as their Founding Product Designer.`;
+        }},
+        { match: /\b(azibo).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () => {
+          const c = kb.companies[2];
+          return `${c.duration} as their Founding Product Designer.`;
+        }},
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(intuit|quickbooks)\b/i, respond: () => {
+          const c = kb.companies[3];
+          return `${c.duration}, working on QuickBooks Payroll.`;
+        }},
+        { match: /\b(intuit|quickbooks).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () => {
+          const c = kb.companies[3];
+          return `${c.duration}, working on QuickBooks Payroll.`;
+        }},
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(cisco)\b/i, respond: () => {
+          const c = kb.companies[4];
+          return `${c.duration}, working on the IoT Center platform.`;
+        }},
+        { match: /\b(cisco).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () => {
+          const c = kb.companies[4];
+          return `${c.duration}, working on the IoT Center platform.`;
+        }},
+        { match: /\b(how long|tenure|duration|stay|spent|time).*(nasa)\b/i, respond: () => {
+          const c = kb.companies[5];
+          return `${c.duration}, working on Boeing 777 simulator interfaces.`;
+        }},
+        { match: /\b(nasa).*(how long|tenure|duration|stay|spent|time)\b/i, respond: () => {
+          const c = kb.companies[5];
+          return `${c.duration}, working on Boeing 777 simulator interfaces.`;
+        }},
+        { match: /\b(compan|work(ed)?(\s+at)?|where|employer|job|career path)\b/i, respond: () =>
+          `He's worked at Cloud Theory, FloQast, Azibo, Intuit, Cisco, and NASA. Want details on any specific role?`
+        },
+        { match: /\b(skill|specializ|good at|strengths|expertise|capabilit)\b/i, respond: () =>
+          `He's strongest in UX strategy, user research, and information architecture. He also does design systems, prototyping, and accessibility. On the leadership side, he's managed teams up to 12 and mentored junior designers into promotions.`
+        },
+        { match: /\b(tool|software|figma|adobe|jira|tech stack|what.*(use|work with))\b/i, respond: () =>
+          `Figma is his primary tool. He also uses Adobe Creative Suite, Sketch, Jira, Confluence, Miro, and Zeroheight. He's big on AI tools too — Claude, Cursor, Subframe, and Figma Make.`
+        },
+        { match: /\b(lead|manag|team|mentor|grow|retention|attrition|promot|scale|scal)\b/i, respond: () =>
+          `At FloQast, he grew the design team from 4 to 12 — managing 6 design system designers, a manager, and 5 ICs. He kept a 4.5/5 engagement score with zero attrition and got two junior designers promoted within 12 months. He stayed hands-on with design throughout.`
+        },
+        { match: /\b(cloud\s*theory)\b/i, respond: () =>
+          `He was a Staff Product Designer at Cloud Theory for about 8 months, designing AI-powered dashboards. He hit a 92% task completion rate in user research and used AI tools to cut prototyping from 2 weeks to 3 days. The role ended when the parent company liquidated Cloud Theory.`
+        },
+        { match: /\b(ai|artificial intelligence|llm|machine learning|chatgpt|claude|cursor|subframe)\b/i, respond: () =>
+          `Randy uses Claude, ChatGPT, Cursor, Subframe, Figma Make, and Lovable AI. At Cloud Theory, AI tools helped him cut prototyping from 2 weeks to 3 days and reduce review time by 40%.`
+        },
+        { match: /\b(floqast).*(report|xbrl|sec|disclos)/i, respond: () =>
+          `He led end-to-end design for FloQast's Reporting product — XBRL tagging and SEC EDGAR disclosures. Shipped it in 12 weeks, supported 1,500+ users at launch, and his XBRL solution helped secure a $300K deal.`
+        },
+        { match: /\b(floqast).*(system|platform|flow.ui)/i, respond: () =>
+          `He led the Flow-UI design system at FloQast — 30+ component updates across 5 product areas, Zeroheight + Storybook integration that cut discrepancies by 60%, and WCAG AA compliance across all surfaces.`
+        },
+        { match: /\b(floqast)/i, respond: () =>
+          `Randy spent 3.5 years at FloQast, promoted three times from Senior Designer to Senior Manager. He led the design system, built the Reporting product, grew the team from 4 to 12, and secured a $300K deal. Want to hear about a specific aspect?`
+        },
+        { match: /\b(design\s*system|flow.ui|component|storybook|zeroheight)\b/i, respond: () =>
+          `He led Flow-UI at FloQast (30+ components, 60% fewer discrepancies), improved token coverage 35% at Cloud Theory, and built 80+ components from scratch at Azibo. He knows how to scale design consistency.`
+        },
+        { match: /\b(azibo|found|real\s*estate|property|series a)\b/i, respond: () =>
+          `Randy was the Founding Product Designer at Azibo — built the design system, navigation, IA, everything from scratch. He worked directly with the CEO and CTO, contributed to a $10M Series A, and grew the platform to 5,000+ users in year one.`
+        },
+        { match: /\b(intuit|quickbooks|payroll|hiring)\b/i, respond: () =>
+          `He worked at Intuit on QuickBooks Payroll, redesigning complex payroll flows and improving task completion speed by 30%.`
+        },
+        { match: /\b(cisco|iot|tesla|bush\s*brothers)\b/i, respond: () =>
+          `He worked on Cisco's IoT Center — device management for industrial customers. Did 8 site visits with companies like Tesla and Bush Brothers, uncovered 12 pain points, and reduced IT incidents by 20%.`
+        },
+        { match: /\b(nasa|boeing|777|simulator|pilot|aviation|cockpit|flight|faa)\b/i, respond: () =>
+          `Randy started at NASA Ames, designing Boeing 777 simulator interfaces. He interviewed 20+ pilots, reduced incident analysis time by 35%, and his work informed FAA safety recommendations.`
+        },
+        { match: /\b(education|school|degree|university|sjsu|college|de anza|studied)\b/i, respond: () =>
+          `B.S. in Industrial Design from San Jos\u00e9 State (2013–2017). A.A. in Liberal Arts from De Anza College (2009–2013).`
+        },
+        { match: /\b(contact|email|reach|hire|connect|linkedin|phone|call)\b/i, respond: () =>
+          `Email: ${kb.email} | Phone: ${kb.phone} | LinkedIn: ${kb.linkedin} | Website: ${kb.website}. He's open to new opportunities!`
+        },
+        { match: /\b(project|portfolio|case\s*stud)\b/i, respond: () =>
+          `His portfolio covers Cloud Theory, FloQast, Azibo, and Cisco. Click any project card above for the full case study. Anything specific you're curious about?`
+        },
+        { match: /\b(research|user research|field research|interview|usability)\b/i, respond: () =>
+          `Research is core to how Randy works — 8 factory site visits at Cisco, 20+ pilot interviews at NASA, 15+ usability sessions at Cloud Theory, and JTBD research at FloQast. He always starts with the user.`
+        },
+        { match: /\b(accessibility|a11y|wcag)\b/i, respond: () =>
+          `At FloQast, he led the platform to WCAG AA compliance across all product surfaces. Accessibility is baked into every component in the Flow-UI design system.`
+        },
+        { match: /\b(hi|hello|hey|sup|what'?s up|howdy|greetings|yo)\b/i, respond: () =>
+          `Hey! I'm Claude, here to answer questions about Randy. Ask me anything — experience, skills, projects, whatever you're curious about.`
+        },
+        { match: /\b(thank|thanks|thx|appreciate)\b/i, respond: () =>
+          `Happy to help! Feel free to ask more, or reach Randy directly at ${kb.email}.`
+        },
+        { match: /\b(ok|okay|sure|got it|i see|makes sense|cool|alright|right|nice|interesting|neat|good to know|understood)\b/i, respond: () => {
+          const prompts = [
+            "Anything else you'd like to know?",
+            "Feel free to ask me anything else about Randy.",
+            "Glad that helps! What else are you curious about?",
+            "Let me know if there's anything else on your mind."
+          ];
+          return prompts[Math.floor(Math.random() * prompts.length)];
+        }},
+        { match: /\b(impact|results|metrics|numbers|outcome|achievement)\b/i, respond: () =>
+          `Some highlights: 40% reduced review time (Cloud Theory), $300K deal secured (FloQast), 60% fewer component discrepancies (FloQast), $10M Series A (Azibo), 30% faster task completion (Intuit), 20% fewer IT incidents (Cisco), 35% faster incident analysis (NASA).`
+        },
+        { match: /\b(available|hiring|looking|open to|opportunit|freelance|contract)\b/i, respond: () =>
+          `Yes, Randy's open to new opportunities! Best way to reach him: ${kb.email} or ${kb.phone}.`
+        },
+        { match: /\b(startup|founding|zero.to.one|0.to.1|early.stage)\b/i, respond: () =>
+          `At Azibo, he was the Founding Designer — built everything from scratch, worked with the CEO and CTO, contributed to a $10M Series A, and grew to 5,000+ users in year one. He loves the zero-to-one phase.`
+        },
+        { match: /\b(prototyp|rapid|speed|fast|ship|velocity)\b/i, respond: () =>
+          `He moves fast. Cut prototyping from 2 weeks to 3 days at Cloud Theory using AI tools. Shipped FloQast's Reporting product in 12 weeks. Ramps up quickly and works independently.`
+        },
+        { match: /\b(hobb|free time|fun|outside|personal|interest|overland|off.?road|travel|adventure|camp)\b/i, respond: () =>
+          `Outside of work, Randy's into camping, overlanding, and cooking. He also has three cats — Maeby, Biggie, and Koko — so a lot of downtime is spent with them at home.`
+        },
+        { match: /\b(cat|cats|pet|pets|animal|maeby|biggie|koko)\b/i, respond: () =>
+          `He has three cats: Maeby, Biggie, and Koko!`
+        },
+        { match: /\b(food|eat|cuisine|favorite food|sushi|restaurant)\b/i, respond: () =>
+          `Sushi — that's his go-to.`
+        },
+        { match: /\b(locat|where.*(live|based|reside)|city|bay area|vegas|las vegas)\b/i, respond: () =>
+          `He splits time between the Bay Area and Las Vegas. He's worked remote (Cloud Theory, FloQast), hybrid (Azibo), and on-site (NASA, Cisco, Intuit).`
+        },
+        { match: /\b(ux|ui|visual design|focus|strength|style|speciali)\b/i, respond: () =>
+          `Randy leans more UX than UI, though he does both. His strengths are in user research, IA, and strategic design thinking.`
+        },
+        { match: /\b(process|approach|methodology|how.*(design|work)|workflow|steps)\b/i, respond: () =>
+          `Deep user research first, then cross-collaboration with PM and engineering, align business and user needs, define the MVP, test with users, QA with engineering, and deliver. Research-driven start to finish.`
+        },
+        { match: /\b(why.*(design|ux|product)|passion|motiv|what drives|what inspires)\b/i, respond: () =>
+          `He's driven by solving complex problems for real people. The common thread across his career — NASA to AI dashboards — is always starting with the user and seeing measurable impact.`
+        },
+        { match: /\b(biggest challenge|hardest|difficult|tough|obstacle)\b/i, respond: () =>
+          `Scaling FloQast's team from 4 to 12 while keeping quality and culture, building a product from scratch at Azibo, and doing field research in high-pressure factory environments at Cisco. He thrives in ambiguity.`
+        },
+        { match: /\b(proud|favorite|best|most rewarding|accomplishment)\b/i, respond: () =>
+          `Getting promoted from Senior Designer to Senior Manager while staying hands-on at FloQast, contributing to Azibo's $10M Series A, and designing NASA interfaces that informed FAA safety recommendations.`
+        },
+        { match: /\b(salary|compensation|pay|rate|how much|cost)\b/i, respond: () =>
+          `I don't have that info. Reach out to Randy directly at ${kb.email} for compensation discussions.`
+        },
+        { match: /\b(certif|credential|license|accredit)\b/i, respond: () =>
+          `He holds a B.S. in Industrial Design from SJSU. For anything more specific, reach out at ${kb.email}.`
+        },
+        { match: /\b(differ|stand out|unique|set.*(apart|you apart)|why.*(hire|choose|pick)|what makes)\b/i, respond: () =>
+          `He brings both IC craft and management experience, adapts fast across industries (NASA to fintech to IoT), is deeply research-driven, and uses AI tools to ship faster — like cutting prototyping from 2 weeks to 3 days.`
+        },
+        { match: /\b(b2b|enterprise|saas)\b/i, respond: () =>
+          `Deep B2B/SaaS experience — FloQast (accounting, 2K+ users), Cisco (industrial IoT), Intuit (payroll, 100K+ SMBs), and Cloud Theory (AI dashboards). He's comfortable with complex enterprise workflows.`
+        },
+        { match: /\b(collaboration|cross.?functional|work with|stakeholder|partner)\b/i, respond: () =>
+          `He partners closely with PM and engineering as part of his core process. At FloQast, he facilitated 10+ design sprints. At Azibo, he worked directly with the CEO and CTO on product strategy.`
+        },
+        { match: /\b(remote|hybrid|in.?person|on.?site|wfh|work from home|office)\b/i, respond: () =>
+          `He's done remote (Cloud Theory, FloQast), hybrid (Azibo), and on-site (NASA, Cisco, Intuit). Splits time between Bay Area and Las Vegas.`
+        },
+        { match: /\b(data|analytic|metric|measure|quantif|kpi)\b/i, respond: () =>
+          `He ties design to measurable outcomes — 40% reduced review time, $300K deal, 60% fewer discrepancies, 30% faster tasks, 20% fewer incidents. He thinks in impact, not just pixels.`
+        },
+        { match: /\b(onboard|ramp.?up|new job|how fast|quick start)\b/i, respond: () =>
+          `He ramps up fast — delivering within weeks at Cloud Theory. At FloQast, he also cut new designer onboarding from 4 weeks to 2. Six different industries, so he picks up new domains quickly.`
+        },
+        { match: /\b(culture|values|team culture|work style|personality|type of team)\b/i, respond: () =>
+          `He values high-trust, collaborative teams. At FloQast he had 4.5/5 engagement with zero attrition. Two of his junior designers were promoted within 12 months. He prefers teams where design has a strategic seat.`
+        },
+        { match: /\b(design thinking|ideation|brainstorm|workshop|sprint)\b/i, respond: () =>
+          `He's facilitated 10+ design sprints at FloQast, cutting time-to-decision by 50%. Always starts with research before jumping into ideation.`
+        },
+        { match: /\b(portfolio|website|this site|who built|who made)\b/i, respond: () =>
+          `Randy designed and built this portfolio himself. Check out the project cards above for full case studies.`
+        },
+        { match: /\b(resume|cv|download|pdf)\b/i, respond: () =>
+          `Reach out to Randy at ${kb.email} or connect on LinkedIn: ${kb.linkedin}.`
+        },
+        { match: /\b(reference|recommend|referral|vouch)\b/i, respond: () =>
+          `I don't have that info, but reach out to Randy at ${kb.email} and he can connect you with former colleagues.`
+        },
+        { match: /\b(age|old|birthday|born)\b/i, respond: () =>
+          `I don't have that info. Feel free to ask Randy at ${kb.email}!`
+        },
+        { match: /\b(language|speak|bilingual|english)\b/i, respond: () =>
+          `I don't have language details. Ask Randy directly at ${kb.email}.`
+        },
+        { match: /\b(what can you|what do you know|help|what should i ask|how does this work)\b/i, respond: () =>
+          `I'm Claude, here to answer questions about Randy — experience, skills, projects, leadership, hobbies, whatever you're curious about.`
+        },
+        { match: /\b(who are you|what are you|are you a bot|are you real|are you ai|are you human)\b/i, respond: () =>
+          `I'm Claude, an AI assistant embedded in Randy's portfolio to help answer questions about him.`
+        }
+      ];
+
+      function getResponse(q) {
+        const trimmed = q.trim();
+        if (!trimmed) return "Could you rephrase that? You can ask about Randy's experience, projects, skills, or leadership.";
+
+        for (const p of patterns) {
+          if (p.match.test(trimmed)) return p.respond();
+        }
+
+        return "Hmm, I don't have enough context to answer that one well. I can talk about Randy's experience, projects, skills, leadership, design process, or how to get in touch with him. Or if you'd prefer, you can reach Randy directly at " + kb.email + ".";
+      }
+
+      function formatMessage(text) {
+        return text
+          .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+          .replace(/\n/g, '<br>');
+      }
+
+      function addMessage(text, isUser) {
+        const el = document.createElement('div');
+        el.className = `chatbot__message chatbot__message--${isUser ? 'user' : 'bot'}`;
+        el.innerHTML = isUser ? `<p>${text}</p>` : `<p>${formatMessage(text)}</p>`;
+        messages.appendChild(el);
+        messages.scrollTop = messages.scrollHeight;
+      }
+
+      function handleQuestion(q) {
+        addMessage(q, true);
+        if (suggestions) suggestions.remove();
+        setTimeout(() => {
+          addMessage(getResponse(q), false);
+        }, 400 + Math.random() * 300);
+      }
+
+      toggle.addEventListener('click', () => {
+        chatbot.classList.toggle('open');
+        if (chatbot.classList.contains('open')) input.focus();
+      });
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q) return;
+        input.value = '';
+        handleQuestion(q);
+      });
+
+      document.querySelectorAll('.chatbot__suggestion').forEach(btn => {
+        btn.addEventListener('click', () => handleQuestion(btn.dataset.q));
+      });
+    })();
   </script>
+
 </body>
 </html>

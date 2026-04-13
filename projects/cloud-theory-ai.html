@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block" rel="stylesheet">
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -15,16 +16,16 @@
     }
 
     :root {
-      --bg-primary: #0a0a0a;
-      --bg-secondary: #111111;
-      --bg-elevated: #1a1a1a;
-      --text-primary: #e8e4df;
-      --text-secondary: #8a8580;
-      --text-muted: #5a5550;
-      --accent: #6b9fcd;
-      --accent-dim: rgba(107, 159, 205, 0.12);
-      --accent-glow: rgba(107, 159, 205, 0.06);
-      --border: rgba(255, 255, 255, 0.06);
+      --bg-primary: #0d0d14;
+      --bg-secondary: #13131f;
+      --bg-elevated: #1a1a2b;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --accent: #7c64f3;
+      --accent-dim: rgba(124, 100, 243, 0.15);
+      --accent-glow: rgba(124, 100, 243, 0.25);
+      --border: rgba(255, 255, 255, 0.07);
       --border-hover: rgba(255, 255, 255, 0.12);
       --font-display: 'Sora', sans-serif;
       --font-body: 'Open Sans', sans-serif;
@@ -98,7 +99,7 @@
       justify-content: space-between;
       padding: 0 clamp(24px, 5vw, 64px);
       z-index: 1000;
-      background: rgba(10, 10, 10, 0.8);
+      background: rgba(13, 13, 20, 0.8);
       backdrop-filter: blur(20px) saturate(1.2);
       -webkit-backdrop-filter: blur(20px) saturate(1.2);
       border-bottom: 1px solid var(--border);
@@ -106,7 +107,7 @@
     }
 
     .nav.scrolled {
-      background: rgba(10, 10, 10, 0.95);
+      background: rgba(13, 13, 20, 0.95);
       border-bottom-color: var(--border-hover);
     }
 
@@ -209,7 +210,7 @@
         display: flex;
         position: fixed;
         inset: 0;
-        background: rgba(10, 10, 10, 0.98);
+        background: rgba(13, 13, 20, 0.98);
         backdrop-filter: blur(40px);
         -webkit-backdrop-filter: blur(40px);
         flex-direction: column;
@@ -263,7 +264,7 @@
     .cs-hero__bg {
       position: absolute;
       inset: 0;
-      background: linear-gradient(160deg, #131820 0%, #0a0a0a 40%, #0f0d0a 100%);
+      background: linear-gradient(160deg, #1a1a2b 0%, #0d0d14 40%, #13131f 100%);
       z-index: -2;
     }
 
@@ -271,36 +272,174 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 70% 20%, rgba(107, 159, 205, 0.06) 0%, transparent 60%),
-                  radial-gradient(ellipse at 20% 80%, rgba(100, 140, 200, 0.04) 0%, transparent 50%);
+      background: radial-gradient(ellipse at 70% 20%, rgba(124, 100, 243, 0.10) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(167, 139, 250, 0.06) 0%, transparent 50%);
     }
 
     .cs-hero__image {
-      position: relative;
-      z-index: 1;
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 48px;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.1s forwards;
+      perspective: 2400px;
+      animation: fadeIn 1.2s var(--ease-out-expo) 0.2s forwards;
     }
 
-    .cs-hero__image-placeholder {
-      width: 100%;
-      max-width: 900px;
+    .cs-hero__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-primary) 0%, rgba(13, 13, 20, 0.85) 35%, rgba(13, 13, 20, 0.4) 65%, rgba(13, 13, 20, 0.15) 100%);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* ===================== ISOMETRIC MACBOOK ===================== */
+    .macbook {
+      position: relative;
+      width: min(1100px, 86vw);
       aspect-ratio: 16 / 10;
-      border-radius: 16px;
-      background: var(--bg-elevated);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      transform-style: preserve-3d;
+      transform: rotateX(58deg) rotateZ(-32deg) translateY(-6%);
+      filter: drop-shadow(0 80px 70px rgba(0, 0, 0, 0.55));
+    }
+
+    /* ----- Base (lays flat in 3D, contains keyboard & trackpad) ----- */
+    .macbook__base {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, #e2e2ea 0%, #c4c4cc 35%, #a4a4ac 70%, #888890 100%);
+      border-radius: 18px;
+      box-shadow:
+        inset 0 0 0 1.5px rgba(0, 0, 0, 0.35),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transform-style: preserve-3d;
+    }
+
+    .macbook__keys {
+      position: absolute;
+      top: 6.5%;
+      left: 5%;
+      right: 5%;
+      bottom: 38%;
+      background: #12121a;
+      border-radius: 7px;
+      padding: 6px;
+      display: grid;
+      grid-template-rows: 0.65fr repeat(5, 1fr);
+      gap: 5px;
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.6),
+        0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .macbook__key-row {
+      display: grid;
+      gap: 5px;
+    }
+
+    .macbook__key {
+      background: linear-gradient(180deg, #2c2c36 0%, #1c1c24 100%);
+      border-radius: 3px;
+      box-shadow:
+        inset 0 -1px 0 rgba(0, 0, 0, 0.55),
+        inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .macbook__trackpad {
+      position: absolute;
+      left: 23%;
+      right: 23%;
+      bottom: 5%;
+      height: 28%;
+      background: linear-gradient(180deg, #c8c8d0 0%, #9c9ca4 100%);
+      border-radius: 7px;
+      box-shadow:
+        inset 0 0 0 1px rgba(0, 0, 0, 0.35),
+        inset 0 1px 2px rgba(0, 0, 0, 0.12),
+        inset 0 -1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    /* ----- Lid (the screen — hinged at the back edge of the base) ----- */
+    .macbook__lid {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      aspect-ratio: 16 / 10;
+      transform-origin: 0 0;
+      transform: rotateX(-100deg);
+      transform-style: preserve-3d;
+      background: linear-gradient(135deg, #c8c8d0 0%, #a0a0a8 50%, #80808a 100%);
+      border-radius: 14px;
+      box-shadow:
+        inset 0 0 0 1.5px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+    }
+
+    .macbook__screen {
+      position: absolute;
+      inset: 14px;
+      background: #0a0a0f;
+      border-radius: 5px;
+      padding: 14px 14px 22px;
+      box-shadow:
+        inset 0 0 0 1.5px #1a1a24,
+        inset 0 0 0 2.5px rgba(255, 255, 255, 0.04);
+    }
+
+    .macbook__notch {
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90px;
+      height: 6px;
+      background: #0a0a0f;
+      border-radius: 0 0 7px 7px;
+      z-index: 2;
+    }
+
+    .macbook__bezel {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      border-radius: 2px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .macbook__bezel iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      border: none;
+      pointer-events: none;
+      transform-origin: top left;
+    }
+
+    .macbook__brand {
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      transform: translateX(-50%);
       font-family: var(--font-display);
-      font-weight: 300;
-      font-size: 20px;
-      color: var(--text-muted);
-      opacity: 0.3;
+      font-size: 9px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.18);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     .cs-hero__eyebrow {
@@ -444,11 +583,12 @@
     }
 
     .cs-metric {
-      padding: 28px;
+      padding: 24px;
       background: var(--bg-secondary);
       border: 1px solid var(--border);
       border-radius: 16px;
       transition: border-color 0.3s ease;
+      overflow: hidden;
     }
 
     .cs-metric:hover {
@@ -457,18 +597,20 @@
 
     .cs-metric__value {
       font-family: var(--font-display);
-      font-size: clamp(32px, 3.5vw, 48px);
+      font-size: clamp(24px, 2.5vw, 36px);
       color: var(--accent);
       line-height: 1.1;
       margin-bottom: 6px;
+      overflow-wrap: break-word;
     }
 
     .cs-metric__label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-muted);
+      overflow-wrap: break-word;
     }
 
     @media (max-width: 768px) {
@@ -573,6 +715,28 @@
       margin-top: 32px;
     }
 
+    .cs-insights--stack {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .cs-insights--stack .cs-insight {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      padding: 20px 24px;
+    }
+
+    .cs-insight__icon .material-symbols-outlined {
+      font-size: 22px;
+      line-height: 1;
+    }
+
+    .cs-insights--stack .cs-insight__icon {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
     .cs-insight {
       padding: 28px;
       background: var(--bg-secondary);
@@ -668,6 +832,70 @@
       border-color: var(--border-hover);
     }
 
+    .cs-gallery__item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .cs-gallery__item--iframe,
+    .cs-comparison__image--iframe {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .cs-gallery__item--iframe iframe,
+    .cs-comparison__image--iframe iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 900px;
+      border: none;
+      pointer-events: none;
+      transform-origin: top left;
+    }
+
+    /* Annotation callouts for "before" screens */
+    .cs-annotated {
+      position: relative;
+    }
+
+    .cs-callout {
+      position: absolute;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: rgba(255, 80, 80, 0.85);
+      backdrop-filter: blur(8px);
+      border-radius: 20px;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 500;
+      color: #fff;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      animation: callout-pulse 3s ease-in-out infinite;
+    }
+
+    .cs-callout::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    @keyframes callout-pulse {
+      0%, 100% { opacity: 0.9; }
+      50% { opacity: 1; }
+    }
+
     .cs-gallery__item--tall {
       aspect-ratio: 9 / 16;
     }
@@ -743,18 +971,33 @@
     /* ===================== IMPACT SECTION ===================== */
     .cs-impact-metrics {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
       gap: 20px;
       margin-bottom: 48px;
     }
 
+    @media (min-width: 1024px) {
+      .cs-impact-metrics {
+        margin-left: 0;
+        margin-right: -64px;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      .cs-impact-metrics {
+        margin-left: 0;
+        margin-right: -128px;
+      }
+    }
+
     .cs-impact-metric {
-      padding: 36px 28px;
+      padding: 28px 24px;
       background: var(--bg-secondary);
       border: 1px solid var(--border);
       border-radius: 16px;
       text-align: center;
       transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+      overflow: hidden;
     }
 
     .cs-impact-metric:hover {
@@ -764,10 +1007,11 @@
 
     .cs-impact-metric__value {
       font-family: var(--font-display);
-      font-size: clamp(40px, 5vw, 56px);
+      font-size: clamp(28px, 3vw, 40px);
       color: var(--accent);
-      line-height: 1;
+      line-height: 1.1;
       margin-bottom: 8px;
+      white-space: nowrap;
     }
 
     .cs-impact-metric__label {
@@ -775,6 +1019,8 @@
       font-weight: 400;
       color: var(--text-secondary);
       line-height: 1.4;
+      overflow-wrap: break-word;
+      text-wrap: balance;
     }
 
     .cs-impact-metric__sublabel {
@@ -784,42 +1030,46 @@
       text-transform: uppercase;
       color: var(--text-muted);
       margin-top: 4px;
+      overflow-wrap: break-word;
     }
 
     /* ===================== REFLECTIONS ===================== */
     .cs-reflections {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
-      gap: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     .cs-reflection {
-      padding: 32px;
+      padding: 16px 24px;
       border: 1px solid var(--border);
       border-radius: 16px;
       background: var(--bg-secondary);
+      display: flex;
+      gap: 20px;
+      align-items: center;
     }
 
     .cs-reflection__number {
       font-family: var(--font-display);
       font-size: 32px;
       color: var(--accent);
-      margin-bottom: 12px;
       line-height: 1;
+      flex-shrink: 0;
     }
 
     .cs-reflection__title {
       font-family: var(--font-display);
-      font-size: 20px;
+      font-size: 18px;
       color: var(--text-primary);
-      margin-bottom: 10px;
+      margin-bottom: 4px;
     }
 
     .cs-reflection__text {
       font-size: 14px;
       font-weight: 300;
       color: var(--text-secondary);
-      line-height: 1.7;
+      line-height: 1.6;
     }
 
     /* ===================== NEXT/PREV NAV ===================== */
@@ -1007,7 +1257,7 @@
   <section class="cs-hero">
     <div class="cs-hero__bg"></div>
     <div class="cs-hero__image">
-      <div class="cs-hero__image-placeholder">Hero Image</div>
+      <img src="../images/Cloud Theory/cloud-theory-final.png" alt="Cloud Theory AI — final dashboard design with dark theme and purple accents showing Account Overview with inventory metrics, AI-generated performance summary, and vehicle data table" style="width:100%;height:100%;object-fit:cover;">
     </div>
     <p class="cs-hero__eyebrow">Case Study</p>
     <h1 class="cs-hero__title">Cloud Theory AI</h1>
@@ -1085,6 +1335,25 @@
       </div>
     </section>
 
+    <!-- Legacy experience screenshots -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item cs-gallery__item--iframe cs-annotated">
+          <iframe src="../demos/cloudtheory-old/dashboard.html"></iframe>
+          <span class="cs-callout" style="top: 8%; left: 5%;">No visual hierarchy</span>
+          <span class="cs-callout" style="top: 40%; left: 10%;">Dense, unstructured data</span>
+          <span class="cs-callout" style="bottom: 15%; right: 8%;">Sharp edges, dated styling</span>
+        </div>
+        <div class="cs-gallery__item cs-gallery__item--iframe cs-annotated">
+          <iframe src="../demos/cloudtheory-old/market-insights.html"></iframe>
+          <span class="cs-callout" style="top: 10%; right: 8%;">Clunky controls</span>
+          <span class="cs-callout" style="top: 45%; left: 8%;">Flat bar charts with no context</span>
+          <span class="cs-callout" style="bottom: 12%; left: 12%;">No AI-generated insights</span>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">The legacy Cloud Theory experience — sharp edges, outdated design, and clunky UI with no contextual insight</p>
+    </div>
+
     <!-- ==================== RESEARCH ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
@@ -1098,27 +1367,33 @@
           <p>I conducted user research and usability testing to validate design decisions and guide product direction. This included interviews with infrastructure engineers and DevOps teams, analysis of existing reporting workflows, and competitive audits of dashboard tooling across the market.</p>
           <p>Three critical patterns emerged from our research that reshaped our entire approach to the product.</p>
 
-          <div class="cs-insights">
+          <div class="cs-insights cs-insights--stack">
             <div class="cs-insight reveal reveal-delay-1">
               <div class="cs-insight__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z" stroke="currentColor" stroke-width="1.5"/><path d="M12 6v6l4 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
-              <h4 class="cs-insight__title">Dashboard Overload</h4>
-              <p class="cs-insight__desc">Engineers had too many dashboards with too much raw data. They needed summaries, not more charts — AI-generated insights that surface what matters without manual interpretation.</p>
+              <div>
+                <h4 class="cs-insight__title">Dashboard Overload</h4>
+                <p class="cs-insight__desc">Engineers had too many dashboards with too much raw data. They needed summaries, not more charts — AI-generated insights that surface what matters without manual interpretation.</p>
+              </div>
             </div>
             <div class="cs-insight reveal reveal-delay-2">
               <div class="cs-insight__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </div>
-              <h4 class="cs-insight__title">At-a-Glance Reporting</h4>
-              <p class="cs-insight__desc">Users needed to understand their infrastructure state in seconds, not minutes. The existing experience required navigating multiple views just to answer basic questions about system health.</p>
+              <div>
+                <h4 class="cs-insight__title">At-a-Glance Reporting</h4>
+                <p class="cs-insight__desc">Users needed to understand their infrastructure state in seconds, not minutes. The existing experience required navigating multiple views just to answer basic questions about system health.</p>
+              </div>
             </div>
             <div class="cs-insight reveal reveal-delay-3">
               <div class="cs-insight__icon">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><circle cx="9" cy="7" r="4" stroke="currentColor" stroke-width="1.5"/><path d="M23 21v-2a4 4 0 0 0-3-3.87" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M16 3.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
               </div>
-              <h4 class="cs-insight__title">Design System Fragmentation</h4>
-              <p class="cs-insight__desc">Inconsistent component usage between design and engineering slowed development. Teams needed a unified, efficient design system to accelerate adoption and ensure product consistency.</p>
+              <div>
+                <h4 class="cs-insight__title">Design System Fragmentation</h4>
+                <p class="cs-insight__desc">Inconsistent component usage between design and engineering slowed development. Teams needed a unified, efficient design system to accelerate adoption and ensure product consistency.</p>
+              </div>
             </div>
           </div>
         </div>
@@ -1143,7 +1418,37 @@
             <span class="cs-quote__attribution">— Design Challenge Statement</span>
           </div>
 
-          <p>This reframe shifted our focus from building more dashboards to designing an AI-powered reporting experience that tells the story of your infrastructure — meeting users with insight instead of data.</p>
+          <p>This reframe shifted our focus from building more dashboards to designing an AI-powered reporting experience that tells the story of your infrastructure — meeting users with insight instead of data. From there, three guiding questions framed every design decision that followed:</p>
+
+          <div class="cs-insights cs-insights--stack">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">query_stats</span>
+              </div>
+              <div>
+                <h4 class="cs-insight__title">How might we help users understand their performance better?</h4>
+                <p class="cs-insight__desc">Translate dense infrastructure metrics into clear, plain-language summaries so teams can grasp system health at a glance — no manual interpretation required.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">speed</span>
+              </div>
+              <div>
+                <h4 class="cs-insight__title">How might we help users make faster decisions?</h4>
+                <p class="cs-insight__desc">Surface the next best action alongside the data. Pair AI-generated insights with confident recommendations so users move from "what's happening" to "what to do" in seconds.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon">
+                <span class="material-symbols-outlined">payments</span>
+              </div>
+              <div>
+                <h4 class="cs-insight__title">How might we help users increase their sales?</h4>
+                <p class="cs-insight__desc">Connect infrastructure performance to revenue outcomes — highlighting opportunities, market shifts, and trends that drive measurable business growth.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1167,11 +1472,23 @@
     <!-- Wireframe gallery -->
     <div class="cs-fullbleed reveal">
       <div class="cs-gallery cs-gallery--three">
-        <div class="cs-gallery__item">Concept A — Summary Cards</div>
-        <div class="cs-gallery__item">Concept B — AI Narrative Feed</div>
-        <div class="cs-gallery__item">Concept C — Interactive Overview</div>
+        <div class="cs-gallery__item cs-annotated">
+          <img src="../images/Cloud Theory/Oversight.webp" alt="Legacy Oversight Dashboard" />
+          <span class="cs-callout" style="top: 12%; left: 6%;">Rigid layout</span>
+          <span class="cs-callout" style="bottom: 18%; right: 6%;">Hard corners throughout</span>
+        </div>
+        <div class="cs-gallery__item cs-annotated">
+          <img src="../images/Cloud Theory/Marketing Insights.webp" alt="Legacy Market Insights" />
+          <span class="cs-callout" style="top: 10%; right: 6%;">Outdated visual design</span>
+          <span class="cs-callout" style="bottom: 15%; left: 8%;">No actionable takeaways</span>
+        </div>
+        <div class="cs-gallery__item cs-annotated">
+          <img src="../images/Cloud Theory/Toolkit.webp" alt="Legacy Toolkit" />
+          <span class="cs-callout" style="top: 12%; left: 6%;">Cluttered interface</span>
+          <span class="cs-callout" style="bottom: 15%; right: 6%;">Overwhelming data density</span>
+        </div>
       </div>
-      <p class="cs-gallery__caption">Three product directions explored during the ideation phase</p>
+      <p class="cs-gallery__caption">Legacy screens analyzed during exploration — sharp edges, outdated styling, and clunky UI across every view</p>
     </div>
 
     <!-- ==================== THE SOLUTION ==================== -->
@@ -1193,16 +1510,74 @@
     <!-- Solution showcase -->
     <div class="cs-fullbleed reveal">
       <div class="cs-gallery cs-gallery--single">
-        <div class="cs-gallery__item" style="aspect-ratio: 16/9;">Primary Dashboard — AI-Generated Summaries</div>
+        <div class="cs-gallery__item cs-gallery__item--iframe">
+          <iframe src="../demos/cloudtheory-new/dashboard.html"></iframe>
+        </div>
       </div>
+      <p class="cs-gallery__caption">The redesigned AI-powered dashboard — contextual summaries replace raw data</p>
     </div>
 
     <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">Design System — Unified Component Library</div>
-        <div class="cs-gallery__item">Reporting View — At-a-Glance Insights</div>
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item cs-gallery__item--iframe">
+          <iframe src="../demos/cloudtheory-new/model-insights.html"></iframe>
+        </div>
       </div>
+      <p class="cs-gallery__caption">Model Insights — vehicle-level analytics with a left filter rail flush against navigation</p>
     </div>
+
+    <!-- ==================== WHAT'S NEW ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">What's New</span>
+      <h2 class="cs-section__title">Key Design Features</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Six standout additions that shaped the redesigned experience — from AI-driven storytelling to refined data visualizations and a smarter information architecture.</p>
+
+      <div class="cs-insights">
+        <div class="cs-insight reveal reveal-delay-1">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">auto_awesome</span>
+          </div>
+          <h4 class="cs-insight__title">AI-Generated Summaries</h4>
+          <p class="cs-insight__desc">Plain-language headlines and contextual insights that translate raw dealer data into immediate understanding — no chart-reading required.</p>
+        </div>
+        <div class="cs-insight reveal reveal-delay-2">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">lightbulb</span>
+          </div>
+          <h4 class="cs-insight__title">Smart Recommendations</h4>
+          <p class="cs-insight__desc">Actionable next steps surfaced alongside the data, turning passive monitoring into confident decision-making.</p>
+        </div>
+        <div class="cs-insight reveal reveal-delay-3">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">map</span>
+          </div>
+          <h4 class="cs-insight__title">Sales Coverage Map</h4>
+          <p class="cs-insight__desc">Interactive geographic visualization that reveals dealer reach and sales density at a glance.</p>
+        </div>
+        <div class="cs-insight reveal reveal-delay-1">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">inventory_2</span>
+          </div>
+          <h4 class="cs-insight__title">Inventory Intelligence</h4>
+          <p class="cs-insight__desc">Days-on-lot warnings, sortable columns, and lazy loading make scanning long inventory lists effortless.</p>
+        </div>
+        <div class="cs-insight reveal reveal-delay-2">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">show_chart</span>
+          </div>
+          <h4 class="cs-insight__title">Sales Trend Sparkline</h4>
+          <p class="cs-insight__desc">An at-a-glance bar chart that surfaces monthly performance trends without leaving the dashboard.</p>
+        </div>
+        <div class="cs-insight reveal reveal-delay-3">
+          <div class="cs-insight__icon">
+            <span class="material-symbols-outlined">storefront</span>
+          </div>
+          <h4 class="cs-insight__title">Multi-Dealer Switching</h4>
+          <p class="cs-insight__desc">Compare performance across accounts in a single click — no extra navigation, no context loss.</p>
+        </div>
+      </div>
+    </section>
 
     <!-- ==================== KEY INTERACTIONS ==================== -->
     <hr class="cs-divider">
@@ -1220,13 +1595,37 @@
           <div class="cs-comparison">
             <div class="cs-comparison__side">
               <span class="cs-comparison__label cs-comparison__label--before">Before</span>
-              <div class="cs-comparison__image">Legacy Dashboard — Raw Data</div>
+              <div class="cs-comparison__image cs-comparison__image--iframe cs-annotated">
+                <iframe src="../demos/cloudtheory-old/dashboard.html"></iframe>
+                <span class="cs-callout" style="top: 20%; left: 8%;">Raw data dump</span>
+                <span class="cs-callout" style="bottom: 20%; right: 8%;">No visual polish</span>
+              </div>
             </div>
             <div class="cs-comparison__side">
               <span class="cs-comparison__label cs-comparison__label--after">After</span>
-              <div class="cs-comparison__image">AI Summary Dashboard</div>
+              <div class="cs-comparison__image cs-comparison__image--iframe">
+                <iframe src="../demos/cloudtheory-new/dashboard.html"></iframe>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DESIGN DECISIONS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">07 — Design Decisions</span>
+          <h2 class="cs-split__sidebar-title">A Modern Visual Language</h2>
+          <p class="cs-split__sidebar-desc">Why we updated the color system and visual foundation.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>One of the most impactful decisions was refreshing the core visual language. The legacy dashboard relied on hard corners, flat contrast, and a dated color palette that felt disconnected from the modern tools our users open every day. We updated the system to feel contemporary, trustworthy, and at home alongside the design tools teams already rely on.</p>
+          <p><strong>Rounded corners</strong> — We moved from sharp 2px corners to a softer, more modern radius scale. Rounded geometry creates a friendlier read at-a-glance and matches the visual conventions of modern SaaS tools, reducing the cognitive load of scanning dense data.</p>
+          <p><strong>Higher contrast</strong> — We pushed text, surface, and accent tokens toward higher contrast ratios to improve scannability and meet accessibility standards. This was especially important for the dense inventory tables and AI summary panels, where users need to parse information in seconds.</p>
+          <p><strong>Modern dark-mode palette</strong> — We rebuilt the palette to feel native to today's design tools — closer in tone to Figma, Linear, and Vercel — using cooler neutrals and a more saturated brand accent. This made the product feel current, signaled product maturity, and gave our design system colors that teams across the organization were immediately comfortable adopting.</p>
         </div>
       </div>
     </section>
@@ -1236,7 +1635,7 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">07 — Validation</span>
+          <span class="cs-split__sidebar-label">08 — Validation</span>
           <h2 class="cs-split__sidebar-title">Testing & Iteration</h2>
           <p class="cs-split__sidebar-desc">Measuring what matters.</p>
         </div>
@@ -1255,15 +1654,16 @@
     <!-- ==================== IMPACT ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
-      <span class="cs-section__number">08 — Impact</span>
+      <span class="cs-section__number">09 — Impact</span>
       <h2 class="cs-section__title">Results & Impact</h2>
-      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Measurable outcomes that validated our design decisions.</p>
+      <p class="cs-section__subtitle" style="margin-bottom: 24px;">Measurable outcomes that validated our design decisions.</p>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">To quantify the impact of the redesign, I ran unmoderated usability studies with <strong>Maze</strong>, our UX research platform of choice. Participants completed the same set of at-a-glance reporting tasks on both the legacy dashboard and the redesigned experience. The results showed users spent <strong>22% less time</strong> analyzing the dashboard to reach the same decisions — a direct validation that the AI summaries, updated visual system, and restructured information architecture were doing their job.</p>
 
       <div class="cs-impact-metrics">
         <div class="cs-impact-metric reveal reveal-delay-1">
-          <div class="cs-impact-metric__value">Faster</div>
-          <div class="cs-impact-metric__label">At-a-glance reporting for infrastructure teams</div>
-          <div class="cs-impact-metric__sublabel">Reporting Speed</div>
+          <div class="cs-impact-metric__value">−22%</div>
+          <div class="cs-impact-metric__label">Less time spent analyzing the dashboard, measured via Maze usability studies</div>
+          <div class="cs-impact-metric__sublabel">Time on Task</div>
         </div>
         <div class="cs-impact-metric reveal reveal-delay-2">
           <div class="cs-impact-metric__value">5+</div>
@@ -1284,32 +1684,38 @@
 
       <div class="cs-quote reveal">
         <p class="cs-quote__text">"The AI summaries changed how our team interacts with dashboards. Instead of digging through charts, we get the story immediately."</p>
-        <span class="cs-quote__attribution">— Product Stakeholder</span>
+        <span class="cs-quote__attribution">— South Bay Ford</span>
       </div>
     </section>
 
     <!-- ==================== REFLECTIONS ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
-      <span class="cs-section__number">09 — Reflection</span>
+      <span class="cs-section__number">10 — Reflection</span>
       <h2 class="cs-section__title">What I Learned</h2>
       <p class="cs-section__subtitle" style="margin-bottom: 48px;">Honest reflections on the process and the outcomes.</p>
 
       <div class="cs-reflections">
         <div class="cs-reflection reveal reveal-delay-1">
           <div class="cs-reflection__number">01</div>
-          <h4 class="cs-reflection__title">AI as a Design Accelerator</h4>
-          <p class="cs-reflection__text">Leveraging tools like Subframe, Cursor, Figma Make, Claude, and ChatGPT fundamentally changed my prototyping workflow. AI doesn't replace design thinking — it compresses the iteration cycle so you can test more ideas, faster.</p>
+          <div>
+            <h4 class="cs-reflection__title">AI as a Design Accelerator</h4>
+            <p class="cs-reflection__text">Leveraging tools like Subframe, Cursor, Figma Make, Claude, and ChatGPT fundamentally changed my prototyping workflow. AI doesn't replace design thinking — it compresses the iteration cycle so you can test more ideas, faster.</p>
+          </div>
         </div>
         <div class="cs-reflection reveal reveal-delay-2">
           <div class="cs-reflection__number">02</div>
-          <h4 class="cs-reflection__title">Summaries Over Dashboards</h4>
-          <p class="cs-reflection__text">The biggest insight was that users don't want more data — they want understanding. Designing AI-generated summaries that tell a story rather than present numbers required a completely different approach to information hierarchy.</p>
+          <div>
+            <h4 class="cs-reflection__title">Summaries Over Dashboards</h4>
+            <p class="cs-reflection__text">The biggest insight was that users don't want more data — they want understanding. Designing AI-generated summaries that tell a story rather than present numbers required a completely different approach to information hierarchy.</p>
+          </div>
         </div>
         <div class="cs-reflection reveal reveal-delay-3">
           <div class="cs-reflection__number">03</div>
-          <h4 class="cs-reflection__title">Design Systems Enable Speed</h4>
-          <p class="cs-reflection__text">Improving the design system wasn't just about consistency — it directly accelerated how fast both design and engineering could ship. The efficiency gains compounded over time, making every subsequent feature faster to build.</p>
+          <div>
+            <h4 class="cs-reflection__title">Design Systems Enable Speed</h4>
+            <p class="cs-reflection__text">Improving the design system wasn't just about consistency — it directly accelerated how fast both design and engineering could ship. The efficiency gains compounded over time, making every subsequent feature faster to build.</p>
+          </div>
         </div>
       </div>
     </section>
@@ -1471,8 +1877,8 @@
           this.alpha = this.baseAlpha;
           this.pulseSpeed = Math.random() * 0.02 + 0.005;
           this.pulseOffset = Math.random() * Math.PI * 2;
-          this.hue = Math.random() > 0.6 ? 35 : 0;
-          this.saturation = this.hue === 35 ? 40 + Math.random() * 20 : 0;
+          this.hue = Math.random() > 0.6 ? 252 : 0;
+          this.saturation = this.hue === 252 ? 50 + Math.random() * 20 : 0;
           this.lightness = 75 + Math.random() * 20;
         }
 
@@ -1534,6 +1940,53 @@
           p.x = Math.random() * w;
           p.y = Math.random() * h;
         }
+      });
+    })();
+  </script>
+
+  <script>
+    function scaleIframes() {
+      document.querySelectorAll('.cs-gallery__item--iframe, .cs-comparison__image--iframe, .macbook__bezel').forEach(el => {
+        const iframe = el.querySelector('iframe');
+        if (iframe) {
+          const scale = el.offsetWidth / 1440;
+          iframe.style.transform = 'scale(' + scale + ')';
+        }
+      });
+    }
+    window.addEventListener('load', scaleIframes);
+    window.addEventListener('resize', scaleIframes);
+
+    // ===================== MACBOOK KEYBOARD =====================
+    (function buildMacbookKeyboard() {
+      const container = document.querySelector('.macbook__keys');
+      if (!container) return;
+      // Each row defines its grid template (proportional fr units)
+      const rows = [
+        // Function row — 13 narrow keys
+        '1.4fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr',
+        // Number row — esc-style left, 13 keys, wide delete
+        '1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.6fr',
+        // Tab + QWERTY
+        '1.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.1fr',
+        // Caps + ASDF + return
+        '1.7fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1.9fr',
+        // Shift + ZXCV + shift
+        '2.1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 2.5fr',
+        // Bottom row — fn, ctrl, opt, cmd, SPACE, cmd, opt, arrows
+        '1fr 1fr 1fr 1.3fr 6.5fr 1.3fr 1fr 1fr 1fr 1fr'
+      ];
+      rows.forEach(template => {
+        const row = document.createElement('div');
+        row.className = 'macbook__key-row';
+        row.style.gridTemplateColumns = template;
+        const cols = template.split(' ').length;
+        for (let i = 0; i < cols; i++) {
+          const key = document.createElement('div');
+          key.className = 'macbook__key';
+          row.appendChild(key);
+        }
+        container.appendChild(row);
       });
     })();
   </script>

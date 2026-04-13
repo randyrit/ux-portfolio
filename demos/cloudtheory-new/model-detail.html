@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Detail — Cloud Theory</title>
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================
+       SIDEBAR
+  ========================= -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="assets/cloudtheory-logo.png" alt="Cloud Theory" />
+    </div>
+
+    <div class="sidebar-dealer">
+      <select class="sidebar-dealer-select" id="dealer-select">
+        <option selected>South Bay Ford</option>
+        <option>South Bay Ford Lincoln</option>
+        <option>South Bay Lincoln</option>
+        <option>Galpin Ford</option>
+        <option>AutoNation Ford Torrance</option>
+      </select>
+    </div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="dashboard.html">
+        <span class="material-icons-outlined sidebar-icon">dashboard</span>
+        Dealer Overview
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">insights</span>
+        Market Insights
+      </a>
+
+      <a class="sidebar-item active" href="model-insights.html">
+        <span class="material-icons-outlined sidebar-icon">directions_car</span>
+        Model Insights
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">inventory_2</span>
+        Inventory
+      </a>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">storefront</span>
+        Store Performance
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">trending_up</span>
+        Market Performance
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">RR</div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name">Ruttapon R.</span>
+          <span class="sidebar-user-role">South Bay Ford</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ========================
+       MAIN
+  ========================= -->
+  <div class="main-content">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <nav class="breadcrumb">
+          <a class="breadcrumb-item" href="dashboard.html">
+            <span class="material-icons-outlined">dashboard</span>
+            Overview
+          </a>
+          <span class="breadcrumb-sep">›</span>
+          <a class="breadcrumb-item" href="model-insights.html">Model Insights</a>
+          <span class="breadcrumb-sep">›</span>
+          <span class="breadcrumb-item active" id="crumb-model">—</span>
+        </nav>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="current-date"></span>
+        <span class="topbar-updated">Updated Today, 8:04 AM</span>
+        <button class="topbar-btn has-dot" title="Notifications"><span class="material-icons-outlined topbar-icon">notifications</span></button>
+        <button class="topbar-btn" title="Settings"><span class="material-icons-outlined topbar-icon">settings</span></button>
+        <button class="topbar-btn" title="Share"><span class="material-icons-outlined topbar-icon">ios_share</span></button>
+      </div>
+    </header>
+
+    <div class="page-body">
+
+      <!-- Hero -->
+      <div class="model-hero">
+        <div class="model-hero-image">
+          <img id="hero-image" src="" alt="" />
+        </div>
+        <div class="model-hero-content">
+          <div class="model-hero-top">
+            <span class="model-hero-make" id="hero-make">FORD</span>
+            <span class="model-hero-year" id="hero-year">2026</span>
+          </div>
+          <h1 class="model-hero-title" id="hero-title">—</h1>
+          <div class="model-hero-meta">
+            <span id="hero-body">—</span>
+            <span class="dot-sep">·</span>
+            <span id="hero-price">—</span>
+            <span class="dot-sep">·</span>
+            <span class="model-hero-rating">
+              <span class="material-icons-outlined">star</span>
+              <span id="hero-rating">—</span>
+              <span class="rating-count" id="hero-review-count">—</span>
+            </span>
+          </div>
+        </div>
+        <div class="model-hero-actions">
+          <button class="btn btn-ghost">
+            <span class="material-icons-outlined">bookmark_border</span>
+            Save
+          </button>
+          <button class="btn btn-primary">
+            <span class="material-icons-outlined">file_download</span>
+            Export Report
+          </button>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <!-- Info Strip (trims + search interest) -->
+      <div class="detail-info-strip">
+        <div class="info-block">
+          <span class="info-block-label">Available Trims</span>
+          <div class="info-trims" id="info-trims"></div>
+        </div>
+        <div class="info-block">
+          <span class="info-block-label">Search Interest</span>
+          <div class="info-search-value">
+            <span class="info-search-num" id="info-search-num">—</span>
+            <span class="info-search-sub" id="info-search-sub">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detail grid -->
+      <div class="detail-grid">
+
+        <!-- Sales Trend (full width) -->
+        <div class="card span-12">
+          <div class="section-header">
+            <span class="section-title">Sales Performance</span>
+            <span class="section-action">Units sold · Last 6 months</span>
+          </div>
+          <div class="sales-chart" id="sales-chart"></div>
+        </div>
+
+        <!-- Competitor Sales -->
+        <div class="card span-8">
+          <div class="section-header">
+            <span class="section-title">Competitor Sales</span>
+            <span class="section-action">MTD · Local market</span>
+          </div>
+          <div class="competitor-list" id="competitor-list"></div>
+        </div>
+
+        <!-- Buyer Demographics -->
+        <div class="card span-4">
+          <div class="section-header">
+            <span class="section-title">Buyer Demographics</span>
+            <span class="section-action">Share by segment</span>
+          </div>
+          <div class="demo-list" id="demo-list"></div>
+        </div>
+
+        <!-- Promotions -->
+        <div class="card">
+          <div class="section-header">
+            <span class="section-title">Current Promotions</span>
+            <span class="section-action" id="promo-count">—</span>
+          </div>
+          <div id="promo-list"></div>
+        </div>
+
+        <!-- Recalls -->
+        <div class="card">
+          <div class="section-header">
+            <span class="section-title">Recalls &amp; Safety</span>
+            <span class="section-action">NHTSA feed</span>
+          </div>
+          <div id="recall-list"></div>
+        </div>
+
+        <!-- AI Insight -->
+        <div class="ai-card span-12">
+          <div class="ai-card-header">
+            <div class="ai-toggle-title">
+              <button class="ai-title-btn active">
+                <span class="material-icons-outlined ai-tab-icon">auto_awesome</span>
+                AI Analysis
+              </button>
+            </div>
+          </div>
+          <div class="ai-card-scroll">
+            <div class="ai-headline" id="ai-headline">—</div>
+            <div class="ai-insights" id="ai-insights"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+  // ---- Read model id from URL ----
+  const params = new URLSearchParams(location.search);
+  const modelId = params.get('model') || 'f-150';
+  const detail = ModelInsightsData.details[modelId] || ModelInsightsData.details['f-150'];
+  const vehicle = ModelInsightsData.vehicles.find(v => v.id === modelId) || ModelInsightsData.vehicles[0];
+
+  // ---- Date ----
+  document.getElementById('current-date').textContent =
+    new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  // ---- Title + breadcrumb ----
+  document.title = `${detail.model} — Model Insights · Cloud Theory`;
+  document.getElementById('crumb-model').textContent = detail.model;
+
+  // ---- Hero ----
+  const heroImg = document.getElementById('hero-image');
+  heroImg.src = vehicle.image;
+  heroImg.alt = `${detail.make} ${detail.model}`;
+  document.getElementById('hero-make').textContent = detail.make.toUpperCase();
+  document.getElementById('hero-year').textContent = detail.year;
+  document.getElementById('hero-title').textContent = detail.model;
+  document.getElementById('hero-body').textContent = detail.bodyStyle;
+  document.getElementById('hero-price').textContent = detail.priceRange;
+  document.getElementById('hero-rating').textContent = detail.rating.toFixed(1);
+  document.getElementById('hero-review-count').textContent = `(${detail.reviewCount.toLocaleString()} reviews)`;
+
+  // ---- Stats ----
+  const statsGrid = document.getElementById('stats-grid');
+  statsGrid.innerHTML = detail.stats.map(s => `
+    <div class="stat-card">
+      <div class="stat-card-top">
+        <span class="stat-card-label">${s.label}</span>
+      </div>
+      <div class="stat-card-value">${s.value}</div>
+      <div class="stat-card-footer">
+        <span class="stat-delta ${s.trend}">${s.delta}</span>
+        <span class="stat-sub">${s.sub}</span>
+      </div>
+    </div>
+  `).join('');
+
+  // ---- Info strip ----
+  document.getElementById('info-trims').innerHTML =
+    detail.trims.map(t => `<span class="trim-pill">${t}</span>`).join('');
+
+  document.getElementById('info-search-num').textContent = detail.searchInterest.delta;
+  document.getElementById('info-search-num').style.color =
+    detail.searchInterest.trend === 'up' ? 'var(--color-success)' :
+    detail.searchInterest.trend === 'down' ? 'var(--color-danger)' :
+    'var(--color-text)';
+  document.getElementById('info-search-sub').textContent = detail.searchInterest.sub;
+
+  // ---- Sales Chart ----
+  const chart = document.getElementById('sales-chart');
+  const max = Math.max(...detail.salesHistory.units);
+  chart.innerHTML = detail.salesHistory.units.map((val, i) => {
+    const pct = Math.round((val / max) * 100);
+    const isLast = i === detail.salesHistory.units.length - 1;
+    return `
+      <div class="sales-bar-wrap">
+        <div class="sales-bar ${isLast ? 'active' : ''}" style="height:${pct}%">
+          <span class="sales-bar-value">${val}</span>
+        </div>
+        <span class="sales-bar-label">${detail.salesHistory.labels[i]}</span>
+      </div>
+    `;
+  }).join('');
+
+  // ---- Competitor List (with "you" row injected) ----
+  const compList = document.getElementById('competitor-list');
+  const youRow = {
+    name: detail.model,
+    make: detail.make,
+    sales: detail.salesHistory.units[detail.salesHistory.units.length - 1],
+    share: parseFloat(detail.stats.find(s => s.label === 'Market Share').value),
+    delta: detail.stats[0].delta,
+    trend: detail.stats[0].trend,
+    isYou: true,
+  };
+  const allRows = [youRow, ...detail.competitors].sort((a, b) => b.sales - a.sales);
+  const maxSales = Math.max(...allRows.map(r => r.sales));
+
+  compList.innerHTML = allRows.map(r => `
+    <div class="competitor-row ${r.isYou ? 'is-you' : ''}">
+      <div class="competitor-info">
+        <span class="competitor-name">
+          ${r.name}
+          ${r.isYou ? '<span class="competitor-you-tag">You</span>' : ''}
+        </span>
+        <span class="competitor-make">${r.make}${r.price ? ' · ' + r.price : ''}</span>
+      </div>
+      <div class="competitor-bar-wrap">
+        <div class="competitor-bar-meta">
+          <span class="competitor-bar-sales">${r.sales} units</span>
+          <span class="competitor-bar-share">${r.share}%</span>
+        </div>
+        <div class="competitor-bar-track">
+          <div class="competitor-bar-fill" style="width:${Math.round((r.sales / maxSales) * 100)}%"></div>
+        </div>
+      </div>
+      <span class="competitor-delta ${r.trend}">${r.delta}</span>
+    </div>
+  `).join('');
+
+  // ---- Promotions ----
+  const promoList = document.getElementById('promo-list');
+  document.getElementById('promo-count').textContent =
+    detail.promotions.length ? `${detail.promotions.length} active` : 'None';
+  if (detail.promotions.length) {
+    promoList.className = 'promo-list';
+    promoList.innerHTML = detail.promotions.map(p => `
+      <div class="promo-card">
+        <div class="promo-header">
+          <span class="promo-title">${p.title}</span>
+          <span class="promo-tag">${p.type}</span>
+        </div>
+        <div class="promo-meta">
+          <span class="promo-meta-row"><span class="material-icons-outlined">event</span> Valid until ${p.validUntil}</span>
+          <span class="promo-meta-row"><span class="material-icons-outlined">check_circle</span> ${p.applicable}</span>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    promoList.innerHTML = `
+      <div class="promo-empty">
+        <span class="material-icons-outlined">local_offer</span>
+        No active promotions for this model.
+      </div>`;
+  }
+
+  // ---- Recalls ----
+  const recallList = document.getElementById('recall-list');
+  if (detail.recalls.length) {
+    recallList.className = 'recall-list';
+    recallList.innerHTML = detail.recalls.map(r => `
+      <div class="recall-card sev-${r.severity} ${r.status === 'resolved' ? 'resolved' : ''}">
+        <div class="recall-header">
+          <span class="recall-title">${r.title}</span>
+          <span class="recall-id">${r.id}</span>
+        </div>
+        <div class="recall-affected">${r.affected}</div>
+        <div class="recall-meta">
+          <span>Announced ${r.announced}</span>
+          <span class="recall-status ${r.status}">
+            <span class="material-icons-outlined" style="font-size:12px">${r.status === 'resolved' ? 'check_circle' : 'error'}</span>
+            ${r.status}
+          </span>
+        </div>
+      </div>
+    `).join('');
+  } else {
+    recallList.innerHTML = `
+      <div class="recall-empty">
+        <span class="material-icons-outlined">verified</span>
+        No active safety recalls.
+      </div>`;
+  }
+
+  // ---- Demographics ----
+  document.getElementById('demo-list').innerHTML = detail.demographics.map(d => `
+    <div class="demo-row">
+      <div class="demo-row-meta">
+        <span class="demo-row-label">${d.label}</span>
+        <span class="demo-row-pct">${d.pct}%</span>
+      </div>
+      <div class="demo-bar-track">
+        <div class="demo-bar-fill" style="width:${d.pct}%"></div>
+      </div>
+    </div>
+  `).join('');
+
+  // ---- AI ----
+  document.getElementById('ai-headline').textContent = detail.aiHeadline;
+  document.getElementById('ai-insights').innerHTML = detail.aiInsights.map(i => `
+    <div class="ai-insight">
+      <div class="ai-insight-dot"></div>
+      <span class="ai-insight-text">${i}</span>
+    </div>
+  `).join('');
+</script>
+
+</body>
+</html>

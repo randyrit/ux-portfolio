@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Cloud Theory</title>
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================
+       SIDEBAR
+  ========================= -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="assets/cloudtheory-logo.png" alt="Cloud Theory" />
+    </div>
+
+    <div class="sidebar-dealer">
+      <select class="sidebar-dealer-select" id="dealer-select">
+        <option selected>South Bay Ford</option>
+        <option>South Bay Ford Lincoln</option>
+        <option>South Bay Lincoln</option>
+        <option>Galpin Ford</option>
+        <option>AutoNation Ford Torrance</option>
+      </select>
+    </div>
+
+    <!-- Main Nav -->
+    <div class="sidebar-section">
+      <a class="sidebar-item active" href="dashboard.html">
+        <span class="material-icons-outlined sidebar-icon">dashboard</span>
+        Dealer Overview
+      </a>
+
+      <a class="sidebar-item" href="market-insights.html">
+        <span class="material-icons-outlined sidebar-icon">insights</span>
+        Market Insights
+      </a>
+
+      <a class="sidebar-item" href="model-insights.html">
+        <span class="material-icons-outlined sidebar-icon">directions_car</span>
+        Model Insights
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">inventory_2</span>
+        Inventory
+      </a>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">storefront</span>
+        Store Performance
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">trending_up</span>
+        Market Performance
+      </a>
+    </div>
+
+    <!-- User -->
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">RR</div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name">Ruttapon R.</span>
+          <span class="sidebar-user-role">South Bay Ford</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ========================
+       MAIN
+  ========================= -->
+  <div class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Account Overview</span>
+        <span class="topbar-sub" id="dealer-location"></span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="current-date"></span>
+        <span class="topbar-updated" id="last-updated"></span>
+        <button class="topbar-btn has-dot" title="Notifications"><span class="material-icons-outlined topbar-icon">notifications</span></button>
+        <button class="topbar-btn" title="Settings"><span class="material-icons-outlined topbar-icon">settings</span></button>
+        <button class="topbar-btn" title="Share"><span class="material-icons-outlined topbar-icon">ios_share</span></button>
+      </div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <!-- Stat Cards -->
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <!-- Middle Row: Inventory + AI Summary -->
+      <div class="bottom-grid">
+
+        <!-- Inventory Table -->
+        <div class="card card-inventory">
+          <div class="section-header">
+            <span class="section-title">Inventory</span>
+            <div class="section-header-right">
+              <span class="section-action" id="inventory-count"></span>
+              <div class="sort-toggle" id="sort-toggle">
+                <button class="sort-btn active" data-dir="asc" title="A–Z">A–Z</button>
+                <button class="sort-btn" data-dir="desc" title="Z–A">Z–A</button>
+              </div>
+            </div>
+          </div>
+          <div class="table-scroll" id="table-scroll">
+            <table id="inventory-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Model</th>
+                  <th>Stock</th>
+                  <th>Days</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody id="inventory-body"></tbody>
+            </table>
+          </div>
+        </div>
+
+
+        <!-- AI Summary -->
+        <div class="ai-card" id="ai-card"></div>
+
+      </div>
+
+      <!-- Bottom Row: Sales Trend + Map | Shipments -->
+      <div class="bottom-grid bottom-grid-matched">
+
+        <!-- Left stack: Sales Trend + Map -->
+        <div class="left-stack">
+          <div class="card">
+            <div class="section-header">
+              <span class="section-title">Sales Trend</span>
+              <span class="section-action">Units Sold · South Bay Ford</span>
+            </div>
+            <div class="spark-chart" id="spark-chart"></div>
+            <div class="spark-labels" id="spark-labels"></div>
+          </div>
+
+          <div class="card card-map">
+            <div class="section-header">
+              <span class="section-title">Sales Coverage</span>
+              <span class="section-action">South Bay Area</span>
+            </div>
+            <div id="map"></div>
+          </div>
+        </div>
+
+        <!-- Shipments -->
+        <div class="card">
+          <div class="section-header">
+            <span class="section-title">Incoming Shipments</span>
+            <a class="section-action" href="#">View All ›</a>
+          </div>
+          <div class="timeline" id="shipments-list"></div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="data.js"></script>
+<script>
+  let leafletMap = null;
+  let mapMarkers = [];
+
+  function renderDashboard() {
+    const d = DealerData;
+    const ai = d.aiSummary;
+
+    // ---- Dealer info ----
+    document.getElementById('dealer-location').textContent =
+      `${d.dealer.name} · ${d.dealer.location}`;
+
+    // ---- Date ----
+    document.getElementById('current-date').textContent =
+      new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    // ---- Last Updated ----
+    document.getElementById('last-updated').textContent = `Updated ${ai.generatedAt}`;
+
+    // ---- Stat Cards ----
+    const statsGrid = document.getElementById('stats-grid');
+    statsGrid.innerHTML = '';
+    d.stats.forEach(s => {
+      statsGrid.innerHTML += `
+        <div class="stat-card">
+          <div class="stat-card-top">
+            <span class="stat-card-label">${s.label}</span>
+          </div>
+          <div class="stat-card-value">${s.value}</div>
+          <div class="stat-card-footer">
+            <span class="stat-delta ${s.trend}">${s.delta}</span>
+            <span class="stat-sub">${s.sub}</span>
+          </div>
+        </div>`;
+    });
+
+    // ---- Inventory Table ----
+    const invBody = document.getElementById('inventory-body');
+    let sortDir = 'asc';
+    let sortedInventory = [...d.inventory].sort((a, b) => a.model.localeCompare(b.model));
+
+    // Reset sort toggle
+    document.querySelectorAll('.sort-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.dir === 'asc');
+    });
+
+    function renderInventory() {
+      invBody.innerHTML = '';
+      sortedInventory.forEach(row => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td><span class="badge badge-${row.type.toLowerCase()}">${row.type}</span></td>
+          <td class="bold">${row.model}</td>
+          <td class="bold">${row.stock}</td>
+          <td style="color:${row.daysOnLot > 45 ? 'var(--color-danger)' : row.daysOnLot > 30 ? 'var(--color-warning)' : 'var(--color-text-dim)'}">${row.daysOnLot}d</td>
+          <td>${row.price}</td>
+          <td><span class="badge badge-${row.status}">${row.status}</span></td>`;
+        invBody.appendChild(tr);
+      });
+      document.getElementById('inventory-count').textContent =
+        `${sortedInventory.length} vehicles`;
+    }
+
+    renderInventory();
+
+    document.getElementById('sort-toggle').onclick = (e) => {
+      const btn = e.target.closest('.sort-btn');
+      if (!btn || btn.classList.contains('active')) return;
+      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      sortDir = btn.dataset.dir;
+      sortedInventory = [...d.inventory].sort((a, b) =>
+        sortDir === 'asc' ? a.model.localeCompare(b.model) : b.model.localeCompare(a.model)
+      );
+      renderInventory();
+    };
+
+    // ---- AI Summary ----
+    document.getElementById('ai-card').innerHTML = `
+      <div class="ai-card-header">
+        <div class="ai-toggle-title" id="ai-toggle">
+          <button class="ai-title-btn active" data-tab="summary"><span class="material-icons-outlined ai-tab-icon">auto_awesome</span> AI Summary</button>
+          <button class="ai-title-btn" data-tab="recs"><span class="material-icons-outlined ai-tab-icon">lightbulb</span> Recommendations</button>
+        </div>
+      </div>
+      <div class="ai-card-scroll">
+        <div class="ai-tab-panel active" data-panel="summary">
+          <div class="ai-headline">${ai.headline}</div>
+          <div class="ai-insights">
+            ${ai.insights.map(i => `
+              <div class="ai-insight">
+                <div class="ai-insight-dot"></div>
+                <span class="ai-insight-text">${i}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+        <div class="ai-tab-panel" data-panel="recs">
+          <div class="ai-recs">
+            ${ai.recommendations.map(r => `
+              <div class="ai-rec">
+                <span class="ai-rec-tag">${r.tag}</span>
+                <span class="ai-rec-text">${r.text}</span>
+              </div>`).join('')}
+          </div>
+        </div>
+      </div>`;
+
+    document.getElementById('ai-toggle').onclick = (e) => {
+      const btn = e.target.closest('.ai-title-btn');
+      if (!btn || btn.classList.contains('active')) return;
+      document.querySelectorAll('.ai-title-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.ai-tab-panel').forEach(p => {
+        p.classList.toggle('active', p.dataset.panel === tab);
+      });
+      document.querySelector('.ai-card-scroll').scrollTop = 0;
+    };
+
+    // ---- Spark Chart ----
+    const trend = d.salesTrend;
+    const max = Math.max(...trend.units);
+    const sparkChart = document.getElementById('spark-chart');
+    const sparkLabels = document.getElementById('spark-labels');
+    sparkChart.innerHTML = '';
+    sparkLabels.innerHTML = '';
+    trend.units.forEach((val, i) => {
+      const pct = Math.round((val / max) * 100);
+      const isLast = i === trend.units.length - 1;
+      sparkChart.innerHTML += `<div class="spark-bar ${isLast ? 'active' : ''}" style="height:${pct}%" title="${trend.labels[i]}: ${val} units"></div>`;
+      sparkLabels.innerHTML += `<span class="spark-label">${trend.labels[i]}</span>`;
+    });
+
+    // ---- Shipments ----
+    const shipList = document.getElementById('shipments-list');
+    shipList.innerHTML = '';
+    d.shipments.forEach(s => {
+      const badgeClass = s.status === 'confirmed' ? 'confirmed' : s.status === 'in-transit' ? 'transit' : 'pending';
+      shipList.innerHTML += `
+        <div class="timeline-item">
+          <span class="timeline-eta">${s.eta}</span>
+          <div>
+            <div class="timeline-model">${s.model}</div>
+            <div class="timeline-make">${s.make}</div>
+          </div>
+          <span class="badge badge-${badgeClass}">${s.status}</span>
+          <div class="timeline-qty">${s.qty} <span>units</span></div>
+        </div>`;
+    });
+
+    // ---- Map ----
+    if (!leafletMap) {
+      leafletMap = L.map('map', {
+        center: d.mapCenter,
+        zoom: 12,
+        zoomControl: false,
+        attributionControl: false,
+      });
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+        maxZoom: 19,
+      }).addTo(leafletMap);
+      L.control.zoom({ position: 'topright' }).addTo(leafletMap);
+    } else {
+      leafletMap.setView(d.mapCenter, 12);
+    }
+
+    mapMarkers.forEach(m => leafletMap.removeLayer(m));
+    mapMarkers = [];
+
+    d.salesPoints.forEach(p => {
+      const isDealer = p.type === 'dealer';
+      const radius = isDealer ? 10 : 4 + (p.sales / 10);
+      const color = isDealer ? '#7c64f3' : '#a78bfa';
+      const marker = L.circleMarker([p.lat, p.lng], {
+        radius, fillColor: color, color, weight: isDealer ? 2 : 1,
+        opacity: 0.9, fillOpacity: isDealer ? 0.5 : 0.3,
+      }).addTo(leafletMap).bindTooltip(
+        `<strong>${p.label}</strong><br>${p.sales} units sold MTD`,
+        { className: 'map-tooltip' }
+      );
+      mapMarkers.push(marker);
+    });
+  }
+
+  // ---- Initial render ----
+  renderDashboard();
+
+  // ---- Dealer switch ----
+  document.getElementById('dealer-select').addEventListener('change', (e) => {
+    DealerData = DealerDataByAccount[e.target.value];
+    renderDashboard();
+  });
+</script>
+
+<style>
+  .map-tooltip {
+    background: var(--color-surface-2) !important;
+    color: var(--color-text) !important;
+    border: 1px solid var(--color-border-mid) !important;
+    border-radius: var(--radius-sm) !important;
+    font-family: var(--font-sans) !important;
+    font-size: var(--text-xs) !important;
+    padding: 6px 10px !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+  .map-tooltip::before { border-top-color: var(--color-border-mid) !important; }
+  .leaflet-control-zoom a {
+    background: var(--color-surface-2) !important;
+    color: var(--color-text-dim) !important;
+    border-color: var(--color-border) !important;
+  }
+</style>
+
+</body>
+</html>

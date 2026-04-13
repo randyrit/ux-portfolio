@@ -1,0 +1,99 @@
+/* ============================================
+   CLOUD THEORY — DESIGN SYSTEM TOKENS
+   ============================================ */
+
+:root {
+
+  /* --- Colors: Dark (sidebar — cool gray) --- */
+  --color-bg:          #1e2530;
+  --color-surface-1:   #252d38;
+  --color-surface-2:   #2e3744;
+  --color-surface-3:   #374151;
+  --color-border:      rgba(255, 255, 255, 0.08);
+  --color-border-mid:  rgba(255, 255, 255, 0.14);
+
+  /* --- Colors: Light (main content) --- */
+  --color-light-bg:          #f3f4f6;
+  --color-light-surface-1:   #ffffff;
+  --color-light-surface-2:   #f9fafb;
+  --color-light-surface-3:   #e5e7eb;
+  --color-light-border:      rgba(0, 0, 0, 0.1);
+  --color-light-border-mid:  rgba(0, 0, 0, 0.16);
+
+  /* --- Colors: Brand --- */
+  --color-brand:       #2563eb;
+  --color-brand-light: #a78bfa;
+  --color-brand-dim:   rgba(124, 100, 243, 0.15);
+  --color-brand-glow:  rgba(124, 100, 243, 0.25);
+
+  /* --- Colors: Semantic --- */
+  --color-success:     #22c55e;
+  --color-success-dim: rgba(34, 197, 94, 0.12);
+  --color-warning:     #f59e0b;
+  --color-warning-dim: rgba(245, 158, 11, 0.12);
+  --color-danger:      #ef4444;
+  --color-danger-dim:  rgba(239, 68, 68, 0.12);
+  --color-info:        #38bdf8;
+  --color-info-dim:    rgba(56, 189, 248, 0.12);
+
+  /* --- Colors: Text (dark — sidebar) --- */
+  --color-text:        #f1f5f9;
+  --color-text-muted:  #64748b;
+  --color-text-dim:    #94a3b8;
+
+  /* --- Colors: Text (light — main content) --- */
+  --color-light-text:        #111827;
+  --color-light-text-muted:  #6b7280;
+  --color-light-text-dim:    #4b5563;
+
+  /* --- Typography --- */
+  --font-sans:         'Inter', system-ui, sans-serif;
+  --font-mono:         'JetBrains Mono', 'Fira Code', monospace;
+
+  --text-xs:    0.7rem;
+  --text-sm:    0.8rem;
+  --text-base:  0.875rem;
+  --text-md:    1rem;
+  --text-lg:    1.125rem;
+  --text-xl:    1.25rem;
+  --text-2xl:   1.5rem;
+
+  --weight-regular: 400;
+  --weight-medium:  500;
+  --weight-semi:    600;
+  --weight-bold:    700;
+
+  --leading-tight:  1.25;
+  --leading-snug:   1.4;
+  --leading-normal: 1.6;
+
+  --tracking-tight: -0.02em;
+  --tracking-wide:  0.06em;
+  --tracking-wider: 0.1em;
+
+  /* --- Spacing --- */
+  --space-1:   4px;
+  --space-2:   8px;
+  --space-3:   12px;
+  --space-4:   16px;
+  --space-5:   20px;
+  --space-6:   24px;
+  --space-8:   32px;
+
+  /* --- Radius (all sharp) --- */
+  --radius-sm:  0;
+  --radius-md:  0;
+  --radius-lg:  0;
+
+  /* --- Shadows --- */
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.06);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.08);
+
+  /* --- Layout --- */
+  --sidebar-width:       220px;
+  --topbar-height:       48px;
+
+  /* --- Transitions --- */
+  --transition-fast:   0.15s ease;
+  --transition-base:   0.2s ease;
+}

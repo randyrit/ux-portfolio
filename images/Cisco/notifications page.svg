@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1280px" height="900px" viewBox="0 0 1280 900" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>notifications page</title>
-    <defs>
+    <defs><style type="text/css">@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap");</style>
         <polygon id="path-1" points="0 0.000272 0 16.636472 16.9998267 16.636472 16.9998267 0.000272 1.84314369e-20 0.000272"></polygon>
         <rect id="path-3" x="0" y="0" width="1280" height="72"></rect>
         <filter x="-0.5%" y="-6.9%" width="101.1%" height="119.4%" filterUnits="objectBoundingBox" id="filter-4">
@@ -14,7 +14,7 @@
     <g id="notifications-page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <rect fill="#FFFFFF" x="0" y="0" width="1280" height="900"></rect>
         <g id="Group-5" transform="translate(40, 204)">
-            <text id="Filter" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" letter-spacing="0.5" fill="#049FD9">
+            <text id="Filter" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="21" letter-spacing="0.5" fill="#049FD9">
                 <tspan x="22" y="14">Filter</tspan>
             </text>
             <g id="Page-1" transform="translate(0, 2)">
@@ -27,46 +27,46 @@
         </g>
         <line x1="40" y1="248.5" x2="1240" y2="248.5" id="Line-Copy-82" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
         <line x1="40" y1="410.667047" x2="1240" y2="410.667047" id="Line-4-Copy-3" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
-        <text id="Gateway-100-Down" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
+        <text id="Gateway-100-Down" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
             <tspan x="40" y="288">Gateway 100 Down</tspan>
         </text>
-        <text id="7/8/2019-10:12:20" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="7/8/2019-10:12:20" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="349">7/8/2019 10:12:20</tspan>
         </text>
-        <text id="Smart-Account-creden" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="Smart-Account-creden" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="317">Smart Account credentials are not configured or access has been revoked for the configured smart credentials. </tspan>
         </text>
         <line x1="40" y1="571.667047" x2="1240" y2="571.667047" id="Line-4-Copy-3" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
         <line x1="40" y1="701.667047" x2="1240" y2="701.667047" id="Line-4-Copy-4" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
         <line x1="40" y1="831.667047" x2="1240" y2="831.667047" id="Line-4-Copy-5" stroke="#E9E9E9" stroke-width="2" stroke-linecap="square"></line>
-        <text id="Firmware-Update-Avai" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
+        <text id="Firmware-Update-Avai" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
             <tspan x="40" y="449">Firmware Update Available</tspan>
         </text>
-        <text id="IOx-Image-update-ava" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
+        <text id="IOx-Image-update-ava" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
             <tspan x="40" y="611">IOx Image update available</tspan>
         </text>
-        <text id="320-Gateways-Onboard" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
+        <text id="320-Gateways-Onboard" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" letter-spacing="1.333333" fill="#333333">
             <tspan x="40" y="741">320 Gateways Onboarded</tspan>
         </text>
-        <text id="7/8/2019-10:12:20" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="7/8/2019-10:12:20" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="510">7/8/2019 10:12:20</tspan>
         </text>
-        <text id="7/8/2019-10:12:20-copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="7/8/2019-10:12:20-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="672">7/8/2019 10:12:20</tspan>
         </text>
-        <text id="7/8/2019-10:12:20-copy-2" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="7/8/2019-10:12:20-copy-2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="802">7/8/2019 10:12:20</tspan>
         </text>
-        <text id="Smart-Account-creden" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="Smart-Account-creden" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="478">Smart Account credentials are not configured or access has been revoked for the configured smart credentials. </tspan>
         </text>
-        <text id="Smart-Account-creden-Copy" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="Smart-Account-creden-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="640">Smart Account credentials are not configured or access has been revoked for the configured smart credentials. </tspan>
         </text>
-        <text id="Smart-Account-creden-Copy-2" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
+        <text id="Smart-Account-creden-Copy-2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1.16666637" fill="#333333">
             <tspan x="40" y="770">Smart Account credentials are not configured or access has been revoked for the configured smart credentials. </tspan>
         </text>
-        <text id="My-Notifications" font-family=".AppleSystemUIFont" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.670000017" fill="#333333">
+        <text id="My-Notifications" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.670000017" fill="#333333">
             <tspan x="40" y="113">My Notifications</tspan>
         </text>
         <g id="nav">
@@ -82,7 +82,7 @@
                 </g>
                 <g id="Group-6" transform="translate(9, 0)">
                     <rect id="Rectangle" fill="#BF3030" x="0" y="0" width="34" height="18" rx="9"></rect>
-                    <text id="36" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+                    <text id="36" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
                         <tspan x="9.828" y="13">36</tspan>
                     </text>
                 </g>
@@ -101,7 +101,7 @@
                 </g>
                 <g id="help" transform="translate(86, 0)">
                     <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
-                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">
                         <text>
                             <tspan x="0" y="15">?</tspan>
                         </text>
@@ -126,35 +126,35 @@
         </g>
         <g id="Group-3" transform="translate(40, 362)">
             <rect id="Rectangle-18-Copy-19" stroke="#049FD9" x="0.5" y="0.5" width="109" height="23" rx="2"></rect>
-            <text id="Configurations" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.5" fill="#049FD9">
+            <text id="Configurations" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.5" fill="#049FD9">
                 <tspan x="14.8222656" y="15">Troubleshoot</tspan>
             </text>
         </g>
         <g id="Group-3" transform="translate(40, 523)">
             <rect id="Rectangle-18-Copy-19" stroke="#049FD9" x="0.5" y="0.5" width="109" height="23" rx="2"></rect>
-            <text id="Configurations" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.5" fill="#049FD9">
+            <text id="Configurations" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.5" fill="#049FD9">
                 <tspan x="17.6396484" y="15">Update Now</tspan>
             </text>
         </g>
-        <text id="Time-FIlter" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" fill="#292929">
+        <text id="Time-FIlter" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" fill="#292929">
             <tspan x="40" y="166">Time FIlter</tspan>
         </text>
         <g id="Toggles-/-Text-/-Default" transform="translate(133, 144)">
             <path d="M213.5,0.5 L213.5,35.5 L4,35.5 C3.03350169,35.5 2.15850169,35.1082492 1.52512627,34.4748737 C0.891750844,33.8414983 0.5,32.9664983 0.5,32 L0.5,4 C0.5,3.03350169 0.891750844,2.15850169 1.52512627,1.52512627 C2.15850169,0.891750844 3.03350169,0.5 4,0.5 L213.5,0.5 Z" id="Rectangle-Copy-7" stroke="#333333"></path>
             <rect id="Rectangle-Copy-7" stroke="#333333" x="0.5" y="0.5" width="319" height="35" rx="4"></rect>
             <path d="M4,0 L105.995101,0 L105.995101,0 L105.995101,36 L4,36 C1.790861,36 7.10542736e-15,34.209139 7.10542736e-15,32 L7.10542736e-15,4 C7.10542736e-15,1.790861 1.790861,4.4408921e-16 4,0 Z" id="Rectangle-Copy-8" fill="#049FD9"></path>
-            <text id="Scheduled" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <text id="Scheduled" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
                 <tspan x="123" y="22">Last 3 Days</tspan>
             </text>
-            <text id="Completed" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <text id="Completed" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
                 <tspan x="228" y="22">Last Week</tspan>
             </text>
-            <text id="In-Progress" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#FFFFFF">
+            <text id="In-Progress" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#FFFFFF">
                 <tspan x="13" y="22">Last 24 Hrs</tspan>
             </text>
         </g>
         <g id="refresh" transform="translate(130, 204)">
-            <text id="Refresh" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
+            <text id="Refresh" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="21" fill="#049FD9">
                 <tspan x="28" y="14">Refresh</tspan>
             </text>
             <g id="Group-2" transform="translate(10, 11) scale(-1, 1) translate(-10, -11)translate(0, 3)" stroke="#049FD9">
@@ -163,13 +163,13 @@
                 <path d="M3,11.8169788 C4.26223422,14.3087528 6.72189658,16 9.54944141,16 L9.54944141,16 C13.6642713,16 17,12.418278 17,8 M17,4.23406314 C15.7479249,1.7143713 13.2785491,0 10.4369424,0 C6.32963251,0 3,3.581722 3,8" id="Oval-2"></path>
             </g>
         </g>
-        <text id="Last-updated:-10-min" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#A7A9AB">
+        <text id="Last-updated:-10-min" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="18" letter-spacing="0.4999999" fill="#A7A9AB">
             <tspan x="225" y="218">Last updated: 10 mins </tspan>
             <tspan x="225" y="236">ago</tspan>
         </text>
         <line x1="113.5" y1="225" x2="113.5" y2="205" id="Line-2" stroke="#979797" stroke-linecap="square"></line>
         <g id="Input-Fields-/-Search-/-Default" transform="translate(936.9333, 200)">
-            <text id="Search-Copy-2" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <text id="Search-Copy-2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
                 <tspan x="30" y="14">Search </tspan>
             </text>
             <g id="Icons-/-Input-Fields-/-Line-/-Default" transform="translate(0, 24)">
@@ -183,10 +183,10 @@
             </g>
         </g>
         <g id="Group-9" transform="translate(88, 23)" fill="#049FD9">
-            <text id="IoT-Center" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">
+            <text id="IoT-Center" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19" font-weight="normal">
                 <tspan x="62" y="19">IoT Center</tspan>
             </text>
-            <text id="Cisco" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold">
+            <text id="Cisco" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold">
                 <tspan x="0" y="20">Cisco</tspan>
             </text>
         </g>

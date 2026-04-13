@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloQast Reporting &mdash; Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0C1E18;
+      --bg-secondary: #132D24;
+      --bg-elevated: #1A3D30;
+      --text-primary: #F4F7F5;
+      --text-secondary: #9DB5A8;
+      --text-muted: #5E7D6E;
+      --accent: #6AA185;
+      --accent-dim: rgba(106, 161, 133, 0.12);
+      --accent-glow: rgba(106, 161, 133, 0.06);
+      --orange: #FF8C42;
+      --dark-green: #13362A;
+      --sage: #6AA185;
+      --cream: #F4F7F5;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --font-display: 'Museo Sans', 'Museo Sans Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --nav-height: 72px;
+      --content-max: 1080px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Math Background */
+    #math-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .math-sym {
+      position: absolute;
+      font-family: var(--font-body);
+      color: var(--sage);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: drift linear infinite;
+      user-select: none;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: var(--peak-opacity, 0.07); }
+      90%  { opacity: var(--peak-opacity, 0.07); }
+      100% { transform: translateY(-10vh) rotate(var(--rot, 120deg)); opacity: 0; }
+    }
+
+    /* Reading progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      z-index: 1002;
+      transform-origin: left;
+      transform: scaleX(0);
+      width: 100%;
+      will-change: transform;
+      transition: none;
+    }
+
+    /* ===================== NAVIGATION ===================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 64px);
+      z-index: 1000;
+      background: rgba(12, 30, 24, 0.85);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(12, 30, 24, 0.95);
+      border-bottom-color: var(--border-hover);
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav__logo svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--text-primary);
+      transition: fill 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .nav__logo:hover svg {
+      fill: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav__link:hover {
+      color: var(--text-primary);
+      background: var(--accent-dim);
+    }
+
+    .nav__link--back svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+
+    .nav__link--back:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+      gap: 6px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav__hamburger.active span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+    .nav__hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger.active span:nth-child(3) { transform: translateY(-3.75px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+
+      .nav__mobile-menu {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: rgba(12, 30, 24, 0.98);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s;
+        z-index: 999;
+      }
+
+      .nav__mobile-menu.open { opacity: 1; visibility: visible; }
+
+      .nav__mobile-link {
+        font-family: var(--font-display);
+        font-size: clamp(32px, 8vw, 48px);
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 12px 32px;
+        transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(1) { transition-delay: 0.1s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(2) { transition-delay: 0.18s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(3) { transition-delay: 0.26s; }
+
+      .nav__mobile-link:hover { color: var(--accent); }
+    }
+
+    /* ===================== CASE STUDY HERO ===================== */
+    .cs-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 80px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 100px);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .cs-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0f2a1e 0%, #0C1E18 40%, #0a1a14 100%);
+      z-index: -2;
+    }
+
+    .cs-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(106, 161, 133, 0.10) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(255, 140, 66, 0.04) 0%, transparent 50%);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes isoFadeIn {
+      from { opacity: 0; }
+      to { opacity: 0.5; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cs-hero__eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .cs-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 96px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      max-width: 800px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .cs-hero__subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .cs-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.65s forwards;
+    }
+
+    .cs-hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cs-hero__meta-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .cs-hero__meta-value {
+      color: var(--text-primary);
+    }
+
+    /* Isometric hero visual */
+    .cs-hero__isometric {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      perspective: 2000px;
+      overflow: hidden;
+    }
+
+    .cs-hero__isometric::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, #0C1E18 0%, #0C1E18 15%, transparent 55%),
+                  linear-gradient(to right, #0C1E18 0%, #0C1E18 10%, transparent 50%),
+                  linear-gradient(to bottom right, #0C1E18 0%, transparent 40%),
+                  linear-gradient(160deg, rgba(12, 30, 24, 0.7) 0%, transparent 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .cs-hero__isometric-scene {
+      display: grid;
+      grid-template-columns: 380px 380px;
+      gap: 20px;
+      transform: rotateX(45deg) rotateZ(-45deg) scale(1.6);
+      transform-style: preserve-3d;
+      opacity: 0;
+      animation: isoFadeIn 1.5s ease 0.3s forwards;
+    }
+
+    .cs-hero__iso-screen {
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .cs-hero__iso-screen img {
+      display: block;
+      width: 380px;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    /* ===================== CONTENT WRAPPER ===================== */
+    .cs-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-section {
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 64px);
+    }
+
+    .cs-section--narrow {
+      max-width: calc(var(--content-max) + clamp(48px, 10vw, 128px));
+      margin: 0 auto;
+    }
+
+    .cs-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      border: none;
+      margin: 0;
+    }
+
+    .cs-section__number {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cs-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .cs-section__subtitle {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ===================== OVERVIEW / METRICS ===================== */
+    .cs-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .cs-overview__summary p {
+      font-size: clamp(16px, 1.8vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .cs-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cs-metric {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-metric:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .cs-metric__label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .cs-overview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== SPLIT LAYOUT ===================== */
+    .cs-split {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(40px, 6vw, 100px);
+      align-items: start;
+    }
+
+    .cs-split__sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + 40px);
+    }
+
+    .cs-split__sidebar-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .cs-split__sidebar-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .cs-split__sidebar-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .cs-split__content p {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) {
+      .cs-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .cs-split__sidebar {
+        position: static;
+      }
+    }
+
+    /* ===================== BULLET LIST ===================== */
+    .cs-bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .cs-bullet-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .cs-bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ===================== QUOTE ===================== */
+    .cs-quote {
+      border-left: 3px solid var(--orange);
+      padding: 4px 0 4px 32px;
+      margin: 40px 0;
+    }
+
+    .cs-quote__text {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .cs-quote__attribution {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ===================== INSIGHT CARDS ===================== */
+    .cs-insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .cs-insights--three {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .cs-insights--stack {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .cs-insights--stack .cs-insight {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 16px 24px;
+    }
+
+    .cs-insights--stack .cs-insight__icon {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .cs-insight {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-insight:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .cs-insight__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .cs-insight__icon--orange {
+      background: rgba(255, 140, 66, 0.12);
+      color: var(--orange);
+    }
+
+    .cs-insight__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .cs-insight__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .cs-insights,
+      .cs-insights--three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== CALLOUT ===================== */
+    .cs-callout {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 16px;
+      margin: 32px 0;
+    }
+
+    .cs-callout__number {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      color: var(--orange);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .cs-callout__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== GALLERY ===================== */
+    .cs-fullbleed {
+      width: 100%;
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-gallery {
+      display: grid;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cs-gallery--single {
+      grid-template-columns: 1fr;
+    }
+
+    .cs-gallery--two {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cs-gallery--three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    .cs-gallery__item {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-gallery__item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-gallery__item img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      max-height: 70vh;
+    }
+
+    .cs-gallery__item video {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 70vh;
+      object-fit: contain;
+      background: #000;
+    }
+
+    .cs-gallery__caption {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 768px) {
+      .cs-gallery--two,
+      .cs-gallery--three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== PHASES ===================== */
+    .cs-phases {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 32px 0;
+    }
+
+    .cs-phase {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cs-phase:last-child {
+      border-bottom: none;
+    }
+
+    .cs-phase__number {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 140, 66, 0.10);
+      border: 1px solid rgba(255, 140, 66, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .cs-phase__content strong {
+      display: block;
+      font-family: var(--font-display);
+      font-size: 17px;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+
+    .cs-phase__content span {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .cs-phase__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 10px;
+    }
+
+    .cs-phase__tag {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===================== IMPACT METRICS ===================== */
+    .cs-impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    .cs-impact-metric {
+      padding: 36px 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-impact-metric:hover {
+      border-color: rgba(255, 140, 66, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cs-impact-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 56px);
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .cs-impact-metric__label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .cs-impact-metric__sublabel {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    @media (max-width: 768px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== SCOPE LIST ===================== */
+    .cs-scope {
+      margin: 32px 0;
+      padding: 32px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+    }
+
+    .cs-scope ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .cs-scope li {
+      font-size: 15px;
+      font-weight: 400;
+      color: var(--text-primary);
+      line-height: 1.6;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .cs-scope li .scope-icon {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .cs-scope li.scope-cut {
+      color: var(--text-muted);
+    }
+
+    .cs-scope li.scope-cut span.scope-text {
+      text-decoration: line-through;
+      text-decoration-color: var(--text-muted);
+    }
+
+    .cs-scope li.scope-cut .scope-icon {
+      background: rgba(255, 100, 100, 0.12);
+      color: #ff6b6b;
+    }
+
+    .cs-scope li.scope-keep .scope-icon {
+      background: rgba(100, 200, 130, 0.12);
+      color: var(--sage);
+    }
+
+    /* ===================== REFLECTIONS ===================== */
+    .cs-reflections {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .cs-reflection {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-secondary);
+    }
+
+    .cs-reflection__number {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--orange);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .cs-reflection__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .cs-reflection__text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .cs-reflections {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-reflections {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== PROJECT NAV ===================== */
+    .cs-project-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-project-nav__link {
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      text-decoration: none;
+      color: inherit;
+      border-top: 1px solid var(--border);
+      transition: background 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .cs-project-nav__link:last-child {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .cs-project-nav__link:hover {
+      background: var(--bg-secondary);
+    }
+
+    .cs-project-nav__direction {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:last-child .cs-project-nav__direction {
+      justify-content: flex-end;
+    }
+
+    .cs-project-nav__title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .cs-project-nav__link:hover .cs-project-nav__title {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .cs-project-nav {
+        grid-template-columns: 1fr;
+      }
+      .cs-project-nav__link:first-child {
+        border-right: none;
+      }
+      .cs-project-nav__link:last-child {
+        text-align: left;
+        align-items: flex-start;
+      }
+      .cs-project-nav__link:last-child .cs-project-nav__direction {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ===================== FOOTER ===================== */
+    .footer {
+      padding: 40px clamp(24px, 5vw, 64px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer__text {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer__link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer__link:hover {
+      color: var(--accent);
+    }
+
+    /* ===================== REVEAL ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    /* ===================== FIGMA EMBED ===================== */
+    .cs-figma-embed {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--bg-secondary);
+    }
+
+    .cs-figma-embed iframe {
+      width: 100%;
+      height: 70vh;
+      max-height: 700px;
+      border: none;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="math-bg"></div>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav__logo" aria-label="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-hidden="true">
+        <path d="M600,497.48V12.46c0-6.88-5.58-12.46-12.46-12.46H11.05C4.95,0,0,4.95,0,11.05v577.9c0,6.1,4.95,11.05,11.05,11.05h486.43c9.85,0,14.78-11.9,7.82-18.87l-239.12-239.12c-4.32-4.32-11.31-4.32-15.63,0l-176.61,176.61c-6.96,6.96-18.87,2.03-18.87-7.82V58.68c0-6.1,4.95-11.05,11.05-11.05h452.12c9.85,0,14.78,11.9,7.82,18.87l-184.05,184.05c-4.32,4.32-4.32,11.31,0,15.63l239.12,239.12c6.96,6.96,18.87,2.03,18.87-7.82Z"/>
+        <path d="M185.88,87.73h205.11c8.23,0,12.36,9.95,6.53,15.78l-100.28,100.28c-4.86,4.86-12.75,4.86-17.62,0l-100.28-100.28c-5.82-5.82-1.7-15.78,6.53-15.78Z"/>
+      </svg>
+    </a>
+    <ul class="nav__links">
+      <li><a href="../index.html" class="nav__link nav__link--back"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg> All Projects</a></li>
+      <li><a href="../index.html#leadership" class="nav__link">Leadership</a></li>
+      <li><a href="../index.html#about" class="nav__link">About Me</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav__mobile-menu" id="mobileMenu">
+      <a href="../index.html" class="nav__mobile-link">All Projects</a>
+      <a href="../index.html#leadership" class="nav__mobile-link">Leadership</a>
+      <a href="../index.html#about" class="nav__mobile-link">About Me</a>
+    </ul>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="cs-hero">
+    <div class="cs-hero__bg"></div>
+    <div class="cs-hero__isometric">
+      <div class="cs-hero__isometric-scene">
+        <div class="cs-hero__iso-screen">
+          <img src="../images/Desktop - 34.png" alt="Files View">
+        </div>
+        <div class="cs-hero__iso-screen">
+          <img src="../images/Desktop - 33.png" alt="Tags View">
+        </div>
+        <div class="cs-hero__iso-screen">
+          <img src="../images/Desktop - 32.png" alt="Disclosures Data View">
+        </div>
+        <div class="cs-hero__iso-screen">
+          <img src="../images/Frame 47623.png" alt="Review Details View">
+        </div>
+      </div>
+    </div>
+    <p class="cs-hero__eyebrow">Case Study</p>
+    <h1 class="cs-hero__title">FloQast Reporting</h1>
+    <p class="cs-hero__subtitle">Designed a 0-to-1 XBRL tagging product that transformed a 150-hour manual filing process into a streamlined workflow &mdash; securing a $300K deal with Ralph Lauren.</p>
+    <div class="cs-hero__meta">
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Role</span>
+        <span class="cs-hero__meta-value">Senior Product Designer</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Team</span>
+        <span class="cs-hero__meta-value">1 Designer, 1 PM, 6 Engineers</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Type</span>
+        <span class="cs-hero__meta-value">0 &rarr; 1 Product</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Scope</span>
+        <span class="cs-hero__meta-value">Research, Design, Prototype, Testing</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-content">
+
+    <!-- ==================== OVERVIEW ==================== -->
+    <section class="cs-section cs-section--narrow">
+      <div class="cs-overview">
+        <div class="cs-overview__summary reveal">
+          <p>Every public company must file financial reports with the SEC using XBRL &mdash; a structured data standard that makes financial information machine-readable. The existing process was fragmented across multiple tools, entirely manual, and took weeks of coordination.</p>
+          <p>I led the end-to-end design of FloQast's XBRL tagging product from concept through production launch &mdash; conducting research, running design sprints, and ultimately discovering a novel approach that made the entire MVP viable.</p>
+        </div>
+        <div class="cs-metrics reveal">
+          <div class="cs-metric reveal reveal-delay-1">
+            <div class="cs-metric__value">95%</div>
+            <div class="cs-metric__label">Task Completion</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-2">
+            <div class="cs-metric__value">~150h</div>
+            <div class="cs-metric__label">Saved Per Filing</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-3">
+            <div class="cs-metric__value">$300K</div>
+            <div class="cs-metric__label">Deal Secured</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-4">
+            <div class="cs-metric__value">3,000+</div>
+            <div class="cs-metric__label">Tags Per Filing</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTEXT: WHAT IS XBRL ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">01 &mdash; Context</span>
+          <h2 class="cs-split__sidebar-title">What is XBRL?</h2>
+          <p class="cs-split__sidebar-desc">Understanding the global standard that drives financial reporting.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>XBRL (eXtensible Business Reporting Language) is an open international standard for digital business reporting, used around the world for the exchange of financial information. It&rsquo;s mandated by the SEC for all public company filings since 2009 and adopted by regulators in over 50 countries.</p>
+          <p>XBRL transforms financial reporting from static documents into structured, machine-readable data &mdash; enabling faster, more accurate analysis across companies, industries, and borders.</p>
+          <div class="cs-insights cs-insights--stack">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">gavel</span></div>
+              <div>
+                <h4 class="cs-insight__title">Regulatory Compliance</h4>
+                <p class="cs-insight__desc">Required by the SEC, ESMA, and regulators globally. Non-compliance can mean filing rejections and penalties.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">query_stats</span></div>
+              <div>
+                <h4 class="cs-insight__title">Data Comparability</h4>
+                <p class="cs-insight__desc">Standardized tags make it possible to compare financials across companies, industries, and borders instantly.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">speed</span></div>
+              <div>
+                <h4 class="cs-insight__title">Efficiency Gains</h4>
+                <p class="cs-insight__desc">Eliminates manual re-keying of data. Analysts and auditors can consume structured data directly from filings.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE PROBLEM ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">02 &mdash; Problem</span>
+          <h2 class="cs-split__sidebar-title">A Broken Process</h2>
+          <p class="cs-split__sidebar-desc">Manual workflows, fragmented tools, and weeks of coordination.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Before any XBRL tagging can begin, financial data must be collected from every team across the organization &mdash; each maintaining their own Excel workbooks, formats, and timelines. A typical 10-K consolidation cycle takes six weeks of coordination and firefighting.</p>
+          <p>Tools like Workiva require accountants to manually tag every field in a disclosure &mdash; mapping each value to an XBRL concept one at a time, using a patchwork of software.</p>
+          <div class="cs-insights cs-insights--stack">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">edit_note</span></div>
+              <div>
+                <h4 class="cs-insight__title">Manual Tagging</h4>
+                <p class="cs-insight__desc">Every value in a filing must be individually mapped to an XBRL taxonomy concept &mdash; thousands of tags per document.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">sync_problem</span></div>
+              <div>
+                <h4 class="cs-insight__title">Tags Change Every Year</h4>
+                <p class="cs-insight__desc">Taxonomy updates mean prior-year mappings break. Teams start from scratch each filing cycle.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">devices</span></div>
+              <div>
+                <h4 class="cs-insight__title">Software Cocktail</h4>
+                <p class="cs-insight__desc">Accountants juggle Excel, Word, a tagging tool, and a validation tool just to complete a single disclosure.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-4">
+              <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">timer</span></div>
+              <div>
+                <h4 class="cs-insight__title">~150 Hours Per Filing</h4>
+                <p class="cs-insight__desc">At roughly 3 minutes per tag and 3,000+ tags per filing, manual tagging consumes weeks of a single person&rsquo;s time.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Filing example image -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/xbrl example.png" alt="Amazon Consolidated Statement of Operations showing XBRL-tagged line items" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Amazon&rsquo;s Consolidated Statement of Operations &mdash; every line item was assembled from data owned by different teams across the company</p>
+    </div>
+
+    <!-- ==================== RESEARCH & APPROACH ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">03 &mdash; Research</span>
+          <h2 class="cs-split__sidebar-title">Building the Product</h2>
+          <p class="cs-split__sidebar-desc">From identifying the opportunity to shipping a production-ready product.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>We identified a $2B+ compliance market with no native tagging solution in existing close platforms. From there, I led a focused design sprint with product, engineering, and domain experts to map user journeys and converge on a core solution.</p>
+          <div class="cs-phases">
+            <div class="cs-phase reveal reveal-delay-1">
+              <div class="cs-phase__number">1</div>
+              <div class="cs-phase__content">
+                <strong>Market Opportunity</strong>
+                <span>Analyzed the regulatory landscape, competitive gaps, and customer demand for inline XBRL tagging within the close management workflow.</span>
+                <div class="cs-phase__tags">
+                  <span class="cs-phase__tag">TAM/SAM Analysis</span>
+                  <span class="cs-phase__tag">Competitive Audit</span>
+                  <span class="cs-phase__tag">Customer Interviews</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-phase reveal reveal-delay-2">
+              <div class="cs-phase__number">2</div>
+              <div class="cs-phase__content">
+                <strong>Research &amp; Design Sprint</strong>
+                <span>Ran a focused design sprint with product, engineering, and domain experts. Mapped user journeys for accountants and filing preparers, prioritized features by impact vs. effort.</span>
+                <div class="cs-phase__tags">
+                  <span class="cs-phase__tag">User Research</span>
+                  <span class="cs-phase__tag">Journey Mapping</span>
+                  <span class="cs-phase__tag">Impact&ndash;Effort Prioritization</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-phase reveal reveal-delay-3">
+              <div class="cs-phase__number">3</div>
+              <div class="cs-phase__content">
+                <strong>Prototype</strong>
+                <span>Built interactive prototypes demonstrating the tagging interface, taxonomy browser, and validation dashboard. Tested end-to-end workflows with accounting teams.</span>
+                <div class="cs-phase__tags">
+                  <span class="cs-phase__tag">Figma Prototype</span>
+                  <span class="cs-phase__tag">Usability Testing</span>
+                  <span class="cs-phase__tag">EDGAR Validation</span>
+                </div>
+              </div>
+            </div>
+            <div class="cs-phase reveal reveal-delay-4">
+              <div class="cs-phase__number">4</div>
+              <div class="cs-phase__content">
+                <strong>Final Delivery</strong>
+                <span>Shipped the production XBRL tagging module integrated into FloQast&rsquo;s close management platform &mdash; reducing filing prep time by 60%.</span>
+                <div class="cs-phase__tags">
+                  <span class="cs-phase__tag">Production Launch</span>
+                  <span class="cs-phase__tag">Platform Integration</span>
+                  <span class="cs-phase__tag">60% Time Savings</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design sprint activity image -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Lighting Design Jam - Cash Flow Statement (Copy) 1.png" alt="Design sprint impact-effort prioritization board with sticky notes" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Design sprint &mdash; the team plotted each solution on an impact/effort matrix to determine build priority</p>
+    </div>
+
+    <!-- ==================== JOBS TO BE DONE ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">04 &mdash; Solutions</span>
+      <h2 class="cs-section__title">Jobs to Be Done</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">We mapped the core jobs accountants need to accomplish during the filing process &mdash; and designed solutions that directly address each one.</p>
+
+      <div class="cs-insights cs-insights--stack">
+        <div class="cs-insight reveal reveal-delay-1">
+          <div class="cs-insight__icon"><span class="material-symbols-outlined">smart_toy</span></div>
+          <div>
+            <h4 class="cs-insight__title">Automate XBRL Tagging</h4>
+            <p class="cs-insight__desc">Auto-suggest tags based on prior filings, line-item labels, and taxonomy patterns &mdash; reducing manual lookups by 80%.</p>
+          </div>
+        </div>
+        <div class="cs-insight reveal reveal-delay-2">
+          <div class="cs-insight__icon"><span class="material-symbols-outlined">visibility</span></div>
+          <div>
+            <h4 class="cs-insight__title">Review Cycle Visibility</h4>
+            <p class="cs-insight__desc">A unified dashboard showing tag status, reviewer comments, change history, and approval state across every review cycle.</p>
+          </div>
+        </div>
+        <div class="cs-insight reveal reveal-delay-3">
+          <div class="cs-insight__icon"><span class="material-symbols-outlined">integration_instructions</span></div>
+          <div>
+            <h4 class="cs-insight__title">One Platform, Not Five</h4>
+            <p class="cs-insight__desc">Consolidate data import, tagging, validation, and submission into a single integrated platform within FloQast.</p>
+          </div>
+        </div>
+        <div class="cs-insight reveal reveal-delay-4">
+          <div class="cs-insight__icon"><span class="material-symbols-outlined">verified</span></div>
+          <div>
+            <h4 class="cs-insight__title">Real-Time Validation</h4>
+            <p class="cs-insight__desc">Inline validation checks that surface errors as you tag &mdash; not after you&rsquo;ve completed the entire document.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE PIVOT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">05 &mdash; The Pivot</span>
+          <h2 class="cs-split__sidebar-title">Scoping to an MVP</h2>
+          <p class="cs-split__sidebar-desc">Limited engineering capacity meant hard cuts and a true minimum viable product.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>The team had bandwidth for one focused build cycle. AI-powered features required ML infrastructure, training data pipelines, and model tuning that couldn&rsquo;t be delivered in the timeline. We had to strip back to what was buildable and still valuable.</p>
+          <div class="cs-scope">
+            <ul>
+              <li class="scope-cut"><span class="scope-icon">&times;</span><span class="scope-text">AI-powered tag suggestions</span></li>
+              <li class="scope-cut"><span class="scope-icon">&times;</span><span class="scope-text">Confidence scoring engine</span></li>
+              <li class="scope-cut"><span class="scope-icon">&times;</span><span class="scope-text">Auto roll-forward with smart diff</span></li>
+              <li class="scope-cut"><span class="scope-icon">&times;</span><span class="scope-text">Real-time co-editing</span></li>
+              <li class="scope-cut"><span class="scope-icon">&times;</span><span class="scope-text">Migration wizard</span></li>
+              <li class="scope-keep"><span class="scope-icon">&check;</span><span class="scope-text">Manual tagging with taxonomy search</span></li>
+              <li class="scope-keep"><span class="scope-icon">&check;</span><span class="scope-text">Unified workspace (single pane)</span></li>
+              <li class="scope-keep"><span class="scope-icon">&check;</span><span class="scope-text">Inline validation &amp; error checking</span></li>
+              <li class="scope-keep"><span class="scope-icon">&check;</span><span class="scope-text">Review status dashboard</span></li>
+              <li class="scope-keep"><span class="scope-icon">&check;</span><span class="scope-text">Prior-filing tag copy (manual)</span></li>
+            </ul>
+          </div>
+          <div class="cs-quote">
+            <div class="cs-quote__text">&ldquo;The MVP still solved the core jobs &mdash; eliminating software hopping, providing review visibility, and making tagging faster. AI features were staged for Phase 2.&rdquo;</div>
+            <div class="cs-quote__attribution">Design Decision &mdash; Scope Management</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== INITIAL WIREFRAMES ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">06 &mdash; Wireframes</span>
+      <h2 class="cs-section__title">Initial Wireframes</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Low-fidelity mockups from the first design iteration &mdash; focused on validating the core user flow before investing in visual polish.</p>
+    </section>
+
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Empty State.png" alt="Reporting home empty state wireframe" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/New Report.png" alt="New report setup wireframe" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Empty state when no reports exist &mdash; Right: Report creation wizard</p>
+    </div>
+
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Add Tags.png" alt="Tag creation interface wireframe" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Tag Inventory.png" alt="Tag inventory view wireframe" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Tag creation with preview panel &mdash; Right: Central tag inventory with usage tracking</p>
+    </div>
+
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Add Tags-1.png" alt="Quick add from inventory wireframe" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Inline modal for adding new tags directly from the inventory view</p>
+    </div>
+
+    <!-- ==================== THE SCALE PROBLEM ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">07 &mdash; The Challenge</span>
+          <h2 class="cs-split__sidebar-title">Manual Tagging Won&rsquo;t Scale</h2>
+          <p class="cs-split__sidebar-desc">3,000+ tags per filing made one-by-one entry unsustainable.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>After pivoting to an MVP without AI automation, our system required users to manually add each XBRL tag one by one. With 3,000+ tags per filing, this approach would be unsustainably slow and defeat the purpose of the product.</p>
+          <div class="cs-callout">
+            <div class="cs-callout__number">3,000+</div>
+            <div class="cs-callout__text">tags in a typical annual filing. Large financial institutions can exceed 10,000. At ~3 minutes per tag manually, that&rsquo;s 150+ hours and 4 weeks of one person&rsquo;s time.</div>
+          </div>
+          <p>This confirmed our pivot was right &mdash; the MVP needed to support bulk import and reuse of existing tags, not just manual one-by-one creation. Building for scale was non-negotiable.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Manual tagging demo video -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <video autoplay loop muted playsinline>
+            <source src="../images/FloQast Reporting/tagging video.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">The manual tagging process &mdash; each tag must be individually created, named, typed, and mapped</p>
+    </div>
+
+    <!-- ==================== THE BREAKTHROUGH ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">08 &mdash; Innovation</span>
+          <h2 class="cs-split__sidebar-title">A Better Way</h2>
+          <p class="cs-split__sidebar-desc">Discovering that prior XBRL filings are freely accessible from SEC EDGAR.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Instead of asking users to manually create thousands of tags, I investigated the SEC EDGAR database and discovered that every public company&rsquo;s previous XBRL filings &mdash; including all tags &mdash; are freely accessible and embedded directly in the HTML source.</p>
+          <p>I then worked with engineering to validate that extraction was technically feasible before presenting the idea back to the product manager, who brought it to leadership. With their buy-in, we modified the MVP requirements.</p>
+          <div class="cs-callout">
+            <div class="cs-callout__number">90%+</div>
+            <div class="cs-callout__text">of tags are reusable year over year. By importing tags from a company&rsquo;s previous SEC filing, users start with a pre-populated tag set instead of a blank slate &mdash; saving ~150 hours per filing.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SEC EDGAR investigation images -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Frame 47618.png" alt="Inspecting SEC EDGAR filing source code to find XBRL tags" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Frame 47619.png" alt="XBRL tags found embedded in the HTML markup of SEC filings" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Inspecting the SEC filing source &mdash; Right: XBRL tags embedded in the HTML markup</p>
+    </div>
+
+    <!-- Data triangulation -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Frame 47620.png" alt="Data triangulation diagram showing Excel file plus SEC filing creating FloQast template" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/FloQast Reporting/Frame 47621.png" alt="Excel spreadsheet showing XBRL tags matched to financial line items" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Combining SEC filing data with Excel workbooks &mdash; Right: Auto-matching tags to financial line items</p>
+    </div>
+
+    <!-- ==================== FINAL DESIGN ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">09 &mdash; Design</span>
+          <h2 class="cs-split__sidebar-title">Final Design</h2>
+          <p class="cs-split__sidebar-desc">Six key areas shaped by research, user testing, and technical feasibility.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>With the existing design system flexible enough to support the experience, I focused on six key areas for the final design: onboarding, fast tag import, tag preview, complete matching, document configuration, and export.</p>
+          <div class="cs-insights cs-insights--stack">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">rocket_launch</span></div>
+              <div>
+                <h4 class="cs-insight__title">Onboarding</h4>
+                <p class="cs-insight__desc">Guide users through setting up their first XBRL filing &mdash; connecting data sources, selecting filing type, and understanding the workflow.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">bolt</span></div>
+              <div>
+                <h4 class="cs-insight__title">Fast Tag Import</h4>
+                <p class="cs-insight__desc">Bulk import tags from previous SEC filings and Excel workbooks &mdash; turning a 150-hour manual process into minutes.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">preview</span></div>
+              <div>
+                <h4 class="cs-insight__title">Preview Tags</h4>
+                <p class="cs-insight__desc">Review and validate imported tags before committing &mdash; ensuring accuracy and confidence before submission.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">join</span></div>
+              <div>
+                <h4 class="cs-insight__title">Complete Matching</h4>
+                <p class="cs-insight__desc">Leverage FloQast&rsquo;s transaction matching to automatically map tags to line items &mdash; resolving mismatches and flagging items that need attention.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">tune</span></div>
+              <div>
+                <h4 class="cs-insight__title">Configure &amp; Review</h4>
+                <p class="cs-insight__desc">Configure document settings, review tagged content across all sections, and resolve any discrepancies before finalizing.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">upload_file</span></div>
+              <div>
+                <h4 class="cs-insight__title">Export Disclosure</h4>
+                <p class="cs-insight__desc">Generate and export the completed XBRL-tagged disclosure &mdash; ready for SEC submission with all tags validated.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Figma prototype embed -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-figma-embed">
+        <iframe src="https://embed.figma.com/proto/BdUtjaOJTjcHo3HE6Ear9d/Portfolio-Designs?node-id=260-21226&scaling=min-zoom&content-scaling=fixed&page-id=260%3A16687&starting-point-node-id=260%3A21226&embed-host=share" allowfullscreen></iframe>
+      </div>
+      <p class="cs-gallery__caption" style="max-width:1100px; margin:12px auto 0;">Interactive prototype &mdash; click through the final design</p>
+    </div>
+
+    <!-- Disclosure walkthrough video -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <video autoplay loop muted playsinline>
+            <source src="../images/FloQast Reporting/disclosure.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Disclosure walkthrough &mdash; the complete flow from import to export</p>
+    </div>
+
+    <!-- ==================== IMPACT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">10 &mdash; Impact</span>
+      <h2 class="cs-section__title">Results &amp; Impact</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">We brought the updated prototype back to clients for validation testing, measured against key success metrics, and gathered direct feedback.</p>
+
+      <div class="cs-impact-metrics">
+        <div class="cs-impact-metric reveal reveal-delay-1">
+          <div class="cs-impact-metric__value">95%</div>
+          <div class="cs-impact-metric__label">Task completion rate on tag import flow</div>
+          <div class="cs-impact-metric__sublabel">Usability</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-2">
+          <div class="cs-impact-metric__value">~150h</div>
+          <div class="cs-impact-metric__label">Saved per filing vs. manual tagging</div>
+          <div class="cs-impact-metric__sublabel">Efficiency</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-3">
+          <div class="cs-impact-metric__value">$300K</div>
+          <div class="cs-impact-metric__label">Customer deal secured with new solution</div>
+          <div class="cs-impact-metric__sublabel">Revenue</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-4">
+          <div class="cs-impact-metric__value">F500</div>
+          <div class="cs-impact-metric__label">Ralph Lauren as first alpha partner</div>
+          <div class="cs-impact-metric__sublabel">Validation</div>
+        </div>
+      </div>
+
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">Alpha Partner</span>
+          <h2 class="cs-split__sidebar-title">Ralph Lauren</h2>
+          <p class="cs-split__sidebar-desc">Our first Fortune 500 enterprise partner and alpha tester.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Ralph Lauren partnered with FloQast as the first alpha testers of the XBRL tagging product &mdash; signing a $300K annual deal on top of being an alpha partner, validating the solution with a Fortune 500 enterprise client.</p>
+          <p>The prototype directly contributed to closing this deal, demonstrating how design-driven thinking can translate into measurable business outcomes.</p>
+          <div class="cs-insights">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">timer</span></div>
+              <h4 class="cs-insight__title">Time on Task</h4>
+              <p class="cs-insight__desc">Measured how long users took to import tags and complete filing setup compared to the manual process.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">task_alt</span></div>
+              <h4 class="cs-insight__title">Task Completion</h4>
+              <p class="cs-insight__desc">Tracked whether users could successfully onboard, import, preview, and match tags without assistance.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">sentiment_satisfied</span></div>
+              <h4 class="cs-insight__title">Client Satisfaction</h4>
+              <p class="cs-insight__desc">Gathered qualitative feedback on confidence, clarity, and willingness to adopt the new workflow.</p>
+            </div>
+            <div class="cs-insight reveal reveal-delay-4">
+              <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">trending_up</span></div>
+              <h4 class="cs-insight__title">Business Impact</h4>
+              <p class="cs-insight__desc">The prototype directly contributed to closing a $300K deal, validating the design&rsquo;s value to sales and leadership.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== REFLECTIONS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">11 &mdash; Reflections</span>
+      <h2 class="cs-section__title">Key Learnings</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">What this project taught me about 0-to-1 product design.</p>
+
+      <div class="cs-reflections">
+        <div class="cs-reflection reveal reveal-delay-1">
+          <div class="cs-reflection__number">01</div>
+          <h4 class="cs-reflection__title">Investigate Before Building</h4>
+          <p class="cs-reflection__text">The SEC EDGAR discovery came from personal investigation, not a product brief. Digging into the problem domain yourself &mdash; beyond what&rsquo;s asked &mdash; can unlock solutions nobody expected.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-2">
+          <div class="cs-reflection__number">02</div>
+          <h4 class="cs-reflection__title">Scope Ruthlessly</h4>
+          <p class="cs-reflection__text">Cutting AI features was painful, but the MVP still solved the core jobs. Shipping a focused product that works is better than a broad one that doesn&rsquo;t ship.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-3">
+          <div class="cs-reflection__number">03</div>
+          <h4 class="cs-reflection__title">Design Sells</h4>
+          <p class="cs-reflection__text">The prototype directly closed a $300K deal with Ralph Lauren. When design is polished enough to demo to executives, it becomes a revenue driver, not just a support function.</p>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-4">
+          <div class="cs-reflection__number">04</div>
+          <h4 class="cs-reflection__title">Cross-Functional Influence</h4>
+          <p class="cs-reflection__text">Validated the technical approach with engineering, pitched it to PM, who sold it to leadership. Designers who can navigate the org get their ideas built.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== NEXT / PREV ==================== -->
+    <nav class="cs-project-nav">
+      <a href="cloud-theory-ai.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Previous Project
+        </span>
+        <span class="cs-project-nav__title">Cloud Theory AI</span>
+      </a>
+      <a href="floqast-platform.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          Next Project
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="cs-project-nav__title">FloQast Platform</span>
+      </a>
+    </nav>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <p class="footer__text">&copy; 2026 Randy Ritprasert &mdash; Designed with intention.</p>
+    <ul class="footer__links">
+      <li><a href="https://www.linkedin.com/in/ruttapon/" class="footer__link">LinkedIn</a></li>
+      <li><a href="mailto:randyrits@gmail.com" class="footer__link">Email</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Math background
+    (function initMathBg() {
+      const symbols = ['\u2211','\u222B','\u03C0','\u221A','\u221E','\u0394','\u03B8','\u00B1','\u2248','\u2202','\u03C6','\u03BB','\u03A9','%','\u00F7','\u00D7'];
+      const container = document.getElementById('math-bg');
+      for (let i = 0; i < 32; i++) {
+        const el = document.createElement('span');
+        el.className = 'math-sym';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const size = 14 + Math.random() * 28;
+        const left = Math.random() * 100;
+        const duration = 25 + Math.random() * 40;
+        const delay = -(Math.random() * duration);
+        const peakOpacity = 0.04 + Math.random() * 0.06;
+        const rotation = 60 + Math.random() * 240;
+        el.style.cssText = `font-size:${size}px;left:${left}%;animation-duration:${duration}s;animation-delay:${delay}s;--peak-opacity:${peakOpacity};--rot:${rotation}deg;`;
+        container.appendChild(el);
+      }
+    })();
+
+    // Progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }, { passive: true });
+
+    // Nav scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Hamburger
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    document.querySelectorAll('.nav__mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>

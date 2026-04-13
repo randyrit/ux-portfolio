@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1280px" height="1345px" viewBox="0 0 1280 1345" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>hidden nav 2</title>
-    <defs>
+    <defs><style type="text/css">@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap");</style>
         <rect id="path-1" x="0" y="0" width="1280" height="72"></rect>
         <filter x="-0.5%" y="-6.9%" width="101.1%" height="119.4%" filterUnits="objectBoundingBox" id="filter-2">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
@@ -51,7 +51,7 @@
                 </g>
                 <g id="Group-6" transform="translate(9, 0)">
                     <rect id="Rectangle" fill="#BF3030" x="0" y="0" width="34" height="18" rx="9"></rect>
-                    <text id="36" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+                    <text id="36" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
                         <tspan x="9.828" y="13">36</tspan>
                     </text>
                 </g>
@@ -64,10 +64,10 @@
                     <rect id="Rectangle-Copy-2" x="0" y="5" width="18" height="2"></rect>
                 </g>
             </g>
-            <text id="IoT-Center" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal" fill="#049FD9">
+            <text id="IoT-Center" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19" font-weight="normal" fill="#049FD9">
                 <tspan x="150" y="42">IoT Center</tspan>
             </text>
-            <text id="Cisco" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold" fill="#049FD9">
+            <text id="Cisco" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" fill="#049FD9">
                 <tspan x="88" y="43">Cisco</tspan>
             </text>
             <g id="Group-8" transform="translate(1090, 20)">
@@ -78,7 +78,7 @@
                 </g>
                 <g id="Group-4" transform="translate(9, 0)">
                     <circle id="Oval" fill="#009FD9" cx="9" cy="9" r="9"></circle>
-                    <text id="2" font-family="HelveticaNeue-Medium, Helvetica Neue" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
+                    <text id="2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="400" letter-spacing="0.5" fill="#FFFFFF">
                         <tspan x="5.414" y="13">2</tspan>
                     </text>
                 </g>
@@ -90,7 +90,7 @@
             </g>
             <g id="help" transform="translate(1176, 26)">
                 <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
-                <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">
                     <text>
                         <tspan x="0" y="15">?</tspan>
                     </text>
@@ -105,25 +105,25 @@
             </g>
         </g>
         <line x1="0" y1="132" x2="1281" y2="132" id="Line-5" stroke="#C2C2C2" stroke-linecap="square"></line>
-        <text id="Group:-All" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
+        <text id="Group:-All" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
             <tspan x="812" y="111">Group: All</tspan>
         </text>
         <path d="M896.200419,105 L896.300629,105.096 L901.018,109.615 L905.799581,105.036079 L906,105.228079 L901.01883,110 L900.88096,109.867921 L896.10021,105.288 L896,105.192 L896.200419,105 Z" id="Combined-Shape" stroke="#049FD9" stroke-linecap="round" stroke-linejoin="round"></path>
-        <text id="Last-24-Hours" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
+        <text id="Last-24-Hours" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
             <tspan x="942" y="111">Last 24 Hours</tspan>
         </text>
         <path d="M1057.20042,105 L1057.30063,105.096 L1062.018,109.615 L1066.79958,105.036079 L1067,105.228079 L1062.01883,110 L1061.88096,109.867921 L1057.10021,105.288 L1057,105.192 L1057.20042,105 Z" id="Combined-Shape" stroke="#049FD9" stroke-linecap="round" stroke-linejoin="round"></path>
-        <text id="Edit-Dashboard" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
+        <text id="Edit-Dashboard" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
             <tspan x="1103" y="111">Edit Dashboard</tspan>
         </text>
         <path d="M1228.20042,105 L1228.30063,105.096 L1233.018,109.615 L1237.79958,105.036079 L1238,105.228079 L1233.01883,110 L1232.88096,109.867921 L1228.10021,105.288 L1228,105.192 L1228.20042,105 Z" id="Combined-Shape" stroke="#049FD9" stroke-linecap="round" stroke-linejoin="round"></path>
         <line x1="1085" y1="121" x2="1085" y2="96" id="Line-Copy-43" stroke="#D7D9DA" stroke-linecap="square"></line>
         <line x1="924" y1="121" x2="924" y2="96" id="Line-Copy-44" stroke="#D7D9DA" stroke-linecap="square"></line>
-        <text id="Default" font-family=".AppleSystemUIFont" font-size="20" font-weight="normal" letter-spacing="0.714285714" fill="#0497D5">
+        <text id="Default" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="20" font-weight="normal" letter-spacing="0.714285714" fill="#0497D5">
             <tspan x="220" y="111">Default</tspan>
         </text>
         <path d="M301.269432,100.219747 L307,105.999906 L301.269432,111.780066 C300.978702,112.073311 300.508777,112.073311 300.218047,111.780066 C299.927318,111.486821 299.927318,111.012828 300.218047,110.719583 L304.89723,105.999906 L300.218047,101.28023 C299.927318,100.986985 299.927318,100.512992 300.218047,100.219747 C300.36304,100.073499 300.55339,100 300.74374,100 C300.934089,100 301.124439,100.073499 301.269432,100.219747 Z" id="Fill-1-Copy-15" fill="#049FD9" transform="translate(303.5, 106) rotate(-270) translate(-303.5, -106)"></path>
-        <text id="My-Dashboard:" font-family=".AppleSystemUIFont" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.5" fill="#333333">
+        <text id="My-Dashboard:" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.5" fill="#333333">
             <tspan x="40" y="113">My Dashboard:</tspan>
         </text>
         <g id="Group-3" transform="translate(40, 260)">
@@ -131,7 +131,7 @@
                 <use fill="black" fill-opacity="1" filter="url(#filter-4)" xlink:href="#path-3"></use>
                 <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
             </g>
-            <text id="Sites" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
+            <text id="Sites" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
                 <tspan x="24" y="29">Sites</tspan>
             </text>
             <line x1="0" y1="50.5" x2="389" y2="50.5" id="Line-2" stroke="#C2C2C2" stroke-linecap="square"></line>
@@ -144,19 +144,19 @@
                     <path d="M129.377543,13.728444 C192.1131,14.284446 242.980417,65.483305 242.980417,128.347909 C242.980417,191.556411 191.556411,242.980417 128.347909,242.980417 C65.483305,242.980417 14.284446,192.112413 13.728444,129.377543 L0,129.377543 C0.556688404,199.682964 57.913441,256.708861 128.347909,256.708861 C199.126275,256.708861 256.708861,199.126275 256.708861,128.347909 C256.708861,57.913441 199.682964,0.556688404 129.377543,0 L129.377543,13.728444 Z" id="Fill-1" fill="#36C296"></path>
                     <path d="M13.6200842,125.623485 C14.5265009,64.2636435 64.2643245,14.5258199 125.623485,13.6200842 L125.623485,0 C56.7535291,0.907778615 0.907778615,56.7535291 0,125.623485 L13.6200842,125.623485 Z" id="Fill-3" fill="#FF9C00"></path>
                 </g>
-                <text id="36" font-family="CiscoSans, Cisco Sans" font-size="39.4936709" font-weight="normal" letter-spacing="1.09704635" fill="#717171">
+                <text id="36" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="39.4936709" font-weight="normal" letter-spacing="1.09704635" fill="#717171">
                     <tspan x="103.706751" y="164">36</tspan>
                 </text>
-                <text id="Total-Sites" font-family=".AppleSystemUIFont" font-size="19.7468354" font-weight="normal" letter-spacing="0.65822776" fill="#333333">
+                <text id="Total-Sites" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19.7468354" font-weight="normal" letter-spacing="0.65822776" fill="#333333">
                     <tspan x="80.5003852" y="111">Total Sites</tspan>
                 </text>
             </g>
             <circle id="Oval" fill="#36C296" cx="80" cy="366" r="3"></circle>
             <circle id="Oval-Copy-3" fill="#FF9700" cx="243" cy="365" r="3"></circle>
-            <text id="Connected" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
+            <text id="Connected" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
                 <tspan x="89" y="368">Connected</tspan>
             </text>
-            <text id="Unheard" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
+            <text id="Unheard" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
                 <tspan x="252" y="368">Unheard</tspan>
             </text>
         </g>
@@ -165,7 +165,7 @@
                 <use fill="black" fill-opacity="1" filter="url(#filter-6)" xlink:href="#path-5"></use>
                 <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-5"></use>
             </g>
-            <text id="Gateway-State-over-T" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
+            <text id="Gateway-State-over-T" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
                 <tspan x="24" y="29">Gateway State over Time</tspan>
             </text>
             <line x1="0" y1="50.5" x2="389" y2="50.5" id="Line-2-Copy-2" stroke="#C2C2C2" stroke-linecap="square"></line>
@@ -175,54 +175,54 @@
             </g>
             <rect id="Rectangle" fill="#36C296" x="49.5" y="363" width="9" height="9" rx="4.5"></rect>
             <rect id="Rectangle" fill="#FF6362" x="116.5" y="364" width="8" height="8" rx="4"></rect>
-            <text id="Discovers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+            <text id="Discovers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
                 <tspan x="63.5" y="371">Up</tspan>
             </text>
-            <text id="Offers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+            <text id="Offers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
                 <tspan x="130.5" y="371">Down</tspan>
             </text>
             <rect id="Rectangle" fill="#C0C0C0" x="200.5" y="364" width="8" height="8" rx="4"></rect>
-            <text id="Offers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+            <text id="Offers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
                 <tspan x="214.5" y="371">No Data</tspan>
             </text>
-            <text id="Date" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.4166666" fill="#333333">
+            <text id="Date" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.4166666" fill="#333333">
                 <tspan x="206.40446" y="341">Date</tspan>
             </text>
-            <text id="Gateway-Count" transform="translate(26, 202) rotate(-90) translate(-26, -202)" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="Gateway-Count" transform="translate(26, 202) rotate(-90) translate(-26, -202)" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="5.28710938" y="205.5">Gateway </tspan>
                 <tspan x="11.5224609" y="218.5">Count</tspan>
             </text>
-            <text id="1/11" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
+            <text id="1/11" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
                 <tspan x="59.2841797" y="317">1/11</tspan>
             </text>
-            <text id="1/13" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
+            <text id="1/13" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
                 <tspan x="210.46875" y="317">1/13</tspan>
             </text>
-            <text id="1/14" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
+            <text id="1/14" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
                 <tspan x="288.385742" y="317">1/14</tspan>
             </text>
-            <text id="1/15" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
+            <text id="1/15" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
                 <tspan x="348.512695" y="317">1/15</tspan>
             </text>
-            <text id="1/12" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
+            <text id="1/12" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#4C4C4C">
                 <tspan x="134.585938" y="317">1/12</tspan>
             </text>
-            <text id="0" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="0" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="50.0839844" y="298">0</tspan>
             </text>
-            <text id="10" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="10" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="45.328125" y="245">10</tspan>
             </text>
-            <text id="20" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="20" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="43.9316406" y="193">20</tspan>
             </text>
-            <text id="30" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="30" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="43.6972656" y="141">30</tspan>
             </text>
             <polygon id="Path" fill="#E9E9E9" fill-rule="nonzero" points="67.5 243 67.5 242 368.5 242 368.5 243"></polygon>
             <polygon id="Path" fill="#E9E9E9" fill-rule="nonzero" points="67.5 190 67.5 189 368.5 189 368.5 190"></polygon>
             <polygon id="Path" fill="#E9E9E9" fill-rule="nonzero" points="67.5 138 67.5 137 368.5 137 368.5 138"></polygon>
-            <text id="40" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="40" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="43.53125" y="89">40</tspan>
             </text>
             <polygon id="Path" fill="#E9E9E9" fill-rule="nonzero" points="67.5 86 67.5 85 368.5 85 368.5 86"></polygon>
@@ -241,67 +241,67 @@
                 <use fill="black" fill-opacity="1" filter="url(#filter-8)" xlink:href="#path-7"></use>
                 <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-7"></use>
             </g>
-            <text id="Top-5" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
+            <text id="Top-5" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="26" letter-spacing="0.75" fill="#333333">
                 <tspan x="24.5" y="29">Top 5</tspan>
             </text>
             <line x1="0.5" y1="50.5" x2="389.5" y2="50.5" id="Line-2-Copy" stroke="#C2C2C2" stroke-linecap="square"></line>
             <polygon id="Path-2-Copy-8" stroke="#049FD9" stroke-linejoin="round" points="333.5 17 349.5 17 343.471333 23.7047619 343.471333 33 339.53 29.4062947 339.53 23.7047619"></polygon>
-            <text id="Data-Usage" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
+            <text id="Data-Usage" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#049FD9">
                 <tspan x="80.5" y="29">Data Usage</tspan>
             </text>
             <path d="M177.700419,25 L177.800629,25.0960001 L182.518,29.615 L187.299581,25.0360787 L187.5,25.228079 L182.51883,30 L182.38096,29.8679212 L177.60021,25.2880004 L177.5,25.1920003 L177.700419,25 Z" id="Combined-Shape-Copy" stroke="#049FD9" stroke-linecap="round" stroke-linejoin="round"></path>
             <g id="icons-/table-/actions-/export-copy" transform="translate(363.5, 17)" fill="#049FD9">
                 <path d="M3.50094515,4.99999999 C3.77656553,4.99999999 4,5.22343446 4,5.49905485 C4,5.77467523 3.77656553,5.9981097 3.50094515,5.9981097 L1,5.9981097 L1,14.9810971 L10,14.9810971 L10,5.9981097 L7.49905485,5.9981097 C7.22343447,5.9981097 7,5.77467523 7,5.49905485 C7,5.22343446 7.22343447,4.99999999 7.49905485,4.99999999 L10.5,4.99999999 C10.7761424,4.99999999 11,5.22385762 11,5.49999999 L11,15.5010408 C10.9994247,15.7782223 10.775102,16.001614 10.4989602,16.0010397 L0.498960236,15.9802444 C0.223224423,15.979671 9.99200722e-16,15.7559819 0,15.4802455 L0,5.49999999 C0,5.22385762 0.223857625,4.99999999 0.5,4.99999999 Z M5.5,0 L8.5,2.5 L7.8,3.2 L6,1.713 L6,9.49999999 C6,9.74545988 5.82312484,9.94960836 5.58987563,9.99194432 L5.5,9.99999999 C5.22385763,9.99999999 5,9.77614237 5,9.49999999 L5,1.713 L3.2,3.2 L2.5,2.5 L5.5,0 Z" id="Mask"></path>
             </g>
-            <text id="Gateways" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.4166666" fill="#333333">
+            <text id="Gateways" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.4166666" fill="#333333">
                 <tspan x="192.017904" y="345">Gateways</tspan>
             </text>
-            <text id="Data-Used-(GB)" transform="translate(27, 191.5) rotate(-90) translate(-27, -191.5)" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="Data-Used-(GB)" transform="translate(27, 191.5) rotate(-90) translate(-27, -191.5)" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="1.86816406" y="195">Data Used </tspan>
                 <tspan x="15.9282227" y="208">(GB)</tspan>
             </text>
-            <text id="GW-50" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
+            <text id="GW-50" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
                 <tspan x="69.8110352" y="321">GW </tspan>
                 <tspan x="72.1425781" y="334">50</tspan>
             </text>
-            <text id="GW-32" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
+            <text id="GW-32" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
                 <tspan x="137.561035" y="321">GW </tspan>
                 <tspan x="139.980469" y="334">32</tspan>
             </text>
-            <text id="GW-92" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
+            <text id="GW-92" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
                 <tspan x="205.311035" y="321">GW </tspan>
                 <tspan x="207.681641" y="334">92</tspan>
             </text>
-            <text id="GW-6" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
+            <text id="GW-6" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
                 <tspan x="270.061035" y="321">GW </tspan>
                 <tspan x="275.507812" y="334">6</tspan>
             </text>
-            <text id="0-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="0-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.0839844" y="301">0</tspan>
             </text>
-            <text id="1-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="1-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="48.7441406" y="271">1</tspan>
             </text>
-            <text id="2-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="2-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.3476562" y="239">2</tspan>
             </text>
-            <text id="3-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="3-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.1132812" y="210">3</tspan>
             </text>
-            <text id="4-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="4-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="46.9472656" y="179">4</tspan>
             </text>
-            <text id="5-copy" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="5-copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.2011719" y="148">5</tspan>
             </text>
             <polygon id="Path-Copy" fill="#E9E9E9" fill-rule="nonzero" points="64.5 268 64.5 267 369.5 267 369.5 268"></polygon>
             <polygon id="Path-Copy-2" fill="#E9E9E9" fill-rule="nonzero" points="64.5 176 64.5 175 369.5 175 369.5 176"></polygon>
             <polygon id="Path-Copy-3" fill="#E9E9E9" fill-rule="nonzero" points="64.5 237 64.5 236 369.5 236 369.5 237"></polygon>
             <polygon id="Path-Copy-4" fill="#E9E9E9" fill-rule="nonzero" points="64.5 145 64.5 144 369.5 144 369.5 145"></polygon>
-            <text id="6" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="6" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.015625" y="117">6</tspan>
             </text>
-            <text id="7" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
+            <text id="7" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#333333">
                 <tspan x="47.6894531" y="86">7</tspan>
             </text>
             <polygon id="Path-Copy-2" fill="#E9E9E9" fill-rule="nonzero" points="64.5 114 64.5 113 369.5 113 369.5 114"></polygon>
@@ -309,7 +309,7 @@
             <polygon id="Path-Copy-5" fill="#E9E9E9" fill-rule="nonzero" points="64.5 207 64.5 206 369.5 206 369.5 207"></polygon>
             <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8" x="203.5" y="103" width="10" height="196"></rect>
             <path d="M83.5,89 L83.5,299 L73.5,299 L73.5,89 L83.5,89 Z" id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8"></path>
-            <text id="GW-3" font-family=".AppleSystemUIFont" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
+            <text id="GW-3" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="10" font-weight="normal" line-spacing="13" fill="#A7A9AB">
                 <tspan x="331.811035" y="321">GW </tspan>
                 <tspan x="337.306641" y="334">3</tspan>
             </text>
@@ -318,7 +318,7 @@
             <path d="M148.5,99 L148.5,298.881112 L138.5,298.881112 L138.5,99 L148.5,99 Z" id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8"></path>
             <polygon id="Path-Copy-7" fill="#E9E9E9" fill-rule="nonzero" points="64.5 299 64.5 298 369.5 298 369.5 299"></polygon>
             <g id="data-usage" transform="translate(60.5, 363)">
-                <text id="Discovers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+                <text id="Discovers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
                     <tspan x="16" y="12">Data Usage</tspan>
                 </text>
                 <rect id="Rectangle" fill="#5080D6" x="0" y="5" width="8" height="8" rx="4"></rect>
@@ -334,7 +334,7 @@
             <path d="M5.00990938,10.1698705 L1.15993395,14.0198947 L1.15993395,11.5472375 C1.15993395,11.2269628 0.90034073,10.9673098 0.579966974,10.9673098 C0.259593218,10.9673098 0,11.2269628 0,11.5472375 L0,15.4200723 C0,15.740347 0.259593218,16 0.579966974,16 L4.4529091,16 C4.77320552,16 5.03287607,15.740347 5.03287607,15.4200723 C5.03287607,15.0997975 4.77328285,14.8401445 4.4529091,14.8401445 L1.98008458,14.8401445 L5.83013734,10.9899656 C6.05663377,10.7634845 6.05663377,10.3962743 5.83006001,10.1697932 C5.60371823,9.94338939 5.23648314,9.94338939 5.00990938,10.1698705 Z" id="Path"></path>
             <path d="M15.4086144,0 L11.4597887,0 C11.1331508,0 10.8684819,0.264742983 10.8684819,0.591296121 C10.8684819,0.917849259 11.1331508,1.18259224 11.4597887,1.18259224 L13.981042,1.18259224 L10.1731839,4.9906181 C9.94225889,5.22153895 9.94225889,5.59594765 10.1732628,5.8268685 C10.2886858,5.9422895 10.4400604,6 10.5913561,6 C10.7426518,6 10.8940263,5.94221066 11.0095283,5.82678966 L14.8173864,2.0187638 L14.8173864,4.54005046 C14.8173864,4.8666036 15.0820553,5.13134658 15.4086932,5.13134658 C15.7353311,5.13134658 16,4.8666036 16,4.54005046 L16,0.591296121 C15.9999212,0.264664144 15.7351734,0 15.4086144,0 Z" id="Path"></path>
         </g>
-        <text id="Map" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="24" letter-spacing="1" fill="#333333">
+        <text id="Map" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="24" letter-spacing="1" fill="#333333">
             <tspan x="64" y="713">Map</tspan>
         </text>
         <rect id="Rectangle" fill="#E9E9E9" x="40" y="732" width="1200" height="2"></rect>
@@ -352,11 +352,11 @@
         </g>
         <polygon id="Path-2-Copy-10" stroke="#049FD9" stroke-linejoin="round" points="1185 700 1201 700 1194.97133 706.704762 1194.97133 716 1191.03 712.406295 1191.03 706.704762"></polygon>
         <rect id="Rectangle" fill="#FFFFFF" x="40" y="152" width="1200" height="79"></rect>
-        <text id="Issues" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" letter-spacing="0.25" fill="#333333">
+        <text id="Issues" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" letter-spacing="0.25" fill="#333333">
             <tspan x="64" y="196">Issues</tspan>
         </text>
         <g id="Group-2" transform="translate(228, 172)">
-            <text id="Critical-Copy" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
+            <text id="Critical-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
                 <tspan x="35" y="17">Critical</tspan>
             </text>
             <g id="Alarms/Minor-Alarm-Icon-Copy" transform="translate(-3.5792, 4.4208)">
@@ -364,12 +364,12 @@
                 <line x1="9.90421379" y1="9.90421379" x2="20.2542138" y2="20.2542138" id="Line" stroke="#FFFFFF" stroke-width="2.67428571" stroke-linecap="square"></line>
                 <line x1="9.90421379" y1="9.90421379" x2="20.2542138" y2="20.2542138" id="Line-Copy" stroke="#FFFFFF" stroke-width="2.67428571" stroke-linecap="square" transform="translate(15.0792, 15.0792) scale(-1, 1) translate(-15.0792, -15.0792)"></line>
             </g>
-            <text id="8" font-family=".AppleSystemUIFont" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#00A2E4">
+            <text id="8" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#00A2E4">
                 <tspan x="121" y="27">8</tspan>
             </text>
         </g>
         <g id="Group-6" transform="translate(567, 172)">
-            <text id="Major-Copy" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
+            <text id="Major-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
                 <tspan x="41" y="17">Major</tspan>
             </text>
             <g id="Alarms/Major-Alarm-Icon-Copy" transform="translate(0, 6)">
@@ -377,12 +377,12 @@
                 <circle id="Oval-Copy-2" fill="#FFFFFF" cx="13.9262458" cy="17.523588" r="1.86578073"></circle>
                 <ellipse id="Oval-Copy-3" fill="#FFFFFF" cx="13.9262458" cy="8.19468439" rx="1.86578073" ry="5.59734219"></ellipse>
             </g>
-            <text id="16" font-family=".AppleSystemUIFont" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#049FD9">
+            <text id="16" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#049FD9">
                 <tspan x="114" y="27">16</tspan>
             </text>
         </g>
         <g id="Group-7" transform="translate(912, 172)">
-            <text id="Minor-Copy" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
+            <text id="Minor-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="39" letter-spacing="0.6428572" fill="#59595C">
                 <tspan x="43" y="17">Minor</tspan>
             </text>
             <g id="Alarms/Critical-Alarm-Icon-Copy" transform="translate(0, 5)">
@@ -390,7 +390,7 @@
                 <circle id="Oval" fill="#FFFFFF" cx="14.9213289" cy="24.8721595" r="1.99016611"></circle>
                 <ellipse id="Oval-Copy" fill="#FFFFFF" cx="14.9213289" cy="14.9213289" rx="1.99016611" ry="5.97049834"></ellipse>
             </g>
-            <text id="1" font-family=".AppleSystemUIFont" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#049FD9">
+            <text id="1" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="26" font-weight="normal" letter-spacing="0.3611111" fill="#049FD9">
                 <tspan x="117" y="27">1</tspan>
             </text>
         </g>

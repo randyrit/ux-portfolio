@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dealer Market — Cloud Theory</title>
+  <link rel="stylesheet" href="components.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================
+       SIDEBAR
+  ========================= -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <svg height="24" viewBox="0 0 190 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <text x="0" y="17" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">Cloud</text>
+        <path d="M52 2L48 14h5l-2 8 8-12h-5l3-8z" fill="#7c64f3"/>
+        <text x="68" y="17" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="600" fill="#111827">Theory</text>
+      </svg>
+    </div>
+
+    <select class="sidebar-dealer-select">
+      <option selected>South Bay Ford</option>
+      <option>South Bay Ford Lincoln</option>
+      <option>South Bay Lincoln</option>
+      <option>Galpin Ford</option>
+      <option>AutoNation Ford Torrance</option>
+    </select>
+
+    <!-- Main Nav -->
+    <div class="sidebar-section">
+      <a class="sidebar-item active" href="dashboard.html">
+        Dealer Overview
+      </a>
+
+      <a class="sidebar-item" href="market-insights.html">
+        Market Insights
+      </a>
+
+      <a class="sidebar-item" href="#">
+        Model Insights
+      </a>
+
+      <a class="sidebar-item" href="#">
+        Inventory
+      </a>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="#">
+        Store Performance
+      </a>
+
+      <a class="sidebar-item" href="#">
+        Market Performance
+      </a>
+    </div>
+
+    <!-- Footer -->
+    <div class="sidebar-footer">
+      <a class="sidebar-footer-item" href="#">
+        Ruttapon R.
+      </a>
+    </div>
+
+  </aside>
+
+  <!-- ========================
+       MAIN
+  ========================= -->
+  <div class="main-content">
+
+    <!-- Top Bar -->
+    <header class="topbar">
+      <span class="topbar-title">Dealer</span>
+      <div class="topbar-right"></div>
+    </header>
+
+    <!-- Page Body -->
+    <div class="page-body">
+
+      <!-- Top Row: Dealer Market card + Market Insights card -->
+      <div class="top-grid">
+
+        <!-- Dealer Market Card (map + search) -->
+        <div class="dealer-market-card">
+          <span class="page-title">Dealer Market</span>
+
+          <div class="market-inner-grid">
+            <!-- Map -->
+            <div class="map-card">
+              <div class="map-tabs">
+                <button class="map-tab active">Map</button>
+                <button class="map-tab">Satellite</button>
+                <button class="map-tab">Auto Dealer</button>
+              </div>
+              <div class="map-body">
+                <iframe
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26571.5!2d-118.36!3d33.91!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2b4d78a53a4e7%3A0x3e7b0b0c9f0c7e0!2sHawthorne%2C+CA!5e0!3m2!1sen!2sus!4v1"
+                  allowfullscreen=""
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                ></iframe>
+              </div>
+            </div>
+
+            <!-- Competitor Search -->
+            <div class="search-panel">
+              <span class="search-card-title">Competitor Search</span>
+
+              <div class="search-field">
+                <input type="text" id="search-address" value="1414 Rosecrans Avenue" />
+                <span class="search-location-addr" id="search-city"></span>
+              </div>
+
+              <span class="search-hint">Enter an address or edit a current one</span>
+
+              <div class="search-row">
+                <div class="search-field">
+                  <label>Search Locations</label>
+                  <select><option>2</option></select>
+                </div>
+                <div class="search-field">
+                  <label>Radius</label>
+                  <select><option>15 mi</option><option>25 mi</option><option>50 mi</option></select>
+                </div>
+              </div>
+
+              <div class="search-locations" id="search-locations"></div>
+
+              <button class="search-btn">Search for Competitors</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Market Insights Card -->
+        <div class="insights-card">
+          <span class="insights-title">Market Insights</span>
+          <div id="insights-cards"></div>
+        </div>
+
+      </div>
+
+      <!-- Competitor Results -->
+      <div class="results-card">
+        <span class="results-title">Competitor Results</span>
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Dealer</th>
+                <th>Distance from Dealer</th>
+                <th>New Inventory</th>
+                <th>Used Inventory</th>
+                <th>Days To Move</th>
+                <th>Base Supply</th>
+                <th>Turn</th>
+                <th>Market Share</th>
+              </tr>
+            </thead>
+            <tbody id="competitors-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+  // ---- Search card ----
+  document.getElementById('search-city').textContent = DealerData.dealer.cityStateZip;
+
+  // ---- Search Locations list ----
+  const locList = document.getElementById('search-locations');
+  locList.innerHTML = `<span class="search-locations-title">Search Locations</span>`;
+  DealerData.searchLocations.forEach(loc => {
+    locList.innerHTML += `
+      <div class="search-location-item">
+        <span class="search-location-name">${loc.name}</span>
+        <span class="search-location-addr">${loc.address}, ${loc.city}</span>
+      </div>`;
+  });
+
+  // ---- Market Insights ----
+  const insightsContainer = document.getElementById('insights-cards');
+  DealerData.marketInsights.forEach(item => {
+    insightsContainer.innerHTML += `
+      <div class="insight-card">
+        <span class="insight-card-label">${item.label}</span>
+        <span class="insight-card-value">${item.value}</span>
+      </div>`;
+  });
+
+  // ---- Competitor Results ----
+  const compBody = document.getElementById('competitors-body');
+  DealerData.competitors.forEach(row => {
+    compBody.innerHTML += `
+      <tr>
+        <td>${row.dealer}</td>
+        <td>${row.distance}</td>
+        <td>${row.newInv}</td>
+        <td>${row.usedInv}</td>
+        <td>${row.daysToMove}</td>
+        <td>${row.baseSupply}</td>
+        <td>${row.turn}</td>
+        <td>${row.marketShare}</td>
+      </tr>`;
+  });
+</script>
+
+</body>
+</html>

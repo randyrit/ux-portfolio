@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Insights — Cloud Theory</title>
+  <link rel="stylesheet" href="components.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" />
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================
+       SIDEBAR
+  ========================= -->
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">
+      <img src="assets/cloudtheory-logo.png" alt="Cloud Theory" />
+    </div>
+
+    <div class="sidebar-dealer">
+      <select class="sidebar-dealer-select" id="dealer-select">
+        <option selected>South Bay Ford</option>
+        <option>South Bay Ford Lincoln</option>
+        <option>South Bay Lincoln</option>
+        <option>Galpin Ford</option>
+        <option>AutoNation Ford Torrance</option>
+      </select>
+    </div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="dashboard.html">
+        <span class="material-icons-outlined sidebar-icon">dashboard</span>
+        Dealer Overview
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">insights</span>
+        Market Insights
+      </a>
+
+      <a class="sidebar-item active" href="model-insights.html">
+        <span class="material-icons-outlined sidebar-icon">directions_car</span>
+        Model Insights
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">inventory_2</span>
+        Inventory
+      </a>
+    </div>
+
+    <div class="sidebar-divider"></div>
+
+    <div class="sidebar-section">
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">storefront</span>
+        Store Performance
+      </a>
+
+      <a class="sidebar-item" href="#">
+        <span class="material-icons-outlined sidebar-icon">trending_up</span>
+        Market Performance
+      </a>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="sidebar-user">
+        <div class="sidebar-avatar">RR</div>
+        <div class="sidebar-user-info">
+          <span class="sidebar-user-name">Ruttapon R.</span>
+          <span class="sidebar-user-role">South Bay Ford</span>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ========================
+       FILTER RAIL (flush with sidebar)
+  ========================= -->
+  <aside class="filter-rail">
+
+    <div class="filter-rail-header">
+      <span class="filter-rail-title">
+        <span class="material-icons-outlined">tune</span>
+        Filters
+      </span>
+      <button class="filter-clear-btn" id="filter-clear">Clear all</button>
+    </div>
+
+    <div class="filter-rail-body">
+
+      <div class="filter-group">
+        <span class="filter-label">Search</span>
+        <div class="filter-search-input">
+          <span class="material-icons-outlined">search</span>
+          <input type="text" id="filter-search" placeholder="Model name..." />
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Make</span>
+        <div class="filter-options" id="filter-make">
+          <label class="filter-check"><input type="checkbox" value="Ford" checked /> Ford</label>
+          <label class="filter-check"><input type="checkbox" value="Lincoln" checked /> Lincoln</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Condition</span>
+        <div class="filter-pills" id="filter-condition">
+          <button class="filter-pill active" data-value="all">All</button>
+          <button class="filter-pill" data-value="New">New</button>
+          <button class="filter-pill" data-value="Used">Used</button>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Body style</span>
+        <div class="filter-options" id="filter-body">
+          <label class="filter-check"><input type="checkbox" value="Truck" checked /> Truck</label>
+          <label class="filter-check"><input type="checkbox" value="SUV" checked /> SUV</label>
+          <label class="filter-check"><input type="checkbox" value="Sedan" checked /> Sedan / Coupe</label>
+          <label class="filter-check"><input type="checkbox" value="Van" checked /> Van</label>
+          <label class="filter-check"><input type="checkbox" value="EV" checked /> Electric</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Max avg price</span>
+        <div class="filter-range">
+          <input type="range" id="filter-price" min="25000" max="100000" step="5000" value="100000" />
+          <span class="filter-range-val" id="filter-price-value">Any</span>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Market trend</span>
+        <div class="filter-options" id="filter-trend">
+          <label class="filter-check"><input type="checkbox" value="up" checked /> <span class="trend-dot up"></span> Rising</label>
+          <label class="filter-check"><input type="checkbox" value="flat" checked /> <span class="trend-dot flat"></span> Flat</label>
+          <label class="filter-check"><input type="checkbox" value="down" checked /> <span class="trend-dot down"></span> Declining</label>
+        </div>
+      </div>
+
+      <div class="filter-group">
+        <span class="filter-label">Alerts</span>
+        <div class="filter-options" id="filter-alerts">
+          <label class="filter-check"><input type="checkbox" value="recall" /> Active recalls only</label>
+          <label class="filter-check"><input type="checkbox" value="promo" /> Has promotions</label>
+        </div>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ========================
+       MAIN
+  ========================= -->
+  <div class="main-content with-filter-rail">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="topbar-title">Model Insights</span>
+        <span class="topbar-sub" id="topbar-sub">South Bay Ford · Vehicle-level analytics</span>
+      </div>
+      <div class="topbar-right">
+        <span class="topbar-date" id="current-date"></span>
+        <span class="topbar-updated">Updated Today, 8:04 AM</span>
+        <button class="topbar-btn has-dot" title="Notifications"><span class="material-icons-outlined topbar-icon">notifications</span></button>
+        <button class="topbar-btn" title="Settings"><span class="material-icons-outlined topbar-icon">settings</span></button>
+        <button class="topbar-btn" title="Share"><span class="material-icons-outlined topbar-icon">ios_share</span></button>
+      </div>
+    </header>
+
+    <div class="page-body">
+
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Vehicle Insights</h1>
+          <p class="page-desc">Real-time performance, competitor share, promotions and recalls for every model in your market.</p>
+        </div>
+        <div class="page-header-actions">
+          <div class="result-count"><strong id="result-count">0</strong> models</div>
+          <div class="sort-toggle" id="sort-toggle">
+            <button class="sort-btn active" data-sort="sales">Sales</button>
+            <button class="sort-btn" data-sort="trend">Trend</button>
+            <button class="sort-btn" data-sort="days">Turn</button>
+          </div>
+          <div class="view-toggle" id="view-toggle">
+            <button class="view-btn" data-view="grid" title="Card view">
+              <span class="material-icons-outlined">grid_view</span>
+            </button>
+            <button class="view-btn active" data-view="list" title="List view">
+              <span class="material-icons-outlined">view_list</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="vehicle-grid" id="vehicle-grid"></div>
+
+    </div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+  // ---- Date ----
+  document.getElementById('current-date').textContent =
+    new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+
+  // ---- State ----
+  const state = {
+    search: '',
+    makes: new Set(['Ford', 'Lincoln']),
+    condition: 'all',
+    bodies: new Set(['Truck', 'SUV', 'Sedan', 'Van', 'EV']),
+    maxPrice: 100000,
+    trends: new Set(['up', 'flat', 'down']),
+    recallOnly: false,
+    promoOnly: false,
+    sort: 'sales',
+    view: 'list',
+  };
+
+  function matches(v) {
+    if (state.search && !`${v.make} ${v.model}`.toLowerCase().includes(state.search.toLowerCase())) return false;
+    if (!state.makes.has(v.make)) return false;
+    if (state.condition !== 'all' && v.type !== state.condition) return false;
+    if (!state.bodies.has(v.bodyStyle)) return false;
+    if (v.avgPriceNum > state.maxPrice && state.maxPrice < 100000) return false;
+    if (!state.trends.has(v.trend)) return false;
+    if (state.recallOnly && !v.hasRecall) return false;
+    if (state.promoOnly && !v.hasPromo) return false;
+    return true;
+  }
+
+  function sortVehicles(list) {
+    const copy = [...list];
+    if (state.sort === 'sales') copy.sort((a, b) => b.mtdSales - a.mtdSales);
+    if (state.sort === 'trend') {
+      const parse = s => parseFloat(String(s).replace(/[^\-\d.]/g, '')) || 0;
+      copy.sort((a, b) => parse(b.salesDelta) - parse(a.salesDelta));
+    }
+    if (state.sort === 'days') copy.sort((a, b) => a.avgDaysOnLot - b.avgDaysOnLot);
+    return copy;
+  }
+
+  function trendArrow(t) {
+    if (t === 'up') return 'trending_up';
+    if (t === 'down') return 'trending_down';
+    return 'trending_flat';
+  }
+
+  function renderCards() {
+    const grid = document.getElementById('vehicle-grid');
+    const filtered = sortVehicles(ModelInsightsData.vehicles.filter(matches));
+    document.getElementById('result-count').textContent = filtered.length;
+
+    grid.classList.toggle('list-view', state.view === 'list');
+
+    if (filtered.length === 0) {
+      grid.innerHTML = `
+        <div class="vehicle-grid-empty">
+          <span class="material-icons-outlined">search_off</span>
+          <div class="vehicle-grid-empty-title">No models match your filters</div>
+          <div class="vehicle-grid-empty-desc">Try clearing a filter or broadening your search.</div>
+        </div>`;
+      return;
+    }
+
+    grid.innerHTML = filtered.map(v => {
+      const alerts = [];
+      if (v.hasRecall) alerts.push(`<span class="vehicle-alert recall"><span class="material-icons-outlined">warning</span>Recall</span>`);
+      if (v.hasPromo)  alerts.push(`<span class="vehicle-alert promo"><span class="material-icons-outlined">local_offer</span>Promo</span>`);
+
+      return `
+        <a class="vehicle-card" href="model-detail.html?model=${v.id}">
+          <div class="vehicle-card-image">
+            <img src="${v.image}" alt="${v.make} ${v.model}" loading="lazy" />
+            <div class="vehicle-card-image-title">
+              <span class="vehicle-card-make">${v.make}</span>
+              <span class="vehicle-card-name">${v.model}</span>
+            </div>
+          </div>
+
+          <div class="vehicle-card-body">
+            <div class="vehicle-card-headline">
+              <span class="vehicle-card-make">${v.make}</span>
+              <span class="vehicle-card-name">${v.model}</span>
+              <span class="vehicle-card-body-style">${v.bodyStyle} · ${v.type}</span>
+            </div>
+
+            <div class="vehicle-card-tagline">${v.tagline}</div>
+
+            <div class="vehicle-card-stats">
+              <div class="vehicle-card-stat">
+                <span class="vehicle-card-stat-label">Sales MTD</span>
+                <span class="vehicle-card-stat-value">${v.mtdSales}</span>
+              </div>
+              <div class="vehicle-card-stat">
+                <span class="vehicle-card-stat-label">Share</span>
+                <span class="vehicle-card-stat-value">${v.marketShare}</span>
+              </div>
+              <div class="vehicle-card-stat">
+                <span class="vehicle-card-stat-label">Avg Price</span>
+                <span class="vehicle-card-stat-value">${v.avgPrice}</span>
+              </div>
+              <div class="vehicle-card-stat">
+                <span class="vehicle-card-stat-label">Days</span>
+                <span class="vehicle-card-stat-value">${v.avgDaysOnLot}d</span>
+              </div>
+            </div>
+
+            <div class="vehicle-card-footer">
+              <span class="vehicle-card-delta ${v.trend}">
+                <span class="material-icons-outlined">${trendArrow(v.trend)}</span>
+                ${v.salesDelta}
+              </span>
+              <div class="vehicle-card-alerts">${alerts.join('')}</div>
+            </div>
+          </div>
+        </a>
+      `;
+    }).join('');
+  }
+
+  // ---- Filter handlers ----
+  document.getElementById('filter-search').addEventListener('input', (e) => {
+    state.search = e.target.value;
+    renderCards();
+  });
+
+  document.getElementById('filter-make').addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb.checked) state.makes.add(cb.value); else state.makes.delete(cb.value);
+    renderCards();
+  });
+
+  document.getElementById('filter-body').addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb.checked) state.bodies.add(cb.value); else state.bodies.delete(cb.value);
+    renderCards();
+  });
+
+  document.getElementById('filter-trend').addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb.checked) state.trends.add(cb.value); else state.trends.delete(cb.value);
+    renderCards();
+  });
+
+  document.getElementById('filter-alerts').addEventListener('change', (e) => {
+    const cb = e.target;
+    if (cb.value === 'recall') state.recallOnly = cb.checked;
+    if (cb.value === 'promo')  state.promoOnly  = cb.checked;
+    renderCards();
+  });
+
+  document.getElementById('filter-condition').addEventListener('click', (e) => {
+    const btn = e.target.closest('.filter-pill');
+    if (!btn || btn.classList.contains('active')) return;
+    document.querySelectorAll('#filter-condition .filter-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.condition = btn.dataset.value;
+    renderCards();
+  });
+
+  const priceSlider = document.getElementById('filter-price');
+  const priceValue = document.getElementById('filter-price-value');
+  priceSlider.addEventListener('input', (e) => {
+    state.maxPrice = parseInt(e.target.value, 10);
+    priceValue.textContent = state.maxPrice >= 100000 ? 'Any' : `$${Math.round(state.maxPrice/1000)}K`;
+    renderCards();
+  });
+
+  document.getElementById('sort-toggle').addEventListener('click', (e) => {
+    const btn = e.target.closest('.sort-btn');
+    if (!btn || btn.classList.contains('active')) return;
+    document.querySelectorAll('#sort-toggle .sort-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.sort = btn.dataset.sort;
+    renderCards();
+  });
+
+  document.getElementById('view-toggle').addEventListener('click', (e) => {
+    const btn = e.target.closest('.view-btn');
+    if (!btn || btn.classList.contains('active')) return;
+    document.querySelectorAll('#view-toggle .view-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.view = btn.dataset.view;
+    renderCards();
+  });
+
+  document.getElementById('filter-clear').addEventListener('click', () => {
+    state.search = '';
+    state.makes = new Set(['Ford', 'Lincoln']);
+    state.condition = 'all';
+    state.bodies = new Set(['Truck', 'SUV', 'Sedan', 'Van', 'EV']);
+    state.maxPrice = 100000;
+    state.trends = new Set(['up', 'flat', 'down']);
+    state.recallOnly = false;
+    state.promoOnly = false;
+    document.getElementById('filter-search').value = '';
+    document.querySelectorAll('#filter-make input, #filter-body input, #filter-trend input').forEach(cb => cb.checked = true);
+    document.querySelectorAll('#filter-alerts input').forEach(cb => cb.checked = false);
+    document.querySelectorAll('#filter-condition .filter-pill').forEach(b => b.classList.toggle('active', b.dataset.value === 'all'));
+    priceSlider.value = 100000;
+    priceValue.textContent = 'Any';
+    renderCards();
+  });
+
+  document.getElementById('dealer-select').addEventListener('change', (e) => {
+    document.getElementById('topbar-sub').textContent = `${e.target.value} · Vehicle-level analytics`;
+  });
+
+  // ---- Initial render ----
+  renderCards();
+</script>
+
+</body>
+</html>

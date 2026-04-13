@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="1280px" height="1551px" viewBox="0 0 1280 1551" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>Network Management Dashboard  Copy</title>
-    <defs>
+    <defs><style type="text/css">@import url("https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@200..900&display=swap");</style>
         <rect id="path-1" x="284" y="576" width="972" height="400" rx="2"></rect>
         <filter x="-0.7%" y="-1.2%" width="101.4%" height="103.5%" filterUnits="objectBoundingBox" id="filter-2">
             <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
@@ -50,7 +50,7 @@
             <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
             <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
         </g>
-        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray-Copy" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
+        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
             <tspan x="308" y="607">Data Over Time</tspan>
         </text>
         <g id="Group-5-Copy" transform="translate(1217, 597)" fill="#049FD9">
@@ -67,22 +67,22 @@
                 <path d="M129.377543,13.728444 C192.1131,14.284446 242.980417,65.483305 242.980417,128.347909 C242.980417,191.556411 191.556411,242.980417 128.347909,242.980417 C65.483305,242.980417 14.284446,192.112413 13.728444,129.377543 L0,129.377543 C0.556688404,199.682964 57.913441,256.708861 128.347909,256.708861 C199.126275,256.708861 256.708861,199.126275 256.708861,128.347909 C256.708861,57.913441 199.682964,0.556688404 129.377543,0 L129.377543,13.728444 Z" id="Fill-1" fill="#36C296"></path>
                 <path d="M13.6200842,125.623485 C14.5265009,64.2636435 64.2643245,14.5258199 125.623485,13.6200842 L125.623485,0 C56.7535291,0.907778615 0.907778615,56.7535291 0,125.623485 L13.6200842,125.623485 Z" id="Fill-3" fill="#FF9C00"></path>
             </g>
-            <text id="36" font-family="CiscoSans, Cisco Sans" font-size="39.4936709" font-weight="normal" letter-spacing="1.09704635" fill="#717171">
+            <text id="36" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="39.4936709" font-weight="normal" letter-spacing="1.09704635" fill="#717171">
                 <tspan x="103.706751" y="164">36</tspan>
             </text>
-            <text id="Total-Devices" font-family=".AppleSystemUIFont" font-size="19.7468354" font-weight="normal" letter-spacing="0.65822776" fill="#333333">
+            <text id="Total-Devices" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19.7468354" font-weight="normal" letter-spacing="0.65822776" fill="#333333">
                 <tspan x="66.7361689" y="110">Total Devices</tspan>
             </text>
         </g>
         <circle id="Oval" fill="#36C296" cx="407" cy="524" r="3"></circle>
         <circle id="Oval-Copy-3" fill="#FF9700" cx="570" cy="523" r="3"></circle>
-        <text id="Connected" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#414F5F">
+        <text id="Connected" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#414F5F">
             <tspan x="416" y="526">Connected</tspan>
         </text>
-        <text id="Unheard" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
+        <text id="Unheard" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="20" letter-spacing="0.857142857" fill="#333333">
             <tspan x="579" y="526">Unheard</tspan>
         </text>
-        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
+        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
             <tspan x="314.664062" y="182">Devices</tspan>
         </text>
         <line x1="284" y1="205.5" x2="758" y2="205.5" id="Line-2" stroke="#C2C2C2" stroke-linecap="square"></line>
@@ -92,7 +92,7 @@
         </g>
         <path d="M1009.20042,178 L1009.30063,178.096 L1014.018,182.615 L1018.79958,178.036079 L1019,178.228079 L1014.01883,183 L1013.88096,182.867921 L1009.10021,178.288 L1009,178.192 L1009.20042,178 Z" id="Combined-Shape" stroke="#0E5099" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M495.700419,178 L495.800629,178.096 L500.518,182.615 L505.299581,178.036079 L505.5,178.228079 L500.51883,183 L500.38096,182.867921 L495.60021,178.288 L495.5,178.192 L495.700419,178 Z" id="Combined-Shape-Copy" stroke="#0E5099" stroke-linecap="round" stroke-linejoin="round"></path>
-        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family=".AppleSystemUIFont" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
+        <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="26" fill="#333333">
             <tspan x="806" y="182">Data Used</tspan>
         </text>
         <line x1="782" y1="205.5" x2="1256" y2="205.5" id="Line-2" stroke="#C2C2C2" stroke-linecap="square"></line>
@@ -119,7 +119,7 @@
                 <image id="Bitmap" x="919" y="311" width="36" height="100" xlink:href="data:image/png;base64,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"></image>
             </g>
             <polygon id="Path-2-Copy-10" stroke="#0E5099" stroke-linejoin="round" points="905 19 921 19 914.971333 25.7047619 914.971333 35 911.03 31.4062947 911.03 25.7047619"></polygon>
-            <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family=".AppleSystemUIFont" font-size="18" font-weight="normal" line-spacing="26" fill="#333333">
+            <text id="Typography-/-H2-18pt-/-Light-/-Left-/-Gray" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="18" font-weight="normal" line-spacing="26" fill="#333333">
                 <tspan x="24" y="28">Map</tspan>
             </text>
         </g>
@@ -134,13 +134,13 @@
         <g id="icons-/-assurance-/-ellipsis-/-Vertical-/-Filled-Copy" transform="translate(1223, 1024)" fill="#000000">
             <path d="M8.8817842e-16,12 C8.8817842e-16,10.8954305 0.8954305,10 2,10 C3.1045695,10 4,10.8954305 4,12 C4,13.1045695 3.1045695,14 2,14 C0.8954305,14 8.8817842e-16,13.1045695 8.8817842e-16,12 Z M0,7 C0,5.8954305 0.8954305,5 2,5 C3.1045695,5 4,5.8954305 4,7 C4,8.1045695 3.1045695,9 2,9 C0.8954305,9 0,8.1045695 0,7 Z M0,2 C0,0.8954305 0.8954305,0 2,0 C3.1045695,0 4,0.8954305 4,2 C4,3.1045695 3.1045695,4 2,4 C0.8954305,4 0,3.1045695 0,2 Z" id="ellipsisVert-filled"></path>
         </g>
-        <text id="Last-3-Days" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
+        <text id="Last-3-Days" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
             <tspan x="923" y="184">Last 3 Days</tspan>
         </text>
-        <text id="Last-24-Hours" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
+        <text id="Last-24-Hours" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
             <tspan x="391.5" y="184">Last 24 Hours</tspan>
         </text>
-        <text id="Last-24-Hours" font-family="CiscoSans, Cisco Sans" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#0E5099">
+        <text id="Last-24-Hours" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="24" letter-spacing="0.5" fill="#0E5099">
             <tspan x="1059" y="109">Last 24 Hours</tspan>
         </text>
         <path d="M1174.20042,103 L1174.30063,103.096 L1179.018,107.615 L1183.79958,103.036079 L1184,103.228079 L1179.01883,108 L1178.88096,107.867921 L1174.10021,103.288 L1174,103.192 L1174.20042,103 Z" id="Combined-Shape" stroke="#00509E" stroke-linecap="round" stroke-linejoin="round"></path>
@@ -153,16 +153,16 @@
                 <path d="M18.3100501,0 L13.7030868,0 C13.3220093,0 13.0132288,0.308866814 13.0132288,0.689845475 C13.0132288,1.07082414 13.3220093,1.37969095 13.7030868,1.37969095 L16.6445491,1.37969095 L12.2020479,5.82238779 C11.9326354,6.09179544 11.9326354,6.52860559 12.2021399,6.79801325 C12.3368001,6.93267108 12.5134038,7 12.6899154,7 C12.8664271,7 13.0430307,6.9325791 13.177783,6.79792127 L17.6202841,2.35522443 L17.6202841,5.29672553 C17.6202841,5.67770419 17.9290645,5.98657101 18.3101421,5.98657101 C18.6912196,5.98657101 19,5.67770419 19,5.29672553 L19,0.689845475 C18.999908,0.308774834 18.6910356,0 18.3100501,0 Z" id="Path"></path>
             </g>
         </g>
-        <text id="Gateways" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
+        <text id="Gateways" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
             <tspan x="1002" y="505">Gateways</tspan>
         </text>
-        <text id="Data-Used-(GB)" transform="translate(812, 340.5) rotate(-90) translate(-812, -340.5)" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
+        <text id="Data-Used-(GB)" transform="translate(812, 340.5) rotate(-90) translate(-812, -340.5)" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
             <tspan x="757" y="346">Data Used (GB)</tspan>
         </text>
-        <text id="GW-50" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="GW-50" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="853.14" y="472.119934">GW 50</tspan>
         </text>
-        <text id="8-7-6-5-4-3-2-1-0" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="27" fill="#333333">
+        <text id="8-7-6-5-4-3-2-1-0" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="27" fill="#333333">
             <tspan x="846.3" y="234">8</tspan>
             <tspan x="846.3" y="261">7</tspan>
             <tspan x="846.3" y="288">6</tspan>
@@ -173,13 +173,13 @@
             <tspan x="846.3" y="423">1</tspan>
             <tspan x="846.3" y="450">0</tspan>
         </text>
-        <text id="GW-32" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="GW-32" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="933.5" y="474">GW 32</tspan>
         </text>
-        <text id="GW-92" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="GW-92" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="1010.64" y="472.119934">GW 92</tspan>
         </text>
-        <text id="GW-6" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="GW-6" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="1094.74" y="472.119934">GW 6</tspan>
         </text>
         <polygon id="Path-Copy" fill="#E9E9E9" fill-rule="nonzero" points="858.5 420 858.5 419 1225.5 419 1225.5 420"></polygon>
@@ -191,7 +191,7 @@
         <polygon id="Path-Copy-5" fill="#E9E9E9" fill-rule="nonzero" points="858.5 359 858.5 358 1225.5 358 1225.5 359"></polygon>
         <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8" x="1026.5" y="255" width="11" height="196"></rect>
         <path d="M881.5,241 L881.5,451 L869.5,451 L869.5,241 L881.5,241 Z" id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8"></path>
-        <text id="GW-3" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="GW-3" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="1172.5" y="474">GW 3</tspan>
         </text>
         <rect id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8" x="1104.5" y="264.629069" width="12" height="186.377136"></rect>
@@ -199,47 +199,47 @@
         <path d="M959.5,251 L959.5,450.881112 L947.5,450.881112 L947.5,251 L959.5,251 Z" id="Rectangle" stroke="#FFFFFF" stroke-width="2" fill="#5682D8"></path>
         <polygon id="Path-Copy-7" fill="#E9E9E9" fill-rule="nonzero" points="858.5 451 858.5 450 1225.5 450 1225.5 451"></polygon>
         <g id="data-usage" transform="translate(862, 514)">
-            <text id="Discovers" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+            <text id="Discovers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
                 <tspan x="16" y="12">Data Usage</tspan>
             </text>
             <rect id="Rectangle" fill="#5080D6" x="0" y="5" width="8" height="8" rx="4"></rect>
         </g>
         <rect id="Rectangle" fill="#5D81C8" x="348.056964" y="944" width="7.54378819" height="8" rx="3.77189409"></rect>
         <rect id="Rectangle" fill="#D672F7" x="485.609834" y="944" width="7.54378819" height="8" rx="3.77189409"></rect>
-        <text id="Discovers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+        <text id="Discovers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
             <tspan x="363.636842" y="950">Highest</tspan>
         </text>
-        <text id="Offers" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+        <text id="Offers" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
             <tspan x="501.189711" y="950">Lowest</tspan>
         </text>
-        <text id="Requests" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+        <text id="Requests" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
             <tspan x="805.248508" y="950">Upper Threshold</tspan>
         </text>
-        <text id="Requests" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
+        <text id="Requests" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.5" fill="#333333">
             <tspan x="629.725184" y="953">Lower Threshold</tspan>
         </text>
-        <text id="Time" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
+        <text id="Time" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
             <tspan x="756.573957" y="910.484129">Time</tspan>
         </text>
-        <text id="10:00a" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="10:00a" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="376.921381" y="874.119934">10:00a</tspan>
         </text>
-        <text id="12:00p" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="12:00p" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="632.638317" y="876">12:00p</tspan>
         </text>
-        <text id="1:00p" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="1:00p" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="775.477587" y="876">1:00p</tspan>
         </text>
-        <text id="2:00p" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="2:00p" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="911.244056" y="876">2:00p</tspan>
         </text>
-        <text id="3:00p" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="3:00p" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="1047.01052" y="876">3:00p</tspan>
         </text>
-        <text id="4:00p" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="4:00p" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="1184.56339" y="876">4:00p</tspan>
         </text>
-        <text id="11:00a" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
+        <text id="11:00a" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="13" fill="#333333">
             <tspan x="495.187849" y="875.119934">11:00a</tspan>
         </text>
         <polygon id="Path" fill="#E9E9E9" fill-rule="nonzero" points="380.212181 801 380.212181 800 1201.95659 800 1201.95659 801"></polygon>
@@ -261,7 +261,7 @@
             <g id="Side-Nav">
                 <rect id="Rectangle-Copy" fill="#333333" x="0" y="0" width="260" height="2162"></rect>
                 <g id="Group" transform="translate(24, 192.4453)" fill="#9E9EA2">
-                    <text id="Assets-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                    <text id="Assets-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7">
                         <tspan x="48" y="16.5546667">Assets</tspan>
                     </text>
                     <g id="assets-/-active-copy">
@@ -273,32 +273,32 @@
                     <g id="dashboard-/-active-copy" transform="translate(24, 8)">
                         <path d="M22,0 C23.1045695,0 24,0.8954305 24,2 L24,22 C24,23.1045695 23.1045695,24 22,24 L2,24 C0.8954305,24 0,23.1045695 0,22 L0,2 C0,0.8954305 0.8954305,0 2,0 L22,0 Z M22,1.5 L2,1.5 C1.72385763,1.5 1.5,1.72385763 1.5,2 L1.5,22 C1.5,22.2761424 1.72385763,22.5 2,22.5 L22,22.5 C22.2761424,22.5 22.5,22.2761424 22.5,22 L22.5,2 C22.5,1.72385763 22.2761424,1.5 22,1.5 Z M5,5.75 C5.69035594,5.75 6.25,6.30964406 6.25,7 L6.25,20 C6.25,20.6903559 5.69035594,21.25 5,21.25 C4.30964406,21.25 3.75,20.6903559 3.75,20 L3.75,7 C3.75,6.30964406 4.30964406,5.75 5,5.75 Z M9.33333333,8.75 C10.0236893,8.75 10.5833333,9.30964406 10.5833333,10 L10.5833333,20 C10.5833333,20.6903559 10.0236893,21.25 9.33333333,21.25 C8.6429774,21.25 8.08333333,20.6903559 8.08333333,20 L8.08333333,10 C8.08333333,9.30964406 8.6429774,8.75 9.33333333,8.75 Z M13.6666667,12.25 C14.3570226,12.25 14.9166667,12.8096441 14.9166667,13.5 L14.9166667,20 C14.9166667,20.6903559 14.3570226,21.25 13.6666667,21.25 C12.9763107,21.25 12.4166667,20.6903559 12.4166667,20 L12.4166667,13.5 C12.4166667,12.8096441 12.9763107,12.25 13.6666667,12.25 Z M18,6.75 C18.6903559,6.75 19.25,7.30964406 19.25,8 L19.25,20 C19.25,20.6903559 18.6903559,21.25 18,21.25 C17.3096441,21.25 16.75,20.6903559 16.75,20 L16.75,8 C16.75,7.30964406 17.3096441,6.75 18,6.75 Z" id="Combined-Shape"></path>
                     </g>
-                    <text id="Dashboard-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.4375">
+                    <text id="Dashboard-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.4375">
                         <tspan x="72" y="24">Dashboard</tspan>
                     </text>
                     <rect id="Rectangle-Copy-7" x="0" y="0" width="4" height="40"></rect>
                 </g>
                 <g id="Group" transform="translate(0, 45)">
                     <rect id="Rectangle-Copy-3" fill-opacity="0.15" fill="#FFFFFF" x="0" y="0" width="260" height="40"></rect>
-                    <text id="Network-Management-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#FFFFFF">
+                    <text id="Network-Management-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#FFFFFF">
                         <tspan x="24" y="25">Network Management</tspan>
                     </text>
                     <path d="M240.154717,19 L240.232075,19.0773583 L244,22.8452834 L243.845283,23 L240.077358,19.2320749 L240,19.1547166 L240.154717,19 Z M247.845283,19 L248,19.1547166 L244.154717,23 L244,22.8452834 L247.845283,19 Z" id="Combined-Shape" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round"></path>
                 </g>
                 <g id="Device-Inventory-Selected" transform="translate(24, 146)" fill="#9E9EA2">
                     <g id="Group" transform="translate(0, 0)">
-                        <text id="Device-Inventory-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                        <text id="Device-Inventory-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7">
                             <tspan x="48" y="16">Device Inventory</tspan>
                         </text>
                         <path d="M11.768922,-3.55271368e-15 C18.6388954,-3.55271368e-15 24,1.20012688 24,3.17188328 L24,5.5344466 C24,7.506203 18.6388954,8.70632988 11.768922,8.70632988 C4.40129168,8.70632988 0.000199696295,7.91954638 0.000199696295,6 L0.000199696295,3.17188328 C0.000199696295,1.18498602 5.00546754,-3.55271368e-15 11.768922,-3.55271368e-15 Z M11.768922,1.09090909 C8.65807728,1.09090909 5.84681263,1.36555638 3.81019797,1.84772037 C2.00358634,2.27543166 0.998681172,2.84922592 0.998681172,3.17188328 L0.998681172,6 C0.998681172,6.83572501 5.36012602,7.61542079 11.768922,7.61542079 C17.8581214,7.61542079 23.0015185,6.46402949 23.0015185,5.5344466 L23.0015185,3.17188328 C23.0015185,2.24230039 17.8581214,1.09090909 11.768922,1.09090909 Z M22.2428956,9.42863263 C22.4196733,9.28507038 22.6616741,9.28504769 22.8384742,9.4285768 C23.5429951,10.0005176 23.9637551,10.58466 23.9637551,11.4545455 L23.9637551,13.0909091 C23.9637551,15.1348034 18.6916905,16.3636364 11.9819774,16.3636364 C5.12558441,16.3636364 -2.48689958e-14,15.2505335 -2.48689958e-14,13.2242182 L-2.48689958e-14,10.6933091 C-2.48689958e-14,10.2088506 0.255736685,9.78932136 0.698134806,9.42906041 C0.874959578,9.28506554 1.11731046,9.28489164 1.29430819,9.42863263 C2.48342019,10.3943181 6.30879324,10.9090909 11.7691012,10.9090909 C17.2291381,10.9090909 21.0537399,10.3943536 22.2428956,9.42863263 Z M11.7691012,12 C6.47803091,12 2.72135264,11.5466473 1.05458057,10.5506616 C1.01560216,10.6086151 0.998481476,10.6566356 0.998481476,10.6933091 L0.998481476,13.2242182 C0.998481476,13.5725606 2.07705509,14.1499377 4.00373737,14.5683477 C6.07927097,15.0190831 8.92619885,15.2727273 11.9819774,15.2727273 C15.0011311,15.2727273 17.853783,14.9925039 19.9529096,14.5032314 C21.8754911,14.0551088 22.9652736,13.4487163 22.9652736,13.0909091 L22.9652736,11.4545455 C22.9652736,11.1218892 22.8065651,10.8330821 22.5054792,10.5368976 C20.8504196,11.5424953 17.0842181,12 11.7691012,12 Z M22.1711902,16.8537548 C22.2779821,16.7667478 22.412172,16.7299807 22.5439048,16.7516334 C23.2012797,16.8596853 23.6353137,17.2178118 23.8368534,17.7448356 C23.9401951,18.0150731 23.9637551,18.2341745 23.9637551,18.5454545 L23.9637551,20.6488364 C23.9637551,22.7004539 18.5736485,24 11.9449445,24 C5.33241366,24 -2.48689958e-14,22.702905 -2.48689958e-14,20.6488364 L-2.48689958e-14,18.1179273 C-2.48689958e-14,17.6339678 0.254876369,17.2144971 0.695911654,16.8541839 C0.872990129,16.7095158 1.11607175,16.7093413 1.29332415,16.8537548 C2.54941093,17.8771314 6.64411861,18.5454545 11.7327548,18.5454545 C16.8211657,18.5454545 20.9150466,17.8771777 22.1711902,16.8537548 Z M22.5752312,17.872171 C20.932923,18.9997446 16.8286133,19.6363636 11.7327548,19.6363636 C6.79788904,19.6363636 2.79234152,19.0393549 1.05250407,17.9777039 C1.01499577,18.0344552 0.998481476,18.0816347 0.998481476,18.1179273 L0.998481476,20.6488364 C0.998481476,21.0127479 2.09023929,21.6359124 4.00391419,22.1014085 C6.10864574,22.6133787 8.95374785,22.9090909 11.9449445,22.9090909 C14.9375317,22.9090909 17.8005856,22.6130061 19.9234484,22.1011872 C21.856958,21.6350212 22.9652736,21.0098471 22.9652736,20.6488364 L22.9652736,18.5454545 C22.9652736,18.3688576 22.9542873,18.2666872 22.9155525,18.1653964 C22.864684,18.0323757 22.7685954,17.933664 22.5752312,17.872171 Z" id="Combined-Shape"></path>
                     </g>
                 </g>
-                <text id="SERVICE-Copy" opacity="0.796269" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" letter-spacing="0.6" fill="#FFFFFF">
+                <text id="SERVICE-Copy" opacity="0.796269" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" letter-spacing="0.6" fill="#FFFFFF">
                     <tspan x="24" y="35">SERVICE</tspan>
                 </text>
                 <g id="Side-Nav-/-Administration-/-Selected" transform="translate(24.8199, 330)">
                     <g id="Group" transform="translate(-0.8199, 0)">
-                        <text id="Administration-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
+                        <text id="Administration-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
                             <tspan x="48.368" y="17">Administration</tspan>
                         </text>
                         <path d="M16.0130246,0.355704156 L16.5552057,1.38806165 C16.8318814,1.37347575 17.1420674,1.38238936 17.4385056,1.4156128 L18.0485668,0.422961355 C18.2178373,0.149070591 18.6036366,0.0315730731 18.9138226,0.161225506 L20.2198691,0.719541296 C20.5369291,0.854866022 20.6924518,1.19277268 20.5824689,1.50474884 L20.1923734,2.59382928 C20.4166354,2.78263564 20.621994,2.99007953 20.8050123,3.21129899 L21.9701433,2.9130984 C22.0053722,2.90499512 22.1059034,2.89202988 22.14371,2.89202988 C22.4229634,2.89202988 22.678158,3.05814706 22.77783,3.30529701 L23.2822045,4.57021855 C23.4042168,4.87895341 23.2607235,5.22172203 22.9496782,5.36839135 L21.8687529,5.87322551 C21.8850784,6.1568402 21.8756268,6.44207556 21.8386794,6.72244894 L22.874065,7.28886801 C23.1773771,7.45336453 23.2976709,7.80585709 23.1515999,8.10729899 L22.5595827,9.33575579 C22.4513183,9.56345788 22.2090123,9.71093752 21.9417884,9.71093752 C21.8962486,9.71093752 21.7707994,9.69229998 21.7269781,9.67852441 L20.593639,9.31711826 C20.3925766,9.52942412 20.1691739,9.72714408 19.9285864,9.90298519 L20.233617,10.9863933 C20.3238373,11.3064728 20.1442559,11.6338452 19.8168851,11.749722 L18.4764689,12.2245741 C18.4249144,12.2429415 18.3725962,12.2548263 18.3195142,12.2607087 L18.2393183,12.2650905 C17.9824052,12.2650905 17.7435362,12.1257141 17.6309756,11.9085463 L17.1016831,10.9013089 C16.8138373,10.9158948 16.4976366,10.9077915 16.1908875,10.8705165 L15.5945742,11.8396684 C15.4655161,12.0508001 15.2062727,12.169613 14.95373,12.1538052 C15.073824,11.7657296 15.1432006,11.3593103 15.1558053,10.9393853 L15.5103685,10.3616307 C15.6383955,10.1501351 15.9279597,10.0156207 16.1969022,10.0537061 C16.5182584,10.1007051 16.8387553,10.1079981 17.1558153,10.0861192 C17.4737345,10.0861192 17.7031519,10.2206336 17.8165717,10.4369911 L18.3278202,11.4118154 L19.3614873,11.0455473 L19.0659083,9.9969832 C18.9954505,9.74416096 19.0942633,9.47999413 19.3193844,9.32279055 C19.578016,9.14208747 19.8125888,8.93464358 20.0188067,8.70613117 C20.1494114,8.56108251 20.3375852,8.47842908 20.5360699,8.47842908 C20.5816097,8.47842908 20.7044811,8.49706662 20.7483024,8.51084219 L21.8455534,8.86009343 L22.3009511,7.91201001 L21.2999352,7.36503881 C21.0619254,7.23376572 20.9330393,6.98094348 20.9725644,6.72082829 C21.0189634,6.42343802 21.0292743,6.12280644 21.003497,5.82379552 C20.9794383,5.56205967 21.1255093,5.31653037 21.3729707,5.19984318 L22.4203857,4.71121558 L22.029431,3.73152938 L20.9012474,4.02000604 C20.8660185,4.02810932 20.7654873,4.04107456 20.7285399,4.04107456 C20.5163073,4.04107456 20.3135264,3.94383524 20.1863587,3.7817697 C20.0016219,3.54677466 19.7850931,3.32879651 19.5436464,3.13512819 C19.3288361,2.96171806 19.2497859,2.6910686 19.339147,2.44391865 L19.7154946,1.39373395 L18.7101825,0.963449935 L18.1190246,1.92449859 C17.9884199,2.13599413 17.696278,2.27456016 17.4324909,2.23242312 C17.1223049,2.18866543 16.8078226,2.17975182 16.5002143,2.202441 C16.1822951,2.202441 15.9528777,2.0679266 15.8394579,1.8515691 L15.3101653,0.843521435 L14.2816537,1.21789283 L14.5841066,2.29238737 C14.6571421,2.54277863 14.5574701,2.81018678 14.328912,2.96820068 C14.0780136,3.14323146 13.847737,3.34581339 13.6458153,3.56784318 C13.5143514,3.71127119 13.3261776,3.79230396 13.1302706,3.79230396 C13.0847308,3.79230396 12.9618594,3.77366642 12.9188973,3.75989085 L11.7975876,3.40334666 L11.3421898,4.35143007 L12.3526574,4.90407357 C12.5958226,5.03777764 12.7229903,5.29303087 12.679169,5.55557705 C12.63277,5.84567436 12.6207406,6.14387496 12.6447994,6.44126523 C12.650184,6.51003054 12.6442036,6.57746991 12.6280208,6.64163588 C12.3589505,6.49262861 12.0744583,6.36801878 11.7772755,6.26905007 L11.7795436,6.38859393 C11.7649365,6.10659989 11.7752474,5.82379552 11.813054,5.54585311 L10.769076,4.97457208 C10.4657639,4.80683424 10.3471886,4.45596235 10.4915411,4.15776175 L11.0835582,2.92687397 C11.1935411,2.69917188 11.4358471,2.55169224 11.7004934,2.55169224 C11.7468924,2.55169224 11.8740601,2.57195043 11.9178814,2.585726 L13.0735607,2.95442511 C13.2694677,2.74860187 13.4868557,2.55817486 13.7214285,2.38557506 L13.409524,1.27704676 C13.3193037,0.956967313 13.4988851,0.628784592 13.8279744,0.513718058 L15.1666721,0.0396763502 C15.4802951,-0.0753901841 15.8643759,0.0688481476 16.0130246,0.355704156 Z M16.8220001,3.96676751 C18.0876623,3.96676751 19.1170332,4.9375401 19.1170332,6.13196314 C19.1170332,7.32557585 18.0876623,8.29634845 16.8220001,8.29634845 C15.5554787,8.29634845 14.5261078,7.32557585 14.5261078,6.13196314 C14.5261078,4.9375401 15.5554787,3.96676751 16.8220001,3.96676751 Z M16.8220001,4.77709522 C16.0297798,4.77709522 15.3853489,5.384841 15.3853489,6.13196314 C15.3853489,6.87827496 16.0297798,7.48602074 16.8220001,7.48602074 C17.6133612,7.48602074 18.257792,6.87827496 18.257792,6.13196314 C18.257792,5.384841 17.6133612,4.77709522 16.8220001,4.77709522 Z" id="Combined-Shape" fill="#9E9EA2"></path>
@@ -307,7 +307,7 @@
                     </g>
                 </g>
                 <g id="Group" transform="translate(24.9391, 238.939)" fill="#9E9EA2">
-                    <text id="Configuration-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                    <text id="Configuration-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7">
                         <tspan x="47.0609476" y="16.0610396">Configuration</tspan>
                     </text>
                     <g id="operations-copy-3" transform="translate(0, 0)">
@@ -316,7 +316,7 @@
                 </g>
                 <g id="Side-Nav-/-Operations-/-Selected" transform="translate(27, 285)" fill="#9E9EA2">
                     <g id="Group" transform="translate(0, 0)">
-                        <text id="Operations-Copy" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                        <text id="Operations-Copy" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7">
                             <tspan x="45" y="17">Operations</tspan>
                         </text>
                         <g id="operations-copy" transform="translate(-0, 0)">
@@ -325,7 +325,7 @@
                     </g>
                 </g>
                 <g id="Side-Nav-/-Workflows-/-Selected" transform="translate(28, 375)" fill="#9E9EA2">
-                    <text id="Quick-Start" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7">
+                    <text id="Quick-Start" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7">
                         <tspan x="39" y="17">Quick Start</tspan>
                     </text>
                     <g id="flash" fill-rule="nonzero">
@@ -334,7 +334,7 @@
                 </g>
             </g>
             <rect id="Rectangle" fill-opacity="0" fill="#FFFFFF" x="0" y="136" width="260" height="44"></rect>
-            <text id="Quick-Start" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
+            <text id="Quick-Start" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="0.7" fill="#9E9EA2">
                 <tspan x="70" y="435">Quick Start</tspan>
             </text>
             <g id="flash" transform="translate(31, 418)" fill="#9E9EA2" fill-rule="nonzero">
@@ -348,9 +348,9 @@
                     <use fill="#FFFFFF" xlink:href="#path-11"></use>
                 </g>
             </g>
-            <text id="Cisco-Rainier" font-family="CiscoSans-Bold, Cisco Sans" font-size="20" font-weight="bold" line-spacing="24" letter-spacing="0.5" fill="#0E5099">
+            <text id="Cisco-Rainier" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="20" font-weight="bold" line-spacing="24" letter-spacing="0.5" fill="#0E5099">
                 <tspan x="69" y="44">Cisco </tspan>
-                <tspan x="127.884746" y="45.4764404" font-family=".AppleSystemUIFont" font-size="19" font-weight="normal">Rainier</tspan>
+                <tspan x="127.884746" y="45.4764404" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="19" font-weight="normal">Rainier</tspan>
             </text>
             <g id="icons-/-hamburger-/-Hamburger-Menu" transform="translate(27, 30)">
                 <mask id="mask-14" fill="white">
@@ -371,7 +371,7 @@
                 </g>
                 <g id="help" transform="translate(42, 0)">
                     <circle id="Oval" stroke="#9E9EA2" cx="10" cy="10" r="10"></circle>
-                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Avenir-Black, Avenir" font-size="15" font-weight="700">
+                    <g id="?" transform="translate(6, 1)" fill="#9E9EA2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="15" font-weight="700">
                         <text>
                             <tspan x="0" y="15">?</tspan>
                         </text>
@@ -380,7 +380,7 @@
             </g>
             <g id="Group" transform="translate(1047, 26)">
                 <path d="M59.1547166,9 L59.2320749,9.0773583 L63,12.8452834 L62.8452834,13 L59.0773583,9.23207491 L59,9.15471661 L59.1547166,9 Z M66.8452834,9 L67,9.15471661 L63.1547166,13 L63,12.8452834 L66.8452834,9 Z" id="Combined-Shape" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
-                <text id="Tenant" opacity="0.6" font-family="CiscoSans, Cisco Sans" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+                <text id="Tenant" opacity="0.6" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
                     <tspan x="0" y="16">Tenant</tspan>
                 </text>
             </g>
@@ -388,10 +388,10 @@
         <rect id="Rectangle" opacity="0" x="0" y="210" width="260" height="43"></rect>
         <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" opacity="0" x="0" y="112" width="260" height="54"></rect>
         <line x1="284" y1="630.5" x2="1256" y2="630.5" id="Line-2-Copy" stroke="#C2C2C2" stroke-linecap="square"></line>
-        <text id="Data-Used-(GB)" transform="translate(317, 773.5) rotate(-90) translate(-317, -773.5)" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
+        <text id="Data-Used-(GB)" transform="translate(317, 773.5) rotate(-90) translate(-317, -773.5)" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="16.3442062" letter-spacing="0.58333324" fill="#333333">
             <tspan x="262" y="779">Data Used (GB)</tspan>
         </text>
-        <text id="6-4-2-0" font-family="CiscoSans, Cisco Sans" font-size="12" font-weight="normal" line-spacing="52" fill="#333333">
+        <text id="6-4-2-0" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="12" font-weight="normal" line-spacing="52" fill="#333333">
             <tspan x="366.3" y="682">6</tspan>
             <tspan x="366.3" y="734">4</tspan>
             <tspan x="366.3" y="786">2</tspan>
@@ -401,7 +401,7 @@
         <line x1="791.875" y1="948.5" x2="801" y2="948.5" id="Line" stroke="#EE0000" stroke-width="2" stroke-linecap="round" stroke-dasharray="1,3"></line>
         <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" opacity="0" x="0" y="302" width="260" height="38"></rect>
         <g id="Group-6" transform="translate(0, 1482)">
-            <g id="Group-3" transform="translate(27, 0)" fill="#FFFFFF" font-family="CiscoSans, Cisco Sans" font-size="14" font-weight="normal" letter-spacing="1">
+            <g id="Group-3" transform="translate(27, 0)" fill="#FFFFFF" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" letter-spacing="1">
                 <text id="Total-Licenses:-500">
                     <tspan x="0" y="14">Total Licenses: 500</tspan>
                 </text>
@@ -412,12 +412,12 @@
             <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" opacity="0" x="0" y="4" width="27" height="65"></rect>
             <rect id="Rectangle" stroke="#979797" fill="#D8D8D8" opacity="0" x="27" y="45" width="146" height="24"></rect>
         </g>
-        <text id="Dashboard" font-family=".AppleSystemUIFont" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.5" fill="#00090D">
+        <text id="Dashboard" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="24" font-weight="normal" line-spacing="30" letter-spacing="0.5" fill="#00090D">
             <tspan x="284" y="111">Dashboard</tspan>
         </text>
         <g id="Group" transform="translate(1064, 26)">
             <path d="M59.1547166,9 L59.2320749,9.0773583 L63,12.8452834 L62.8452834,13 L59.0773583,9.23207491 L59,9.15471661 L59.1547166,9 Z M66.8452834,9 L67,9.15471661 L63.1547166,13 L63,12.8452834 L66.8452834,9 Z" id="Combined-Shape" stroke="#666666" stroke-linecap="round" stroke-linejoin="round"></path>
-            <text id="Tenant" opacity="0.6" font-family="CiscoSans, Cisco Sans" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
+            <text id="Tenant" opacity="0.6" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="16" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#333333">
                 <tspan x="0" y="16">Tenant</tspan>
             </text>
         </g>
@@ -429,13 +429,13 @@
                 <use fill="black" fill-opacity="1" filter="url(#filter-16)" xlink:href="#path-15"></use>
                 <rect stroke="#D7D9DA" stroke-width="1" stroke-linejoin="square" fill="#FFFFFF" fill-rule="evenodd" x="0.5" y="0.5" width="152" height="139"></rect>
             </g>
-            <text id="Edit-Dashlet" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
+            <text id="Edit-Dashlet" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
                 <tspan x="23" y="35">Edit Dashlet</tspan>
             </text>
-            <text id="Export" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
+            <text id="Export" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
                 <tspan x="23" y="73">Export</tspan>
             </text>
-            <text id="Remove-Copy-2" font-family=".AppleSystemUIFont" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
+            <text id="Remove-Copy-2" font-family="Source Sans 3, Helvetica, Arial, sans-serif" font-size="14" font-weight="normal" line-spacing="20" letter-spacing="0.5" fill="#0E5099">
                 <tspan x="23" y="111">Remove</tspan>
             </text>
         </g>

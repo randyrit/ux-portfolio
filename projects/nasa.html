@@ -1,0 +1,1629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NASA Ames Research Center — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.cdnfonts.com/css/museo-sans-rounded" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0A0E1A;
+      --bg-secondary: #121829;
+      --bg-elevated: #1A2035;
+      --text-primary: #F0F2F8;
+      --text-secondary: #8B92A8;
+      --text-muted: #505872;
+      --accent: #4A9FD9;
+      --accent-dim: rgba(74, 159, 217, 0.12);
+      --accent-glow: rgba(74, 159, 217, 0.06);
+      --orange: #FF6B35;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.14);
+      --font-display: 'Museo Sans', 'Museo Sans Rounded', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --nav-height: 72px;
+      --content-max: 1080px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.4;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+
+    /* Space Background */
+    #math-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .math-sym {
+      position: absolute;
+      font-family: var(--font-body);
+      color: var(--accent);
+      opacity: 0;
+      will-change: transform, opacity;
+      animation: drift linear infinite;
+      user-select: none;
+    }
+    @keyframes drift {
+      0%   { transform: translateY(105vh) rotate(0deg); opacity: 0; }
+      5%   { opacity: var(--peak-opacity, 0.07); }
+      90%  { opacity: var(--peak-opacity, 0.07); }
+      100% { transform: translateY(-10vh) rotate(var(--rot, 120deg)); opacity: 0; }
+    }
+
+    /* Reading progress bar */
+    .progress-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--orange);
+      z-index: 1002;
+      transform-origin: left;
+      transform: scaleX(0);
+      width: 100%;
+      will-change: transform;
+      transition: none;
+    }
+
+    /* ===================== NAVIGATION ===================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 64px);
+      z-index: 1000;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: rgba(10, 14, 26, 0.95);
+      border-bottom-color: var(--border-hover);
+    }
+
+    .nav__logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+      color: var(--text-primary);
+      position: relative;
+      z-index: 1001;
+    }
+
+    .nav__logo svg {
+      width: 36px;
+      height: 36px;
+      fill: var(--text-primary);
+      transition: fill 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .nav__logo:hover svg {
+      fill: var(--accent);
+      transform: scale(1.05);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav__link:hover {
+      color: var(--text-primary);
+      background: var(--accent-dim);
+    }
+
+    .nav__link--back svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+
+    .nav__link--back:hover svg {
+      transform: translateX(-3px);
+    }
+
+    /* Hamburger */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 44px;
+      height: 44px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1001;
+      gap: 6px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 22px;
+      height: 1.5px;
+      background: var(--text-primary);
+      transition: transform 0.4s var(--ease-out-expo), opacity 0.3s ease;
+      transform-origin: center;
+    }
+
+    .nav__hamburger.active span:nth-child(1) { transform: translateY(3.75px) rotate(45deg); }
+    .nav__hamburger.active span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    .nav__hamburger.active span:nth-child(3) { transform: translateY(-3.75px) rotate(-45deg); }
+
+    .nav__mobile-menu {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav__links { display: none; }
+      .nav__hamburger { display: flex; }
+
+      .nav__mobile-menu {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: rgba(10, 14, 26, 0.98);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        list-style: none;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s var(--ease-out-expo), visibility 0.5s;
+        z-index: 999;
+      }
+
+      .nav__mobile-menu.open { opacity: 1; visibility: visible; }
+
+      .nav__mobile-link {
+        font-family: var(--font-display);
+        font-size: clamp(32px, 8vw, 48px);
+        color: var(--text-secondary);
+        text-decoration: none;
+        padding: 12px 32px;
+        transition: color 0.3s ease, transform 0.4s var(--ease-out-expo);
+        transform: translateY(20px);
+        opacity: 0;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link {
+        transform: translateY(0);
+        opacity: 1;
+      }
+
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(1) { transition-delay: 0.1s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(2) { transition-delay: 0.18s; }
+      .nav__mobile-menu.open .nav__mobile-link:nth-child(3) { transition-delay: 0.26s; }
+
+      .nav__mobile-link:hover { color: var(--accent); }
+    }
+
+    /* ===================== CASE STUDY HERO ===================== */
+    .cs-hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 80px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 100px);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+    }
+
+    .cs-hero__bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, #0f1528 0%, #0A0E1A 40%, #080b15 100%);
+      z-index: -2;
+    }
+
+    .cs-hero__bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(74, 159, 217, 0.10) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(255, 107, 53, 0.04) 0%, transparent 50%);
+    }
+
+    .cs-hero__image {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      opacity: 0;
+      animation: fadeIn 1s var(--ease-out-expo) 0.1s forwards;
+    }
+
+    .cs-hero__image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .cs-hero__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-primary) 0%, rgba(10, 14, 26, 0.85) 30%, rgba(10, 14, 26, 0.5) 60%, rgba(10, 14, 26, 0.3) 100%);
+    }
+
+    .cs-hero__image-placeholder {
+      width: 100%;
+      height: 100%;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: 20px;
+      color: var(--text-muted);
+      opacity: 0.3;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .cs-hero__eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .cs-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 7vw, 96px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      max-width: 800px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .cs-hero__subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .cs-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.65s forwards;
+    }
+
+    .cs-hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cs-hero__meta-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .cs-hero__meta-value {
+      color: var(--text-primary);
+    }
+
+    /* ===================== CONTENT WRAPPER ===================== */
+    .cs-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-section {
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 64px);
+    }
+
+    .cs-section--narrow {
+      max-width: calc(var(--content-max) + clamp(48px, 10vw, 128px));
+      margin: 0 auto;
+    }
+
+    .cs-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      border: none;
+      margin: 0;
+    }
+
+    /* Section header */
+    .cs-section__number {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cs-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+
+    .cs-section__subtitle {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ===================== OVERVIEW / METRICS ===================== */
+    .cs-overview {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+
+    .cs-overview__summary p {
+      font-size: clamp(16px, 1.8vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .cs-metrics {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .cs-metric {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-metric:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 3.5vw, 48px);
+      color: var(--accent);
+      line-height: 1.1;
+      margin-bottom: 6px;
+    }
+
+    .cs-metric__label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 768px) {
+      .cs-overview {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== SPLIT LAYOUT ===================== */
+    .cs-split {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: clamp(40px, 6vw, 100px);
+      align-items: start;
+    }
+
+    .cs-split__sidebar {
+      position: sticky;
+      top: calc(var(--nav-height) + 40px);
+    }
+
+    .cs-split__sidebar-label {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .cs-split__sidebar-title {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .cs-split__sidebar-desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .cs-split__content {
+      min-width: 0;
+    }
+
+    .cs-split__content p {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .cs-split__content p:last-child {
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 900px) {
+      .cs-split {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .cs-split__sidebar {
+        position: static;
+      }
+    }
+
+    /* ===================== QUOTE ===================== */
+    .cs-quote {
+      border-left: 3px solid var(--orange);
+      padding: 4px 0 4px 32px;
+      margin: 40px 0;
+    }
+
+    .cs-quote__text {
+      font-family: var(--font-display);
+      font-weight: 300;
+      font-size: clamp(20px, 2.5vw, 28px);
+      color: var(--text-primary);
+      line-height: 1.5;
+      margin-bottom: 12px;
+    }
+
+    .cs-quote__attribution {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    /* ===================== INSIGHT CARDS ===================== */
+    .cs-insights {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .cs-insights--three {
+      grid-template-columns: 1fr;
+    }
+
+    .cs-insights--stack {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .cs-insights--stack .cs-insight {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 16px 24px;
+    }
+
+    .cs-insights--stack .cs-insight__icon {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+      .cs-insights {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-insight {
+      padding: 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-insight:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .cs-insight__icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--accent-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent);
+      margin-bottom: 18px;
+      font-size: 18px;
+    }
+
+    .cs-insight__icon--orange {
+      background: rgba(255, 107, 53, 0.12);
+      color: var(--orange);
+    }
+
+    .cs-insight__icon .material-symbols-outlined {
+      font-family: 'Material Symbols Outlined';
+      font-size: 22px;
+      font-weight: normal;
+      font-style: normal;
+    }
+
+    .cs-insight__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+    }
+
+    .cs-insight__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== FULL-BLEED IMAGE ===================== */
+    .cs-fullbleed {
+      width: 100%;
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-gallery {
+      display: grid;
+      gap: 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .cs-gallery--single {
+      grid-template-columns: 1fr;
+    }
+
+    .cs-gallery--two {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .cs-gallery--three {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+
+    @media (max-width: 768px) {
+      .cs-gallery--two,
+      .cs-gallery--three {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-gallery__item {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color 0.3s ease;
+    }
+
+    .cs-gallery__item:hover {
+      border-color: var(--border-hover);
+    }
+
+    .cs-gallery__item img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      display: block;
+      max-height: 80vh;
+    }
+
+    .cs-gallery__caption {
+      text-align: center;
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      letter-spacing: 0.02em;
+    }
+
+    /* ===================== BEFORE / AFTER ===================== */
+    .cs-comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    .cs-comparison__side {
+      position: relative;
+    }
+
+    .cs-comparison__label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      padding: 4px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 3;
+    }
+
+    .cs-comparison__label--before {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .cs-comparison__label--after {
+      background: rgba(74, 159, 217, 0.15);
+      color: var(--accent);
+    }
+
+    .cs-comparison__image {
+      width: 100%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .cs-comparison__image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    @media (max-width: 768px) {
+      .cs-comparison {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ===================== CALLOUT ===================== */
+    .cs-callout {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      padding: 28px 32px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--orange);
+      border-radius: 16px;
+      margin: 32px 0;
+    }
+
+    .cs-callout__number {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4vw, 52px);
+      color: var(--orange);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .cs-callout__text {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* ===================== BULLET LIST ===================== */
+    .cs-bullet-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin: 24px 0;
+    }
+
+    .cs-bullet-list li {
+      padding-left: 20px;
+      position: relative;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    .cs-bullet-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: 0.5;
+    }
+
+    /* ===================== IMPACT SECTION ===================== */
+    .cs-impact-metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-bottom: 48px;
+    }
+
+    @media (max-width: 768px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-impact-metrics {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-impact-metric {
+      padding: 36px 28px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      text-align: center;
+      transition: border-color 0.3s ease, transform 0.4s var(--ease-out-expo);
+    }
+
+    .cs-impact-metric:hover {
+      border-color: rgba(255, 107, 53, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .cs-impact-metric__value {
+      font-family: var(--font-display);
+      font-size: clamp(40px, 5vw, 56px);
+      color: var(--orange);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .cs-impact-metric__label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .cs-impact-metric__sublabel {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    /* ===================== REFLECTIONS ===================== */
+    .cs-reflections {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .cs-reflections--stack {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .cs-reflections--stack .cs-reflection {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      padding: 16px 24px;
+    }
+
+    .cs-reflections--stack .cs-reflection__number {
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .cs-reflections--stack .cs-reflection__title {
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 900px) {
+      .cs-reflections {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .cs-reflections {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .cs-reflection {
+      padding: 32px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--bg-secondary);
+    }
+
+    .cs-reflection__number {
+      font-family: var(--font-display);
+      font-size: 32px;
+      color: var(--orange);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+
+    .cs-reflection__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      color: var(--text-primary);
+      margin-bottom: 10px;
+    }
+
+    .cs-reflection__text {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* ===================== NEXT/PREV NAV ===================== */
+    .cs-project-nav {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-project-nav__link {
+      padding: clamp(40px, 6vw, 80px) clamp(24px, 5vw, 64px);
+      text-decoration: none;
+      color: inherit;
+      border-top: 1px solid var(--border);
+      transition: background 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:first-child {
+      border-right: 1px solid var(--border);
+    }
+
+    .cs-project-nav__link:last-child {
+      text-align: right;
+      align-items: flex-end;
+    }
+
+    .cs-project-nav__link:hover {
+      background: var(--bg-secondary);
+    }
+
+    .cs-project-nav__direction {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .cs-project-nav__link:last-child .cs-project-nav__direction {
+      justify-content: flex-end;
+    }
+
+    .cs-project-nav__title {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 36px);
+      color: var(--text-primary);
+      transition: color 0.3s ease;
+    }
+
+    .cs-project-nav__link:hover .cs-project-nav__title {
+      color: var(--accent);
+    }
+
+    @media (max-width: 600px) {
+      .cs-project-nav {
+        grid-template-columns: 1fr;
+      }
+      .cs-project-nav__link:first-child {
+        border-right: none;
+      }
+      .cs-project-nav__link:last-child {
+        text-align: left;
+        align-items: flex-start;
+      }
+      .cs-project-nav__link:last-child .cs-project-nav__direction {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ===================== FOOTER ===================== */
+    .footer {
+      padding: 40px clamp(24px, 5vw, 64px);
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .footer__text {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .footer__links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer__link {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer__link:hover {
+      color: var(--accent);
+    }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.08s; }
+    .reveal-delay-2 { transition-delay: 0.16s; }
+    .reveal-delay-3 { transition-delay: 0.24s; }
+    .reveal-delay-4 { transition-delay: 0.32s; }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="math-bg"></div>
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="../index.html" class="nav__logo" aria-label="Home">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" aria-hidden="true">
+        <path d="M600,497.48V12.46c0-6.88-5.58-12.46-12.46-12.46H11.05C4.95,0,0,4.95,0,11.05v577.9c0,6.1,4.95,11.05,11.05,11.05h486.43c9.85,0,14.78-11.9,7.82-18.87l-239.12-239.12c-4.32-4.32-11.31-4.32-15.63,0l-176.61,176.61c-6.96,6.96-18.87,2.03-18.87-7.82V58.68c0-6.1,4.95-11.05,11.05-11.05h452.12c9.85,0,14.78,11.9,7.82,18.87l-184.05,184.05c-4.32,4.32-4.32,11.31,0,15.63l239.12,239.12c6.96,6.96,18.87,2.03,18.87-7.82Z"/>
+        <path d="M185.88,87.73h205.11c8.23,0,12.36,9.95,6.53,15.78l-100.28,100.28c-4.86,4.86-12.75,4.86-17.62,0l-100.28-100.28c-5.82-5.82-1.7-15.78,6.53-15.78Z"/>
+      </svg>
+    </a>
+    <ul class="nav__links">
+      <li>
+        <a href="../index.html" class="nav__link nav__link--back">
+          <svg viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          All Projects
+        </a>
+      </li>
+      <li><a href="../index.html#leadership" class="nav__link">Leadership</a></li>
+      <li><a href="../index.html#about" class="nav__link">About Me</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav__mobile-menu" id="mobileMenu">
+      <li><a href="../index.html" class="nav__mobile-link">All Projects</a></li>
+      <li><a href="../index.html#leadership" class="nav__mobile-link">Leadership</a></li>
+      <li><a href="../index.html#about" class="nav__mobile-link">About Me</a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="cs-hero">
+    <div class="cs-hero__bg"></div>
+    <div class="cs-hero__image">
+      <img src="../images/NASA/Frame 47626.png" alt="Boeing 777 EICAS display and aircraft systems diagram">
+    </div>
+    <p class="cs-hero__eyebrow">Case Study</p>
+    <h1 class="cs-hero__title">NASA Ames Research Center</h1>
+    <p class="cs-hero__subtitle">Designing Boeing 777 flight simulator interfaces to help pilots make faster decisions during in-flight emergencies.</p>
+    <div class="cs-hero__meta">
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Role</span>
+        <span class="cs-hero__meta-value">Product Designer</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Timeline</span>
+        <span class="cs-hero__meta-value">Dec 2015 &ndash; Oct 2018</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Location</span>
+        <span class="cs-hero__meta-value">Mountain View, CA (On Site)</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Focus</span>
+        <span class="cs-hero__meta-value">EICAS &mdash; Cockpit Display Systems</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-content">
+
+    <!-- ==================== OVERVIEW ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-overview">
+        <div class="cs-overview__summary">
+          <p>At NASA Ames Research Center, I worked on the Boeing 777 flight simulator program &mdash; redesigning the EICAS (Engine Indication and Crew Alerting System) interface to help pilots process critical failure information faster during emergencies.</p>
+          <p>The core insight was simple but powerful: instead of showing pilots everything, show them only what&rsquo;s wrong. This reductive approach to cockpit display design reduced incident analysis time by 35% and informed FAA safety recommendations.</p>
+        </div>
+        <div class="cs-metrics">
+          <div class="cs-metric reveal reveal-delay-1">
+            <div class="cs-metric__value">20+</div>
+            <div class="cs-metric__label">Pilots Interviewed</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-2">
+            <div class="cs-metric__value">35%</div>
+            <div class="cs-metric__label">Faster Analysis</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-3">
+            <div class="cs-metric__value">FAA</div>
+            <div class="cs-metric__label">Safety Recommendations</div>
+          </div>
+          <div class="cs-metric reveal reveal-delay-4">
+            <div class="cs-metric__value">~3yr</div>
+            <div class="cs-metric__label">Engagement Duration</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== CONTEXT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">01 &mdash; Context</span>
+          <h2 class="cs-split__sidebar-title">The Cockpit Problem</h2>
+          <p class="cs-split__sidebar-desc">Too much information at the worst possible time.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Modern cockpits are marvels of engineering &mdash; but they present a critical design challenge. The EICAS display on a Boeing 777 shows engine parameters, hydraulic systems, electrical status, fuel quantities, and dozens of other indicators simultaneously.</p>
+          <p>During normal flight, this comprehensive view works fine. But during an emergency &mdash; when an engine fails, a fire warning triggers, or multiple systems cascade &mdash; pilots are suddenly drowning in information at the exact moment they need clarity most.</p>
+          <p>The question we set out to answer: how do you redesign a cockpit display so that it helps pilots focus on what matters during the moments that matter most?</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- EICAS reference image -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/EICAS.jpg" alt="Boeing 777 EICAS display showing engine and systems parameters" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Standard EICAS display &mdash; engine parameters, alerts, and system statuses all visible at once</p>
+    </div>
+
+    <!-- ==================== RESEARCH ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">02 &mdash; Research</span>
+          <h2 class="cs-split__sidebar-title">Learning from Pilots</h2>
+          <p class="cs-split__sidebar-desc">Field research with 20+ pilots studying real in-flight failure scenarios.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>We conducted extensive research with over 20 commercial airline pilots, studying how they process information during simulated in-flight failures. We observed their scan patterns, decision-making timelines, and the moments where critical information was missed or delayed.</p>
+          <p>One of our most instructive case studies was Qantas Flight 32 &mdash; an Airbus A380 that suffered an uncontained engine failure over Indonesia in 2010. The crew was bombarded with over 50 ECAM messages in rapid succession, many of them contradictory. Despite the chaos, the crew&rsquo;s methodical approach to triaging information saved 469 lives.</p>
+
+          <div class="cs-insights cs-insights--stack">
+            <div class="cs-insight reveal reveal-delay-1">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">visibility_off</span></div>
+              <div>
+                <h4 class="cs-insight__title">Alert Saturation</h4>
+                <p class="cs-insight__desc">During multi-system failures, pilots received 30&ndash;50+ alerts simultaneously. After the first 8&ndash;10, most were dismissed or ignored entirely.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-2">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">timer</span></div>
+              <div>
+                <h4 class="cs-insight__title">Decision Latency</h4>
+                <p class="cs-insight__desc">Pilots spent an average of 12 seconds scanning for relevant information before acting &mdash; time that could mean the difference between containment and escalation.</p>
+              </div>
+            </div>
+            <div class="cs-insight reveal reveal-delay-3">
+              <div class="cs-insight__icon"><span class="material-symbols-outlined">psychology</span></div>
+              <div>
+                <h4 class="cs-insight__title">Cognitive Overload</h4>
+                <p class="cs-insight__desc">Pilots described &ldquo;tunnel vision&rdquo; during emergencies &mdash; fixating on one indicator while missing changes in others. The display design was working against human cognition.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Qantas Flight 32 research context -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/Qantas_Flight_32_engine_damage_-_4_Nov_2010.jpg" alt="Qantas Flight 32 engine damage after uncontained failure" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/QRH-Page.jpg" alt="Quick Reference Handbook page used during emergency procedures" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Qantas Flight 32 engine damage &mdash; Right: Quick Reference Handbook (QRH) used for emergency checklists</p>
+    </div>
+
+    <!-- ==================== PROBLEM ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">03 &mdash; The Problem</span>
+          <h2 class="cs-split__sidebar-title">Information Overload</h2>
+          <p class="cs-split__sidebar-desc">Every alert treated equally means no alert gets the attention it deserves.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>The fundamental problem was that the EICAS display treated all information with equal visual weight. Normal operating parameters, advisory messages, caution alerts, and critical warnings all competed for the same screen real estate and pilot attention.</p>
+
+          <div class="cs-callout">
+            <div class="cs-callout__number">50+</div>
+            <div class="cs-callout__text">simultaneous alerts during a multi-system failure event &mdash; pilots couldn&rsquo;t distinguish critical from informational in the noise</div>
+          </div>
+
+          <p>Pilots told us they had developed personal coping strategies &mdash; mentally filtering out certain display areas, relying on memory instead of the display, or simply dismissing alerts in bulk to clear the screen. These workarounds were unreliable and dangerous.</p>
+          <ul class="cs-bullet-list">
+            <li>Normal and abnormal parameters displayed with equal visual prominence</li>
+            <li>Alert cascades during failures made it impossible to identify the root cause</li>
+            <li>Pilots resorted to memorized procedures rather than trusting the display</li>
+            <li>QRH cross-referencing added critical seconds to response times</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== APPROACH ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">04 &mdash; Approach</span>
+          <h2 class="cs-split__sidebar-title">Focus on the Negative</h2>
+          <p class="cs-split__sidebar-desc">Instead of showing everything, surface only what&rsquo;s wrong.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>Our design philosophy was counterintuitive for a system that had always tried to show everything: show less. Specifically, during failure scenarios, suppress all normal operating parameters and surface only the deviations &mdash; the failures, the warnings, the things that need immediate pilot action.</p>
+
+          <div class="cs-quote">
+            <p class="cs-quote__text">&ldquo;If everything is highlighted, nothing is highlighted. The most powerful thing a display can do during an emergency is hide what&rsquo;s working.&rdquo;</p>
+            <p class="cs-quote__attribution">Design principle &mdash; EICAS redesign</p>
+          </div>
+
+          <p>We studied the Quick Reference Handbook (QRH) &mdash; the paper-based emergency procedures that pilots reference during failures &mdash; and used its structure as a design model. The QRH doesn&rsquo;t list everything about the aircraft; it lists only the relevant steps for the specific failure at hand. Our display should do the same.</p>
+          <ul class="cs-bullet-list">
+            <li>Suppress normal-state parameters during failure modes to reduce visual noise</li>
+            <li>Surface only deviations, failures, and items requiring pilot action</li>
+            <li>Use progressive disclosure: show severity first, details on demand</li>
+            <li>Mirror QRH structure so the display reinforces trained procedures</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- QRH reference images -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--two">
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/QRH-Page.jpg" alt="Quick Reference Handbook emergency procedure page" />
+        </div>
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/QRH-Page (1).jpg" alt="Quick Reference Handbook checklist format" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Quick Reference Handbook pages &mdash; the paper-based mental model that guided our digital display redesign</p>
+    </div>
+
+    <!-- ==================== DESIGN: BEFORE & AFTER ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">05 &mdash; Design</span>
+      <h2 class="cs-section__title">Before &amp; After</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">From showing everything to surfacing only what matters.</p>
+    </section>
+
+    <!-- Before/After comparison -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-comparison">
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--before">Before</span>
+          <div class="cs-comparison__image">
+            <img src="../images/NASA/Before.png" alt="Original EICAS display showing all system parameters simultaneously" />
+          </div>
+        </div>
+        <div class="cs-comparison__side">
+          <span class="cs-comparison__label cs-comparison__label--after">After</span>
+          <div class="cs-comparison__image">
+            <img src="../images/NASA/After.png" alt="Redesigned EICAS display focused only on failure information" />
+          </div>
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Left: Original EICAS showing all UI aspects &mdash; Right: Redesigned display focused on failures only, reducing clutter for faster pilot decisions</p>
+    </div>
+
+    <!-- ==================== FINAL DESIGN ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-split">
+        <div class="cs-split__sidebar">
+          <span class="cs-split__sidebar-label">06 &mdash; Final Design</span>
+          <h2 class="cs-split__sidebar-title">The Redesigned EICAS</h2>
+          <p class="cs-split__sidebar-desc">A failure-focused display built for high-pressure decision-making.</p>
+        </div>
+        <div class="cs-split__content">
+          <p>The final interface strips away operating norms during failure scenarios and presents only the information pilots need to act. The display dynamically transitions between a full-system overview during normal flight and a failure-focused view when anomalies are detected.</p>
+          <p>Pilots no longer need to mentally filter out noise &mdash; the system does it for them. The result is a display that works with human cognition under stress rather than against it.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final design image -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/Frame 47626.png" alt="Final EICAS redesign with integrated aircraft systems diagram" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Redesigned EICAS interface &mdash; combined engine display and aircraft systems diagram for integrated failure analysis</p>
+    </div>
+
+    <!-- Simulator context -->
+    <div class="cs-fullbleed reveal">
+      <div class="cs-gallery cs-gallery--single">
+        <div class="cs-gallery__item">
+          <img src="../images/NASA/screencapture-ruttapon-ritprasert-r7z5-squarespace-new-page-2019-11-21-01_04_31+copy.png" alt="Boeing 777 flight simulator screenshots and cockpit interface context" />
+        </div>
+      </div>
+      <p class="cs-gallery__caption">Boeing 777 flight simulator environment &mdash; where the redesigned EICAS was tested with commercial pilots</p>
+    </div>
+
+    <!-- ==================== IMPACT ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">07 &mdash; Impact</span>
+      <h2 class="cs-section__title">Results &amp; Impact</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">Measurable improvements in pilot decision-making under pressure.</p>
+
+      <div class="cs-impact-metrics">
+        <div class="cs-impact-metric reveal reveal-delay-1">
+          <div class="cs-impact-metric__value">35%</div>
+          <div class="cs-impact-metric__label">Faster incident analysis time</div>
+          <div class="cs-impact-metric__sublabel">Speed</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-2">
+          <div class="cs-impact-metric__value">20+</div>
+          <div class="cs-impact-metric__label">Commercial pilots tested in simulator</div>
+          <div class="cs-impact-metric__sublabel">Research</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-3">
+          <div class="cs-impact-metric__value">FAA</div>
+          <div class="cs-impact-metric__label">Safety recommendations informed</div>
+          <div class="cs-impact-metric__sublabel">Regulation</div>
+        </div>
+        <div class="cs-impact-metric reveal reveal-delay-4">
+          <div class="cs-impact-metric__value">~3yr</div>
+          <div class="cs-impact-metric__label">Research and design engagement</div>
+          <div class="cs-impact-metric__sublabel">Duration</div>
+        </div>
+      </div>
+
+      <div class="cs-insights cs-insights--stack" style="margin-top: 40px;">
+        <div class="cs-insight reveal reveal-delay-1">
+          <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">speed</span></div>
+          <div>
+            <h4 class="cs-insight__title">Faster Root Cause Identification</h4>
+            <p class="cs-insight__desc">By suppressing normal parameters, pilots identified the root failure 35% faster. The display did the cognitive filtering that pilots previously did manually.</p>
+          </div>
+        </div>
+        <div class="cs-insight reveal reveal-delay-2">
+          <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">verified</span></div>
+          <div>
+            <h4 class="cs-insight__title">Reduced Alert Dismissals</h4>
+            <p class="cs-insight__desc">Pilots stopped bulk-dismissing alerts because only relevant alerts were shown. Every visible item warranted attention, rebuilding trust in the display system.</p>
+          </div>
+        </div>
+        <div class="cs-insight reveal reveal-delay-3">
+          <div class="cs-insight__icon cs-insight__icon--orange"><span class="material-symbols-outlined">policy</span></div>
+          <div>
+            <h4 class="cs-insight__title">FAA Safety Input</h4>
+            <p class="cs-insight__desc">Research findings from pilot testing were compiled into recommendations that informed FAA safety guidelines for cockpit display design standards.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== REFLECTIONS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">08 &mdash; Reflections</span>
+      <h2 class="cs-section__title">Key Takeaways</h2>
+      <p class="cs-section__subtitle" style="margin-bottom: 48px;">What nearly three years at NASA taught me about designing for extreme environments.</p>
+
+      <div class="cs-reflections cs-reflections--stack">
+        <div class="cs-reflection reveal reveal-delay-1">
+          <div class="cs-reflection__number">01</div>
+          <div>
+            <h4 class="cs-reflection__title">Designing for Extreme Pressure</h4>
+            <p class="cs-reflection__text">Interfaces used in emergencies must work with stressed cognition, not against it. Every element that doesn&rsquo;t serve the immediate task is a liability. This changed how I think about information hierarchy in every product I&rsquo;ve designed since.</p>
+          </div>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-2">
+          <div class="cs-reflection__number">02</div>
+          <div>
+            <h4 class="cs-reflection__title">Simplification as a Design Tool</h4>
+            <p class="cs-reflection__text">The most impactful design decision wasn&rsquo;t adding a new feature &mdash; it was removing information. Showing less, at the right time, gave pilots more clarity than any new widget or visualization could have.</p>
+          </div>
+        </div>
+        <div class="cs-reflection reveal reveal-delay-3">
+          <div class="cs-reflection__number">03</div>
+          <div>
+            <h4 class="cs-reflection__title">Working Within Aviation Constraints</h4>
+            <p class="cs-reflection__text">Aviation design operates under strict regulatory, safety, and certification constraints. Learning to innovate within rigid boundaries &mdash; and to build trust with domain experts who are rightfully skeptical of change &mdash; was one of the most valuable skills I developed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== NEXT / PREV ==================== -->
+    <nav class="cs-project-nav">
+      <a href="cisco.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Previous Project
+        </span>
+        <span class="cs-project-nav__title">Cisco IoT Center</span>
+      </a>
+      <a href="intuit.html" class="cs-project-nav__link">
+        <span class="cs-project-nav__direction">
+          Next Project
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="cs-project-nav__title">Intuit</span>
+      </a>
+    </nav>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p class="footer__text">&copy; 2026 Randy Ritprasert &mdash; Designed with intention.</p>
+      <ul class="footer__links">
+        <li><a href="https://www.linkedin.com/in/ruttapon/" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="mailto:randyrits@gmail.com" class="footer__link">Email</a></li>
+      </ul>
+    </footer>
+
+  </div>
+
+  <script>
+    // Navigation scroll effect
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 50);
+    }, { passive: true });
+
+    // Hamburger menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('active');
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    document.querySelectorAll('.nav__mobile-link').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Reading progress bar
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }, { passive: true });
+
+    // Scroll reveal
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -60px 0px'
+    });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // ===================== SPACE BACKGROUND =====================
+    (function initMathBg() {
+      const symbols = ['\u2708','\u25B3','\u25C7','\u25CB','\u25BD','\u2B21','\u2708','\u25B3','\u25C7','\u25CB','\u25BD','\u2B21','\u2708','\u25B3','\u25C7','\u25CB','\u25BD','\u2B21','\u2708','\u25B3','\u25C7','\u25CB','\u25BD','\u2B21','\u2708','\u25B3','\u25C7','\u25CB','\u25BD','\u2B21','\u2708'];
+      const container = document.getElementById('math-bg');
+      const count = 32;
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('span');
+        el.className = 'math-sym';
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const size = 14 + Math.random() * 28;
+        const left = Math.random() * 100;
+        const duration = 25 + Math.random() * 40;
+        const delay = -(Math.random() * duration);
+        const peakOpacity = 0.04 + Math.random() * 0.06;
+        const rotation = 60 + Math.random() * 240;
+        el.style.cssText = `
+          font-size:${size}px;
+          left:${left}%;
+          animation-duration:${duration}s;
+          animation-delay:${delay}s;
+          --peak-opacity:${peakOpacity};
+          --rot:${rotation}deg;
+        `;
+        container.appendChild(el);
+      }
+    })();
+  </script>
+</body>
+</html>

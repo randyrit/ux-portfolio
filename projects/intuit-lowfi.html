@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBooks Payroll — HR Tools (Low-Fi Wireframe)</title>
+  <style>
+    /* ============================================================
+       LOW-FIDELITY WIREFRAME
+       Black & white only — boxes, borders, plain text.
+       Mirrors the Figma frame: QuickBooks Payroll → HR Tools page.
+       ============================================================ */
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --line: #000;
+      --line-soft: #555;
+      --fill-soft: #eee;
+      --fill-softer: #f6f6f6;
+      --text: #000;
+      --text-muted: #555;
+      --radius: 4px;
+    }
+
+    html, body {
+      background: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    /* Wireframe banner so it's obvious this is a low-fi */
+    .wf-banner {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 8px 16px;
+      background: #000;
+      color: #fff;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: center;
+      z-index: 100;
+    }
+
+    /* ============================================================
+       APP SHELL
+       ============================================================ */
+    .app {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: 60px 1fr;
+      grid-template-areas:
+        "sidebar topbar"
+        "sidebar main";
+      min-height: 100vh;
+      margin-top: 32px; /* leave room for the banner */
+      border-top: 1px solid var(--line);
+    }
+
+    /* ============================================================
+       SIDEBAR
+       ============================================================ */
+    .sidebar {
+      grid-area: sidebar;
+      border-right: 1px solid var(--line);
+      padding: 16px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .sidebar__logo {
+      height: 32px;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .sidebar__new {
+      height: 32px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .sidebar__group-label {
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 0 4px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 8px;
+    }
+
+    .sidebar__group-label::after {
+      content: "·";
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--line-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 0;
+    }
+
+    .sidebar__bookmark-empty {
+      padding: 6px 4px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-bottom: 1px dashed var(--line-soft);
+    }
+
+    .sidebar__menu {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar__menu li {
+      padding: 8px 6px;
+      font-size: 12px;
+      border-bottom: 1px dashed var(--line-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .sidebar__menu li.is-active {
+      background: var(--fill-soft);
+      font-weight: 600;
+      border-left: 3px solid var(--line);
+      padding-left: 9px;
+    }
+
+    .sidebar__menu li::after {
+      content: "›";
+      color: var(--line-soft);
+      font-size: 14px;
+    }
+
+    .sidebar__menu li.no-chevron::after {
+      content: "";
+    }
+
+    .sidebar__footer {
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--line-soft);
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar__footer-icon {
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--line-soft);
+    }
+
+    /* ============================================================
+       TOP BAR
+       ============================================================ */
+    .topbar {
+      grid-area: topbar;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 16px;
+    }
+
+    .topbar__menu-btn {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .topbar__company {
+      font-size: 13px;
+      font-weight: 500;
+    }
+
+    .topbar__spacer {
+      flex: 1;
+    }
+
+    .topbar__pill {
+      padding: 6px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .topbar__action {
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .topbar__icon {
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+    }
+
+    .topbar__icon--square {
+      border-radius: 4px;
+    }
+
+    .topbar__avatar {
+      width: 28px;
+      height: 28px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    /* ============================================================
+       MAIN CONTENT
+       ============================================================ */
+    .main {
+      grid-area: main;
+      padding: 32px 48px 80px;
+    }
+
+    .main__crumb {
+      font-size: 18px;
+      margin-bottom: 24px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 28px;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 12px;
+      margin-bottom: 32px;
+    }
+
+    .tabs__item {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .tabs__item--active {
+      color: var(--text);
+      font-weight: 600;
+      position: relative;
+    }
+
+    .tabs__item--active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -13px;
+      height: 2px;
+      background: var(--line);
+    }
+
+    .page-title {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 12px;
+      max-width: 720px;
+    }
+
+    .page-subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 720px;
+      margin-bottom: 32px;
+    }
+
+    /* ============================================================
+       ACCORDION CARDS
+       ============================================================ */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 1200px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 18px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .card__chevron {
+      width: 14px;
+      height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 4px;
+      font-size: 14px;
+    }
+
+    .card__icon {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .card__body {
+      flex: 1;
+    }
+
+    .card__title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .card--expanded {
+      padding-bottom: 24px;
+    }
+
+    .card__links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 8px;
+    }
+
+    .card__links li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .card__links li::before {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border: 1px solid var(--line-soft);
+      flex-shrink: 0;
+    }
+
+    .card__link {
+      text-decoration: underline;
+      color: var(--text);
+    }
+
+    /* Collapsed cards have no body content beyond the title row */
+    .card--collapsed {
+      padding-top: 14px;
+      padding-bottom: 14px;
+      align-items: center;
+    }
+
+    .card--collapsed .card__body {
+      display: flex;
+      align-items: center;
+    }
+
+    /* ============================================================
+       BACK LINK
+       ============================================================ */
+    .wf-back {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font-size: 11px;
+      text-decoration: none;
+      color: var(--text);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .wf-back:hover {
+      background: var(--fill-soft);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="wf-banner">Low-Fidelity Wireframe — QuickBooks Payroll · HR Tools</div>
+
+  <div class="app">
+
+    <!-- ============================ SIDEBAR ============================ -->
+    <aside class="sidebar">
+      <div class="sidebar__logo">QB Logo</div>
+      <div class="sidebar__new">+ New</div>
+
+      <div class="sidebar__group-label">Bookmarks</div>
+      <div class="sidebar__bookmark-empty">+ Bookmark this page</div>
+
+      <div class="sidebar__group-label">Menu</div>
+      <ul class="sidebar__menu">
+        <li>Dashboards</li>
+        <li>Transactions</li>
+        <li>Sales</li>
+        <li>Expenses</li>
+        <li>Customers &amp; leads</li>
+        <li>Reports</li>
+        <li class="is-active">Payroll</li>
+        <li>Time</li>
+        <li>Projects</li>
+        <li class="no-chevron">Budgets</li>
+        <li>Taxes</li>
+        <li class="no-chevron">My accountant</li>
+        <li class="no-chevron">Live Experts</li>
+        <li>Lending &amp; banking</li>
+        <li class="no-chevron">Commerce</li>
+        <li>Apps</li>
+      </ul>
+
+      <div class="sidebar__footer">
+        <div class="sidebar__footer-icon"></div>
+        Menu settings
+      </div>
+    </aside>
+
+    <!-- ============================ TOP BAR ============================ -->
+    <header class="topbar">
+      <div class="topbar__menu-btn">≡</div>
+      <div class="topbar__company">Randy's Super Awesome Bakery</div>
+      <div class="topbar__spacer"></div>
+      <div class="topbar__pill">★ Business Feed</div>
+      <div class="topbar__action">
+        <div class="topbar__icon">◉</div>
+        Contact experts
+      </div>
+      <div class="topbar__icon">▲</div>
+      <div class="topbar__action">
+        <div class="topbar__icon">?</div>
+        Help
+      </div>
+      <div class="topbar__icon topbar__icon--square">▦</div>
+      <div class="topbar__icon">⌕</div>
+      <div class="topbar__icon">◔</div>
+      <div class="topbar__icon">⚙</div>
+      <div class="topbar__avatar">R</div>
+    </header>
+
+    <!-- ============================ MAIN CONTENT ============================ -->
+    <main class="main">
+      <div class="main__crumb">Payroll</div>
+
+      <nav class="tabs">
+        <div class="tabs__item tabs__item--active">Overview</div>
+        <div class="tabs__item">Employees</div>
+        <div class="tabs__item">Contractors</div>
+        <div class="tabs__item">Payroll tax</div>
+        <div class="tabs__item">Worker's comp</div>
+        <div class="tabs__item">Benefits</div>
+        <div class="tabs__item">HR advisor</div>
+        <div class="tabs__item">Compliance</div>
+      </nav>
+
+      <h1 class="page-title">HR tools that grow with your business</h1>
+      <p class="page-subtitle">Hire, onboard, and manage your team with reliable best practices. Save time with templates, checklists, and training.</p>
+
+      <div class="accordion">
+
+        <!-- EXPANDED: Hiring and onboarding -->
+        <div class="card card--expanded">
+          <div class="card__chevron">⌄</div>
+          <div class="card__icon">Icon</div>
+          <div class="card__body">
+            <div class="card__title">Hiring and onboarding</div>
+            <ul class="card__links">
+              <li><span class="card__link">Job description</span></li>
+              <li><span class="card__link">Offer template</span></li>
+              <li><span class="card__link">New hire checklist</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- COLLAPSED: Settings policies -->
+        <div class="card card--collapsed">
+          <div class="card__chevron">›</div>
+          <div class="card__icon">Icon</div>
+          <div class="card__body">
+            <div class="card__title">Settings policies</div>
+          </div>
+        </div>
+
+        <!-- COLLAPSED: Following HR laws -->
+        <div class="card card--collapsed">
+          <div class="card__chevron">›</div>
+          <div class="card__icon">Icon</div>
+          <div class="card__body">
+            <div class="card__title">Following HR laws</div>
+          </div>
+        </div>
+
+        <!-- COLLAPSED: Managing conflict -->
+        <div class="card card--collapsed">
+          <div class="card__chevron">›</div>
+          <div class="card__icon">Icon</div>
+          <div class="card__body">
+            <div class="card__title">Managing conflict</div>
+          </div>
+        </div>
+
+        <!-- COLLAPSED: Terminating -->
+        <div class="card card--collapsed">
+          <div class="card__chevron">›</div>
+          <div class="card__icon">Icon</div>
+          <div class="card__body">
+            <div class="card__title">Terminating</div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <a href="intuit.html" class="wf-back">← Back to case study</a>
+
+</body>
+</html>
