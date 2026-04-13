@@ -66,28 +66,12 @@
       transform: translateZ(0);
     }
 
-    /* IoT Background */
-    #iot-bg {
+    /* Interactive Grid Background */
+    #grid-bg {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      overflow: hidden;
-    }
-    .iot-sym {
-      position: absolute;
-      font-family: var(--font-body);
-      color: var(--accent);
-      opacity: 0;
-      will-change: transform, opacity;
-      animation: drift linear infinite;
-      user-select: none;
-    }
-    @keyframes drift {
-      0%   { transform: translateY(105vh) rotate(0deg); opacity: 0; }
-      5%   { opacity: var(--peak-opacity, 0.07); }
-      90%  { opacity: var(--peak-opacity, 0.07); }
-      100% { transform: translateY(-10vh) rotate(var(--rot, 120deg)); opacity: 0; }
     }
 
     /* Reading progress bar */
@@ -347,6 +331,7 @@
       margin-bottom: 24px;
       opacity: 0;
       animation: fadeUp 0.9s var(--ease-out-expo) 0.35s forwards;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6), 0 4px 32px rgba(0, 0, 0, 0.4);
     }
 
     .cs-hero__subtitle {
@@ -1128,7 +1113,7 @@
 </head>
 <body>
 
-  <div id="iot-bg"></div>
+  <canvas id="grid-bg"></canvas>
   <div class="progress-bar" id="progressBar"></div>
 
   <!-- Navigation -->
@@ -1422,69 +1407,6 @@
       </div>
     </section>
 
-    <!-- Device Management screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Inventory.svg" aria-label="Redesigned device inventory with dynamic filtering" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Summart.svg" aria-label="Device detail summary view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Redesigned device inventory and device detail summary</p>
-    </div>
-
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--single">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Summart%20Copy.svg" aria-label="Device detail summary — alternate state" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Device detail summary &mdash; expanded view with full device context</p>
-    </div>
-
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Inventory%20No%20Filter.svg" aria-label="Device inventory without filters applied" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/inventory-down.svg" aria-label="Device inventory with downed devices highlighted" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Device inventory &mdash; Default view and filtered by downed devices</p>
-    </div>
-
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--three">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Ports.svg" aria-label="Device ports view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Event%20Log.svg" aria-label="Device event log" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Monitor.svg" aria-label="Device monitoring view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Device detail tabs &mdash; Ports, Event Log, and Monitor views</p>
-    </div>
-
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--three">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Connected%20Devices.svg" aria-label="Connected devices view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Port%20Details.svg" aria-label="Port details view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Details%20Troubleshoot.svg" aria-label="Troubleshoot view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Device detail tabs &mdash; Connected Devices, Port Details, and Troubleshoot</p>
-    </div>
 
     <!-- ==================== FILTERING ==================== -->
     <hr class="cs-divider">
@@ -1502,21 +1424,6 @@
       </div>
     </section>
 
-    <!-- Filter screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--three">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Filters%20Enabled.svg" aria-label="Device filters in active state" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Filters%20Modal.svg" aria-label="Filter configuration modal" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Device%20Filters%20Save.svg" aria-label="Save filter configuration" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Filter system &mdash; Active filters, configuration modal, and saved views</p>
-    </div>
 
     <!-- ==================== DASHBOARDS ==================== -->
     <hr class="cs-divider">
@@ -1534,18 +1441,6 @@
       </div>
     </section>
 
-    <!-- Dashboard screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Dashboard%20No%20Dashlets.svg" aria-label="Empty dashboard state with add dashlet prompt" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Dashboard%20add%20dash.svg" aria-label="Adding dashlets to a custom dashboard" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Dashboard configuration &mdash; Empty state and dashlet selection</p>
-    </div>
 
     <!-- ==================== NETWORK MANAGEMENT ==================== -->
     <hr class="cs-divider">
@@ -1567,30 +1462,6 @@
       </div>
     </section>
 
-    <!-- Network Management screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Network%20Management%20Dashboard.svg" aria-label="Network management dashboard overview" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Network%20Management%20Dashboard%20%20Copy.svg" aria-label="Network management dashboard with device details" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Network management dashboard &mdash; Overview and device detail states</p>
-    </div>
-
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Network%20Management%20Dashboard%20%20Copy%202.svg" aria-label="Network management dashboard — alternate view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Network%20Management%20Dashboard%20%20Copy%203.svg" aria-label="Network management dashboard — drill-down state" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Network management &mdash; Contextual drill-downs and expanded views</p>
-    </div>
 
     <!-- ==================== NOTIFICATIONS ==================== -->
     <hr class="cs-divider">
@@ -1608,21 +1479,6 @@
       </div>
     </section>
 
-    <!-- Notification screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--three">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/notifcations.svg" aria-label="Notification bell with alert indicator" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/notifications%20dropwdown.svg" aria-label="Redesigned notification dropdown with severity levels" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/notifications%20page.svg" aria-label="Full notification management page" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Notification system &mdash; Alert indicator, dropdown, and full management view</p>
-    </div>
 
     <!-- ==================== JOB MANAGEMENT ==================== -->
     <hr class="cs-divider">
@@ -1639,18 +1495,6 @@
       </div>
     </section>
 
-    <!-- Job Management screens -->
-    <div class="cs-fullbleed reveal">
-      <div class="cs-gallery cs-gallery--two">
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Job%20Management%20Home.svg" aria-label="Job management home view" style="width:100%;height:auto;display:block;"></object>
-        </div>
-        <div class="cs-gallery__item">
-          <object type="image/svg+xml" data="../images/Cisco/Job%20Management%20Home%20pop%20up.svg" aria-label="Job creation dialog" style="width:100%;height:auto;display:block;"></object>
-        </div>
-      </div>
-      <p class="cs-gallery__caption">Job management &mdash; Home view and job creation flow</p>
-    </div>
 
     <!-- ==================== FINAL DESIGN ==================== -->
     <hr class="cs-divider">
@@ -1850,31 +1694,126 @@
     });
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // ===================== IoT BACKGROUND =====================
-    (function initIotBg() {
-      const symbols = ['⬡','◈','⊛','⟡','◎','⊞','△','▽','◇','⬢','⏣','⎔','⟐','⊡','⬣','⏢','◯','⟠','⊚','◌','⟁','⏥','⎊','◍','⊗'];
-      const container = document.getElementById('iot-bg');
-      const count = 28;
-      for (let i = 0; i < count; i++) {
-        const el = document.createElement('span');
-        el.className = 'iot-sym';
-        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-        const size = 14 + Math.random() * 28;
-        const left = Math.random() * 100;
-        const duration = 25 + Math.random() * 40;
-        const delay = -(Math.random() * duration);
-        const peakOpacity = 0.03 + Math.random() * 0.05;
-        const rotation = 60 + Math.random() * 240;
-        el.style.cssText = `
-          font-size:${size}px;
-          left:${left}%;
-          animation-duration:${duration}s;
-          animation-delay:${delay}s;
-          --peak-opacity:${peakOpacity};
-          --rot:${rotation}deg;
-        `;
-        container.appendChild(el);
+    // ===================== INTERACTIVE GRID BACKGROUND =====================
+    (function initGridBg() {
+      const canvas = document.getElementById('grid-bg');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+
+      const CELL = 48;                   // grid cell size in px
+      const GLOW_RADIUS = 220;           // how far the cursor glow reaches
+      const BASE_ALPHA = 0.03;           // resting grid line opacity
+      const PEAK_ALPHA = 0.14;           // brightest grid line opacity near cursor
+      const DOT_RADIUS = 1.2;            // intersection dot size
+      const DOT_BASE_ALPHA = 0.04;       // resting dot opacity
+      const DOT_PEAK_ALPHA = 0.22;       // brightest dot opacity near cursor
+      const LINE_COLOR = [4, 159, 217];  // Cisco blue RGB
+      const DOT_COLOR  = [4, 159, 217];
+
+      let mouseX = -9999;
+      let mouseY = -9999;
+      let scrollY = 0;
+      let rafId;
+      let dpr = 1;
+
+      function resize() {
+        dpr = window.devicePixelRatio || 1;
+        canvas.width  = window.innerWidth  * dpr;
+        canvas.height = window.innerHeight * dpr;
+        canvas.style.width  = window.innerWidth  + 'px';
+        canvas.style.height = window.innerHeight + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       }
+
+      function draw() {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        ctx.clearRect(0, 0, w, h);
+
+        // Offset grid by scroll so it feels anchored to the page
+        const offsetY = -(scrollY % CELL);
+
+        // Mouse position in viewport coords
+        const mx = mouseX;
+        const my = mouseY;
+        const r2 = GLOW_RADIUS * GLOW_RADIUS;
+
+        // Draw vertical lines
+        for (let x = 0; x <= w; x += CELL) {
+          // Find closest point on this vertical line to cursor
+          const dx = x - mx;
+          const distLine = Math.abs(dx);
+          // Line alpha based on distance to cursor
+          const t = Math.max(0, 1 - (distLine / GLOW_RADIUS));
+          const alpha = BASE_ALPHA + (PEAK_ALPHA - BASE_ALPHA) * t * t;
+
+          ctx.beginPath();
+          ctx.moveTo(x, offsetY);
+          ctx.lineTo(x, h);
+          ctx.strokeStyle = `rgba(${LINE_COLOR[0]},${LINE_COLOR[1]},${LINE_COLOR[2]},${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Draw horizontal lines
+        for (let y = offsetY; y <= h; y += CELL) {
+          const dy = y - my;
+          const distLine = Math.abs(dy);
+          const t = Math.max(0, 1 - (distLine / GLOW_RADIUS));
+          const alpha = BASE_ALPHA + (PEAK_ALPHA - BASE_ALPHA) * t * t;
+
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.strokeStyle = `rgba(${LINE_COLOR[0]},${LINE_COLOR[1]},${LINE_COLOR[2]},${alpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+
+        // Draw intersection dots
+        for (let x = 0; x <= w; x += CELL) {
+          for (let y = offsetY; y <= h; y += CELL) {
+            const dx = x - mx;
+            const dy = y - my;
+            const dist2 = dx * dx + dy * dy;
+            if (dist2 > r2 * 1.5) continue; // skip far-away dots for perf
+
+            const dist = Math.sqrt(dist2);
+            const t = Math.max(0, 1 - (dist / GLOW_RADIUS));
+            const dotAlpha = DOT_BASE_ALPHA + (DOT_PEAK_ALPHA - DOT_BASE_ALPHA) * t * t;
+            const dotSize  = DOT_RADIUS + t * 1.5;
+
+            ctx.beginPath();
+            ctx.arc(x, y, dotSize, 0, Math.PI * 2);
+            ctx.fillStyle = `rgba(${DOT_COLOR[0]},${DOT_COLOR[1]},${DOT_COLOR[2]},${dotAlpha})`;
+            ctx.fill();
+          }
+        }
+
+        rafId = requestAnimationFrame(draw);
+      }
+
+      // Track mouse position
+      document.addEventListener('mousemove', function(e) {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      // Track scroll for grid offset
+      window.addEventListener('scroll', function() {
+        scrollY = window.scrollY;
+      }, { passive: true });
+
+      // When mouse leaves the window, hide the glow
+      document.addEventListener('mouseleave', function() {
+        mouseX = -9999;
+        mouseY = -9999;
+      });
+
+      window.addEventListener('resize', resize);
+      resize();
+      scrollY = window.scrollY;
+      draw();
     })();
   </script>
 </body>
