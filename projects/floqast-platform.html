@@ -782,6 +782,113 @@
       }
     }
 
+    /* ===================== BEFORE / AFTER SLIDER ===================== */
+    .cs-slider {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      cursor: col-resize;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 32px 0;
+      background: var(--bg-secondary);
+    }
+
+    .cs-slider__after {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+    }
+
+    .cs-slider__before-wrap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 50%;
+      overflow: hidden;
+    }
+
+    .cs-slider__before {
+      display: block;
+      height: 100%;
+      width: auto;
+      min-width: 0;
+      max-height: 70vh;
+      object-fit: contain;
+      object-position: left top;
+    }
+
+    .cs-slider__handle {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: var(--sage, #6AA185);
+      transform: translateX(-50%);
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .cs-slider__handle::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--sage, #6AA185);
+      border: 3px solid var(--bg-primary);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+      pointer-events: none;
+    }
+
+    .cs-slider__handle::before {
+      content: '◂ ▸';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: var(--bg-primary);
+      font-size: 12px;
+      font-weight: 700;
+      z-index: 5;
+      pointer-events: none;
+      letter-spacing: 2px;
+      white-space: nowrap;
+    }
+
+    .cs-slider__label {
+      position: absolute;
+      top: 16px;
+      padding: 4px 14px;
+      border-radius: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .cs-slider__label--before {
+      left: 16px;
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .cs-slider__label--after {
+      right: 16px;
+      background: rgba(106, 161, 133, 0.15);
+      color: var(--sage, #6AA185);
+    }
+
     /* ===================== CALLOUT ===================== */
     .cs-callout {
       display: flex;
@@ -1719,42 +1826,32 @@
       </div>
     </section>
 
-    <!-- Homepage before/after -->
+    <!-- Homepage before/after slider -->
     <div class="cs-fullbleed reveal">
-      <div class="cs-comparison">
-        <div class="cs-comparison__side">
-          <span class="cs-comparison__label cs-comparison__label--before">Before</span>
-          <div class="cs-comparison__image">
-            <img src="../images/FloQast Platform/home-before.png" alt="FloQast homepage before redesign" />
-          </div>
+      <div class="cs-slider" data-slider>
+        <img class="cs-slider__after" src="../images/FloQast Platform/home-after.png" alt="FloQast homepage after redesign" />
+        <div class="cs-slider__before-wrap">
+          <img class="cs-slider__before" src="../images/FloQast Platform/home-before.png" alt="FloQast homepage before redesign" />
         </div>
-        <div class="cs-comparison__side">
-          <span class="cs-comparison__label cs-comparison__label--after">After</span>
-          <div class="cs-comparison__image">
-            <img src="../images/FloQast Platform/home-after.png" alt="FloQast homepage after redesign" />
-          </div>
-        </div>
+        <div class="cs-slider__handle"></div>
+        <span class="cs-slider__label cs-slider__label--before">Before</span>
+        <span class="cs-slider__label cs-slider__label--after">After</span>
       </div>
-      <p class="cs-gallery__caption">Homepage &mdash; before and after the design system rollout</p>
+      <p class="cs-gallery__caption">Homepage &mdash; drag to compare before and after the design system rollout</p>
     </div>
 
-    <!-- Reconciliations before/after -->
+    <!-- Reconciliations before/after slider -->
     <div class="cs-fullbleed reveal">
-      <div class="cs-comparison">
-        <div class="cs-comparison__side">
-          <span class="cs-comparison__label cs-comparison__label--before">Before</span>
-          <div class="cs-comparison__image">
-            <img src="../images/FloQast Platform/recs-before.png" alt="Reconciliations before redesign" />
-          </div>
+      <div class="cs-slider" data-slider>
+        <img class="cs-slider__after" src="../images/FloQast Platform/recs-after.png" alt="Reconciliations after redesign" />
+        <div class="cs-slider__before-wrap">
+          <img class="cs-slider__before" src="../images/FloQast Platform/recs-before.png" alt="Reconciliations before redesign" />
         </div>
-        <div class="cs-comparison__side">
-          <span class="cs-comparison__label cs-comparison__label--after">After</span>
-          <div class="cs-comparison__image">
-            <img src="../images/FloQast Platform/recs-after.png" alt="Reconciliations after redesign" />
-          </div>
-        </div>
+        <div class="cs-slider__handle"></div>
+        <span class="cs-slider__label cs-slider__label--before">Before</span>
+        <span class="cs-slider__label cs-slider__label--after">After</span>
       </div>
-      <p class="cs-gallery__caption">Reconciliations &mdash; before and after the design system rollout</p>
+      <p class="cs-gallery__caption">Reconciliations &mdash; drag to compare before and after the design system rollout</p>
     </div>
 
     <!-- ==================== IMPACT ==================== -->
@@ -1946,6 +2043,62 @@
         container.appendChild(el);
       }
     })();
+
+    // ===================== BEFORE / AFTER SLIDER =====================
+    document.querySelectorAll('[data-slider]').forEach(function(slider) {
+      var handle = slider.querySelector('.cs-slider__handle');
+      var beforeWrap = slider.querySelector('.cs-slider__before-wrap');
+      var beforeImg = slider.querySelector('.cs-slider__before');
+      var afterImg = slider.querySelector('.cs-slider__after');
+      var dragging = false;
+
+      function setPosition(x) {
+        var rect = slider.getBoundingClientRect();
+        var pct = Math.max(0, Math.min(1, (x - rect.left) / rect.width));
+        beforeWrap.style.width = (pct * 100) + '%';
+        handle.style.left = (pct * 100) + '%';
+      }
+
+      // Make the before image always match the container width
+      function syncBeforeWidth() {
+        beforeImg.style.width = slider.offsetWidth + 'px';
+      }
+
+      afterImg.addEventListener('load', syncBeforeWidth);
+      window.addEventListener('resize', syncBeforeWidth);
+      syncBeforeWidth();
+
+      // Mouse events
+      slider.addEventListener('mousedown', function(e) {
+        e.preventDefault();
+        dragging = true;
+        setPosition(e.clientX);
+      });
+
+      window.addEventListener('mousemove', function(e) {
+        if (!dragging) return;
+        setPosition(e.clientX);
+      });
+
+      window.addEventListener('mouseup', function() {
+        dragging = false;
+      });
+
+      // Touch events
+      slider.addEventListener('touchstart', function(e) {
+        dragging = true;
+        setPosition(e.touches[0].clientX);
+      }, { passive: true });
+
+      window.addEventListener('touchmove', function(e) {
+        if (!dragging) return;
+        setPosition(e.touches[0].clientX);
+      }, { passive: true });
+
+      window.addEventListener('touchend', function() {
+        dragging = false;
+      });
+    });
   </script>
 </body>
 </html>
