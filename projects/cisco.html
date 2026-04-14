@@ -271,7 +271,11 @@
     }
 
     .cs-hero__bg::after {
-      display: none;
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 70% 20%, rgba(4, 159, 217, 0.15) 0%, transparent 60%),
+                  radial-gradient(ellipse at 20% 80%, rgba(0, 188, 235, 0.06) 0%, transparent 50%);
     }
 
     .cs-hero__image {
@@ -296,11 +300,8 @@
     .cs-hero__image::after {
       content: '';
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 200px;
-      background: var(--bg-primary);
+      inset: 0;
+      background: linear-gradient(to top, var(--bg-primary) 0%, transparent 30%);
     }
 
     @keyframes fadeIn {
