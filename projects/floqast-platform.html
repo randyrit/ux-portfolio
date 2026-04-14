@@ -840,6 +840,7 @@
       gap: 18px;
       pointer-events: none;
       white-space: nowrap;
+      transition: top 0.08s ease-out;
     }
 
     .cs-slider__arrow {
@@ -2082,14 +2083,28 @@
       setTimeout(syncBeforeSize, 100);
 
       var dragging = false;
+      var knob = slider.querySelector('.cs-slider__handle-knob');
+
+      function setKnobY(clientY) {
+        var rect = slider.getBoundingClientRect();
+        var yPct = Math.max(5, Math.min(95, ((clientY - rect.top) / rect.height) * 100));
+        knob.style.top = yPct + '%';
+      }
 
       slider.addEventListener('mousedown', function(e) {
         e.preventDefault();
         dragging = true;
         setPosition(e.clientX);
+        setKnobY(e.clientY);
       });
 
       window.addEventListener('mousemove', function(e) {
+        // Always track Y when hovering over slider
+        var rect = slider.getBoundingClientRect();
+        if (e.clientX >= rect.left && e.clientX <= rect.right &&
+            e.clientY >= rect.top && e.clientY <= rect.bottom) {
+          setKnobY(e.clientY);
+        }
         if (!dragging) return;
         setPosition(e.clientX);
       });
@@ -2101,11 +2116,13 @@
       slider.addEventListener('touchstart', function(e) {
         dragging = true;
         setPosition(e.touches[0].clientX);
+        setKnobY(e.touches[0].clientY);
       }, { passive: true });
 
       window.addEventListener('touchmove', function(e) {
         if (!dragging) return;
         setPosition(e.touches[0].clientX);
+        setKnobY(e.touches[0].clientY);
       }, { passive: true });
 
       window.addEventListener('touchend', function() {
