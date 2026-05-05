@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Randy Ritprasert — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-deep: #1A1210;
+      --bg-primary: #1E1614;
+      --bg-secondary: #261E1A;
+      --bg-elevated: #302520;
+      --bg-card: #2A2119;
+      --text-primary: #F2E8DC;
+      --text-secondary: #B8A898;
+      --text-muted: #7A6B5D;
+      --accent-orange: #C1440E;
+      --accent-sandstone: #D4A574;
+      --accent-gold: #E8A849;
+      --accent-rust: #8B3A1A;
+      --accent-ember: #E86A20;
+      --sun-core: #F5C842;
+      --sun-mid: #E8A849;
+      --sun-outer: #C1440E;
+      --border: rgba(212, 165, 116, 0.1);
+      --border-hover: rgba(212, 165, 116, 0.22);
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'Open Sans', sans-serif;
+      --nav-height: 72px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Grain overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0.5;
+    }
+
+    /* ===================== NAVIGATION ===================== */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 64px);
+      z-index: 1000;
+      background: rgba(26, 18, 16, 0.7);
+      backdrop-filter: blur(20px) saturate(1.4);
+      -webkit-backdrop-filter: blur(20px) saturate(1.4);
+      border-bottom: 1px solid rgba(212, 165, 116, 0.06);
+      transition: background 0.4s ease;
+    }
+
+    .nav--scrolled {
+      background: rgba(26, 18, 16, 0.92);
+    }
+
+    .nav__logo {
+      width: 44px;
+      height: 44px;
+      border: 1.5px dashed var(--text-muted);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 10px;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 400;
+      padding: 8px 18px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .nav__links a:hover {
+      color: var(--text-primary);
+      background: rgba(212, 165, 116, 0.08);
+    }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 8px;
+      background: none;
+      border: none;
+      z-index: 1001;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--text-primary);
+      border-radius: 2px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .nav__hamburger.active span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav__hamburger.active span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav__hamburger.active span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    @media (max-width: 768px) {
+      .nav__hamburger {
+        display: flex;
+      }
+      .nav__links {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 280px;
+        height: 100vh;
+        background: rgba(26, 18, 16, 0.97);
+        backdrop-filter: blur(30px);
+        flex-direction: column;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px;
+        transform: translateX(100%);
+        transition: transform 0.4s var(--ease-out-expo);
+        border-left: 1px solid var(--border);
+      }
+      .nav__links.open {
+        transform: translateX(0);
+      }
+      .nav__links a {
+        font-size: 18px;
+        padding: 14px 24px;
+        width: 100%;
+      }
+    }
+
+    /* ===================== HERO ===================== */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: calc(var(--nav-height) + 40px) clamp(24px, 5vw, 64px) 0;
+      overflow: hidden;
+      background: #080A14;
+    }
+
+    /* Cool sky (blue/purple) - visible initially */
+    .hero__sky--cool {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          #06080F 0%,
+          #0C1020 15%,
+          #141C38 30%,
+          #1E2A50 45%,
+          #2A3B6E 60%,
+          #3A5090 75%,
+          #4D6AAE 88%,
+          #6882C0 100%
+        );
+      z-index: 0;
+      transition: opacity 0.05s linear;
+    }
+
+    /* Warm sky (desert) - fades in on scroll */
+    .hero__sky--warm {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg,
+          #0D0B0A 0%,
+          #1A1210 15%,
+          #2A1D16 35%,
+          #3D2818 55%,
+          #5C3520 72%,
+          #8B4A1E 85%,
+          #C1651A 94%,
+          #E8A849 100%
+        );
+      z-index: 0;
+      opacity: 0;
+      transition: opacity 0.05s linear;
+    }
+
+    /* Stars (visible in cool sky, fade with transition) */
+    .hero__stars {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .hero__star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      animation: twinkle 3s ease-in-out infinite;
+    }
+
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.8; }
+    }
+
+    /* Snowcaps */
+    .mtn-snow {
+      opacity: 0.8;
+    }
+
+    /* Ridge highlight lines */
+    .mtn-ridge {
+      fill: none;
+      stroke-width: 1;
+      opacity: 0.15;
+    }
+
+    /* Parallax sun */
+    .hero__sun {
+      position: absolute;
+      bottom: 22%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: clamp(180px, 26vw, 360px);
+      height: clamp(180px, 26vw, 360px);
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(180, 195, 230, 0.5) 0%,
+          rgba(150, 170, 220, 0.3) 25%,
+          rgba(120, 140, 200, 0.15) 50%,
+          rgba(100, 120, 180, 0.05) 70%,
+          transparent 100%
+        );
+      z-index: 1;
+      will-change: transform;
+      filter: blur(2px);
+      pointer-events: none;
+    }
+
+    .hero__sun-core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 45%;
+      height: 45%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle,
+          rgba(220, 230, 255, 0.85) 0%,
+          rgba(200, 215, 245, 0.5) 40%,
+          rgba(170, 190, 230, 0.15) 70%,
+          transparent 100%
+        );
+      filter: blur(1px);
+    }
+
+    /* Mountain layers container */
+    .hero__mountains-wrap {
+      position: absolute;
+      bottom: -2px;
+      left: -2%;
+      right: -2%;
+      height: 55%;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hero__mtn {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      will-change: transform;
+    }
+
+    /* Hero content */
+    .hero__content {
+      position: relative;
+      z-index: 3;
+      max-width: 800px;
+      margin-bottom: clamp(120px, 18vh, 200px);
+    }
+
+    .hero__name {
+      font-family: var(--font-display);
+      font-size: clamp(42px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--text-primary);
+      margin-bottom: 12px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-out-expo) 0.2s forwards;
+      text-shadow: 0 2px 40px rgba(0,0,0,0.3);
+    }
+
+    .hero__role {
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2.5vw, 24px);
+      font-weight: 400;
+      color: var(--accent-sandstone);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.4s forwards;
+    }
+
+    .hero__tagline {
+      font-family: var(--font-display);
+      font-size: clamp(18px, 2.5vw, 28px);
+      font-weight: 600;
+      color: var(--accent-gold);
+      margin-bottom: 16px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
+    }
+
+    .hero__description {
+      font-size: clamp(15px, 1.6vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.7s forwards;
+    }
+
+    .hero__scroll-hint {
+      position: absolute;
+      bottom: clamp(60px, 10vh, 100px);
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 4;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 0.6s var(--ease-out-expo) 1.2s forwards;
+    }
+
+    .hero__scroll-hint span {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .hero__scroll-arrow {
+      width: 20px;
+      height: 20px;
+      border-right: 1.5px solid var(--text-muted);
+      border-bottom: 1.5px solid var(--text-muted);
+      transform: rotate(45deg);
+      animation: scrollBounce 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollBounce {
+      0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+      50% { transform: rotate(45deg) translateY(6px); opacity: 1; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ===================== DECORATIONS ===================== */
+    .deco {
+      position: absolute;
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.12;
+      transition: opacity 0.6s ease;
+    }
+
+    .deco--visible {
+      opacity: 0.18;
+    }
+
+    .deco-cactus {
+      fill: var(--accent-sandstone);
+    }
+
+    .deco-rock {
+      fill: var(--accent-rust);
+    }
+
+    /* Section-relative decorations */
+    .section-deco {
+      position: relative;
+    }
+
+    /* ===================== SECTIONS ===================== */
+    .section {
+      position: relative;
+      z-index: 5;
+      padding: clamp(80px, 10vw, 140px) clamp(24px, 5vw, 64px);
+      background: var(--bg-deep);
+      overflow: hidden;
+    }
+
+    .section__inner {
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .section__label {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent-orange);
+      margin-bottom: 16px;
+    }
+
+    .section__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .section__subtitle {
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-bottom: 56px;
+    }
+
+    /* Decorative horizontal rule */
+    .section__rule {
+      width: 48px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--accent-orange), var(--accent-gold));
+      border: none;
+      border-radius: 2px;
+      margin-bottom: 48px;
+    }
+
+    /* ===================== PROJECTS ROAD ===================== */
+    .road-container {
+      position: relative;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding-bottom: 40px;
+    }
+
+    /* SVG road */
+    .road-svg {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .road-path-bg {
+      fill: none;
+      stroke: rgba(212, 165, 116, 0.06);
+      stroke-width: 48;
+      stroke-linecap: round;
+    }
+
+    .road-path-line {
+      fill: none;
+      stroke: rgba(212, 165, 116, 0.15);
+      stroke-width: 2;
+      stroke-dasharray: 16 12;
+      stroke-linecap: round;
+    }
+
+    .road-path-edge-l, .road-path-edge-r {
+      fill: none;
+      stroke: rgba(212, 165, 116, 0.08);
+      stroke-width: 1;
+    }
+
+    /* Car */
+    .road-car {
+      position: absolute;
+      z-index: 10;
+      width: 80px;
+      height: 56px;
+      pointer-events: none;
+      will-change: transform;
+      filter: drop-shadow(0 4px 12px rgba(0,0,0,0.5));
+      transition: none;
+    }
+
+    /* Road stops / markers */
+    .road-stop {
+      position: absolute;
+      z-index: 5;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-orange);
+      border: 3px solid var(--bg-deep);
+      box-shadow: 0 0 0 2px rgba(193, 68, 14, 0.3), 0 0 20px rgba(193, 68, 14, 0.2);
+      transform: translate(-50%, -50%);
+    }
+
+    .road-stop::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 6px;
+      height: 6px;
+      background: var(--accent-gold);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Year labels on the road */
+    .road-year {
+      position: absolute;
+      z-index: 6;
+      font-family: var(--font-display);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent-sandstone);
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+      transform: translate(-50%, -50%);
+      background: var(--bg-deep);
+      padding: 4px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(212, 165, 116, 0.12);
+    }
+
+    /* Project cards along the road */
+    .road-projects {
+      position: relative;
+      z-index: 2;
+    }
+
+    .road-project {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 100px;
+      position: relative;
+    }
+
+    .road-project:last-child {
+      margin-bottom: 0;
+    }
+
+    .road-project--left {
+      justify-content: flex-start;
+      padding-right: calc(50% + 60px);
+    }
+
+    .road-project--right {
+      justify-content: flex-end;
+      padding-left: calc(50% + 60px);
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo), border-color 0.4s ease;
+      cursor: pointer;
+      width: 100%;
+      max-width: 460px;
+    }
+
+    .project-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(212, 165, 116, 0.1);
+      border-color: var(--border-hover);
+    }
+
+    .project-card__image {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      background: var(--bg-elevated);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card__image::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(193, 68, 14, 0.04) 0%, rgba(232, 168, 73, 0.04) 100%);
+      pointer-events: none;
+    }
+
+    .project-card__body {
+      padding: 28px;
+    }
+
+    .project-card__title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 8px;
+      letter-spacing: -0.01em;
+    }
+
+    .project-card__desc {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-card__tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .tag {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent-sandstone);
+      background: rgba(212, 165, 116, 0.08);
+      border: 1px solid rgba(212, 165, 116, 0.12);
+      padding: 4px 12px;
+      border-radius: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 768px) {
+      .road-project--left,
+      .road-project--right {
+        padding-left: 50px;
+        padding-right: 0;
+        justify-content: flex-start;
+      }
+      .road-svg {
+        left: 20px;
+        transform: none;
+      }
+      .road-stop {
+        left: 20px !important;
+      }
+      .road-year {
+        left: 50px !important;
+        transform: translate(0, -50%);
+      }
+      .road-car {
+        width: 40px;
+        height: 40px;
+      }
+      .deco {
+        display: none;
+      }
+    }
+
+    /* ===================== ABOUT ===================== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: clamp(40px, 6vw, 80px);
+      align-items: start;
+    }
+
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+    }
+
+    .about__photo {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      background: var(--bg-elevated);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-muted);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .about__photo::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 60%, rgba(26, 18, 16, 0.4) 100%);
+      pointer-events: none;
+    }
+
+    .about__text p {
+      font-size: clamp(15px, 1.4vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .about__stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-top: 40px;
+      padding-top: 40px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 480px) {
+      .about__stats {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+    }
+
+    .stat__value {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3vw, 38px);
+      font-weight: 700;
+      color: var(--accent-gold);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat__label {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* ===================== CONTACT ===================== */
+    .contact {
+      text-align: center;
+    }
+
+    .contact__title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 700;
+      color: var(--text-primary);
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+
+    .contact__subtitle {
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 480px;
+      margin: 0 auto 48px;
+      line-height: 1.7;
+    }
+
+    .contact__email {
+      display: inline-block;
+      font-family: var(--font-display);
+      font-size: clamp(16px, 2vw, 20px);
+      font-weight: 500;
+      color: var(--accent-gold);
+      text-decoration: none;
+      padding: 16px 36px;
+      border: 1.5px solid var(--accent-gold);
+      border-radius: 8px;
+      transition: all 0.4s var(--ease-out-expo);
+      letter-spacing: 0.02em;
+    }
+
+    .contact__email:hover {
+      background: rgba(232, 168, 73, 0.1);
+      box-shadow: 0 8px 30px rgba(232, 168, 73, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .contact__socials {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-top: 40px;
+    }
+
+    .contact__social-link {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      letter-spacing: 0.02em;
+    }
+
+    .contact__social-link:hover {
+      color: var(--text-primary);
+      background: rgba(212, 165, 116, 0.08);
+    }
+
+    /* ===================== FOOTER ===================== */
+    .footer {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 40px clamp(24px, 5vw, 64px);
+      border-top: 1px solid var(--border);
+      background: var(--bg-deep);
+    }
+
+    .footer__text {
+      font-size: 13px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    /* ===================== DIVIDER ===================== */
+    .terrain-divider {
+      position: relative;
+      z-index: 5;
+      height: 1px;
+      background: var(--bg-deep);
+      overflow: visible;
+    }
+
+    .terrain-divider::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 80px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent-sandstone), transparent);
+    }
+
+    /* ===================== REVEAL ANIMATION ===================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+    .reveal-delay-6 { transition-delay: 0.6s; }
+
+    /* ===================== DUST PARTICLES ===================== */
+    .dust-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+      will-change: transform;
+      transform: translateZ(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating dust particles -->
+  <canvas class="dust-canvas" id="dustCanvas"></canvas>
+
+  <!-- ==================== NAVIGATION ==================== -->
+  <nav class="nav" id="nav">
+    <div class="nav__logo">Logo</div>
+    <ul class="nav__links" id="navLinks">
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="hero">
+    <!-- Dual sky layers for color transition -->
+    <div class="hero__sky--cool" id="skyCool"></div>
+    <div class="hero__sky--warm" id="skyWarm"></div>
+
+    <!-- Stars (visible in cool sky) -->
+    <div class="hero__stars" id="heroStars"></div>
+
+    <!-- Parallax sun -->
+    <div class="hero__sun" id="sun">
+      <div class="hero__sun-core" id="sunCore"></div>
+    </div>
+
+    <!-- Layered mountain silhouettes - detailed illustrated style with snowcaps -->
+    <div class="hero__mountains-wrap">
+
+      <!-- Layer 7 - farthest, tallest peaks, most atmospheric -->
+      <svg class="hero__mtn" id="mtn7" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath7" d="M0,500 L0,348 L15,345 L30,340 L45,332 L60,322 L72,312 L82,302 L92,290 L100,280 L108,270 L114,262 L120,254 L126,246 L131,240 L136,234 L140,228 L144,224 L148,220 L152,216 L156,210 L160,205 L164,200 L168,196 L172,192 L176,188 L180,184 L184,180 L188,177 L191,174 L194,172 L196,170 L198,172 L202,176 L206,182 L212,190 L218,200 L226,212 L234,224 L244,236 L254,248 L264,256 L274,262 L282,266 L290,268 L296,268 L300,266 L306,262 L310,258 L316,252 L322,244 L328,236 L334,228 L340,218 L346,208 L352,198 L358,190 L362,184 L366,178 L370,172 L374,166 L378,160 L382,155 L386,150 L390,146 L394,142 L398,139 L402,137 L406,135 L410,134 L414,133 L416,132 L418,133 L420,135 L424,138 L428,142 L432,148 L438,156 L444,166 L452,178 L460,192 L470,206 L480,220 L492,234 L504,246 L514,254 L524,260 L534,264 L542,266 L550,266 L556,264 L562,260 L568,254 L574,248 L580,240 L586,232 L592,222 L598,212 L604,202 L608,194 L612,186 L616,178 L620,170 L624,162 L628,154 L632,146 L636,138 L640,130 L644,124 L648,118 L652,114 L656,110 L660,108 L664,106 L668,104 L670,103 L672,102 L674,101 L676,100 L677,100 L678,101 L680,102 L682,104 L686,108 L690,114 L696,122 L702,132 L710,144 L718,158 L728,174 L738,190 L750,206 L762,220 L774,232 L784,240 L794,246 L804,250 L812,252 L820,252 L828,250 L834,246 L840,242 L846,236 L852,228 L858,220 L864,210 L870,200 L876,190 L882,180 L886,174 L890,168 L894,162 L898,158 L902,154 L906,150 L910,148 L914,146 L918,145 L922,144 L926,144 L928,145 L930,146 L932,148 L936,152 L940,158 L946,166 L952,176 L960,188 L968,202 L978,216 L988,228 L998,238 L1008,246 L1018,252 L1028,256 L1038,258 L1046,258 L1054,256 L1060,252 L1066,248 L1072,242 L1076,236 L1080,230 L1084,224 L1088,220 L1092,216 L1098,212 L1104,210 L1110,210 L1116,212 L1122,216 L1130,222 L1140,232 L1150,242 L1162,254 L1176,264 L1190,272 L1206,280 L1222,286 L1240,290 L1258,294 L1276,296 L1296,298 L1316,298 L1338,298 L1360,298 L1382,298 L1404,298 L1424,298 L1440,300 L1440,500 Z" fill="#5B6B9E"/>
+        <!-- Snowcaps on peaks -->
+        <path class="mtn-snow" id="snow7" d="M164,205 L172,195 L180,186 L188,178 L194,173 L196,170 L198,172 L204,180 L212,192 L220,204 L212,200 L204,194 L198,190 L194,192 L188,196 L180,202 Z M390,152 L398,144 L406,138 L412,134 L416,132 L418,133 L422,138 L428,146 L436,158 L428,154 L420,148 L416,146 L412,148 L406,152 L398,158 Z M644,128 L652,118 L660,110 L668,105 L674,101 L676,100 L678,101 L682,106 L690,116 L698,128 L690,126 L682,120 L678,118 L674,118 L668,122 L660,128 L652,134 Z M906,156 L912,150 L918,146 L924,144 L928,145 L930,146 L934,150 L940,158 L946,168 L938,164 L932,158 L928,156 L924,156 L918,160 L912,164 Z" fill="rgba(220,232,250,0.75)"/>
+        <!-- Ridge highlights -->
+        <path class="mtn-ridge" id="ridge7" d="M100,280 L140,228 L196,170 M290,268 L340,218 L416,132 M550,266 L600,212 L676,100 M820,252 L860,210 L928,145 M1054,256 L1090,220 L1110,210" stroke="rgba(200,215,240,0.3)"/>
+      </svg>
+
+      <!-- Layer 6 - prominent peaks with snowcaps -->
+      <svg class="hero__mtn" id="mtn6" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath6" d="M0,500 L0,372 L18,368 L36,360 L52,350 L66,340 L78,330 L88,320 L98,310 L106,300 L112,292 L118,284 L122,278 L126,272 L130,266 L134,260 L138,254 L140,250 L142,248 L144,250 L148,254 L154,262 L162,274 L172,286 L184,298 L196,308 L208,316 L220,322 L232,326 L242,328 L250,326 L258,322 L266,316 L274,308 L282,298 L290,286 L296,276 L302,266 L306,258 L310,250 L314,242 L318,234 L322,226 L326,218 L330,212 L334,206 L338,200 L342,194 L346,188 L350,182 L354,178 L358,174 L362,170 L366,168 L370,166 L372,165 L374,166 L378,170 L382,176 L388,184 L394,194 L402,208 L412,224 L422,238 L434,252 L446,264 L458,274 L470,282 L482,288 L492,292 L502,294 L510,292 L518,288 L526,282 L534,274 L540,266 L546,258 L550,250 L554,242 L558,234 L562,226 L566,220 L570,214 L574,210 L578,206 L582,204 L586,202 L588,202 L590,204 L594,208 L600,216 L606,226 L614,240 L624,254 L636,268 L648,280 L662,290 L676,298 L690,304 L702,306 L712,306 L720,304 L728,298 L736,292 L742,284 L748,274 L754,264 L758,254 L762,244 L766,234 L770,224 L774,216 L778,208 L782,200 L786,192 L790,186 L794,180 L798,174 L802,170 L806,166 L810,162 L812,160 L814,158 L816,158 L818,160 L822,164 L826,170 L832,180 L838,192 L846,206 L856,222 L866,238 L878,254 L890,268 L904,280 L918,290 L932,298 L946,304 L958,306 L968,306 L976,304 L984,298 L990,292 L996,284 L1002,276 L1006,268 L1010,260 L1014,252 L1018,244 L1022,238 L1026,232 L1030,228 L1034,224 L1038,222 L1042,220 L1044,220 L1048,222 L1054,228 L1062,238 L1072,250 L1084,264 L1098,278 L1114,290 L1130,300 L1148,308 L1166,314 L1184,318 L1202,320 L1218,318 L1232,314 L1244,308 L1254,302 L1262,294 L1270,286 L1276,278 L1282,270 L1286,264 L1290,258 L1294,252 L1298,248 L1300,244 L1302,242 L1306,246 L1312,254 L1320,264 L1332,278 L1346,292 L1362,304 L1380,314 L1400,322 L1420,328 L1440,334 L1440,500 Z" fill="#4E5E8E"/>
+        <!-- Snowcaps -->
+        <path class="mtn-snow" id="snow6" d="M132,268 L138,258 L140,252 L142,248 L144,250 L148,258 L156,270 L148,268 L144,264 L142,264 L138,268 Z M354,184 L362,174 L368,168 L372,165 L374,166 L378,174 L386,188 L378,184 L374,180 L370,180 L364,184 Z M582,210 L586,205 L588,202 L590,204 L596,212 L602,222 L596,218 L590,214 L588,214 L584,216 Z M806,170 L810,164 L814,159 L816,158 L818,160 L824,170 L832,184 L824,180 L818,174 L816,172 L812,174 Z" fill="rgba(220,232,250,0.7)"/>
+        <path class="mtn-ridge" id="ridge6" d="M78,330 L120,278 L142,248 M258,322 L310,250 L372,165 M518,288 L556,234 L588,202 M728,298 L770,224 L816,158 M984,298 L1030,228 L1044,220" stroke="rgba(200,215,240,0.25)"/>
+      </svg>
+
+      <!-- Layer 5 - mid-distance peaks with subtle snowcaps -->
+      <svg class="hero__mtn" id="mtn5" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath5" d="M0,500 L0,388 L20,384 L40,376 L58,366 L74,354 L88,342 L100,330 L110,320 L118,310 L124,302 L128,296 L132,290 L134,286 L136,282 L138,278 L139,276 L140,278 L144,282 L150,290 L158,302 L168,314 L180,326 L194,336 L208,344 L222,350 L236,354 L248,356 L258,354 L268,350 L276,344 L284,336 L292,326 L298,316 L304,306 L308,298 L312,290 L316,282 L320,274 L324,266 L328,260 L332,254 L334,250 L336,246 L338,244 L340,242 L342,244 L346,248 L352,256 L360,268 L370,282 L382,296 L396,310 L412,322 L428,332 L444,340 L460,344 L474,346 L486,344 L496,340 L504,334 L512,326 L518,318 L524,308 L528,300 L532,292 L536,284 L538,278 L540,272 L542,268 L543,264 L544,262 L546,264 L550,270 L556,280 L564,294 L574,308 L586,322 L600,334 L616,344 L632,352 L650,356 L666,358 L680,356 L692,352 L702,346 L712,338 L720,328 L728,318 L734,308 L738,298 L742,288 L746,280 L750,272 L752,266 L754,260 L756,256 L758,252 L760,250 L762,252 L766,258 L772,268 L780,282 L790,298 L802,312 L816,326 L832,338 L850,348 L868,354 L886,358 L902,360 L916,358 L928,354 L938,348 L948,340 L956,330 L964,320 L970,310 L976,300 L980,292 L984,284 L986,278 L988,274 L990,270 L991,268 L992,270 L996,276 L1002,286 L1010,300 L1020,314 L1032,328 L1048,340 L1064,350 L1082,358 L1100,362 L1118,364 L1134,362 L1148,358 L1160,352 L1170,344 L1178,336 L1186,326 L1192,316 L1196,308 L1200,300 L1204,294 L1208,288 L1210,284 L1212,280 L1214,278 L1216,280 L1220,286 L1228,296 L1238,310 L1252,324 L1268,338 L1288,348 L1308,356 L1330,362 L1354,366 L1378,368 L1404,370 L1424,370 L1440,372 L1440,500 Z" fill="#42517E"/>
+        <!-- Small snowcaps on tallest peaks -->
+        <path class="mtn-snow" id="snow5" d="M134,290 L137,282 L138,278 L139,276 L140,278 L142,284 L146,292 L142,290 L140,288 L138,290 Z M756,260 L758,254 L760,250 L762,252 L766,260 L770,268 L764,266 L762,262 L760,262 L758,264 Z" fill="rgba(220,232,250,0.55)"/>
+        <path class="mtn-ridge" id="ridge5" d="M74,354 L110,320 L139,276 M276,344 L320,274 L340,242 M504,334 L536,284 L544,262 M702,346 L746,280 L760,250 M938,348 L980,292 L991,268" stroke="rgba(200,215,240,0.2)"/>
+      </svg>
+
+      <!-- Layer 4 - closer range, no snowcaps, detailed ridgelines -->
+      <svg class="hero__mtn" id="mtn4" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath4" d="M0,500 L0,408 L24,404 L48,396 L68,386 L86,374 L100,364 L112,354 L122,344 L130,336 L136,330 L140,324 L144,320 L148,316 L152,314 L156,312 L158,312 L160,314 L166,320 L174,330 L184,342 L198,356 L214,368 L232,378 L252,386 L272,392 L292,394 L308,392 L322,388 L334,382 L346,374 L356,364 L364,356 L372,346 L378,338 L384,330 L388,324 L392,318 L396,314 L400,310 L404,308 L408,308 L412,310 L418,316 L426,326 L436,340 L450,356 L466,370 L484,382 L504,392 L524,398 L544,402 L562,402 L578,400 L592,394 L604,386 L616,378 L626,368 L634,358 L642,348 L648,340 L654,332 L658,326 L662,322 L666,318 L668,316 L670,316 L674,320 L680,328 L690,340 L702,354 L718,368 L736,380 L756,390 L778,398 L798,402 L818,404 L836,402 L852,398 L866,392 L878,384 L890,376 L900,366 L908,358 L916,348 L922,340 L926,334 L930,328 L934,324 L936,322 L938,322 L942,326 L948,334 L958,346 L970,360 L986,374 L1004,386 L1024,396 L1046,402 L1068,406 L1088,408 L1106,406 L1122,402 L1136,396 L1150,388 L1162,378 L1172,368 L1180,358 L1188,350 L1194,342 L1198,336 L1202,332 L1204,330 L1208,332 L1214,338 L1224,348 L1238,362 L1256,376 L1276,388 L1300,398 L1326,406 L1354,410 L1382,414 L1410,416 L1440,418 L1440,500 Z" fill="#36446E"/>
+      </svg>
+
+      <!-- Layer 3 - foreground hills, rolling terrain -->
+      <svg class="hero__mtn" id="mtn3" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath3" d="M0,500 L0,428 L30,424 L60,418 L90,410 L116,402 L138,394 L158,388 L176,382 L192,378 L206,376 L218,374 L228,374 L238,376 L250,380 L264,386 L282,394 L302,402 L324,410 L348,416 L372,420 L394,420 L414,418 L432,414 L448,408 L462,402 L474,394 L484,388 L494,382 L502,376 L508,372 L514,368 L518,366 L522,366 L528,370 L536,376 L548,386 L562,396 L580,406 L600,414 L622,420 L646,424 L668,424 L688,422 L706,418 L722,412 L736,404 L748,396 L758,388 L768,380 L774,374 L780,368 L784,364 L788,362 L792,364 L798,370 L808,380 L822,392 L838,404 L858,414 L880,420 L904,426 L928,428 L950,426 L970,422 L988,416 L1004,408 L1018,400 L1030,392 L1040,384 L1048,378 L1054,372 L1060,368 L1064,366 L1068,368 L1076,374 L1088,384 L1102,396 L1120,406 L1142,416 L1166,422 L1192,426 L1216,428 L1240,426 L1260,422 L1278,418 L1294,412 L1308,406 L1320,400 L1330,394 L1338,390 L1344,386 L1350,384 L1356,386 L1366,392 L1378,400 L1394,410 L1412,418 L1430,424 L1440,428 L1440,500 Z" fill="#2A375E"/>
+      </svg>
+
+      <!-- Layer 2 - near foreground, gentle undulations -->
+      <svg class="hero__mtn" id="mtn2" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath2" d="M0,500 L0,444 L40,440 L80,436 L120,432 L160,430 L200,432 L240,436 L280,434 L320,430 L360,426 L400,424 L440,428 L480,432 L520,430 L560,426 L600,422 L640,420 L680,424 L720,428 L760,426 L800,422 L840,418 L880,416 L920,420 L960,424 L1000,422 L1040,418 L1080,416 L1120,418 L1160,422 L1200,420 L1240,416 L1280,414 L1320,418 L1360,422 L1400,420 L1440,424 L1440,500 Z" fill="#1F2B4E"/>
+      </svg>
+
+      <!-- Layer 1 - closest, merges into page background -->
+      <svg class="hero__mtn" id="mtn1" viewBox="0 0 1440 500" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path id="mtnPath1" d="M0,500 L0,458 L80,455 L160,452 L240,454 L320,450 L400,448 L480,452 L560,449 L640,446 L720,450 L800,448 L880,445 L960,448 L1040,446 L1120,444 L1200,448 L1280,446 L1360,450 L1440,452 L1440,500 Z" fill="#161F3A"/>
+      </svg>
+    </div>
+
+    <!-- Hero text -->
+    <div class="hero__content">
+      <h1 class="hero__name">Randy Ritprasert</h1>
+      <p class="hero__role">Product Designer</p>
+      <p class="hero__tagline">10+ years of design excellence</p>
+      <p class="hero__description">Crafting intuitive digital experiences that bridge complexity and clarity</p>
+    </div>
+
+    <div class="hero__scroll-hint">
+      <span>Scroll</span>
+      <div class="hero__scroll-arrow"></div>
+    </div>
+  </section>
+
+  <!-- ==================== PROJECTS ==================== -->
+  <section class="section" id="projects">
+    <div class="section__inner">
+      <div class="reveal">
+        <p class="section__label">Work</p>
+        <h2 class="section__title">Selected Projects</h2>
+        <p class="section__subtitle">A curated selection of product design work spanning enterprise platforms, consumer applications, and design systems.</p>
+        <hr class="section__rule">
+      </div>
+
+      <div class="road-container" id="roadContainer">
+        <!-- Road SVG drawn by JS -->
+        <svg class="road-svg" id="roadSvg" preserveAspectRatio="none">
+          <path id="roadBg" class="road-path-bg"/>
+          <path id="roadEdgeL" class="road-path-edge-l"/>
+          <path id="roadEdgeR" class="road-path-edge-r"/>
+          <path id="roadLine" class="road-path-line"/>
+        </svg>
+
+        <!-- Car that follows the road -->
+        <div class="road-car" id="roadCar">
+          <img src="car.png" alt="4Runner" style="width:100%;height:100%;object-fit:contain;">
+        </div>
+
+        <!-- Decorative cactuses along the road -->
+        <svg class="deco" style="position:absolute;right:6%;top:3%;width:40px;height:90px;opacity:0.1;" viewBox="0 0 80 160">
+          <path d="M32,155 L32,40 C32,22 48,22 48,40 L48,155 Z" fill="#6B4A2E"/>
+          <path d="M32,88 L22,88 C12,88 12,68 22,68 L22,52 C22,42 32,42 32,52 Z" fill="#6B4A2E"/>
+          <path d="M48,72 L58,72 C68,72 68,52 58,52 L58,38 C58,28 48,28 48,38 Z" fill="#6B4A2E"/>
+        </svg>
+
+        <svg class="deco" style="position:absolute;left:5%;top:18%;width:28px;height:60px;opacity:0.08;" viewBox="0 0 80 160">
+          <path d="M32,155 L32,50 C32,32 48,32 48,50 L48,155 Z" fill="#5A3D25"/>
+          <path d="M48,90 L56,90 C64,90 64,74 56,74 L56,62 C56,54 48,54 48,62 Z" fill="#5A3D25"/>
+        </svg>
+
+        <svg class="deco" style="position:absolute;right:8%;top:45%;width:35px;height:75px;opacity:0.09;" viewBox="0 0 80 160">
+          <path d="M32,155 L32,45 C32,25 48,25 48,45 L48,155 Z" fill="#6B4A2E"/>
+          <path d="M32,95 L20,95 C10,95 10,75 20,75 L20,58 C20,48 32,48 32,58 Z" fill="#6B4A2E"/>
+          <path d="M48,80 L60,80 C70,80 70,60 60,60 L60,45 C60,35 48,35 48,45 Z" fill="#6B4A2E"/>
+        </svg>
+
+        <!-- Decorative rocks -->
+        <svg class="deco" style="position:absolute;left:3%;top:55%;width:60px;height:28px;opacity:0.07;" viewBox="0 0 120 60">
+          <ellipse cx="60" cy="42" rx="52" ry="16" fill="#4A3525"/>
+          <ellipse cx="42" cy="34" rx="30" ry="14" fill="#5A4030"/>
+          <ellipse cx="78" cy="30" rx="22" ry="11" fill="#6B4A35"/>
+        </svg>
+
+        <svg class="deco" style="position:absolute;right:4%;top:75%;width:50px;height:24px;opacity:0.08;" viewBox="0 0 120 60">
+          <ellipse cx="55" cy="40" rx="45" ry="15" fill="#4A3525"/>
+          <ellipse cx="70" cy="32" rx="28" ry="12" fill="#5A4030"/>
+        </svg>
+
+        <svg class="deco" style="position:absolute;left:7%;top:88%;width:32px;height:68px;opacity:0.07;" viewBox="0 0 80 160">
+          <path d="M32,155 L32,55 C32,38 48,38 48,55 L48,155 Z" fill="#5A3D25"/>
+          <path d="M32,100 L24,100 C16,100 16,82 24,82 L24,70 C24,62 32,62 32,70 Z" fill="#5A3D25"/>
+        </svg>
+
+        <!-- Project cards -->
+        <div class="road-projects">
+          <div class="road-project road-project--right reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">Cloud Theory AI</h3>
+                <p class="project-card__desc">AI-powered dashboard experience with generated summaries for faster at-a-glance automotive market reporting.</p>
+                <div class="project-card__tags">
+                  <span class="tag">AI/ML</span>
+                  <span class="tag">Dashboard</span>
+                  <span class="tag">Design System</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="road-project road-project--left reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">FloQast Reporting</h3>
+                <p class="project-card__desc">Enterprise close management platform redesign, improving workflow efficiency for accounting teams.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Enterprise</span>
+                  <span class="tag">SaaS</span>
+                  <span class="tag">Data Viz</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="road-project road-project--right reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">Azibo</h3>
+                <p class="project-card__desc">End-to-end property management platform streamlining landlord finances, leasing, and tenant communication.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Fintech</span>
+                  <span class="tag">Mobile</span>
+                  <span class="tag">B2B</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="road-project road-project--left reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">Intuit</h3>
+                <p class="project-card__desc">Prosumer tax experience design, simplifying complex financial workflows for millions of users.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Consumer</span>
+                  <span class="tag">Fintech</span>
+                  <span class="tag">Scale</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="road-project road-project--right reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">Cisco</h3>
+                <p class="project-card__desc">Network infrastructure management tools bringing clarity to complex enterprise networking ecosystems.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Enterprise</span>
+                  <span class="tag">Infrastructure</span>
+                  <span class="tag">IoT</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="road-project road-project--left reveal">
+            <div class="project-card">
+              <div class="project-card__image">Project Image</div>
+              <div class="project-card__body">
+                <h3 class="project-card__title">NASA</h3>
+                <p class="project-card__desc">Exoplanet data visualization tool enabling researchers to explore and analyze planetary discoveries.</p>
+                <div class="project-card__tags">
+                  <span class="tag">Data Viz</span>
+                  <span class="tag">Research</span>
+                  <span class="tag">Gov</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="terrain-divider"></div>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="section" id="about">
+    <!-- Decorative cactus (left side) -->
+    <svg class="deco" style="position:absolute;left:3%;top:15%;width:45px;height:100px;opacity:0.09;" viewBox="0 0 80 160">
+      <path d="M32,155 L32,38 C32,20 48,20 48,38 L48,155 Z" fill="#6B4A2E"/>
+      <path d="M32,85 L18,85 C8,85 8,65 18,65 L18,48 C18,38 32,38 32,48 Z" fill="#6B4A2E"/>
+      <path d="M48,70 L62,70 C72,70 72,50 62,50 L62,35 C62,25 48,25 48,35 Z" fill="#6B4A2E"/>
+    </svg>
+
+    <!-- Decorative rocks (right side) -->
+    <svg class="deco" style="position:absolute;right:2%;bottom:20%;width:70px;height:32px;opacity:0.07;" viewBox="0 0 120 60">
+      <ellipse cx="60" cy="42" rx="55" ry="18" fill="#4A3525"/>
+      <ellipse cx="40" cy="32" rx="32" ry="15" fill="#5A4030"/>
+      <ellipse cx="80" cy="28" rx="24" ry="12" fill="#6B4A35"/>
+    </svg>
+
+    <div class="section__inner">
+      <div class="reveal">
+        <p class="section__label">About</p>
+        <h2 class="section__title">A bit about me</h2>
+        <hr class="section__rule">
+      </div>
+
+      <div class="about-grid">
+        <div class="about__photo reveal reveal-delay-1">
+          Photo
+        </div>
+        <div class="about__text reveal reveal-delay-2">
+          <p>I'm a product designer with over a decade of experience crafting digital experiences across enterprise platforms, consumer applications, and everything in between. My work sits at the intersection of design thinking, systems design, and user advocacy.</p>
+          <p>Based in San Jose, California — when I'm not pushing pixels, you'll find me overlanding through the desert, chasing golden hour on dusty trails, and finding new perspectives in the landscapes that inspire my work.</p>
+          <p>I believe great design is invisible. It should feel effortless — even when the problems behind it are anything but.</p>
+
+          <div class="about__stats">
+            <div class="reveal reveal-delay-3">
+              <div class="stat__value">10+</div>
+              <div class="stat__label">Years of experience</div>
+            </div>
+            <div class="reveal reveal-delay-4">
+              <div class="stat__value">50+</div>
+              <div class="stat__label">Products shipped</div>
+            </div>
+            <div class="reveal reveal-delay-5">
+              <div class="stat__value">6</div>
+              <div class="stat__label">Companies</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="terrain-divider"></div>
+
+  <!-- ==================== CONTACT ==================== -->
+  <section class="section contact" id="contact">
+    <!-- Decorative small cactus -->
+    <svg class="deco" style="position:absolute;right:5%;top:25%;width:24px;height:52px;opacity:0.08;" viewBox="0 0 80 160">
+      <path d="M32,155 L32,55 C32,38 48,38 48,55 L48,155 Z" fill="#5A3D25"/>
+      <path d="M48,95 L56,95 C64,95 64,78 56,78 L56,68 C56,60 48,60 48,68 Z" fill="#5A3D25"/>
+    </svg>
+
+    <!-- Decorative rocks -->
+    <svg class="deco" style="position:absolute;left:4%;bottom:15%;width:55px;height:25px;opacity:0.06;" viewBox="0 0 120 60">
+      <ellipse cx="55" cy="42" rx="48" ry="16" fill="#4A3525"/>
+      <ellipse cx="72" cy="34" rx="28" ry="13" fill="#5A4030"/>
+    </svg>
+
+    <div class="section__inner">
+      <div class="reveal">
+        <p class="section__label">Contact</p>
+      </div>
+      <h2 class="contact__title reveal reveal-delay-1">Let's Connect</h2>
+      <p class="contact__subtitle reveal reveal-delay-2">Have a project in mind or just want to chat about design, overlanding, or anything in between? I'd love to hear from you.</p>
+      <div class="reveal reveal-delay-3">
+        <a href="mailto:randyrits@gmail.com" class="contact__email">randyrits@gmail.com</a>
+      </div>
+      <div class="contact__socials reveal reveal-delay-4">
+        <a href="https://linkedin.com/in/ruttapon/" class="contact__social-link" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="#" class="contact__social-link">Dribbble</a>
+        <a href="#" class="contact__social-link">Read.cv</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <p class="footer__text">&copy; 2026 Randy Ritprasert. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // ==================== NAV ====================
+    const nav = document.getElementById('nav');
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('active');
+      navLinks.classList.toggle('open');
+    });
+
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('active');
+        navLinks.classList.remove('open');
+      });
+    });
+
+    // ==================== NAV SCROLL STATE ====================
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      if (scrollY > 60) {
+        nav.classList.add('nav--scrolled');
+      } else {
+        nav.classList.remove('nav--scrolled');
+      }
+      lastScroll = scrollY;
+    }, { passive: true });
+
+    // ==================== GENERATE STARS ====================
+    (() => {
+      const starsContainer = document.getElementById('heroStars');
+      const starCount = 80;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = 'hero__star';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 60 + '%'; // mostly upper portion
+        star.style.width = (Math.random() * 2 + 1) + 'px';
+        star.style.height = star.style.width;
+        star.style.animationDelay = (Math.random() * 3) + 's';
+        star.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        starsContainer.appendChild(star);
+      }
+    })();
+
+    // ==================== HERO COLOR TRANSITION ====================
+    (() => {
+      const hero = document.getElementById('hero');
+      const skyCool = document.getElementById('skyCool');
+      const skyWarm = document.getElementById('skyWarm');
+      const sun = document.getElementById('sun');
+      const sunCore = document.getElementById('sunCore');
+      const starsEl = document.getElementById('heroStars');
+
+      // Mountain color pairs: [cool RGB, warm RGB]
+      const mtnColors = [
+        { id: 'mtnPath7', cool: [91, 107, 158],  warm: [184, 137, 106] },
+        { id: 'mtnPath6', cool: [78,  94, 142],  warm: [158, 117,  85] },
+        { id: 'mtnPath5', cool: [66,  81, 126],  warm: [134,  98,  69] },
+        { id: 'mtnPath4', cool: [54,  68, 110],  warm: [110,  79,  53] },
+        { id: 'mtnPath3', cool: [42,  55,  94],  warm: [ 86,  61,  40] },
+        { id: 'mtnPath2', cool: [31,  43,  78],  warm: [ 61,  43,  28] },
+        { id: 'mtnPath1', cool: [22,  31,  58],  warm: [ 26,  18,  16] },
+      ];
+
+      // Snowcap color pairs: cool = icy blue-white, warm = warm cream
+      const snowColors = [
+        { id: 'snow7', coolFill: 'rgba(220,232,250,0.75)', warmFill: 'rgba(255,252,245,0.6)' },
+        { id: 'snow6', coolFill: 'rgba(220,232,250,0.7)',  warmFill: 'rgba(255,250,240,0.55)' },
+        { id: 'snow5', coolFill: 'rgba(220,232,250,0.55)', warmFill: 'rgba(255,248,235,0.45)' },
+      ];
+
+      // Ridge highlight color pairs
+      const ridgeColors = [
+        { id: 'ridge7', coolStroke: 'rgba(200,215,240,0.3)', warmStroke: 'rgba(220,190,150,0.2)' },
+        { id: 'ridge6', coolStroke: 'rgba(200,215,240,0.25)', warmStroke: 'rgba(220,190,150,0.15)' },
+        { id: 'ridge5', coolStroke: 'rgba(200,215,240,0.2)', warmStroke: 'rgba(210,185,145,0.12)' },
+      ];
+
+      // Cache elements
+      const snowEls = snowColors.map(c => ({
+        el: document.getElementById(c.id),
+        coolRGBA: c.coolFill,
+        warmRGBA: c.warmFill,
+        coolParsed: parseRGBA(c.coolFill),
+        warmParsed: parseRGBA(c.warmFill),
+      }));
+
+      const ridgeEls = ridgeColors.map(c => ({
+        el: document.getElementById(c.id),
+        coolParsed: parseRGBA(c.coolStroke),
+        warmParsed: parseRGBA(c.warmStroke),
+      }));
+
+      function parseRGBA(str) {
+        const m = str.match(/[\d.]+/g);
+        return m ? m.map(Number) : [0,0,0,0];
+      }
+
+      // Cache path elements
+      const mtnEls = mtnColors.map(c => ({
+        el: document.getElementById(c.id),
+        cool: c.cool,
+        warm: c.warm,
+      }));
+
+      // Mountain parallax layers (farthest = most movement)
+      const mtnLayers = [
+        { el: document.getElementById('mtn7'), speed: 0.12 },
+        { el: document.getElementById('mtn6'), speed: 0.10 },
+        { el: document.getElementById('mtn5'), speed: 0.08 },
+        { el: document.getElementById('mtn4'), speed: 0.06 },
+        { el: document.getElementById('mtn3'), speed: 0.04 },
+        { el: document.getElementById('mtn2'), speed: 0.02 },
+        { el: document.getElementById('mtn1'), speed: 0.01 },
+      ];
+
+      // Sun color pairs
+      const sunGlowCool = { r: 180, g: 195, b: 230, a: 0.5 };
+      const sunGlowWarm = { r: 245, g: 200, b: 66, a: 0.6 };
+      const sunCoreCool = { r: 220, g: 230, b: 255, a: 0.85 };
+      const sunCoreWarm = { r: 245, g: 210, b: 90, a: 0.9 };
+
+      function lerp(a, b, t) { return a + (b - a) * t; }
+
+      function updateHero() {
+        const scrollY = window.scrollY;
+        const heroH = hero.offsetHeight;
+        // Color transition: 0 = fully cool, 1 = fully warm
+        // Transition happens over the hero viewport
+        const colorProgress = Math.min(Math.max(scrollY / (heroH * 0.75), 0), 1);
+        // Use eased progress for smoother feel
+        const t = colorProgress * colorProgress * (3 - 2 * colorProgress); // smoothstep
+
+        // Sky layers
+        skyCool.style.opacity = 1 - t;
+        skyWarm.style.opacity = t;
+
+        // Stars fade out
+        starsEl.style.opacity = Math.max(0, 1 - t * 2.5);
+
+        // Mountain colors
+        for (const mtn of mtnEls) {
+          const r = Math.round(lerp(mtn.cool[0], mtn.warm[0], t));
+          const g = Math.round(lerp(mtn.cool[1], mtn.warm[1], t));
+          const b = Math.round(lerp(mtn.cool[2], mtn.warm[2], t));
+          mtn.el.setAttribute('fill', `rgb(${r},${g},${b})`);
+        }
+
+        // Snowcap colors
+        for (const snow of snowEls) {
+          if (!snow.el) continue;
+          const c = snow.coolParsed, w = snow.warmParsed;
+          const r = Math.round(lerp(c[0], w[0], t));
+          const g = Math.round(lerp(c[1], w[1], t));
+          const b = Math.round(lerp(c[2], w[2], t));
+          const a = lerp(c[3], w[3], t).toFixed(2);
+          snow.el.setAttribute('fill', `rgba(${r},${g},${b},${a})`);
+        }
+
+        // Ridge highlight colors
+        for (const ridge of ridgeEls) {
+          if (!ridge.el) continue;
+          const c = ridge.coolParsed, w = ridge.warmParsed;
+          const r = Math.round(lerp(c[0], w[0], t));
+          const g = Math.round(lerp(c[1], w[1], t));
+          const b = Math.round(lerp(c[2], w[2], t));
+          const a = lerp(c[3], w[3], t).toFixed(2);
+          ridge.el.setAttribute('stroke', `rgba(${r},${g},${b},${a})`);
+        }
+
+        // Mountain parallax
+        for (const layer of mtnLayers) {
+          const y = -scrollY * layer.speed;
+          layer.el.style.transform = `translateY(${y}px)`;
+        }
+
+        // Sun position + color
+        const sunY = -scrollY * 0.18;
+        const sunScale = 1 + (scrollY / heroH) * 0.15;
+        const sunOpacity = Math.max(0, 1 - (scrollY / heroH) * 1.2);
+        sun.style.transform = `translateX(-50%) translateY(${sunY}px) scale(${sunScale})`;
+        sun.style.opacity = sunOpacity;
+
+        // Sun glow color transition
+        const gr = Math.round(lerp(sunGlowCool.r, sunGlowWarm.r, t));
+        const gg = Math.round(lerp(sunGlowCool.g, sunGlowWarm.g, t));
+        const gb = Math.round(lerp(sunGlowCool.b, sunGlowWarm.b, t));
+        const ga = lerp(sunGlowCool.a, sunGlowWarm.a, t);
+        sun.style.background = `radial-gradient(circle, rgba(${gr},${gg},${gb},${ga}) 0%, rgba(${gr},${gg},${gb},${ga*0.5}) 25%, rgba(${gr},${gg},${gb},${ga*0.2}) 50%, rgba(${gr},${gg},${gb},${ga*0.05}) 70%, transparent 100%)`;
+
+        // Sun core color
+        const cr = Math.round(lerp(sunCoreCool.r, sunCoreWarm.r, t));
+        const cg = Math.round(lerp(sunCoreCool.g, sunCoreWarm.g, t));
+        const cb = Math.round(lerp(sunCoreCool.b, sunCoreWarm.b, t));
+        const ca = lerp(sunCoreCool.a, sunCoreWarm.a, t);
+        sunCore.style.background = `radial-gradient(circle, rgba(${cr},${cg},${cb},${ca}) 0%, rgba(${cr},${cg},${cb},${ca*0.55}) 40%, rgba(${cr},${cg},${cb},${ca*0.15}) 70%, transparent 100%)`;
+
+        requestAnimationFrame(updateHero);
+      }
+      requestAnimationFrame(updateHero);
+    })();
+
+    // ==================== REVEAL ON SCROLL ====================
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, {
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    revealEls.forEach(el => revealObserver.observe(el));
+
+    // ==================== ROAD + CAR ====================
+    (() => {
+      const container = document.getElementById('roadContainer');
+      const svg = document.getElementById('roadSvg');
+      const roadBg = document.getElementById('roadBg');
+      const roadLine = document.getElementById('roadLine');
+      const roadEdgeL = document.getElementById('roadEdgeL');
+      const roadEdgeR = document.getElementById('roadEdgeR');
+      const car = document.getElementById('roadCar');
+      const projects = container.querySelectorAll('.road-project');
+
+      const years = ['2025', '2021', '2020', '2018', '2016', '2014'];
+
+      function buildRoad() {
+        const cW = container.offsetWidth;
+        const cH = container.querySelector('.road-projects').offsetHeight;
+
+        svg.setAttribute('width', cW);
+        svg.setAttribute('height', cH);
+        svg.style.height = cH + 'px';
+
+        // Build path through project midpoints
+        const points = [];
+        projects.forEach((proj, i) => {
+          const rect = proj.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+          const y = rect.top - containerRect.top + rect.height * 0.4;
+          const isRight = proj.classList.contains('road-project--right');
+          const x = cW / 2;
+          points.push({ x, y, isRight });
+        });
+
+        // Build a smooth S-curve path
+        const cx = cW / 2;
+        const amplitude = Math.min(cW * 0.16, 140);
+        let d = `M ${cx} 0`;
+
+        points.forEach((pt, i) => {
+          const swing = pt.isRight ? -amplitude : amplitude;
+          const prevY = i === 0 ? 0 : points[i - 1].y;
+          const midY = (prevY + pt.y) / 2;
+
+          d += ` C ${cx + swing} ${midY}, ${cx + swing} ${midY}, ${cx} ${pt.y}`;
+        });
+
+        // Extend past last project
+        d += ` L ${cx} ${cH}`;
+
+        roadBg.setAttribute('d', d);
+        roadLine.setAttribute('d', d);
+
+        // Edge lines
+        const edgeOffset = 22;
+        roadEdgeL.setAttribute('d', d);
+        roadEdgeR.setAttribute('d', d);
+        roadEdgeL.setAttribute('stroke-width', '0.5');
+        roadEdgeR.setAttribute('stroke-width', '0.5');
+        roadEdgeL.setAttribute('transform', `translate(-${edgeOffset}, 0)`);
+        roadEdgeR.setAttribute('transform', `translate(${edgeOffset}, 0)`);
+
+        // Remove old stops and year labels
+        container.querySelectorAll('.road-stop, .road-year').forEach(el => el.remove());
+
+        // Add stop markers and year labels
+        points.forEach((pt, i) => {
+          const stop = document.createElement('div');
+          stop.className = 'road-stop';
+          stop.style.left = cx + 'px';
+          stop.style.top = pt.y + 'px';
+          container.appendChild(stop);
+
+          const label = document.createElement('div');
+          label.className = 'road-year';
+          label.textContent = years[i] || '';
+          const isRight = pt.isRight;
+          label.style.top = pt.y + 'px';
+          label.style.left = (cx + (isRight ? -40 : 40)) + 'px';
+          container.appendChild(label);
+        });
+
+        // Store path for car animation
+        return roadBg;
+      }
+
+      let pathEl = buildRoad();
+
+      // Rebuild on resize
+      let resizeTimer;
+      window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => { pathEl = buildRoad(); }, 200);
+      });
+
+      // Animate car along road on scroll
+      let lastScrollY = window.scrollY;
+      let scrollDirection = 1; // 1 = down, -1 = up
+
+      window.addEventListener('scroll', () => {
+        const currentScrollY = window.scrollY;
+        if (currentScrollY > lastScrollY) {
+          scrollDirection = 1;
+        } else if (currentScrollY < lastScrollY) {
+          scrollDirection = -1;
+        }
+        lastScrollY = currentScrollY;
+      }, { passive: true });
+
+      function animateCar() {
+        const pathNode = pathEl;
+        if (!pathNode || !pathNode.getTotalLength) return;
+
+        const totalLen = pathNode.getTotalLength();
+        const containerRect = container.getBoundingClientRect();
+        const sectionTop = containerRect.top + window.scrollY;
+        const sectionH = containerRect.height;
+        const viewH = window.innerHeight;
+
+        // Progress: 0 at top of section, 1 when bottom of section reaches viewport bottom
+        const scrolled = window.scrollY + viewH;
+        const progress = Math.max(0, Math.min(1, (scrolled - sectionTop) / (sectionH + viewH * 0.3)));
+
+        const len = progress * totalLen;
+        const pt = pathNode.getPointAtLength(len);
+
+        // Get direction for rotation
+        const pt2 = pathNode.getPointAtLength(Math.min(len + 5, totalLen));
+        const pathAngle = Math.atan2(pt2.y - pt.y, pt2.x - pt.x) * (180 / Math.PI);
+
+        // Flip 180 when scrolling up so the car faces the other way
+        const flip = scrollDirection === -1 ? 180 : 0;
+        const angle = pathAngle + flip;
+
+        car.style.transform = `translate(${pt.x - 40}px, ${pt.y - 28}px) rotate(${angle}deg)`;
+        car.style.opacity = progress > 0.01 && progress < 0.99 ? '1' : '0';
+
+        requestAnimationFrame(animateCar);
+      }
+      requestAnimationFrame(animateCar);
+    })();
+
+    // ==================== DUST PARTICLES ====================
+    (() => {
+      const canvas = document.getElementById('dustCanvas');
+      const ctx = canvas.getContext('2d', { alpha: true });
+      let w, h;
+      const PARTICLE_COUNT = 50;
+      const particles = [];
+
+      function resize() {
+        w = canvas.width = window.innerWidth;
+        h = canvas.height = window.innerHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      class Dust {
+        constructor() {
+          this.reset(true);
+        }
+
+        reset(initial) {
+          this.x = Math.random() * w;
+          this.y = initial ? Math.random() * h : -10;
+          this.size = Math.random() * 1.5 + 0.5;
+          this.speedY = Math.random() * 0.2 + 0.05;
+          this.speedX = (Math.random() - 0.5) * 0.15;
+          this.alpha = Math.random() * 0.15 + 0.04;
+          this.pulseSpeed = Math.random() * 0.01 + 0.003;
+          this.pulseOffset = Math.random() * Math.PI * 2;
+          // Warm desert dust colors
+          const colors = ['210,165,116', '232,168,73', '193,101,30', '180,150,120'];
+          this.color = colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        update(time) {
+          this.y += this.speedY;
+          this.x += this.speedX + Math.sin(time * 0.0005 + this.pulseOffset) * 0.1;
+
+          const pulse = Math.sin(time * this.pulseSpeed + this.pulseOffset);
+          this.currentAlpha = this.alpha * (0.5 + 0.5 * pulse);
+
+          if (this.y > h + 10) this.reset(false);
+          if (this.x < -10) this.x = w + 10;
+          if (this.x > w + 10) this.x = -10;
+        }
+
+        draw() {
+          if (this.currentAlpha < 0.01) return;
+          ctx.globalAlpha = this.currentAlpha;
+          ctx.fillStyle = `rgba(${this.color}, 1)`;
+          ctx.beginPath();
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      for (let i = 0; i < PARTICLE_COUNT; i++) {
+        particles.push(new Dust());
+      }
+
+      function animate(time) {
+        ctx.clearRect(0, 0, w, h);
+        for (const p of particles) {
+          p.update(time);
+          p.draw();
+        }
+        ctx.globalAlpha = 1;
+        requestAnimationFrame(animate);
+      }
+      requestAnimationFrame(animate);
+    })();
+  </script>
+</body>
+</html>

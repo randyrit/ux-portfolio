@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyPath &mdash; Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-primary: #0a0e1a;
+      --bg-secondary: #11162a;
+      --bg-elevated: #19203a;
+      --text-primary: #eef1f8;
+      --text-secondary: #a3acc4;
+      --text-muted: #6c7693;
+      --accent: #00e87b;
+      --accent-dim: rgba(0, 232, 123, 0.10);
+      --accent-soft: rgba(0, 232, 123, 0.22);
+      --highlight: #00e87b;
+      --border: rgba(120, 140, 200, 0.10);
+      --border-hover: rgba(120, 140, 200, 0.22);
+      --font-display: 'Sora', sans-serif;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --nav-height: 72px;
+      --content-max: 1080px;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ===================== NAVIGATION ===================== */
+    .nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 clamp(24px, 5vw, 64px);
+      z-index: 1000;
+      background: rgba(10, 14, 26, 0.85);
+      backdrop-filter: blur(20px) saturate(1.2);
+      -webkit-backdrop-filter: blur(20px) saturate(1.2);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.4s ease, border-color 0.4s ease;
+    }
+
+    .nav__link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      padding: 8px 20px;
+      border-radius: 8px;
+      transition: color 0.3s ease, background 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav__link:hover {
+      color: var(--text-primary);
+      background: var(--accent-dim);
+    }
+
+    .nav__link--back svg {
+      width: 16px;
+      height: 16px;
+      transition: transform 0.3s var(--ease-out-expo);
+    }
+
+    .nav__link--back:hover svg {
+      transform: translateX(-3px);
+    }
+
+    .nav__brand {
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ===================== CASE STUDY HERO ===================== */
+    .cs-hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: calc(var(--nav-height) + 80px) clamp(24px, 5vw, 64px) clamp(60px, 8vw, 100px);
+      position: relative;
+      z-index: 2;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 70% 20%, rgba(0, 232, 123, 0.10), transparent 55%),
+        radial-gradient(ellipse at 20% 80%, rgba(0, 180, 216, 0.06), transparent 55%),
+        var(--bg-primary);
+    }
+
+    /* Cursor-reactive bright grid layer (canvas) */
+    .cs-hero__grid-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      display: block;
+    }
+
+    .cs-hero > *:not(.cs-hero__grid-canvas) { position: relative; z-index: 1; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .cs-hero__eyebrow {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--highlight);
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .cs-hero__title {
+      font-family: 'Sora', sans-serif;
+      font-size: clamp(44px, 7vw, 96px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      max-width: 880px;
+      margin-bottom: 24px;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .cs-hero__subtitle {
+      font-size: clamp(16px, 2vw, 19px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 620px;
+      line-height: 1.7;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .cs-hero__meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.65s forwards;
+    }
+
+    .cs-hero__meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      background: rgba(0, 232, 123, 0.06);
+      border: 1px solid var(--accent-soft);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .cs-hero__meta-label {
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .cs-hero__meta-value {
+      color: var(--text-primary);
+    }
+
+    /* ===================== CONTENT WRAPPER ===================== */
+    .cs-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .cs-section {
+      padding: clamp(60px, 8vw, 120px) clamp(24px, 5vw, 64px);
+    }
+
+    .cs-section--narrow {
+      max-width: calc(var(--content-max) + clamp(48px, 10vw, 128px));
+      margin: 0 auto;
+    }
+
+    .cs-divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+      border: none;
+      margin: 0;
+    }
+
+    .cs-section__number {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .cs-section__title {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 600;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+      max-width: 760px;
+    }
+
+    .cs-section__subtitle {
+      font-size: clamp(15px, 1.5vw, 17px);
+      font-weight: 300;
+      color: var(--text-secondary);
+      max-width: 720px;
+      line-height: 1.7;
+      margin-bottom: 32px;
+    }
+
+    .cs-section p {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      max-width: 720px;
+    }
+
+    .cs-section p + p { margin-top: 16px; }
+
+    .cs-section p strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Point grid (problem/why-it-matters) */
+    .cs-points {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .cs-point {
+      padding: 24px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+    }
+
+    .cs-point__num {
+      font-family: var(--font-display);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .cs-point__title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .cs-point__body {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    /* ===================== EMBEDDED PROTOTYPE ===================== */
+    .cs-prototype {
+      margin-top: 40px;
+    }
+
+    .cs-prototype__shell {
+      position: relative;
+      border: 1px solid var(--border-hover);
+      border-radius: 16px;
+      overflow: hidden;
+      background: #04060c;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45), 0 4px 24px rgba(0, 232, 123, 0.05);
+    }
+
+    .cs-prototype__bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 18px;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+
+    .cs-prototype__dots {
+      display: flex;
+      gap: 6px;
+    }
+    .cs-prototype__dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--bg-elevated);
+    }
+    .cs-prototype__dot:nth-child(1) { background: #ff5f57; }
+    .cs-prototype__dot:nth-child(2) { background: #febc2e; }
+    .cs-prototype__dot:nth-child(3) { background: #28c840; }
+
+    .cs-prototype__url {
+      font-family: 'Menlo', 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .cs-prototype__actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .cs-prototype__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      border: 1px solid var(--border-hover);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      background: transparent;
+      cursor: pointer;
+      transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+      font-family: var(--font-body);
+    }
+    .cs-prototype__btn:hover {
+      color: var(--accent);
+      border-color: var(--accent-soft);
+      background: var(--accent-dim);
+    }
+    .cs-prototype__btn svg { width: 13px; height: 13px; }
+
+    .cs-prototype__frame {
+      width: 100%;
+      height: 560px;
+      border: 0;
+      display: block;
+      background: #040711;
+    }
+
+    @media (max-width: 720px) {
+      .cs-prototype__frame { height: 420px; }
+      .cs-prototype__url { display: none; }
+    }
+
+    /* Fullscreen modal */
+    .cs-prototype__modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 6, 12, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: none;
+      padding: 24px;
+      flex-direction: column;
+    }
+    .cs-prototype__modal.open { display: flex; }
+
+    .cs-prototype__modal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      gap: 16px;
+    }
+
+    .cs-prototype__modal-title {
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      letter-spacing: 0.05em;
+    }
+
+    .cs-prototype__modal-frame {
+      flex: 1;
+      width: 100%;
+      border: 1px solid var(--border-hover);
+      border-radius: 12px;
+      background: #04060c;
+      overflow: hidden;
+    }
+    .cs-prototype__modal-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* CTA */
+    .cs-cta {
+      text-align: left;
+      max-width: 720px;
+    }
+    .cs-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 28px;
+      background: var(--accent);
+      color: #04060c;
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 15px;
+      border-radius: 10px;
+      transition: transform 0.3s var(--ease-out-expo), box-shadow 0.3s ease;
+    }
+    .cs-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(0, 232, 123, 0.25);
+    }
+
+    /* Reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.8s var(--ease-out-expo), transform 0.8s var(--ease-out-expo);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a class="nav__link nav__link--back" href="../index.html#ai">
+      <svg viewBox="0 0 16 16" fill="none"><path d="M13 8H3M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Back to Portfolio
+    </a>
+    <span class="nav__brand">SkyPath &middot; AI Concept</span>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="cs-hero" id="csHero">
+    <canvas class="cs-hero__grid-canvas" id="csHeroGridCanvas"></canvas>
+    <p class="cs-hero__eyebrow">Case Study &middot; AI Concept</p>
+    <h1 class="cs-hero__title">SkyPath</h1>
+    <p class="cs-hero__subtitle">A pilot-collaboration concept that reframes how cockpit crews request and approve in-flight reroutes &mdash; cutting the loop with dispatch and giving pilots a clearer view of viable, real-world routes.</p>
+    <div class="cs-hero__meta">
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Role</span>
+        <span class="cs-hero__meta-value">Designer &middot; AI Prototyping</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Collaborator</span>
+        <span class="cs-hero__meta-value">Working pilot (SME)</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Built With</span>
+        <span class="cs-hero__meta-value">Tailwind CSS &middot; Leaflet</span>
+      </div>
+      <div class="cs-hero__meta-item">
+        <span class="cs-hero__meta-label">Status</span>
+        <span class="cs-hero__meta-value">Concept Prototype</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="cs-content">
+
+    <!-- ==================== PROBLEM ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">01 &mdash; Problem</span>
+      <h2 class="cs-section__title">Pilots can see a faster route, but can&rsquo;t take it.</h2>
+      <p class="cs-section__subtitle">When conditions change mid-flight &mdash; weather, traffic, fuel, an opening in restricted airspace &mdash; pilots have to send a route-change request to dispatch and wait for approval. The cycle is slow, asymmetric, and creates real cost.</p>
+      <p>While dispatch evaluates the request from the ground, the aircraft keeps flying its filed plan. Minutes of back-and-forth on radio or ACARS turn into miles of inefficient routing &mdash; extra fuel burn, late arrivals, and missed connections downstream. The information the pilot can see out of the windscreen and on their instruments is rarely matched by what dispatch is looking at on their monitors.</p>
+      <p>I worked with a working pilot to map the actual decision points and the language they use. The pattern was clear: the bottleneck isn&rsquo;t pilot judgment &mdash; it&rsquo;s the workflow that surrounds the request.</p>
+
+      <div class="cs-points">
+        <div class="cs-point">
+          <div class="cs-point__num">01</div>
+          <div class="cs-point__title">Asymmetric awareness</div>
+          <p class="cs-point__body">Dispatch and crew aren&rsquo;t looking at the same picture. Pilots see real-time conditions; dispatch sees flight plans and policy.</p>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point__num">02</div>
+          <div class="cs-point__title">Slow approval loop</div>
+          <p class="cs-point__body">Reroute requests rely on radio or ACARS messaging. By the time a new route is approved, the opportunity has often shrunk.</p>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point__num">03</div>
+          <div class="cs-point__title">Burned fuel, missed connections</div>
+          <p class="cs-point__body">Every minute of inefficient routing adds fuel cost and risks knock-on delays for downstream flights and crews.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== DESIGN SOLUTION ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">02 &mdash; Design Solution</span>
+      <h2 class="cs-section__title">A cockpit-native view of the next best route &mdash; with dispatch already in the loop.</h2>
+      <p class="cs-section__subtitle">SkyPath puts the reroute decision where it belongs: with the pilot, on a map of <strong>actual</strong> routes pilots fly today, with dispatch context, weather, and fuel deltas surfaced before the request is sent.</p>
+      <p>The interface is built in Tailwind CSS with a Leaflet map of real airway segments, modeled on the kinds of cockpit instrument panels pilots already trust. Reroute candidates are scored against fuel, time, weather, and airspace constraints, and the request to dispatch becomes a single confirmation &mdash; not a free-text negotiation.</p>
+      <p>The concept emphasizes <strong>shared context</strong>: when the pilot sees a faster path, dispatch sees the same path, scored the same way, and can approve or counter in seconds instead of minutes.</p>
+
+      <!-- PROTOTYPE EMBED -->
+      <div class="cs-prototype">
+        <div class="cs-prototype__shell">
+          <div class="cs-prototype__bar">
+            <div class="cs-prototype__dots">
+              <span class="cs-prototype__dot"></span>
+              <span class="cs-prototype__dot"></span>
+              <span class="cs-prototype__dot"></span>
+            </div>
+            <span class="cs-prototype__url">skypath.app &mdash; live concept</span>
+            <div class="cs-prototype__actions">
+              <button class="cs-prototype__btn" id="expandBtn" type="button" aria-label="Expand prototype to fullscreen">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Expand
+              </button>
+              <a class="cs-prototype__btn" href="skypath/index.html" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M14 4h6v6M10 14L20 4M10 7H6a2 2 0 00-2 2v9a2 2 0 002 2h9a2 2 0 002-2v-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                Open
+              </a>
+            </div>
+          </div>
+          <iframe class="cs-prototype__frame" src="skypath/index.html" title="SkyPath prototype" loading="lazy"></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== WHY IT MATTERS ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <span class="cs-section__number">03 &mdash; Why It Matters</span>
+      <h2 class="cs-section__title">Better decisions in the cockpit, real savings on the ground.</h2>
+      <p class="cs-section__subtitle">Aviation runs on tight margins. Shaving minutes off reroute decisions compounds across thousands of flights &mdash; in fuel, in on-time performance, and in pilot trust.</p>
+
+      <div class="cs-points">
+        <div class="cs-point">
+          <div class="cs-point__num">Fuel</div>
+          <div class="cs-point__title">Fuel &amp; emissions</div>
+          <p class="cs-point__body">Faster reroute approvals reduce time spent on suboptimal paths. Less fuel burned per flight means lower cost and lower carbon output across the fleet.</p>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point__num">Ops</div>
+          <div class="cs-point__title">On-time performance</div>
+          <p class="cs-point__body">Recovering minutes mid-flight protects downstream connections, crew duty windows, and gate availability at busy hubs.</p>
+        </div>
+        <div class="cs-point">
+          <div class="cs-point__num">Trust</div>
+          <div class="cs-point__title">Pilot &amp; dispatch trust</div>
+          <p class="cs-point__body">A shared, scored view of the same options replaces ambiguous radio negotiation with a transparent decision both sides can stand behind.</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 32px;">SkyPath isn&rsquo;t about replacing dispatch &mdash; it&rsquo;s about closing the information gap that makes the current process slow. The point of designing it with a working pilot was to make sure the workflow respects the constraints they already operate within: regulatory, operational, and human.</p>
+    </section>
+
+    <!-- ==================== CTA ==================== -->
+    <hr class="cs-divider">
+    <section class="cs-section cs-section--narrow reveal">
+      <div class="cs-cta">
+        <span class="cs-section__number">Try It</span>
+        <h2 class="cs-section__title">Want to see how this came together?</h2>
+        <p class="cs-section__subtitle">Open the live concept prototype and explore the cockpit interface end-to-end.</p>
+        <a class="cs-cta__btn" href="skypath/index.html" target="_blank" rel="noopener">
+          Open Live Prototype
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- Fullscreen prototype modal -->
+  <div class="cs-prototype__modal" id="protoModal" role="dialog" aria-modal="true" aria-labelledby="protoModalTitle">
+    <div class="cs-prototype__modal-bar">
+      <span class="cs-prototype__modal-title" id="protoModalTitle">SkyPath &mdash; Prototype</span>
+      <button class="cs-prototype__btn" id="closeBtn" type="button" aria-label="Close fullscreen">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        Close
+      </button>
+    </div>
+    <div class="cs-prototype__modal-frame">
+      <iframe id="protoModalIframe" title="SkyPath prototype (fullscreen)"></iframe>
+    </div>
+  </div>
+
+  <script>
+    // Cursor-reactive grid in the hero (canvas)
+    (() => {
+      const hero = document.getElementById('csHero');
+      const canvas = document.getElementById('csHeroGridCanvas');
+      if (!hero || !canvas) return;
+      const ctx = canvas.getContext('2d');
+      const GRID = 56;
+      const RADIUS = 220;
+      const ACCENT = 'rgba(0, 232, 123, ALPHA)';
+      const DIM_ALPHA = 0.06;
+      const BRIGHT_ALPHA = 0.85;
+
+      let dpr = window.devicePixelRatio || 1;
+      let w = 0, h = 0;
+      let mx = -1000, my = -1000;
+      let targetMx = mx, targetMy = my;
+      let active = false;
+      let raf = null;
+
+      function resize() {
+        const rect = hero.getBoundingClientRect();
+        w = rect.width;
+        h = rect.height;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        canvas.style.width = w + 'px';
+        canvas.style.height = h + 'px';
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        draw();
+      }
+
+      function drawGrid(alpha) {
+        ctx.strokeStyle = ACCENT.replace('ALPHA', alpha);
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for (let x = 0; x <= w; x += GRID) {
+          ctx.moveTo(x + 0.5, 0);
+          ctx.lineTo(x + 0.5, h);
+        }
+        for (let y = 0; y <= h; y += GRID) {
+          ctx.moveTo(0, y + 0.5);
+          ctx.lineTo(w, y + 0.5);
+        }
+        ctx.stroke();
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, w, h);
+
+        // 1) dim grid everywhere
+        drawGrid(DIM_ALPHA);
+
+        // 2) bright grid clipped to a radial circle around the cursor
+        if (active) {
+          ctx.save();
+          const grad = ctx.createRadialGradient(mx, my, 0, mx, my, RADIUS);
+          grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
+          grad.addColorStop(0.55, 'rgba(0, 0, 0, 0.6)');
+          grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+          ctx.beginPath();
+          ctx.arc(mx, my, RADIUS, 0, Math.PI * 2);
+          ctx.clip();
+          drawGrid(BRIGHT_ALPHA);
+
+          // soft glow halo
+          ctx.globalCompositeOperation = 'lighter';
+          ctx.fillStyle = grad;
+          ctx.fillRect(mx - RADIUS, my - RADIUS, RADIUS * 2, RADIUS * 2);
+          ctx.restore();
+        }
+      }
+
+      function tick() {
+        // smooth follow
+        mx += (targetMx - mx) * 0.25;
+        my += (targetMy - my) * 0.25;
+        draw();
+        if (Math.abs(mx - targetMx) > 0.5 || Math.abs(my - targetMy) > 0.5 || active) {
+          raf = requestAnimationFrame(tick);
+        } else {
+          raf = null;
+        }
+      }
+
+      function ensureTick() {
+        if (raf == null) raf = requestAnimationFrame(tick);
+      }
+
+      hero.addEventListener('pointermove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        targetMx = e.clientX - rect.left;
+        targetMy = e.clientY - rect.top;
+        active = true;
+        ensureTick();
+      });
+
+      hero.addEventListener('pointerleave', () => {
+        active = false;
+        targetMx = -1000;
+        targetMy = -1000;
+        ensureTick();
+      });
+
+      window.addEventListener('resize', () => {
+        dpr = window.devicePixelRatio || 1;
+        resize();
+      });
+
+      resize();
+    })();
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    const expandBtn = document.getElementById('expandBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const modal = document.getElementById('protoModal');
+    const modalIframe = document.getElementById('protoModalIframe');
+
+    function openModal() {
+      modalIframe.src = 'skypath/index.html';
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal() {
+      modal.classList.remove('open');
+      modalIframe.src = '';
+      document.body.style.overflow = '';
+    }
+
+    expandBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+  </script>
+</body>
+</html>

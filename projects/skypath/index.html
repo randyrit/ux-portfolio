@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyPath | Pilot Route Optimization System</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cockpit: {
+              950: '#040711',
+              900: '#06090f',
+              800: '#0c1220',
+              700: '#131b2e',
+              600: '#1a2340',
+              500: '#232e50',
+              400: '#2d3a62',
+            },
+            phosphor: '#00e87b',
+            amber: '#f0a030',
+            cyan: '#00b4d8',
+            danger: '#ff3040',
+            slate: { 350: '#8892a8' }
+          },
+          fontFamily: {
+            mono: ['JetBrains Mono', 'monospace'],
+            sans: ['Outfit', 'sans-serif'],
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      background: #040711;
+      color: #e8ecf4;
+      font-family: 'Outfit', sans-serif;
+      overflow: hidden;
+    }
+
+    .instrument-panel {
+      border: 1px solid rgba(45, 58, 98, 0.6);
+      background: linear-gradient(145deg, #0c1220 0%, #0a0f1c 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.03), 0 2px 12px rgba(0,0,0,0.4);
+    }
+    .instrument-panel-raised {
+      border: 1px solid rgba(45, 58, 98, 0.8);
+      background: linear-gradient(145deg, #131b2e 0%, #0f1726 100%);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.04), 0 1px 6px rgba(0,0,0,0.3);
+    }
+
+    .glow-green { text-shadow: 0 0 8px rgba(0, 232, 123, 0.5); }
+    .glow-amber { text-shadow: 0 0 8px rgba(240, 160, 48, 0.5); }
+    .glow-cyan { text-shadow: 0 0 8px rgba(0, 180, 216, 0.5); }
+    .box-glow-green { box-shadow: 0 0 12px rgba(0, 232, 123, 0.2), inset 0 0 12px rgba(0, 232, 123, 0.05); }
+
+    .data-value {
+      font-family: 'JetBrains Mono', monospace;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes transmit { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+    .transmit-pulse { animation: transmit 1.2s ease-in-out infinite; }
+
+    @keyframes wind-sway { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(2px); } }
+    .wind-sway { animation: wind-sway 3s ease-in-out infinite; }
+
+    @keyframes fade-up { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fade-up 0.5s ease-out forwards; opacity: 0; }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: #0c1220; }
+    ::-webkit-scrollbar-thumb { background: #2d3a62; border-radius: 2px; }
+
+    .route-btn { transition: all 0.3s ease; position: relative; overflow: hidden; }
+    .route-btn::before { content: ''; position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; }
+    .route-btn:hover::before { opacity: 1; }
+    .route-btn.active { border-width: 2px; }
+    .route-btn.amber { border-color: #f0a030; }
+    .route-btn.amber::before { background: linear-gradient(135deg, rgba(240,160,48,0.1), transparent); }
+    .route-btn.amber.active { background: rgba(240,160,48,0.08); }
+    .route-btn.green { border-color: #00e87b; }
+    .route-btn.green::before { background: linear-gradient(135deg, rgba(0,232,123,0.1), transparent); }
+    .route-btn.green.active { background: rgba(0,232,123,0.08); }
+    .route-btn.teal { border-color: #00b4d8; }
+    .route-btn.teal::before { background: linear-gradient(135deg, rgba(0,180,216,0.1), transparent); }
+    .route-btn.teal.active { background: rgba(0,180,216,0.08); }
+    .route-btn.conflict { border-color: rgba(85,94,112,0.4); cursor: pointer; }
+    .route-btn.conflict::before { background: linear-gradient(135deg, rgba(255,48,64,0.06), transparent); }
+    .route-btn.conflict:hover { opacity: 0.7 !important; }
+
+    .modal-backdrop { background: rgba(4, 7, 17, 0.85); backdrop-filter: blur(4px); }
+
+    /* ═══ Leaflet dark theme ═══ */
+    #flight-map { background: #040711; }
+    .leaflet-container { background: #040711 !important; font-family: 'Outfit', sans-serif; }
+    .leaflet-control-zoom { border: none !important; }
+    .leaflet-control-zoom a {
+      background: rgba(12,18,32,0.85) !important;
+      color: #8892a8 !important;
+      border: 1px solid rgba(45,58,98,0.5) !important;
+      width: 32px !important; height: 32px !important;
+      line-height: 32px !important; font-size: 16px !important;
+      backdrop-filter: blur(8px);
+    }
+    .leaflet-control-zoom a:hover { background: rgba(19,27,46,0.95) !important; color: #e8ecf4 !important; }
+    .leaflet-control-attribution {
+      background: rgba(4,7,17,0.6) !important;
+      color: rgba(45,58,98,0.8) !important;
+      font-size: 8px !important; padding: 2px 6px !important;
+    }
+    .leaflet-control-attribution a { color: rgba(45,58,98,0.8) !important; }
+
+    /* Waypoint markers */
+    .wpt-diamond {
+      width: 10px; height: 10px;
+      transform: rotate(45deg);
+      border: 1.5px solid; border-radius: 1px;
+    }
+    .wpt-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px; font-weight: 500;
+      white-space: nowrap;
+      text-shadow: 0 0 6px rgba(4,7,17,1), 0 0 12px rgba(4,7,17,0.9), 0 1px 3px rgba(0,0,0,1);
+    }
+    .apt-box {
+      width: 30px; height: 30px;
+      border: 1.5px solid #e8ecf4;
+      border-radius: 4px;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(4,7,17,0.7);
+      backdrop-filter: blur(4px);
+    }
+    .apt-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px; font-weight: 600; color: #e8ecf4;
+      white-space: nowrap;
+      text-shadow: 0 0 8px rgba(4,7,17,1), 0 0 16px rgba(4,7,17,1), 0 1px 3px rgba(0,0,0,1);
+    }
+
+    /* Aircraft marker */
+    @keyframes ac-ping {
+      0% { transform: translate(-50%,-50%) scale(0.5); opacity: 0.8; }
+      100% { transform: translate(-50%,-50%) scale(3); opacity: 0; }
+    }
+    .ac-ping {
+      position: absolute; width: 20px; height: 20px;
+      border-radius: 50%; background: rgba(240,160,48,0.2);
+      top: 50%; left: 50%;
+      transform: translate(-50%,-50%);
+      animation: ac-ping 2s ease-out infinite;
+    }
+    .ac-icon {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%,-50%) rotate(264deg);
+      filter: drop-shadow(0 0 6px rgba(240,160,48,0.6));
+    }
+
+    /* Reset view button */
+    .map-btn {
+      background: rgba(12,18,32,0.85);
+      border: 1px solid rgba(45,58,98,0.5);
+      backdrop-filter: blur(8px);
+      transition: all 0.2s;
+    }
+    .map-btn:hover { background: rgba(19,27,46,0.95); color: #e8ecf4; }
+  </style>
+</head>
+<body class="h-screen flex flex-col">
+
+  <!-- ═══════════ HEADER BAR ═══════════ -->
+  <header class="flex items-center justify-between px-5 py-2.5 border-b border-cockpit-400/40 bg-cockpit-800/80 relative z-10 fade-up" style="animation-delay:0s">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-2">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+          <path d="M14 2L4 12l10 14 10-14L14 2z" fill="none" stroke="#00e87b" stroke-width="1.5"/>
+          <path d="M14 6l-6 6 6 9 6-9-6-6z" fill="#00e87b" fill-opacity="0.15" stroke="#00e87b" stroke-width="0.5"/>
+          <circle cx="14" cy="13" r="2" fill="#00e87b"/>
+        </svg>
+        <span class="font-sans font-bold text-lg tracking-wider text-phosphor glow-green">SKYPATH</span>
+      </div>
+      <div class="h-5 w-px bg-cockpit-400/50"></div>
+      <div class="flex items-center gap-3">
+        <span class="data-value text-sm text-amber glow-amber font-semibold">UAL 442</span>
+        <span class="text-xs text-slate-350 font-sans">KJFK &rarr; KLAX</span>
+        <span class="text-xs text-slate-350">&bull;</span>
+        <span class="text-xs text-slate-350 font-sans">B787-9</span>
+      </div>
+    </div>
+    <div class="flex items-center gap-5">
+      <div class="flex items-center gap-2">
+        <span class="w-2 h-2 rounded-full bg-phosphor shadow-[0_0_6px_rgba(0,232,123,0.6)]"></span>
+        <span class="text-xs font-sans font-medium text-phosphor tracking-wide">EN ROUTE</span>
+      </div>
+      <div class="h-5 w-px bg-cockpit-400/50"></div>
+      <div class="flex items-center gap-2">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M1 10l3-3m2-2l3-3" stroke="#00e87b" stroke-width="1.5" stroke-linecap="round"/><path d="M5 11l3-3m2-2l3-3" stroke="#00e87b" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/></svg>
+        <span class="text-xs font-sans text-slate-350">ACARS</span>
+        <span class="text-xs data-value text-phosphor">CONN</span>
+      </div>
+      <div class="h-5 w-px bg-cockpit-400/50"></div>
+      <div class="flex items-center gap-1.5">
+        <span class="text-xs text-slate-350 font-sans">UTC</span>
+        <span id="utc-clock" class="data-value text-sm text-white font-medium tracking-wider">--:--:--</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════ MAIN CONTENT ═══════════ -->
+  <main class="flex-1 flex min-h-0">
+
+    <!-- ═══════════ LEFT: NAVIGATION DISPLAY ═══════════ -->
+    <div class="flex-[3] flex flex-col border-r border-cockpit-400/30 relative">
+      <!-- Map overlay labels -->
+      <div class="absolute top-3 left-4 z-[1000] flex items-center gap-2 fade-up" style="animation-delay:0.1s">
+        <span class="text-[10px] font-sans font-semibold tracking-[0.2em] text-slate-350 uppercase">Navigation Display</span>
+        <span class="text-[10px] data-value text-cockpit-400">LIVE MAP</span>
+      </div>
+      <div class="absolute top-3 right-16 z-[1000] flex items-center gap-1 fade-up" style="animation-delay:0.15s">
+        <span class="text-[10px] data-value text-slate-350">HDG</span>
+        <span class="text-sm data-value text-amber glow-amber font-semibold">264&deg;</span>
+      </div>
+      <!-- Reset view button -->
+      <button onclick="resetMapView()" class="absolute top-12 right-[11px] z-[1000] map-btn rounded w-[32px] h-[32px] flex items-center justify-center text-slate-350" title="Reset view">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="1.5" stroke="currentColor" stroke-width="1.3"/><path d="M5 8h6M8 5v6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+      </button>
+
+      <!-- Leaflet map + wind canvas -->
+      <div class="flex-1 relative" id="map-container">
+        <div id="flight-map" class="absolute inset-0" style="z-index:1;"></div>
+        <canvas id="wind-canvas" class="absolute inset-0 w-full h-full" style="pointer-events:none; z-index:450;"></canvas>
+      </div>
+
+      <!-- Route Legend / Selector -->
+      <div class="flex items-center gap-3 px-5 py-3 border-t border-cockpit-400/30 bg-cockpit-800/60 fade-up relative z-[500]" style="animation-delay:0.2s">
+        <span class="text-[10px] font-sans font-semibold tracking-[0.15em] text-slate-350 uppercase mr-1">Routes</span>
+        <button onclick="selectRoute('current')" class="route-btn amber active flex items-center gap-2 px-3 py-1.5 rounded border border-cockpit-400/50 transition-all" data-route="current">
+          <span class="w-5 h-0.5 bg-amber rounded"></span>
+          <span class="text-xs data-value text-amber">CURRENT</span>
+        </button>
+        <button onclick="selectRoute('north')" class="route-btn green flex items-center gap-2 px-3 py-1.5 rounded border border-cockpit-400/50 transition-all" data-route="north">
+          <span class="w-5 h-0.5 bg-phosphor rounded" style="background:repeating-linear-gradient(90deg,#00e87b 0 4px,transparent 4px 7px)"></span>
+          <span class="text-xs data-value text-phosphor">NORTH</span>
+          <span class="text-[9px] font-sans font-semibold text-phosphor bg-phosphor/10 px-1.5 py-0.5 rounded">OPTIMAL</span>
+        </button>
+        <button onclick="selectRoute('south')" class="route-btn teal flex items-center gap-2 px-3 py-1.5 rounded border border-cockpit-400/50 transition-all" data-route="south">
+          <span class="w-5 h-0.5 bg-cyan rounded" style="background:repeating-linear-gradient(90deg,#00b4d8 0 4px,transparent 4px 7px)"></span>
+          <span class="text-xs data-value text-cyan">SOUTH</span>
+        </button>
+        <button onclick="selectRoute('conflict')" class="route-btn conflict flex items-center gap-2 px-3 py-1.5 rounded border border-cockpit-400/30 transition-all opacity-50" data-route="conflict">
+          <span class="w-5 h-0.5 rounded" style="background:repeating-linear-gradient(90deg,#555e70 0 3px,transparent 3px 6px)"></span>
+          <span class="text-xs data-value text-slate-350">DIRECT</span>
+          <span class="text-[9px] font-sans font-semibold text-danger bg-danger/10 px-1.5 py-0.5 rounded flex items-center gap-1"><svg width="10" height="10" viewBox="0 0 16 16" fill="none"><path d="M8 2l6.5 11H1.5L8 2z" fill="none" stroke="#ff3040" stroke-width="1.5" stroke-linejoin="round"/><line x1="8" y1="6.5" x2="8" y2="9.5" stroke="#ff3040" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.5" r="0.7" fill="#ff3040"/></svg>TCAS</span>
+        </button>
+        <div class="ml-auto flex items-center gap-2">
+          <label class="flex items-center gap-1.5 cursor-pointer">
+            <input type="checkbox" checked class="sr-only peer" id="wind-toggle">
+            <span class="w-7 h-4 bg-cockpit-600 rounded-full peer-checked:bg-phosphor/30 transition-colors relative after:content-[''] after:absolute after:top-0.5 after:left-0.5 after:w-3 after:h-3 after:bg-slate-350 after:rounded-full after:transition-all peer-checked:after:translate-x-3 peer-checked:after:bg-phosphor"></span>
+            <span class="text-[10px] font-sans text-slate-350 uppercase tracking-wide">Wind</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ RIGHT: DATA PANELS ═══════════ -->
+    <div class="flex-[2] flex flex-col min-h-0 overflow-y-auto">
+
+      <!-- Flight Instruments -->
+      <div class="p-4 border-b border-cockpit-400/30 fade-up" style="animation-delay:0.1s">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="5.5" stroke="#8892a8" stroke-width="1"/><line x1="7" y1="3" x2="7" y2="7" stroke="#8892a8" stroke-width="1.2"/><line x1="7" y1="7" x2="10" y2="9" stroke="#8892a8" stroke-width="1"/></svg>
+          <span class="text-[10px] font-sans font-semibold tracking-[0.2em] text-slate-350 uppercase">Flight Data</span>
+        </div>
+        <div class="grid grid-cols-3 gap-2">
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">Altitude</div>
+            <div class="data-value text-xl font-semibold text-white">FL380</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">38,000 ft</div>
+          </div>
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">Ground Spd</div>
+            <div class="data-value text-xl font-semibold text-white" id="gs-value">487</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">knots</div>
+          </div>
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">Mach</div>
+            <div class="data-value text-xl font-semibold text-white">0.82</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">M</div>
+          </div>
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">Heading</div>
+            <div class="data-value text-xl font-semibold text-amber glow-amber">264&deg;</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">MAG</div>
+          </div>
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">Fuel Rem</div>
+            <div class="data-value text-xl font-semibold text-white" id="fuel-value">42.8</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">&times; 1000 lbs</div>
+          </div>
+          <div class="instrument-panel-raised rounded-lg p-2.5 text-center">
+            <div class="text-[9px] font-sans text-slate-350 uppercase tracking-wider mb-1">ETA KLAX</div>
+            <div class="data-value text-xl font-semibold text-phosphor glow-green" id="eta-value">14:22</div>
+            <div class="text-[9px] data-value text-slate-350 mt-0.5">UTC</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wind Analysis -->
+      <div class="p-4 border-b border-cockpit-400/30 fade-up" style="animation-delay:0.2s">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h6a3 3 0 100-3" stroke="#8892a8" stroke-width="1.2" stroke-linecap="round"/><path d="M2 10h4a2 2 0 110 4" stroke="#8892a8" stroke-width="1.2" stroke-linecap="round"/><path d="M2 4h3a2 2 0 100-4" stroke="#8892a8" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span class="text-[10px] font-sans font-semibold tracking-[0.2em] text-slate-350 uppercase">Wind Analysis &mdash; Altitude Profile</span>
+        </div>
+        <div class="flex-1 instrument-panel rounded-lg p-3">
+          <div class="space-y-1">
+            <div class="flex items-center gap-2 py-1 px-2 rounded hover:bg-cockpit-600/30 transition-colors">
+              <span class="data-value text-[10px] text-slate-350 w-10">FL420</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-cyan/20 rounded-sm" style="width:65%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-cyan">78 kt</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#00b4d8" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#00b4d8" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-slate-350 w-8">248&deg;</span>
+            </div>
+            <div class="flex items-center gap-2 py-1 px-2 rounded hover:bg-cockpit-600/30 transition-colors">
+              <span class="data-value text-[10px] text-slate-350 w-10">FL400</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-phosphor/25 rounded-sm" style="width:93%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-phosphor font-semibold">112 kt &#9733;</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#00e87b" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#00e87b" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-phosphor w-8">252&deg;</span>
+            </div>
+            <div class="flex items-center gap-2 py-1 px-2 rounded bg-amber/5 border border-amber/20">
+              <span class="data-value text-[10px] text-amber font-semibold w-10">FL380</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-amber/20 rounded-sm" style="width:72%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-amber">87 kt</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#f0a030" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#f0a030" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-amber w-8">245&deg;</span>
+            </div>
+            <div class="flex items-center gap-2 py-1 px-2 rounded hover:bg-cockpit-600/30 transition-colors">
+              <span class="data-value text-[10px] text-slate-350 w-10">FL360</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-cyan/15 rounded-sm" style="width:55%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-slate-350">64 kt</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#8892a8" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#8892a8" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-slate-350 w-8">240&deg;</span>
+            </div>
+            <div class="flex items-center gap-2 py-1 px-2 rounded hover:bg-cockpit-600/30 transition-colors">
+              <span class="data-value text-[10px] text-slate-350 w-10">FL340</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-cyan/10 rounded-sm" style="width:43%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-slate-350">52 kt</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#8892a8" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#8892a8" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-slate-350 w-8">235&deg;</span>
+            </div>
+            <div class="flex items-center gap-2 py-1 px-2 rounded hover:bg-cockpit-600/30 transition-colors">
+              <span class="data-value text-[10px] text-slate-350 w-10">FL280</span>
+              <div class="flex-1 h-4 bg-cockpit-600/30 rounded-sm overflow-hidden relative"><div class="h-full bg-cyan/5 rounded-sm" style="width:30%"></div><div class="absolute inset-y-0 left-0 flex items-center pl-1"><span class="text-[9px] data-value text-slate-350">35 kt</span></div></div>
+              <svg width="14" height="14" viewBox="0 0 14 14" class="wind-sway"><line x1="7" y1="12" x2="7" y2="3" stroke="#8892a8" stroke-width="1.2"/><path d="M4 6l3-3 3 3" fill="none" stroke="#8892a8" stroke-width="1.2"/></svg>
+              <span class="data-value text-[9px] text-slate-350 w-8">230&deg;</span>
+            </div>
+          </div>
+          <div class="mt-3 flex items-center gap-2 p-2 rounded bg-phosphor/5 border border-phosphor/20">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#00e87b" stroke-width="1.2"/><path d="M8 5v3m0 2.5v.5" stroke="#00e87b" stroke-width="1.5" stroke-linecap="round"/></svg>
+            <span class="text-[10px] font-sans text-phosphor">Climb to <strong class="data-value">FL400</strong> for +25 kt tailwind advantage &mdash; saves ~8 min</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Route Comparison -->
+      <div class="p-4 border-b border-cockpit-400/30 fade-up" style="animation-delay:0.3s">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 4h10M2 7h10M2 10h10" stroke="#8892a8" stroke-width="1.2" stroke-linecap="round"/></svg>
+          <span class="text-[10px] font-sans font-semibold tracking-[0.2em] text-slate-350 uppercase">Route Comparison</span>
+        </div>
+        <div class="instrument-panel rounded-lg overflow-hidden">
+          <table class="w-full text-xs">
+            <thead><tr class="border-b border-cockpit-400/30">
+              <th class="text-left py-2 px-3 font-sans font-semibold text-[10px] text-slate-350 uppercase tracking-wider">Route</th>
+              <th class="text-right py-2 px-3 font-sans font-semibold text-[10px] text-slate-350 uppercase tracking-wider">Dist</th>
+              <th class="text-right py-2 px-3 font-sans font-semibold text-[10px] text-slate-350 uppercase tracking-wider">Time</th>
+              <th class="text-right py-2 px-3 font-sans font-semibold text-[10px] text-slate-350 uppercase tracking-wider">Fuel</th>
+              <th class="text-right py-2 px-3 font-sans font-semibold text-[10px] text-slate-350 uppercase tracking-wider">Savings</th>
+            </tr></thead>
+            <tbody>
+              <tr class="border-b border-cockpit-400/20 bg-amber/5"><td class="py-2.5 px-3"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-amber"></span><span class="data-value text-amber font-medium">CURRENT</span></div></td><td class="text-right py-2.5 px-3 data-value text-white">2,158 nm</td><td class="text-right py-2.5 px-3 data-value text-white">4h 38m</td><td class="text-right py-2.5 px-3 data-value text-white">38,200 lbs</td><td class="text-right py-2.5 px-3 data-value text-slate-350">&mdash;</td></tr>
+              <tr class="border-b border-cockpit-400/20 cursor-pointer hover:bg-phosphor/5 transition-colors" onclick="selectRoute('north')"><td class="py-2.5 px-3"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-phosphor"></span><span class="data-value text-phosphor font-medium">NORTH</span><span class="text-[8px] font-sans font-bold text-cockpit-900 bg-phosphor px-1 py-0.5 rounded tracking-wider">BEST</span></div></td><td class="text-right py-2.5 px-3 data-value text-white">2,089 nm</td><td class="text-right py-2.5 px-3 data-value text-white">4h 22m</td><td class="text-right py-2.5 px-3 data-value text-white">35,800 lbs</td><td class="text-right py-2.5 px-3"><span class="data-value text-phosphor font-semibold glow-green">-16m / -2.4k</span></td></tr>
+              <tr class="cursor-pointer hover:bg-cyan/5 transition-colors" onclick="selectRoute('south')"><td class="py-2.5 px-3"><div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-cyan"></span><span class="data-value text-cyan font-medium">SOUTH</span></div></td><td class="text-right py-2.5 px-3 data-value text-white">2,201 nm</td><td class="text-right py-2.5 px-3 data-value text-white">4h 45m</td><td class="text-right py-2.5 px-3 data-value text-white">39,100 lbs</td><td class="text-right py-2.5 px-3"><span class="data-value text-danger text-opacity-80">+7m / +0.9k</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Diversion Action -->
+      <div class="p-4 flex-shrink-0 fade-up" style="animation-delay:0.4s">
+        <div class="flex items-center gap-2 mb-3">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h5l2-5v10l-2-5" stroke="#8892a8" stroke-width="1.2" stroke-linejoin="round"/><path d="M10 3v8" stroke="#8892a8" stroke-width="1.2"/></svg>
+          <span class="text-[10px] font-sans font-semibold tracking-[0.2em] text-slate-350 uppercase">Diversion Request</span>
+        </div>
+        <div id="diversion-panel">
+          <div id="diversion-idle" class="instrument-panel rounded-lg p-4 text-center">
+            <p class="text-sm font-sans text-slate-350">Select an alternate route to initiate a diversion request</p>
+            <p class="text-[10px] font-sans text-cockpit-400 mt-2">Replaces voice call to dispatch &mdash; avg response: 90 seconds</p>
+          </div>
+          <div id="diversion-ready" class="hidden">
+            <div class="instrument-panel rounded-lg p-4 space-y-3">
+              <div class="flex items-center justify-between"><div><span class="text-[10px] font-sans text-slate-350 uppercase tracking-wider">Selected Route</span><div class="flex items-center gap-2 mt-1"><span class="w-2.5 h-2.5 rounded-full" id="selected-route-dot"></span><span class="data-value text-base font-semibold" id="selected-route-name">&mdash;</span></div></div><div class="text-right"><div class="text-[10px] font-sans text-slate-350">Est. Savings</div><div class="data-value text-sm font-semibold" id="selected-route-savings">&mdash;</div></div></div>
+              <div class="grid grid-cols-3 gap-2 pt-2 border-t border-cockpit-400/20"><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">Distance</div><div class="data-value text-sm text-white mt-0.5" id="selected-dist">&mdash;</div></div><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">Time</div><div class="data-value text-sm text-white mt-0.5" id="selected-time">&mdash;</div></div><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">Fuel</div><div class="data-value text-sm text-white mt-0.5" id="selected-fuel">&mdash;</div></div></div>
+              <div class="pt-2 border-t border-cockpit-400/20"><label class="text-[9px] font-sans text-slate-350 uppercase tracking-wider">Reason for Diversion</label><select id="diversion-reason" class="mt-1 w-full bg-cockpit-700 border border-cockpit-400/50 rounded px-3 py-2 text-xs data-value text-white focus:outline-none focus:border-phosphor/50 appearance-none cursor-pointer"><option value="wind">Wind Optimization</option><option value="weather">Weather Avoidance</option><option value="fuel">Fuel Conservation</option><option value="atc">ATC Request</option><option value="turbulence">Turbulence Avoidance</option><option value="emergency">Emergency</option></select></div>
+              <button onclick="requestDiversion()" class="w-full py-3 rounded-lg bg-amber/15 border-2 border-amber text-amber font-sans font-bold text-sm tracking-wider uppercase transition-all hover:bg-amber/25 hover:shadow-[0_0_20px_rgba(240,160,48,0.2)] active:scale-[0.98]">Request Diversion</button>
+              <p class="text-[9px] font-sans text-cockpit-400 text-center">Digital dispatch &mdash; no voice call required</p>
+            </div>
+          </div>
+          <div id="diversion-transmitting" class="hidden">
+            <div class="instrument-panel rounded-lg p-6 text-center space-y-4">
+              <div class="flex justify-center"><svg width="40" height="40" viewBox="0 0 40 40" class="transmit-pulse"><circle cx="20" cy="20" r="4" fill="#f0a030"/><circle cx="20" cy="20" r="10" fill="none" stroke="#f0a030" stroke-width="1.5" opacity="0.5"/><circle cx="20" cy="20" r="16" fill="none" stroke="#f0a030" stroke-width="1" opacity="0.3"/></svg></div>
+              <div><p class="data-value text-amber text-sm font-semibold glow-amber tracking-wider">TRANSMITTING TO DISPATCH</p><p class="text-[10px] font-sans text-slate-350 mt-1">Via ACARS datalink</p></div>
+              <div class="w-full h-1 bg-cockpit-600 rounded-full overflow-hidden"><div id="transmit-progress" class="h-full bg-amber rounded-full" style="width:0%;transition:width 3s linear"></div></div>
+            </div>
+          </div>
+          <div id="diversion-approved" class="hidden">
+            <div class="instrument-panel rounded-lg p-5 text-center space-y-3 box-glow-green border-phosphor/30">
+              <div class="flex justify-center"><svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="18" fill="none" stroke="#00e87b" stroke-width="2"/><path d="M14 22l6 6 10-12" fill="none" stroke="#00e87b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+              <div><p class="data-value text-phosphor text-lg font-bold glow-green tracking-wider">DIVERSION APPROVED</p><p class="text-[10px] font-sans text-slate-350 mt-1">Dispatch confirmation received</p></div>
+              <div class="flex items-center justify-center gap-4 pt-2"><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">New Route</div><div class="data-value text-sm text-phosphor font-semibold mt-0.5" id="approved-route">&mdash;</div></div><div class="w-px h-6 bg-cockpit-400/30"></div><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">New ETA</div><div class="data-value text-sm text-phosphor font-semibold mt-0.5" id="approved-eta">&mdash;</div></div><div class="w-px h-6 bg-cockpit-400/30"></div><div class="text-center"><div class="text-[9px] font-sans text-slate-350 uppercase">Clearance</div><div class="data-value text-sm text-phosphor font-semibold mt-0.5" id="approved-clearance">&mdash;</div></div></div>
+              <button onclick="resetDiversion()" class="mt-2 px-4 py-2 rounded border border-cockpit-400/50 text-xs font-sans text-slate-350 hover:bg-cockpit-600/30 transition-colors">New Request</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ═══════════ STATUS BAR ═══════════ -->
+  <footer class="flex items-center justify-between px-5 py-2 border-t border-cockpit-400/40 bg-cockpit-800/80 text-[10px] fade-up" style="animation-delay:0.5s">
+    <div class="flex items-center gap-4">
+      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-phosphor shadow-[0_0_4px_rgba(0,232,123,0.5)]"></span><span class="font-sans text-slate-350">SYS OK</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-phosphor shadow-[0_0_4px_rgba(0,232,123,0.5)]"></span><span class="font-sans text-slate-350">ACARS LINK</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-phosphor shadow-[0_0_4px_rgba(0,232,123,0.5)]"></span><span class="font-sans text-slate-350">GPS L1/L5</span></div>
+      <div class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-amber shadow-[0_0_4px_rgba(240,160,48,0.5)]"></span><span class="font-sans text-amber">SIGMET W OF BOWIE &mdash; MOD TURB FL350-FL390</span></div>
+    </div>
+    <div class="flex items-center gap-4">
+      <span class="font-sans text-slate-350">Last dispatch contact: <span class="data-value text-white">12m ago</span></span>
+      <span class="font-sans text-slate-350">SELCAL: <span class="data-value text-white">BK-FS</span></span>
+      <span class="font-sans text-slate-350">SKYPATH <span class="data-value text-cockpit-400">v2.4.1</span></span>
+    </div>
+  </footer>
+
+  <!-- ═══════════ CONFIRMATION MODAL ═══════════ -->
+  <div id="confirm-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-backdrop">
+    <div class="instrument-panel rounded-xl p-6 w-[420px] max-w-[90vw] space-y-4 border-cockpit-400/50">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-amber/10 border border-amber/30 flex items-center justify-center"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3l8 14H3L11 3z" fill="none" stroke="#f0a030" stroke-width="1.5" stroke-linejoin="round"/><line x1="11" y1="9" x2="11" y2="13" stroke="#f0a030" stroke-width="1.5" stroke-linecap="round"/><circle cx="11" cy="15.5" r="0.75" fill="#f0a030"/></svg></div>
+        <div><h3 class="font-sans font-bold text-base text-white">Confirm Route Diversion</h3><p class="text-xs font-sans text-slate-350">This will transmit a diversion request to dispatch</p></div>
+      </div>
+      <div class="instrument-panel-raised rounded-lg p-3 space-y-2">
+        <div class="flex justify-between"><span class="text-[10px] font-sans text-slate-350 uppercase">New Route</span><span class="data-value text-xs font-semibold" id="confirm-route">&mdash;</span></div>
+        <div class="flex justify-between"><span class="text-[10px] font-sans text-slate-350 uppercase">Reason</span><span class="data-value text-xs text-white" id="confirm-reason">&mdash;</span></div>
+        <div class="flex justify-between"><span class="text-[10px] font-sans text-slate-350 uppercase">Est. Savings</span><span class="data-value text-xs font-semibold" id="confirm-savings">&mdash;</span></div>
+      </div>
+      <div class="flex gap-3">
+        <button onclick="cancelDiversion()" class="flex-1 py-2.5 rounded-lg border border-cockpit-400/50 text-sm font-sans font-medium text-slate-350 hover:bg-cockpit-600/30 transition-colors">Cancel</button>
+        <button onclick="confirmDiversion()" class="flex-1 py-2.5 rounded-lg bg-amber border border-amber text-sm font-sans font-bold text-cockpit-950 hover:bg-amber/90 transition-colors tracking-wide">CONFIRM &amp; TRANSMIT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ TCAS CONFLICT ALERT MODAL ═══ -->
+  <div id="conflict-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center modal-backdrop">
+    <div class="instrument-panel rounded-xl p-6 w-[440px] max-w-[90vw] space-y-4 border border-danger/40" style="box-shadow: 0 0 40px rgba(255,48,64,0.15), inset 0 0 30px rgba(255,48,64,0.03);">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-lg bg-danger/15 border border-danger/40 flex items-center justify-center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 3L2 20h20L12 3z" fill="none" stroke="#ff3040" stroke-width="2" stroke-linejoin="round"/>
+            <line x1="12" y1="10" x2="12" y2="14.5" stroke="#ff3040" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="17" r="1" fill="#ff3040"/>
+          </svg>
+        </div>
+        <div>
+          <h3 class="font-sans font-bold text-base text-danger" style="text-shadow: 0 0 10px rgba(255,48,64,0.4);">TRAFFIC CONFLICT — ROUTE BLOCKED</h3>
+          <p class="text-xs font-sans text-slate-350 mt-0.5">TCAS advisory: diversion to this route is not permitted</p>
+        </div>
+      </div>
+      <div class="instrument-panel-raised rounded-lg p-3 space-y-2.5 border border-danger/15">
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Conflicting Traffic</span>
+          <span class="data-value text-xs font-semibold text-danger" style="text-shadow: 0 0 6px rgba(255,48,64,0.5);">DAL 1847</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Aircraft Type</span>
+          <span class="data-value text-xs text-white">A321neo</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Altitude</span>
+          <span class="data-value text-xs text-white">FL370</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Closest Approach</span>
+          <span class="data-value text-xs font-semibold text-danger">42 nm lateral / 0 ft vertical</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Conflict Zone</span>
+          <span class="data-value text-xs text-white">TRAKK — MULLS segment</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[10px] font-sans text-slate-350 uppercase">Route Savings</span>
+          <span class="data-value text-xs text-slate-350 line-through">-23 min / -3,600 lbs</span>
+        </div>
+      </div>
+      <div class="rounded-lg bg-danger/5 border border-danger/20 px-3 py-2 flex items-start gap-2">
+        <svg class="w-4 h-4 mt-0.5 flex-shrink-0" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="7" stroke="#ff3040" stroke-width="1.5"/><line x1="8" y1="5" x2="8" y2="9" stroke="#ff3040" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11.2" r="0.8" fill="#ff3040"/></svg>
+        <p class="text-[11px] font-sans text-danger/90 leading-relaxed">This route intersects the projected flight path of <span class="font-semibold text-danger">DAL 1847</span> (KJFK&rarr;KPHX) near waypoint TRAKK at FL370. Minimum separation standards would be violated. Select an alternate route.</p>
+      </div>
+      <button onclick="closeConflictAlert()" class="w-full py-2.5 rounded-lg border border-danger/40 text-sm font-sans font-bold text-danger hover:bg-danger/10 transition-colors tracking-wide">ACKNOWLEDGED</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <!-- ═══════════ JAVASCRIPT ═══════════ -->
+  <!-- ═══════════════════════════════════════════════════════ -->
+  <script>
+    // ═══════════ STATE ═══════════
+    const state = { selectedRoute: null, diversionStatus: 'idle' };
+
+    const routes = {
+      current:  { name: 'CURRENT', color: '#f0a030', colorClass: 'text-amber', dotClass: 'bg-amber', dist: '2,158 nm', time: '4h 38m', fuel: '38,200 lbs', savings: '\u2014', savingsClass: 'text-slate-350', eta: '14:22' },
+      north:    { name: 'NORTH (UAL442-N)', color: '#00e87b', colorClass: 'text-phosphor', dotClass: 'bg-phosphor', dist: '2,089 nm', time: '4h 22m', fuel: '35,800 lbs', savings: '-16 min / -2,400 lbs', savingsClass: 'text-phosphor', eta: '14:06', clearance: 'DCT GREKI J60 DUNKS' },
+      south:    { name: 'SOUTH (UAL442-S)', color: '#00b4d8', colorClass: 'text-cyan', dotClass: 'bg-cyan', dist: '2,201 nm', time: '4h 45m', fuel: '39,100 lbs', savings: '+7 min / +900 lbs', savingsClass: 'text-danger', eta: '14:29', clearance: 'DCT DIXIE V12 HOGGS' },
+      conflict: { name: 'DIRECT (UAL442-D)', color: '#555e70', colorClass: 'text-slate-350', dotClass: 'bg-slate-350', dist: '2,020 nm', time: '4h 15m', fuel: '34,600 lbs', savings: '-23 min / -3,600 lbs', savingsClass: 'text-slate-350', eta: '13:59', blocked: true, conflictAircraft: 'DAL 1847', conflictAlt: 'FL370', conflictDist: '42 nm' },
+    };
+
+    // ═══════════ GEOGRAPHIC ROUTE DATA ═══════════
+    // Real coordinates for KJFK → KLAX transcontinental routes
+    const KJFK = [40.6413, -73.7781];
+    const KLAX = [33.9425, -118.4081];
+
+    const routeCoords = {
+      current:  [KJFK, [40.20, -76.80], [39.50, -83.00], [38.30, -91.50], [35.80, -105.50], KLAX],
+      north:    [KJFK, [41.30, -77.20], [42.80, -86.50], [41.50, -100.50], [38.00, -112.50], KLAX],
+      south:    [KJFK, [37.80, -79.50], [34.80, -94.50], [32.50, -104.50], KLAX],
+      conflict: [KJFK, [39.80, -78.50], [38.50, -87.00], [36.50, -97.00], [34.80, -108.00], KLAX],
+    };
+
+    const waypointNames = {
+      current:  ['KJFK', 'MERIT', 'YOHAN', 'BOWIE', 'PELLY', 'KLAX'],
+      north:    ['KJFK', 'GREKI', 'DUNKS', 'CEDAR', 'FORGE', 'KLAX'],
+      south:    ['KJFK', 'DIXIE', 'HOGGS', 'PECOS', 'KLAX'],
+      conflict: ['KJFK', 'RANEY', 'TRAKK', 'MULLS', 'ZANJA', 'KLAX'],
+    };
+
+    // Aircraft is ~60% between YOHAN (OH) and BOWIE (MO) — over southern Illinois
+    const AIRCRAFT_POS = [38.78, -88.10];
+
+    // ═══════════ CLOCK ═══════════
+    function updateClock() {
+      document.getElementById('utc-clock').textContent = new Date().toISOString().slice(11, 19);
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    // ═══════════ SIMULATED DATA ═══════════
+    setInterval(() => {
+      document.getElementById('gs-value').textContent = 485 + Math.round(Math.random() * 6);
+      document.getElementById('fuel-value').textContent = (42.8 - Math.random() * 0.05).toFixed(1);
+    }, 4000);
+
+    // ═══════════ LEAFLET MAP ═══════════
+    const map = L.map('flight-map', {
+      center: [37.5, -96],
+      zoom: 5,
+      zoomControl: true,
+      attributionControl: true,
+      zoomSnap: 0.5,
+      minZoom: 3,
+      maxZoom: 12,
+    });
+
+    // CartoDB dark basemap — no API key required
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="https://carto.com">CARTO</a> &copy; <a href="https://www.openstreetmap.org/copyright">OSM</a>',
+    }).addTo(map);
+
+    // Move zoom control to top-right
+    map.zoomControl.setPosition('topright');
+
+    // ═══════════ ROUTE POLYLINES ═══════════
+    const routeLines = {};
+
+    // Traveled portion (KJFK → MERIT → YOHAN) — dimmed
+    const traveledLine = L.polyline(routeCoords.current.slice(0, 3), {
+      color: '#f0a030', weight: 3, opacity: 0.25, interactive: false,
+    }).addTo(map);
+
+    // Conflict route (grayed out — collision risk)
+    routeLines.conflict = L.polyline(routeCoords.conflict, {
+      color: '#555e70', weight: 2, opacity: 0.3, dashArray: '6 8',
+    }).addTo(map);
+
+    // South route (below others in z-order)
+    routeLines.south = L.polyline(routeCoords.south, {
+      color: '#00b4d8', weight: 2.5, opacity: 0.4, dashArray: '10 7',
+    }).addTo(map);
+
+    // North route
+    routeLines.north = L.polyline(routeCoords.north, {
+      color: '#00e87b', weight: 2.5, opacity: 0.4, dashArray: '10 7',
+    }).addTo(map);
+
+    // Current route (on top)
+    routeLines.current = L.polyline(routeCoords.current, {
+      color: '#f0a030', weight: 3, opacity: 0.9,
+    }).addTo(map);
+
+    // Invisible fat click targets for easy selection
+    for (const [rid, coords] of Object.entries(routeCoords)) {
+      L.polyline(coords, {
+        weight: 20, opacity: 0, interactive: true,
+      }).addTo(map).on('click', () => selectRoute(rid));
+    }
+
+    // Remaining portion highlight (aircraft → KLAX)
+    const remainingLine = L.polyline([AIRCRAFT_POS, ...routeCoords.current.slice(3)], {
+      color: '#f0a030', weight: 3.5, opacity: 1, interactive: false,
+    }).addTo(map);
+
+    // ═══════════ WAYPOINT MARKERS ═══════════
+    const routeColors = { current: '#f0a030', north: '#00e87b', south: '#00b4d8' };
+
+    for (const [rid, coords] of Object.entries(routeCoords)) {
+      const names = waypointNames[rid];
+      const color = routeColors[rid];
+      for (let i = 1; i < coords.length - 1; i++) {
+        L.marker(coords[i], {
+          interactive: false,
+          icon: L.divIcon({
+            className: '',
+            html: `<div style="position:relative;width:10px;height:10px;">
+              <div class="wpt-diamond" style="border-color:${color};"></div>
+              <div class="wpt-label" style="color:${color};position:absolute;top:14px;left:50%;transform:translateX(-50%);">${names[i]}</div>
+            </div>`,
+            iconSize: [10, 10], iconAnchor: [5, 5],
+          }),
+        }).addTo(map);
+      }
+    }
+
+    // ═══════════ AIRPORT MARKERS ═══════════
+    [[KJFK, 'KJFK'], [KLAX, 'KLAX']].forEach(([pos, name]) => {
+      L.marker(pos, {
+        interactive: false,
+        icon: L.divIcon({
+          className: '',
+          html: `<div style="position:relative;">
+            <div class="apt-box"><div style="width:6px;height:6px;border-radius:50%;background:#e8ecf4;"></div></div>
+            <div class="apt-label" style="position:absolute;top:34px;left:50%;transform:translateX(-50%);">${name}</div>
+          </div>`,
+          iconSize: [30, 30], iconAnchor: [15, 15],
+        }),
+      }).addTo(map);
+    });
+
+    // ═══════════ AIRCRAFT MARKER ═══════════
+    const aircraftMarker = L.marker(AIRCRAFT_POS, {
+      interactive: false,
+      zIndexOffset: 1000,
+      icon: L.divIcon({
+        className: '',
+        html: `<div style="position:relative;width:32px;height:32px;">
+          <div class="ac-ping"></div>
+          <div class="ac-ping" style="animation-delay:1s;"></div>
+          <svg class="ac-icon" width="22" height="22" viewBox="0 0 24 24">
+            <path d="M12 2l-2 8H3l-1 2 7 3 1 7h4l1-7 7-3-1-2h-7L12 2z" fill="#f0a030"/>
+          </svg>
+        </div>`,
+        iconSize: [32, 32], iconAnchor: [16, 16],
+      }),
+    }).addTo(map);
+
+    // Fit map to all routes with padding
+    const allPts = [...routeCoords.current, ...routeCoords.north, ...routeCoords.south, ...routeCoords.conflict];
+    const routeBounds = L.latLngBounds(allPts).pad(0.08);
+    map.fitBounds(routeBounds);
+
+    // Ensure Leaflet sizes correctly after layout
+    setTimeout(() => map.invalidateSize(), 200);
+
+    function resetMapView() {
+      map.fitBounds(routeBounds, { animate: true, duration: 0.5 });
+    }
+
+    // ═══════════ ROUTE SELECTION ═══════════
+    function selectRoute(routeId) {
+      // Blocked route — show collision alert
+      if (routeId === 'conflict') {
+        showConflictAlert();
+        return;
+      }
+      // Reset diversion workflow so you can always switch routes freely
+      if (state.diversionStatus === 'transmitting' || state.diversionStatus === 'approved') {
+        resetDiversion();
+      }
+      if (routeId === 'current') {
+        state.selectedRoute = null;
+        updateMapHighlight(null);
+        updateRouteButtons(null);
+        showDiversionPanel('idle');
+        routeLines.north.setStyle({ dashArray: '10 7' });
+        routeLines.south.setStyle({ dashArray: '10 7' });
+        return;
+      }
+      state.selectedRoute = routeId;
+      updateMapHighlight(routeId);
+      updateRouteButtons(routeId);
+      showDiversionPanel('ready');
+      updateDiversionReady(routeId);
+    }
+
+    function showConflictAlert() {
+      // Briefly flash the conflict route red on the map
+      routeLines.conflict.setStyle({ color: '#ff3040', opacity: 0.6, weight: 3 });
+      setTimeout(() => {
+        routeLines.conflict.setStyle({ color: '#555e70', opacity: 0.3, weight: 2 });
+      }, 2000);
+      document.getElementById('conflict-modal').classList.remove('hidden');
+    }
+
+    function closeConflictAlert() {
+      document.getElementById('conflict-modal').classList.add('hidden');
+    }
+
+    function updateMapHighlight(routeId) {
+      // Conflict route always stays dim
+      routeLines.conflict.setStyle({ color: '#555e70', opacity: 0.3, weight: 2, dashArray: '6 8' });
+
+      if (!routeId) {
+        routeLines.current.setStyle({ opacity: 0.9, weight: 3 });
+        routeLines.north.setStyle({ opacity: 0.4, weight: 2.5 });
+        routeLines.south.setStyle({ opacity: 0.4, weight: 2.5 });
+        remainingLine.setStyle({ opacity: 1, weight: 3.5 });
+        return;
+      }
+      // Dim current route, highlight selected
+      routeLines.current.setStyle({ opacity: 0.35, weight: 2 });
+      remainingLine.setStyle({ opacity: 0.4, weight: 2 });
+
+      if (routeId === 'north') {
+        routeLines.north.setStyle({ opacity: 1, weight: 4, dashArray: '' });
+        routeLines.south.setStyle({ opacity: 0.12, weight: 1.5 });
+      } else {
+        routeLines.south.setStyle({ opacity: 1, weight: 4, dashArray: '' });
+        routeLines.north.setStyle({ opacity: 0.12, weight: 1.5 });
+      }
+    }
+
+    function updateRouteButtons(routeId) {
+      document.querySelectorAll('.route-btn').forEach(btn => {
+        const r = btn.getAttribute('data-route');
+        if (r === routeId || (r === 'current' && !routeId)) btn.classList.add('active');
+        else btn.classList.remove('active');
+      });
+    }
+
+    function updateDiversionReady(routeId) {
+      const r = routes[routeId];
+      document.getElementById('selected-route-dot').className = `w-2.5 h-2.5 rounded-full ${r.dotClass}`;
+      document.getElementById('selected-route-name').className = `data-value text-base font-semibold ${r.colorClass}`;
+      document.getElementById('selected-route-name').textContent = r.name;
+      document.getElementById('selected-route-savings').className = `data-value text-sm font-semibold ${r.savingsClass}`;
+      document.getElementById('selected-route-savings').textContent = r.savings;
+      document.getElementById('selected-dist').textContent = r.dist;
+      document.getElementById('selected-time').textContent = r.time;
+      document.getElementById('selected-fuel').textContent = r.fuel;
+    }
+
+    // Route polyline click handlers
+    routeLines.north.on('click', () => selectRoute('north'));
+    routeLines.south.on('click', () => selectRoute('south'));
+    routeLines.current.on('click', () => selectRoute('current'));
+    routeLines.conflict.on('click', () => selectRoute('conflict'));
+
+    // ═══════════ DIVERSION PANELS ═══════════
+    function showDiversionPanel(panel) {
+      ['idle', 'ready', 'transmitting', 'approved'].forEach(p => {
+        const el = document.getElementById(`diversion-${p}`);
+        el.classList.toggle('hidden', p !== panel);
+      });
+      state.diversionStatus = panel;
+    }
+
+    function requestDiversion() {
+      if (!state.selectedRoute) return;
+      const r = routes[state.selectedRoute];
+      const reason = document.getElementById('diversion-reason');
+      document.getElementById('confirm-route').textContent = r.name;
+      document.getElementById('confirm-route').className = `data-value text-xs font-semibold ${r.colorClass}`;
+      document.getElementById('confirm-reason').textContent = reason.options[reason.selectedIndex].text;
+      document.getElementById('confirm-savings').textContent = r.savings;
+      document.getElementById('confirm-savings').className = `data-value text-xs font-semibold ${r.savingsClass}`;
+      document.getElementById('confirm-modal').classList.remove('hidden');
+    }
+
+    function cancelDiversion() { document.getElementById('confirm-modal').classList.add('hidden'); }
+
+    function confirmDiversion() {
+      document.getElementById('confirm-modal').classList.add('hidden');
+      showDiversionPanel('transmitting');
+      requestAnimationFrame(() => { document.getElementById('transmit-progress').style.width = '100%'; });
+      setTimeout(() => {
+        showDiversionPanel('approved');
+        const r = routes[state.selectedRoute];
+        document.getElementById('approved-route').textContent = r.name;
+        document.getElementById('approved-route').className = `data-value text-sm font-semibold mt-0.5 ${r.colorClass}`;
+        document.getElementById('approved-eta').textContent = r.eta + ' UTC';
+        document.getElementById('approved-eta').className = `data-value text-sm font-semibold mt-0.5 ${r.colorClass}`;
+        document.getElementById('approved-clearance').textContent = r.clearance || 'AS FILED';
+        document.getElementById('approved-clearance').className = `data-value text-sm font-semibold mt-0.5 ${r.colorClass}`;
+        document.getElementById('eta-value').textContent = r.eta;
+      }, 3500);
+    }
+
+    function resetDiversion() {
+      state.selectedRoute = null;
+      updateMapHighlight(null);
+      updateRouteButtons(null);
+      showDiversionPanel('idle');
+      // Reset dashed style on alt routes
+      routeLines.north.setStyle({ dashArray: '10 7' });
+      routeLines.south.setStyle({ dashArray: '10 7' });
+      document.getElementById('transmit-progress').style.transition = 'none';
+      document.getElementById('transmit-progress').style.width = '0%';
+      setTimeout(() => { document.getElementById('transmit-progress').style.transition = 'width 3s linear'; }, 50);
+    }
+
+    // ═══════════ WIND PARTICLE SYSTEM — SIMULATED JET STREAM ═══════════
+    // Particles live in lat/lng space, projected to screen each frame.
+    // Physics runs on ALL particles; only visible ones get rendered.
+    const windCanvas = document.getElementById('wind-canvas');
+    const windCtx = windCanvas.getContext('2d');
+    let windParticles = [];
+    let windVisible = true;
+    let windRAF = null;
+    let isZooming = false;
+
+    const NUM_PARTICLES = 2000;
+    const MAX_TRAIL = 18;
+    const MAX_AGE = 180;
+    const SPAWN_PAD = 1.5;
+    const EXPIRE_PAD = 4.0;
+
+    const _ll = L.latLng(0, 0);
+    function toScreen(lat, lng) {
+      _ll.lat = lat; _ll.lng = lng;
+      return map.latLngToContainerPoint(_ll);
+    }
+
+    function resizeWind() {
+      const rect = windCanvas.parentElement.getBoundingClientRect();
+      const dpr = window.devicePixelRatio || 1;
+      windCanvas.width = rect.width * dpr;
+      windCanvas.height = rect.height * dpr;
+      windCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      windCanvas._w = rect.width;
+      windCanvas._h = rect.height;
+    }
+
+    // Simulated jet stream wind field — returns { u, v, speed }
+    // u,v in degrees/frame (geographic movement per animation frame)
+    function windAtGeo(lat, lng) {
+      const jetLat = 41.5
+        + 3.0 * Math.sin((lng + 97) * Math.PI / 35)
+        + 1.5 * Math.sin((lng + 60) * Math.PI / 18);
+      const dLat = lat - jetLat;
+      const jetSigma = 3.8;
+      const jet = Math.exp(-(dLat * dLat) / (2 * jetSigma * jetSigma));
+
+      let u = 0.012 + jet * 0.1;
+      let v = jet * 0.006 * Math.cos((lng + 85) * Math.PI / 22);
+
+      const sLat = lat * 0.4, sLng = lng * 0.25;
+      u += 0.005 * Math.sin(sLng * 2.7 + sLat * 3.4 + 0.5);
+      v += 0.004 * Math.cos(sLng * 2.1 + sLat * 2.9 + 1.1);
+      u += 0.003 * Math.sin(sLng * 5.3 + sLat * 1.8);
+      v += 0.003 * Math.cos(sLng * 1.6 + sLat * 4.7);
+      u += 0.002 * Math.sin(sLng * 8.1 + sLat * 2.5 + 2.0);
+      v += 0.0015 * Math.cos(sLng * 3.2 + sLat * 7.4 + 0.9);
+
+      if (lat < 32) {
+        const f = Math.max(0.15, (lat - 20) / 12);
+        u *= f; v *= f;
+        if (lat < 27) u -= 0.008 * Math.max(0, 1 - (lat - 20) / 7);
+      }
+      if (lat > 52) {
+        const f = Math.max(0.2, 1 - (lat - 52) / 12);
+        u *= f; v *= f;
+      }
+
+      u += 0.01 * Math.exp(-Math.pow(lng + 95, 2) / 400) * jet;
+
+      const speed = Math.sqrt(u * u + v * v);
+      return { u, v, speed };
+    }
+
+    function speedColor(speed, alpha) {
+      const t = Math.min(1, Math.max(0, (speed - 0.008) / 0.11));
+      let r, g, b;
+      if (t < 0.25)      { const s = t / 0.25;          r = 60+s*40;  g = 100+s*55; b = 155+s*35; }
+      else if (t < 0.5)  { const s = (t-0.25) / 0.25;   r = 100+s*50; g = 155+s*55; b = 190+s*30; }
+      else if (t < 0.75) { const s = (t-0.5) / 0.25;    r = 150+s*60; g = 210+s*30; b = 220+s*25; }
+      else               { const s = (t-0.75) / 0.25;   r = 210+s*45; g = 240+s*15; b = 245+s*10; }
+      return `rgba(${r|0},${g|0},${b|0},${alpha})`;
+    }
+
+    function spawnParticle(p) {
+      if (!p) p = {};
+      const b = map.getBounds().pad(SPAWN_PAD);
+      const sw = b.getSouthWest(), ne = b.getNorthEast();
+      p.lat = sw.lat + Math.random() * (ne.lat - sw.lat);
+      p.lng = sw.lng + Math.random() * (ne.lng - sw.lng);
+      p.age = 0;
+      p.trail = [{ lat: p.lat, lng: p.lng }];
+      return p;
+    }
+
+    function initWindParticles() {
+      windParticles = [];
+      for (let i = 0; i < NUM_PARTICLES; i++) {
+        const p = spawnParticle();
+        p.age = Math.floor(Math.random() * MAX_AGE);
+        for (let j = 0; j < Math.min(p.age, MAX_TRAIL); j++) {
+          const w = windAtGeo(p.lat, p.lng);
+          p.lng += w.u;
+          p.lat += w.v;
+          p.trail.push({ lat: p.lat, lng: p.lng });
+        }
+        if (p.trail.length > MAX_TRAIL) p.trail = p.trail.slice(-MAX_TRAIL);
+        windParticles.push(p);
+      }
+    }
+
+    function drawWind() {
+      if (!windVisible) {
+        windCtx.clearRect(0, 0, windCanvas._w || 1, windCanvas._h || 1);
+        windRAF = null;
+        return;
+      }
+      const W = windCanvas._w, H = windCanvas._h;
+      if (!W || !H) { windRAF = requestAnimationFrame(drawWind); return; }
+
+      if (isZooming) {
+        windRAF = requestAnimationFrame(drawWind);
+        return;
+      }
+
+      windCtx.clearRect(0, 0, W, H);
+      windCtx.lineCap = 'round';
+
+      const renderBounds = map.getBounds().pad(0.3);
+      const expireBounds = map.getBounds().pad(EXPIRE_PAD);
+
+      for (let i = 0; i < windParticles.length; i++) {
+        const p = windParticles[i];
+
+        const w = windAtGeo(p.lat, p.lng);
+        p.lng += w.u;
+        p.lat += w.v;
+        p.age++;
+        p.trail.push({ lat: p.lat, lng: p.lng });
+        if (p.trail.length > MAX_TRAIL) p.trail.shift();
+
+        if (p.age > MAX_AGE || !expireBounds.contains([p.lat, p.lng])) {
+          spawnParticle(p);
+          continue;
+        }
+
+        if (!renderBounds.contains([p.lat, p.lng])) continue;
+
+        if (p.trail.length >= 2) {
+          let ageFade = 1;
+          if (p.age < 14) ageFade = p.age / 14;
+          else if (p.age > MAX_AGE - 20) ageFade = Math.max(0, (MAX_AGE - p.age) / 20);
+
+          const baseW = 0.35 + w.speed * 6;
+
+          for (let j = 1; j < p.trail.length; j++) {
+            const t = j / p.trail.length;
+            const a = t * t * ageFade * 0.5 * (0.4 + w.speed * 4.5);
+            if (a < 0.008) continue;
+
+            const p0 = toScreen(p.trail[j-1].lat, p.trail[j-1].lng);
+            const p1 = toScreen(p.trail[j].lat, p.trail[j].lng);
+
+            windCtx.beginPath();
+            windCtx.moveTo(p0.x, p0.y);
+            windCtx.lineTo(p1.x, p1.y);
+            windCtx.strokeStyle = speedColor(w.speed, a);
+            windCtx.lineWidth = baseW * (0.25 + t * 0.75);
+            windCtx.stroke();
+          }
+
+          if (ageFade > 0.3 && p.trail.length > 3) {
+            const hd = p.trail[p.trail.length - 1];
+            const hp = toScreen(hd.lat, hd.lng);
+            windCtx.beginPath();
+            windCtx.arc(hp.x, hp.y, 0.8 + w.speed * 5, 0, Math.PI * 2);
+            windCtx.fillStyle = speedColor(w.speed, ageFade * 0.35 * (0.4 + w.speed * 4));
+            windCtx.fill();
+          }
+        }
+      }
+
+      windRAF = requestAnimationFrame(drawWind);
+    }
+
+    // Start wind system
+    resizeWind();
+    initWindParticles();
+    drawWind();
+
+    window.addEventListener('resize', () => { resizeWind(); map.invalidateSize(); });
+
+    // Zoom: freeze canvas during animation, fade for smoothness
+    map.on('zoomstart', () => {
+      isZooming = true;
+      windCanvas.style.transition = 'opacity 0.12s ease-out';
+      windCanvas.style.opacity = '0.3';
+    });
+
+    map.on('zoomend', () => {
+      isZooming = false;
+      windCanvas.style.transition = 'opacity 0.4s ease-in';
+      windCanvas.style.opacity = '1';
+    });
+
+    // ═══════════ WIND TOGGLE ═══════════
+    document.getElementById('wind-toggle').addEventListener('change', function () {
+      windVisible = this.checked;
+      if (windVisible && !windRAF) drawWind();
+    });
+
+    // ═══════════ KEYBOARD SHORTCUTS ═══════════
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'SELECT' || e.target.tagName === 'INPUT') return;
+      if (e.key === '1') selectRoute('current');
+      if (e.key === '2') selectRoute('north');
+      if (e.key === '3') selectRoute('south');
+      if (e.key === 'r' || e.key === 'R') resetMapView();
+      if (e.key === 'Escape') { cancelDiversion(); resetDiversion(); }
+    });
+  </script>
+</body>
+</html>

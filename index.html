@@ -1159,6 +1159,85 @@
       line-height: 1.6;
     }
 
+    /* ===================== COMING SOON CARD ===================== */
+    .project-card--coming-soon {
+      cursor: default;
+    }
+
+    .project-card--coming-soon:hover {
+      transform: none;
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .project-card__image--coming-soon {
+      background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.18), transparent 55%),
+                  radial-gradient(circle at 75% 80%, rgba(168, 85, 247, 0.14), transparent 55%),
+                  #0c0e1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      isolation: isolate;
+    }
+
+    .coming-soon__glow {
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle at center, rgba(99, 130, 255, 0.22), transparent 60%);
+      filter: blur(40px);
+      animation: coming-soon-pulse 6s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .coming-soon__grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(99, 130, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 130, 255, 0.08) 1px, transparent 1px);
+      background-size: 48px 48px;
+      animation: ct-grid-drift 24s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .coming-soon__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      text-align: center;
+      padding: 24px;
+    }
+
+    .coming-soon__badge {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid rgba(99, 130, 255, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+    }
+
+    .coming-soon__label {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 500;
+      color: var(--text-primary);
+      letter-spacing: -0.01em;
+    }
+
+    @keyframes coming-soon-pulse {
+      0%, 100% { opacity: 0.6; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.05); }
+    }
+
     /* ===================== LEADERSHIP ===================== */
     .leadership-grid {
       display: grid;
@@ -1675,6 +1754,7 @@
 
     <ul class="nav__links">
       <li><a href="#projects" class="nav__link">Projects</a></li>
+      <li><a href="#ai" class="nav__link">AI</a></li>
       <li><a href="#leadership" class="nav__link">Leadership</a></li>
       <li><a href="#about" class="nav__link">About Me</a></li>
       <li><a href="#contact" class="nav__link">Contact</a></li>
@@ -1689,6 +1769,7 @@
 
     <ul class="nav__mobile-menu" id="mobileMenu">
       <li><a href="#projects" class="nav__mobile-link">Projects</a></li>
+      <li><a href="#ai" class="nav__mobile-link">AI</a></li>
       <li><a href="#leadership" class="nav__mobile-link">Leadership</a></li>
       <li><a href="#about" class="nav__mobile-link">About Me</a></li>
       <li><a href="#contact" class="nav__mobile-link">Contact</a></li>
@@ -1852,6 +1933,51 @@
           <p class="project-card__description">Researched in-flight failures with pilots and designed prototype interfaces for the Boeing 777 simulator to support pilot testing and evaluation.</p>
         </div>
       </a>
+    </div>
+  </section>
+
+  <hr class="section__divider">
+
+  <!-- AI -->
+  <section class="section" id="ai">
+    <div class="section__header reveal">
+      <h2 class="section__title">AI</h2>
+      <p class="section__subtitle">Exploring how AI augments the design process — from research synthesis to rapid prototyping and shipped product features.</p>
+    </div>
+
+    <div class="projects-grid">
+      <a class="project-card reveal reveal-delay-1" href="projects/skypath.html">
+        <div class="project-card__image" style="background:#04060c;">
+          <img src="images/skypath-thumb.png" alt="SkyPath cockpit-style route optimization concept" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__tags">
+            <span class="project-card__tag">AI</span>
+            <span class="project-card__tag">Aviation</span>
+          </div>
+          <h3 class="project-card__title">SkyPath</h3>
+          <p class="project-card__description">A pilot-collaboration concept for in-flight route optimization. Built with Tailwind CSS and real airway data to close the dispatch-approval loop.</p>
+        </div>
+      </a>
+
+      <div class="project-card project-card--coming-soon reveal reveal-delay-2" aria-disabled="true">
+        <div class="project-card__image project-card__image--coming-soon">
+          <div class="coming-soon__glow"></div>
+          <div class="coming-soon__grid"></div>
+          <div class="coming-soon__content">
+            <span class="coming-soon__badge">Coming Soon</span>
+            <span class="coming-soon__label">More AI Projects</span>
+          </div>
+        </div>
+        <div class="project-card__content">
+          <div class="project-card__tags">
+            <span class="project-card__tag">AI</span>
+            <span class="project-card__tag">In Progress</span>
+          </div>
+          <h3 class="project-card__title">More AI Projects</h3>
+          <p class="project-card__description">Additional AI-powered design experiments and case studies are in the works. Check back soon for deeper looks at how AI is shaping product design end-to-end.</p>
+        </div>
+      </div>
     </div>
   </section>
 
