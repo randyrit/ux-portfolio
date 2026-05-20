@@ -1169,14 +1169,21 @@
       padding: 4px 12px;
       border-radius: 8px;
     }
-    .project-card__tag--b2b {
-      color: #C084FC;
-      background: rgba(168, 85, 247, 0.14);
-    }
-    .project-card__tag--startup {
-      color: #FB923C;
-      background: rgba(249, 115, 22, 0.14);
-    }
+    .project-card__tag--b2b      { color: #C084FC; background: rgba(168, 85, 247, 0.14); }
+    .project-card__tag--startup  { color: #FB923C; background: rgba(249, 115, 22, 0.14); }
+    .project-card__tag--fintech  { color: #34D399; background: rgba(16, 185, 129, 0.14); }
+    .project-card__tag--ai       { color: #60A5FA; background: rgba(59, 130, 246, 0.14); }
+    .project-card__tag--saas     { color: #22D3EE; background: rgba(6, 182, 212, 0.14); }
+    .project-card__tag--zerotoone{ color: #F472B6; background: rgba(236, 72, 153, 0.14); }
+    .project-card__tag--realestate { color: #FBBF24; background: rgba(245, 158, 11, 0.14); }
+    .project-card__tag--ds       { color: #FB7185; background: rgba(244, 63, 94, 0.14); }
+    .project-card__tag--leadership{ color: #818CF8; background: rgba(99, 102, 241, 0.14); }
+    .project-card__tag--payroll  { color: #A3E635; background: rgba(132, 204, 22, 0.14); }
+    .project-card__tag--iot      { color: #2DD4BF; background: rgba(20, 184, 166, 0.14); }
+    .project-card__tag--enterprise{ color: #94A3B8; background: rgba(148, 163, 184, 0.14); }
+    .project-card__tag--aviation { color: #38BDF8; background: rgba(14, 165, 233, 0.14); }
+    .project-card__tag--aerospace{ color: #E879F9; background: rgba(217, 70, 239, 0.14); }
+    .project-card__tag--inprogress{ color: #A1A1AA; background: rgba(113, 113, 122, 0.18); }
 
     .project-card__title {
       font-family: var(--font-display);
@@ -1863,9 +1870,9 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">AI</span>
+            <span class="project-card__tag project-card__tag--ai">AI</span>
             <span class="project-card__tag project-card__tag--b2b">B2B</span>
-            <span class="project-card__tag">SaaS</span>
+            <span class="project-card__tag project-card__tag--saas">SaaS</span>
             <span class="project-card__tag project-card__tag--startup">Startup</span>
           </div>
           <h3 class="project-card__title">Cloud Theory AI</h3>
@@ -1881,10 +1888,10 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">Fintech</span>
+            <span class="project-card__tag project-card__tag--fintech">Fintech</span>
             <span class="project-card__tag project-card__tag--b2b">B2B</span>
-            <span class="project-card__tag">SaaS</span>
-            <span class="project-card__tag">0→1</span>
+            <span class="project-card__tag project-card__tag--saas">SaaS</span>
+            <span class="project-card__tag project-card__tag--zerotoone">0→1</span>
             <span class="project-card__tag project-card__tag--startup">Startup</span>
           </div>
           <h3 class="project-card__title">FloQast Reporting</h3>
@@ -1898,8 +1905,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">Design Systems</span>
-            <span class="project-card__tag">Leadership</span>
+            <span class="project-card__tag project-card__tag--ds">Design Systems</span>
+            <span class="project-card__tag project-card__tag--leadership">Leadership</span>
           </div>
           <h3 class="project-card__title">FloQast Platform</h3>
           <p class="project-card__description">Managed a design systems team of 6, helped secure a $300K deal, and introduced Zeroheight integrated with Storybook.</p>
@@ -1914,10 +1921,10 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">Fintech</span>
-            <span class="project-card__tag">Real Estate</span>
+            <span class="project-card__tag project-card__tag--fintech">Fintech</span>
+            <span class="project-card__tag project-card__tag--realestate">Real Estate</span>
             <span class="project-card__tag project-card__tag--b2b">B2B2C</span>
-            <span class="project-card__tag">0→1</span>
+            <span class="project-card__tag project-card__tag--zerotoone">0→1</span>
             <span class="project-card__tag project-card__tag--startup">Startup</span>
           </div>
           <h3 class="project-card__title">Azibo</h3>
@@ -1932,8 +1939,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">B2B/B2C</span>
-            <span class="project-card__tag">Payroll</span>
+            <span class="project-card__tag project-card__tag--b2b">B2B/B2C</span>
+            <span class="project-card__tag project-card__tag--payroll">Payroll</span>
           </div>
           <h3 class="project-card__title">Intuit</h3>
           <p class="project-card__description">Led 0-to-1 design of a new QuickBooks Payroll onboarding experience — a net-new setup flow built from the ground up for small business owners running payroll for the first time.</p>
@@ -1955,8 +1962,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">IoT</span>
-            <span class="project-card__tag">Enterprise</span>
+            <span class="project-card__tag project-card__tag--iot">IoT</span>
+            <span class="project-card__tag project-card__tag--enterprise">Enterprise</span>
           </div>
           <h3 class="project-card__title">Cisco IoT Center</h3>
           <p class="project-card__description">Conducted in-person research with Tesla and Bush Brothers, then redesigned the IoT SaaS platform contributing to a 20% reduction in IT incidents.</p>
@@ -1969,8 +1976,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">Aviation</span>
-            <span class="project-card__tag">Aerospace</span>
+            <span class="project-card__tag project-card__tag--aviation">Aviation</span>
+            <span class="project-card__tag project-card__tag--aerospace">Aerospace</span>
           </div>
           <h3 class="project-card__title">NASA</h3>
           <p class="project-card__description">Researched in-flight failures with pilots and designed prototype interfaces for the Boeing 777 simulator to support pilot testing and evaluation.</p>
@@ -1995,8 +2002,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">AI</span>
-            <span class="project-card__tag">Aviation</span>
+            <span class="project-card__tag project-card__tag--ai">AI</span>
+            <span class="project-card__tag project-card__tag--aviation">Aviation</span>
           </div>
           <h3 class="project-card__title">SkyPath</h3>
           <p class="project-card__description">A pilot-collaboration concept for in-flight route optimization. Built with Tailwind CSS and real airway data to close the dispatch-approval loop.</p>
@@ -2014,8 +2021,8 @@
         </div>
         <div class="project-card__content">
           <div class="project-card__tags">
-            <span class="project-card__tag">AI</span>
-            <span class="project-card__tag">In Progress</span>
+            <span class="project-card__tag project-card__tag--ai">AI</span>
+            <span class="project-card__tag project-card__tag--inprogress">In Progress</span>
           </div>
           <h3 class="project-card__title">More AI Projects</h3>
           <p class="project-card__description">Additional AI-powered design experiments and case studies are in the works. Check back soon for deeper looks at how AI is shaping product design end-to-end.</p>
