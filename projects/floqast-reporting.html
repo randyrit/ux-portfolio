@@ -1196,44 +1196,9 @@
       border: none;
       display: block;
     }
-
-    /* ===================== CONDENSED VIEW TOGGLE ===================== */
-    .cs-view-toggle {
-      display: flex;
-      justify-content: center;
-      padding: 40px 24px 0;
-    }
-    .cs-view-toggle__btn {
-      background: rgba(255,255,255,0.04);
-      color: var(--text-primary);
-      border: 1px solid var(--border);
-      padding: 14px 28px;
-      border-radius: 100px;
-      font: 500 14px/1 var(--font-body);
-      letter-spacing: 0.04em;
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    }
-    .cs-view-toggle__btn:hover {
-      background: rgba(255,255,255,0.08);
-      border-color: var(--border-hover);
-      transform: translateY(-1px);
-    }
-    .cs-view-toggle__btn::before {
-      content: "▾ ";
-      display: inline-block;
-      margin-right: 6px;
-      transition: transform 0.3s ease;
-    }
-    body.cs-condensed .cs-view-toggle__btn::before {
-      transform: rotate(-90deg);
-    }
-    body.cs-condensed .cs-section--process {
-      display: none;
-    }
   </style>
 </head>
-<body class="cs-condensed">
+<body>
 
   <div id="math-bg"></div>
   <div class="progress-bar" id="progressBar"></div>
@@ -1302,10 +1267,6 @@
       </div>
     </div>
   </section>
-
-  <div class="cs-view-toggle">
-    <button class="cs-view-toggle__btn" data-toggle-cs aria-pressed="true">View Full Case Study</button>
-  </div>
 
   <div class="cs-content">
 
@@ -1977,27 +1938,6 @@
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
     revealElements.forEach(el => revealObserver.observe(el));
-
-    // ===================== CONDENSED VIEW TOGGLE =====================
-    (() => {
-      const ESSENTIAL = /(final|impact|reflect|takeaway|key screen|platform experience|what'?s new|key design features|key interactions|visual language|the redesigned|overview|outcome|^result|results)/i;
-      const sections = Array.from(document.querySelectorAll('.cs-section'));
-      sections.forEach((section, idx) => {
-        if (idx === 0) return; // always keep first section after hero (overview)
-        const num = section.querySelector('.cs-section__number')?.textContent || '';
-        const title = section.querySelector('.cs-section__title')?.textContent || '';
-        const sidebar = section.querySelector('.cs-split__sidebar-title')?.textContent || '';
-        const text = `${num} ${title} ${sidebar}`;
-        if (!ESSENTIAL.test(text)) section.classList.add('cs-section--process');
-      });
-      document.querySelectorAll('[data-toggle-cs]').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const condensed = document.body.classList.toggle('cs-condensed');
-          btn.textContent = condensed ? 'View Full Case Study' : 'Show Condensed View';
-          btn.setAttribute('aria-pressed', condensed ? 'true' : 'false');
-        });
-      });
-    })();
   </script>
 
 </body>
