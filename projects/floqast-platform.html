@@ -1410,8 +1410,17 @@
     .cs-onepager { max-width: 1200px; margin: 0 auto; padding: 80px 24px 40px; position: relative; z-index: 2; }
     .cs-onepager__visual { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-secondary); margin-bottom: 64px; aspect-ratio: 16 / 9; }
     .cs-onepager__visual video, .cs-onepager__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .cs-onepager__visual--slider { aspect-ratio: auto; border: 0; background: transparent; overflow: visible; }
-    .cs-onepager__visual--slider .cs-slider { margin: 0; }
+    .cs-onepager__visual--slider {
+      aspect-ratio: auto;
+      max-height: 500px;
+      overflow-y: auto;
+      background: var(--bg-secondary);
+    }
+    .cs-onepager__visual--slider .cs-slider {
+      margin: 0;
+      border-radius: 0;
+      border: 0;
+    }
     .cs-onepager__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 56px; }
     @media (max-width: 820px) { .cs-onepager__grid { grid-template-columns: 1fr; gap: 28px; } .cs-onepager { padding-top: 48px; } .cs-onepager__visual { margin-bottom: 40px; } }
     .cs-onepager__block { padding: 28px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 12px; }
