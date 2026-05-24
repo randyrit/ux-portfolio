@@ -3401,6 +3401,26 @@
           lingerTimer = null;
         }
       });
+
+      // Forward clicks on the Spline iframe to the case-study link.
+      // Cross-origin iframes swallow click events; we detect the click via
+      // window blur (focus jumps into iframe on mousedown) and navigate to
+      // the card's href. Bonus effect: clicks never get a chance to start
+      // a Spline orbit/pan, so the scene can't be dragged around.
+      const splineIframe = ciscoCard.querySelector('iframe.cisco-spline');
+      if (splineIframe) {
+        let mouseOver = false;
+        splineIframe.addEventListener('mouseenter', () => { mouseOver = true; });
+        splineIframe.addEventListener('mouseleave', () => { mouseOver = false; });
+        window.addEventListener('blur', () => {
+          setTimeout(() => {
+            if (mouseOver && document.activeElement === splineIframe) {
+              const href = ciscoCard.getAttribute('href');
+              if (href) window.location.href = href;
+            }
+          }, 0);
+        });
+      }
     })();
 
     // Animated counter for leadership metrics
