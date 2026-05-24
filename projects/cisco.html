@@ -3,13 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cisco IoT Center — Case Study</title>
+  <title>Cisco IoT Center, Case Study</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
-  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.12.95/build/spline-viewer.js"></script>
   <style>
     *, *::before, *::after {
       margin: 0;
@@ -308,11 +307,16 @@
     }
     .cs-hero__image--spline {
       padding: 0;
+      bottom: 100px;
     }
+    .cs-hero__image--spline iframe,
     .cs-hero__image--spline spline-viewer {
       width: 100%;
       height: 100%;
       display: block;
+      border: 0;
+    }
+    .cs-hero__image--spline iframe {
       pointer-events: none;
       touch-action: pan-y;
     }
@@ -830,7 +834,7 @@
       opacity: 0.5;
     }
 
-    /* (scope list removed — using insight cards instead) */
+    /* (scope list removed, using insight cards instead) */
 
     /* ===================== PHASE TIMELINE ===================== */
     .cs-phases {
@@ -1453,7 +1457,7 @@
   <section class="cs-hero">
     <div class="cs-hero__bg"></div>
     <div class="cs-hero__image cs-hero__image--spline">
-      <spline-viewer url="https://prod.spline.design/gn6VgyuuEod0UuzZ/scene.splinecode?v=7" loading-anim-type="none" events-target="global"></spline-viewer>
+      <iframe src="https://my.spline.design/robotarmcopy-yfgfocTIl0fEfL1LavnTkLo0/" frameborder="0" width="100%" height="100%" title="Cisco IoT hero — robotic arm scene"></iframe>
     </div>
     <p class="cs-hero__eyebrow">Case Study</p>
     <h1 class="cs-hero__title">Cisco IoT Center</h1>
@@ -1481,7 +1485,7 @@
   <!-- ==================== CONDENSED ONE-PAGER SUMMARY ==================== -->
   <section class="cs-onepager">
     <div class="cs-onepager__visual">
-      <img src="../images/Cisco/finalDesign.png" alt="Cisco IoT Center — final dashboard design">
+      <img src="../images/Cisco/finalDesign.png" alt="Cisco IoT Center, final dashboard design">
     </div>
     <div class="cs-onepager__grid">
       <div class="cs-onepager__block">
@@ -1490,7 +1494,7 @@
       </div>
       <div class="cs-onepager__block">
         <span class="cs-onepager__label">Solution</span>
-        <p>A redesigned IoT SaaS platform built from on-site research with Tesla and Bush Brothers — configurable dashboards, a unified network view, prioritized alerts, and scheduled operations that surface what matters first.</p>
+        <p>A redesigned IoT SaaS platform built from on-site research with Tesla and Bush Brothers, configurable dashboards, a unified network view, prioritized alerts, and scheduled operations that surface what matters first.</p>
       </div>
       <div class="cs-onepager__block">
         <span class="cs-onepager__label">Results</span>
@@ -1514,7 +1518,7 @@
       <div class="cs-overview">
         <div class="cs-overview__summary">
           <p>Cisco IoT Center is an enterprise SaaS platform that manages thousands of industrial IoT devices across manufacturing facilities. Operations teams use it to monitor device health, manage network configurations, and respond to incidents in real time.</p>
-          <p>I joined as the lead product designer to reimagine the platform's core workflows &mdash; from device inventory and monitoring to job management and network dashboards &mdash; informed by on-site research at two of the platform's largest customers.</p>
+          <p>I joined as the lead product designer to reimagine the platform's core workflows, from device inventory and monitoring to job management and network dashboards, informed by on-site research at two of the platform's largest customers.</p>
         </div>
         <div class="cs-metrics">
           <div class="cs-metric reveal reveal-delay-1">
@@ -1542,13 +1546,13 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">01 &mdash; Context</span>
+          <span class="cs-split__sidebar-label">01, Context</span>
           <h2 class="cs-split__sidebar-title">Managing Industrial IoT at Scale</h2>
           <p class="cs-split__sidebar-desc">Understanding the operational complexity behind factory floors.</p>
         </div>
         <div class="cs-split__content">
-          <p>Cisco IoT Center serves operations teams managing thousands of connected devices across manufacturing environments &mdash; from sensors on production lines to network switches controlling factory operations.</p>
-          <p>The platform had grown organically over several releases, adding device monitoring, job scheduling, and network management capabilities. But the UX hadn't evolved with the same coherence &mdash; each feature felt like a separate product bolted onto the same shell.</p>
+          <p>Cisco IoT Center serves operations teams managing thousands of connected devices across manufacturing environments, from sensors on production lines to network switches controlling factory operations.</p>
+          <p>The platform had grown organically over several releases, adding device monitoring, job scheduling, and network management capabilities. But the UX hadn't evolved with the same coherence, each feature felt like a separate product bolted onto the same shell.</p>
           <ul class="cs-bullet-list">
             <li>Device inventory was difficult to filter and navigate at scale</li>
             <li>Alert fatigue from undifferentiated notification priorities</li>
@@ -1563,7 +1567,7 @@
     <div class="cs-fullbleed reveal">
       <div class="cs-gallery cs-gallery--single">
         <div class="cs-gallery__item">
-          <img src="../images/Cisco/factory.png" alt="Industrial factory environment — the operational context for Cisco IoT Center">
+          <img src="../images/Cisco/factory.png" alt="Industrial factory environment, the operational context for Cisco IoT Center">
         </div>
       </div>
       <p class="cs-gallery__caption">Understanding the industrial environments where IoT Center operates</p>
@@ -1575,12 +1579,12 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">02 &mdash; Research</span>
+          <span class="cs-split__sidebar-label">02, Research</span>
           <h2 class="cs-split__sidebar-title">Going to the Source</h2>
           <p class="cs-split__sidebar-desc">In-person research at Tesla and Bush Brothers facilities.</p>
         </div>
         <div class="cs-split__content">
-          <p>Rather than relying solely on analytics and support tickets, we conducted in-person research at two of IoT Center's largest customer sites &mdash; visiting factory floors, shadowing operations teams, and observing how they actually used the platform in high-pressure environments.</p>
+          <p>Rather than relying solely on analytics and support tickets, we conducted in-person research at two of IoT Center's largest customer sites, visiting factory floors, shadowing operations teams, and observing how they actually used the platform in high-pressure environments.</p>
 
           <div class="cs-insights">
             <div class="cs-insight reveal reveal-delay-1">
@@ -1588,14 +1592,14 @@
                 <span class="material-symbols-outlined">precision_manufacturing</span>
               </div>
               <h4 class="cs-insight__title">Tesla Gigafactory</h4>
-              <p class="cs-insight__desc">Observed production line operators managing hundreds of devices simultaneously. Discovered that alert prioritization was the single biggest pain point &mdash; every alert looked the same regardless of severity.</p>
+              <p class="cs-insight__desc">Observed production line operators managing hundreds of devices simultaneously. Discovered that alert prioritization was the single biggest pain point, every alert looked the same regardless of severity.</p>
             </div>
             <div class="cs-insight reveal reveal-delay-2">
               <div class="cs-insight__icon">
                 <span class="material-symbols-outlined">factory</span>
               </div>
               <h4 class="cs-insight__title">Bush Brothers</h4>
-              <p class="cs-insight__desc">Shadowed IT teams managing networked devices across multiple processing plants. Found that device filtering was too rigid &mdash; teams needed dynamic views based on location, status, and device type.</p>
+              <p class="cs-insight__desc">Shadowed IT teams managing networked devices across multiple processing plants. Found that device filtering was too rigid, teams needed dynamic views based on location, status, and device type.</p>
             </div>
             <div class="cs-insight reveal reveal-delay-3">
               <div class="cs-insight__icon">
@@ -1609,7 +1613,7 @@
                 <span class="material-symbols-outlined">mystery</span>
               </div>
               <h4 class="cs-insight__title">Key Finding</h4>
-              <p class="cs-insight__desc">Users didn't want more data &mdash; they wanted faster paths to action. The platform showed everything but prioritized nothing.</p>
+              <p class="cs-insight__desc">Users didn't want more data, they wanted faster paths to action. The platform showed everything but prioritized nothing.</p>
             </div>
           </div>
         </div>
@@ -1631,7 +1635,7 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">03 &mdash; The Problem</span>
+          <span class="cs-split__sidebar-label">03, The Problem</span>
           <h2 class="cs-split__sidebar-title">Information Without Prioritization</h2>
           <p class="cs-split__sidebar-desc">When everything is urgent, nothing is.</p>
         </div>
@@ -1640,10 +1644,10 @@
 
           <div class="cs-callout">
             <div class="cs-callout__number">73%</div>
-            <div class="cs-callout__text">of alerts were being dismissed without investigation &mdash; teams had developed alert fatigue and were missing critical device failures buried in noise</div>
+            <div class="cs-callout__text">of alerts were being dismissed without investigation, teams had developed alert fatigue and were missing critical device failures buried in noise</div>
           </div>
 
-          <p>The core issue wasn't missing features. It was missing hierarchy &mdash; the platform treated a minor sensor fluctuation the same as a production-line failure. We needed to redesign the information architecture to surface what matters most.</p>
+          <p>The core issue wasn't missing features. It was missing hierarchy, the platform treated a minor sensor fluctuation the same as a production-line failure. We needed to redesign the information architecture to surface what matters most.</p>
         </div>
       </div>
     </section>
@@ -1663,7 +1667,7 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">04 &mdash; Ideation</span>
+          <span class="cs-split__sidebar-label">04, Ideation</span>
           <h2 class="cs-split__sidebar-title">Exploring Solutions</h2>
           <p class="cs-split__sidebar-desc">From research insights to design directions.</p>
         </div>
@@ -1687,7 +1691,7 @@
           <img src="../images/Cisco/IND3.png" alt="Refined design concepts for device management">
         </div>
       </div>
-      <p class="cs-gallery__caption">Design explorations &mdash; from initial concepts to refined directions</p>
+      <p class="cs-gallery__caption">Design explorations, from initial concepts to refined directions</p>
     </div>
 
     <div class="cs-fullbleed reveal">
@@ -1696,7 +1700,7 @@
           <img src="../images/Cisco/INDideation.png" alt="Ideation workshop outputs and concept mapping">
         </div>
       </div>
-      <p class="cs-gallery__caption">Ideation outputs &mdash; mapping user workflows to design concepts</p>
+      <p class="cs-gallery__caption">Ideation outputs, mapping user workflows to design concepts</p>
     </div>
 
     <!-- ==================== DEVICE MANAGEMENT ==================== -->
@@ -1704,7 +1708,7 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">05 &mdash; Device Management</span>
+          <span class="cs-split__sidebar-label">05, Device Management</span>
           <h2 class="cs-split__sidebar-title">Redesigning the Core</h2>
           <p class="cs-split__sidebar-desc">Making device inventory navigable at scale.</p>
         </div>
@@ -1730,7 +1734,7 @@
               <div class="cs-phase__number">3</div>
               <div class="cs-phase__content">
                 <strong>Bulk Operations</strong>
-                <span>Select and act on multiple devices simultaneously &mdash; firmware updates, configuration changes, and status monitoring for groups of devices.</span>
+                <span>Select and act on multiple devices simultaneously, firmware updates, configuration changes, and status monitoring for groups of devices.</span>
               </div>
             </div>
           </div>
@@ -1744,13 +1748,13 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">06 &mdash; Filtering</span>
+          <span class="cs-split__sidebar-label">06, Filtering</span>
           <h2 class="cs-split__sidebar-title">Finding What Matters</h2>
           <p class="cs-split__sidebar-desc">From rigid dropdowns to dynamic, saveable filters.</p>
         </div>
         <div class="cs-split__content">
           <p>The old filtering system offered a fixed set of dropdowns that couldn't be combined or saved. Teams managing hundreds of devices had no way to create persistent views for their specific monitoring needs.</p>
-          <p>We designed a composable filter system where operators can stack conditions, save configurations as named views, and share them with teammates &mdash; turning ad-hoc searches into reusable workflows.</p>
+          <p>We designed a composable filter system where operators can stack conditions, save configurations as named views, and share them with teammates, turning ad-hoc searches into reusable workflows.</p>
         </div>
       </div>
     </section>
@@ -1761,13 +1765,13 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">07 &mdash; Dashboards</span>
+          <span class="cs-split__sidebar-label">07, Dashboards</span>
           <h2 class="cs-split__sidebar-title">Configurable Dashboards</h2>
           <p class="cs-split__sidebar-desc">Giving teams the views they need, not the views they're given.</p>
         </div>
         <div class="cs-split__content">
           <p>Different teams needed different views of the same data. Network engineers wanted port utilization at a glance. Floor supervisors wanted device health roll-ups by production line. IT managers wanted incident trends over time.</p>
-          <p>We redesigned the dashboard experience with configurable dashlets that teams can add, arrange, and customize to match their operational focus &mdash; replacing the one-size-fits-all dashboard with purpose-built views.</p>
+          <p>We redesigned the dashboard experience with configurable dashlets that teams can add, arrange, and customize to match their operational focus, replacing the one-size-fits-all dashboard with purpose-built views.</p>
         </div>
       </div>
     </section>
@@ -1778,7 +1782,7 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">08 &mdash; Network Management</span>
+          <span class="cs-split__sidebar-label">08, Network Management</span>
           <h2 class="cs-split__sidebar-title">Unified Network View</h2>
           <p class="cs-split__sidebar-desc">Consolidating network operations into a single, coherent experience.</p>
         </div>
@@ -1787,7 +1791,7 @@
 
           <div class="cs-quote">
             <p class="cs-quote__text">&ldquo;Before, I had to open three tabs just to figure out why a switch was offline. Now I can see the whole picture and act on it from one screen.&rdquo;</p>
-            <p class="cs-quote__attribution">&mdash; Network Engineer, Customer Site</p>
+            <p class="cs-quote__attribution"> Network Engineer, Customer Site</p>
           </div>
         </div>
       </div>
@@ -1799,13 +1803,13 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">09 &mdash; Notifications</span>
+          <span class="cs-split__sidebar-label">09, Notifications</span>
           <h2 class="cs-split__sidebar-title">Taming Alert Fatigue</h2>
-          <p class="cs-split__sidebar-desc">From noise to signal &mdash; prioritized, actionable alerts.</p>
+          <p class="cs-split__sidebar-desc">From noise to signal, prioritized, actionable alerts.</p>
         </div>
         <div class="cs-split__content">
-          <p>Our research revealed that 73% of alerts were being dismissed without investigation. The notification system treated every event equally &mdash; a minor sensor fluctuation looked identical to a critical production-line failure.</p>
-          <p>We redesigned the notification system with tiered severity levels, contextual grouping, and direct links to relevant device detail views &mdash; reducing the noise while ensuring critical alerts surface immediately.</p>
+          <p>Our research revealed that 73% of alerts were being dismissed without investigation. The notification system treated every event equally, a minor sensor fluctuation looked identical to a critical production-line failure.</p>
+          <p>We redesigned the notification system with tiered severity levels, contextual grouping, and direct links to relevant device detail views, reducing the noise while ensuring critical alerts surface immediately.</p>
         </div>
       </div>
     </section>
@@ -1816,12 +1820,12 @@
     <section class="cs-section cs-section--narrow reveal">
       <div class="cs-split">
         <div class="cs-split__sidebar">
-          <span class="cs-split__sidebar-label">10 &mdash; Job Management</span>
+          <span class="cs-split__sidebar-label">10, Job Management</span>
           <h2 class="cs-split__sidebar-title">Scheduled Operations</h2>
-          <p class="cs-split__sidebar-desc">Firmware updates, configs, and bulk operations &mdash; simplified.</p>
+          <p class="cs-split__sidebar-desc">Firmware updates, configs, and bulk operations, simplified.</p>
         </div>
         <div class="cs-split__content">
-          <p>Job management &mdash; scheduling firmware updates, configuration pushes, and diagnostic runs across device groups &mdash; was one of the platform's most complex workflows. We simplified it with a clearer job creation flow, real-time progress tracking, and contextual error handling.</p>
+          <p>Job management, scheduling firmware updates, configuration pushes, and diagnostic runs across device groups, was one of the platform's most complex workflows. We simplified it with a clearer job creation flow, real-time progress tracking, and contextual error handling.</p>
         </div>
       </div>
     </section>
@@ -1830,7 +1834,7 @@
     <!-- ==================== FINAL DESIGN ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
-      <span class="cs-section__number">11 &mdash; Final Design</span>
+      <span class="cs-section__number">11, Final Design</span>
       <h2 class="cs-section__title">The Redesigned Platform</h2>
       <p class="cs-section__subtitle" style="margin-bottom: 48px;">A unified IoT management experience built on research, not assumptions.</p>
     </section>
@@ -1838,16 +1842,16 @@
     <div class="cs-fullbleed reveal">
       <div class="cs-gallery cs-gallery--single">
         <div class="cs-gallery__item" style="background: #049FD9; padding: 24px;">
-          <img src="../images/Cisco/finalDesign.png" alt="Final design — Cisco IoT Center dashboard" style="border-radius: 8px;">
+          <img src="../images/Cisco/finalDesign.png" alt="Final design, Cisco IoT Center dashboard" style="border-radius: 8px;">
         </div>
       </div>
-      <p class="cs-gallery__caption">The redesigned Cisco IoT Center &mdash; Network Management Dashboard</p>
+      <p class="cs-gallery__caption">The redesigned Cisco IoT Center, Network Management Dashboard</p>
     </div>
 
     <div class="cs-fullbleed reveal">
       <div class="cs-gallery cs-gallery--single">
         <div class="cs-gallery__item" style="background: #049FD9; padding: 24px;">
-          <img src="../images/Cisco/finaldesignIND2.png" alt="Final design — additional view" style="border-radius: 8px;">
+          <img src="../images/Cisco/finaldesignIND2.png" alt="Final design, additional view" style="border-radius: 8px;">
         </div>
       </div>
     </div>
@@ -1855,7 +1859,7 @@
     <!-- ==================== IMPACT ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
-      <span class="cs-section__number">12 &mdash; Impact</span>
+      <span class="cs-section__number">12, Impact</span>
       <h2 class="cs-section__title">Results &amp; Impact</h2>
       <p class="cs-section__subtitle" style="margin-bottom: 48px;">Measurable improvements in operational efficiency and incident response.</p>
 
@@ -1917,7 +1921,7 @@
     <!-- ==================== REFLECTIONS ==================== -->
     <hr class="cs-divider">
     <section class="cs-section cs-section--narrow reveal">
-      <span class="cs-section__number">13 &mdash; Reflections</span>
+      <span class="cs-section__number">13, Reflections</span>
       <h2 class="cs-section__title">Key Takeaways</h2>
       <p class="cs-section__subtitle" style="margin-bottom: 48px;">What this project taught me about designing for complex enterprise systems.</p>
 
@@ -1935,7 +1939,7 @@
         <div class="cs-reflection reveal reveal-delay-3">
           <div class="cs-reflection__number">03</div>
           <h4 class="cs-reflection__title">Hierarchy is Everything</h4>
-          <p class="cs-reflection__text">When managing thousands of devices, the most valuable design skill isn't adding information &mdash; it's knowing what to suppress and when.</p>
+          <p class="cs-reflection__text">When managing thousands of devices, the most valuable design skill isn't adding information, it's knowing what to suppress and when.</p>
         </div>
         <div class="cs-reflection reveal reveal-delay-4">
           <div class="cs-reflection__number">04</div>
@@ -1965,7 +1969,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <p class="footer__text">&copy; 2026 Randy Ritprasert &mdash; Designed with intention.</p>
+      <p class="footer__text">&copy; 2026 Randy Ritprasert, Designed with intention.</p>
       <ul class="footer__links">
         <li><a href="https://www.linkedin.com/in/ruttapon/" class="footer__link" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="mailto:randyrits@gmail.com" class="footer__link">Email</a></li>
