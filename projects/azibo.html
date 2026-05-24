@@ -1195,9 +1195,26 @@
       background: var(--teal);
       color: var(--bg-primary);
     }
+
+    /* ===================== ONE-PAGER SUMMARY ===================== */
+    .cs-onepager { max-width: 1200px; margin: 0 auto; padding: 80px 24px 40px; }
+    .cs-onepager__visual { border-radius: 16px; overflow: hidden; border: 1px solid var(--border); background: var(--bg-secondary); margin-bottom: 64px; aspect-ratio: 16 / 9; }
+    .cs-onepager__visual video, .cs-onepager__visual img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cs-onepager__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-bottom: 56px; }
+    @media (max-width: 820px) { .cs-onepager__grid { grid-template-columns: 1fr; gap: 28px; } .cs-onepager { padding-top: 48px; } .cs-onepager__visual { margin-bottom: 40px; } }
+    .cs-onepager__block { padding: 28px; background: rgba(255,255,255,0.025); border: 1px solid var(--border); border-radius: 12px; }
+    .cs-onepager__label { display: inline-block; font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    .cs-onepager__block p { color: var(--text-primary); font-size: 15px; line-height: 1.65; }
+    .cs-onepager__metrics { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .cs-onepager__metrics li { display: flex; align-items: baseline; gap: 10px; font-size: 14px; color: var(--text-secondary); }
+    .cs-onepager__metrics strong { font-family: var(--font-display); font-size: 22px; font-weight: 500; color: var(--accent); min-width: 72px; }
+    .cs-onepager__cta { display: flex; justify-content: center; padding-top: 8px; }
+    .cs-view-toggle__btn { background: var(--accent); color: #fff; border: none; padding: 16px 36px; border-radius: 100px; font: 600 14px/1 var(--font-body); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.2s, box-shadow 0.2s; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25); }
+    .cs-view-toggle__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(59, 130, 246, 0.35); }
+    body.cs-condensed .cs-content { display: none; }
   </style>
 </head>
-<body>
+<body class="cs-condensed">
 
   <div id="math-bg"></div>
   <div class="progress-bar" id="progressBar"></div>
@@ -1258,6 +1275,37 @@
         <span class="cs-hero__meta-label">Scope</span>
         <span class="cs-hero__meta-value">0&rarr;1 Product, 80+ Components</span>
       </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONDENSED ONE-PAGER SUMMARY ==================== -->
+  <section class="cs-onepager">
+    <div class="cs-onepager__visual">
+      <video autoplay muted playsinline>
+        <source src="../images/azibo-hero.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="cs-onepager__grid">
+      <div class="cs-onepager__block">
+        <span class="cs-onepager__label">Problem</span>
+        <p>Independent landlords had no single platform for the end-to-end job. Rent collection, expense tracking, tenant management, and financial reporting were scattered across spreadsheets, banking apps, and a half-dozen point tools.</p>
+      </div>
+      <div class="cs-onepager__block">
+        <span class="cs-onepager__label">Solution</span>
+        <p>A modern property management platform built from zero as the founding designer — guided first-run onboarding, unified navigation, and core workflows for rent, tenants, and books in one product. Built the 80+ component design system alongside it.</p>
+      </div>
+      <div class="cs-onepager__block">
+        <span class="cs-onepager__label">Results</span>
+        <ul class="cs-onepager__metrics">
+          <li><strong>$10M</strong> Series A raised</li>
+          <li><strong>5,000+</strong> Users in year one</li>
+          <li><strong>80+</strong> Design system components</li>
+          <li><strong>1st</strong> Founding designer</li>
+        </ul>
+      </div>
+    </div>
+    <div class="cs-onepager__cta">
+      <button class="cs-view-toggle__btn" data-toggle-cs aria-expanded="false">View Full Case Study ▾</button>
     </div>
   </section>
 
@@ -1688,6 +1736,20 @@
         container.appendChild(el);
       }
     })();
+
+    // ===================== ONE-PAGER → FULL CASE STUDY TOGGLE =====================
+    document.querySelectorAll('[data-toggle-cs]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const expanded = !document.body.classList.toggle('cs-condensed');
+        btn.textContent = expanded ? 'Hide Full Case Study ▴' : 'View Full Case Study ▾';
+        btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+        if (expanded) {
+          requestAnimationFrame(() => {
+            document.querySelector('.cs-content')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          });
+        }
+      });
+    });
   </script>
 </body>
 </html>
